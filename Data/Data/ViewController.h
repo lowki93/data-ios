@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <HealthKit/HealthKit.h>
+@import CoreMotion;
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>
 {
     CLLocationManager *locationManager;
 }
 
+@property (nonatomic, strong) CMPedometer *pedometer;
+
+- (IBAction)buttonPressed:(id)sender;
 
 @end
