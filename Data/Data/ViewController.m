@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSLog(@"toto");
     // FOR GEOLOCALIZATION
     locationManager = [[CLLocationManager alloc] init];
     if ([CLLocationManager locationServicesEnabled] ) {
@@ -41,6 +42,9 @@
     CLLocation *location = [locations lastObject];
     NSLog(@"latitude : %f, longitude : %f", location.coordinate.latitude, location.coordinate.longitude);
     
+}
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"error");
 }
 
 @end

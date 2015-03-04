@@ -31,6 +31,10 @@
 		<string>armv7</string>
 		<string>healthkit</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>alors ?</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>alors ?</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
