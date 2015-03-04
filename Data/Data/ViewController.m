@@ -10,18 +10,37 @@
 
 @interface ViewController ()
 
+@property (nonatomic) CLLocationCoordinate2D userLocation;
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    // FOR GEOLOCALIZATION
+    locationManager = [[CLLocationManager alloc] init];
+    if ([CLLocationManager locationServicesEnabled] ) {
+        [locationManager setDelegate: self];
+        [locationManager setDesiredAccuracy: kCLLocationAccuracyBest];
+        [locationManager setDistanceFilter: 100.f];
+        if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)] ) {
+            [locationManager requestWhenInUseAuthorization];
+        }
+        [locationManager startUpdatingLocation];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - CLLocationDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *location = [locations lastObject];
+    NSLog(@"latitude : %f, longitude : %f", location.coordinate.latitude, location.coordinate.longitude);
+    
 }
 
 @end
