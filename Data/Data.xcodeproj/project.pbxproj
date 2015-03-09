@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		177138D41AADFA01002AFEF0 /* ApiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 177138D31AADFA01002AFEF0 /* ApiController.m */; };
 		17CF527E1AA5F8F6001C7E65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF527D1AA5F8F6001C7E65 /* main.m */; };
 		17CF52811AA5F8F6001C7E65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF52801AA5F8F6001C7E65 /* AppDelegate.m */; };
 		17CF52841AA5F8F6001C7E65 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF52831AA5F8F6001C7E65 /* ViewController.m */; };
@@ -16,6 +17,8 @@
 		17CF52981AA5F8F6001C7E65 /* DataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF52971AA5F8F6001C7E65 /* DataTests.m */; };
 		17CF52A21AA5FB64001C7E65 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17CF52A11AA5FB64001C7E65 /* CoreLocation.framework */; };
 		17CF52A51AA5FE68001C7E65 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17CF52A41AA5FE68001C7E65 /* HealthKit.framework */; };
+		17D3A6FF1AADC01400612D0E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D3A6FE1AADC01400612D0E /* SignUpViewController.m */; };
+		17DCD4EA1AA99A8700818722 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DCD4E91AA99A8700818722 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		177138D01AADF9B3002AFEF0 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		177138D21AADFA01002AFEF0 /* ApiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiController.h; sourceTree = "<group>"; };
+		177138D31AADFA01002AFEF0 /* ApiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiController.m; sourceTree = "<group>"; };
 		17CF52781AA5F8F6001C7E65 /* Data.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Data.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17CF527C1AA5F8F6001C7E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17CF527D1AA5F8F6001C7E65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -45,6 +51,10 @@
 		17CF52A11AA5FB64001C7E65 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		17CF52A31AA5FE68001C7E65 /* Data.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Data.entitlements; sourceTree = "<group>"; };
 		17CF52A41AA5FE68001C7E65 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		17D3A6FD1AADC01400612D0E /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		17D3A6FE1AADC01400612D0E /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		17DCD4E81AA99A8700818722 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		17DCD4E91AA99A8700818722 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +77,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		177138D11AADF9E1002AFEF0 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				177138D21AADFA01002AFEF0 /* ApiController.h */,
+				177138D31AADFA01002AFEF0 /* ApiController.m */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 		17CF526F1AA5F8F6001C7E65 = {
 			isa = PBXGroup;
 			children = (
@@ -90,11 +109,11 @@
 		17CF527A1AA5F8F6001C7E65 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				177138D11AADF9E1002AFEF0 /* API */,
+				17DCD4EB1AA99EF100818722 /* ViewController */,
 				17CF52A31AA5FE68001C7E65 /* Data.entitlements */,
 				17CF527F1AA5F8F6001C7E65 /* AppDelegate.h */,
 				17CF52801AA5F8F6001C7E65 /* AppDelegate.m */,
-				17CF52821AA5F8F6001C7E65 /* ViewController.h */,
-				17CF52831AA5F8F6001C7E65 /* ViewController.m */,
 				17CF52851AA5F8F6001C7E65 /* Main.storyboard */,
 				17CF52881AA5F8F6001C7E65 /* Images.xcassets */,
 				17CF528A1AA5F8F6001C7E65 /* LaunchScreen.xib */,
@@ -108,6 +127,7 @@
 			children = (
 				17CF527C1AA5F8F6001C7E65 /* Info.plist */,
 				17CF527D1AA5F8F6001C7E65 /* main.m */,
+				177138D01AADF9B3002AFEF0 /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -127,6 +147,19 @@
 				17CF52961AA5F8F6001C7E65 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		17DCD4EB1AA99EF100818722 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				17CF52821AA5F8F6001C7E65 /* ViewController.h */,
+				17CF52831AA5F8F6001C7E65 /* ViewController.m */,
+				17DCD4E81AA99A8700818722 /* LoginViewController.h */,
+				17DCD4E91AA99A8700818722 /* LoginViewController.m */,
+				17D3A6FD1AADC01400612D0E /* SignUpViewController.h */,
+				17D3A6FE1AADC01400612D0E /* SignUpViewController.m */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +268,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				177138D41AADFA01002AFEF0 /* ApiController.m in Sources */,
+				17DCD4EA1AA99A8700818722 /* LoginViewController.m in Sources */,
+				17D3A6FF1AADC01400612D0E /* SignUpViewController.m in Sources */,
 				17CF52841AA5F8F6001C7E65 /* ViewController.m in Sources */,
 				17CF52811AA5F8F6001C7E65 /* AppDelegate.m in Sources */,
 				17CF527E1AA5F8F6001C7E65 /* main.m in Sources */,
@@ -362,10 +398,12 @@
 				CODE_SIGN_ENTITLEMENTS = Data/Data.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Data/PrefixHeader.pch;
 				INFOPLIST_FILE = Data/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "30f71124-37c4-48a8-9c74-e57d2fe15e2f";
 			};
 			name = Debug;
 		};
@@ -376,10 +414,12 @@
 				CODE_SIGN_ENTITLEMENTS = Data/Data.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Data/PrefixHeader.pch;
 				INFOPLIST_FILE = Data/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "30f71124-37c4-48a8-9c74-e57d2fe15e2f";
 			};
 			name = Release;
 		};
