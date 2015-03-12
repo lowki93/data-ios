@@ -23,66 +23,35 @@
 }
 
 - (IBAction)signinClicked:(id)sender {
-    NSInteger success = 0;
     @try {
-        
+
         if([[self.usernameTextField text] isEqualToString:@""] || [[self.passwordTextField text] isEqualToString:@""] ) {
-            
+
             [self alertStatus:@"Please enter Email and Password" :@"Sign in Failed!" :0];
-            
+
         } else {
-            //            NSString *post =[[NSString alloc] initWithFormat:@"username=%@&password=%@",[self.txtUsername text],[self.txtPassword text]];
-//            NSLog(@"PostData: %@",post);
-//            
-//            NSURL *url=[NSURL URLWithString:@"https://dipinkrishna.com/jsonlogin.php"];
-//            
-//            NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-//            
-//            NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-//            
-//            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-//            [request setURL:url];
-//            [request setHTTPMethod:@"POST"];
-//            [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-//            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//            [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-//            [request setHTTPBody:postData];
-//            
-//            //[NSURLRequest setAllowsAnyHTTPSCertificate:YES forHost:[url host]];
-//            
-//            NSError *error = [[NSError alloc] init];
-//            NSHTTPURLResponse *response = nil;
-//            NSData *urlData=[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-//            
-//            NSLog(@"Response code: %ld", (long)[response statusCode]);
-//            
-//            if ([response statusCode] >= 200 && [response statusCode] < 300)
-//            {
-//                NSString *responseData = [[NSString alloc]initWithData:urlData encoding:NSUTF8StringEncoding];
-//                NSLog(@"Response ==> %@", responseData);
-//                
-//                NSError *error = nil;
-//                NSDictionary *jsonData = [NSJSONSerialization
-//                                          JSONObjectWithData:urlData
-//                                          options:NSJSONReadingMutableContainers
-//                                          error:&error];
-//                
-//                success = [jsonData[@"success"] integerValue];
-//                NSLog(@"Success: %ld",(long)success);
-//                
-//                if(success == 1)
-//                {
-//                    NSLog(@"Login SUCCESS");
-//                } else {
-//                    
-//                    NSString *error_msg = (NSString *) jsonData[@"error_message"];
-//                    [self alertStatus:error_msg :@"Sign in Failed!" :0];
-//                }
-//                
-//            } else {
-//                //if (error) NSLog(@"Error: %@", error);
-//                [self alertStatus:@"Connection Failed" :@"Sign in Failed!" :0];
-//            }
+
+            NSString *post =[[NSString alloc] initWithFormat:@"email=%@&password=%@",[self.usernameTextField text],[self.passwordTextField text]];
+
+            NSMutableURLRequest *request = [[ApiController sharedInstance] signInUser:post];
+
+            NSError *error = [[NSError alloc] init];
+            NSHTTPURLResponse *response = nil;
+            NSData *urlData=[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+            if ((long)[response statusCode] == 200) {
+                NSError *error = nil;
+                NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
+                [ApiController sharedInstance].user = jsonData[@"user"];
+                [self performSegueWithIdentifier:@"login_succes" sender:self];
+            } else if((long)[response statusCode] == 409 || (long)[response statusCode] == 404) {
+                NSError *error = nil;
+                NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
+                [self alertStatus:jsonData[@"error"] :@"Sign in Failed!" :0];
+            } else {
+                [self alertStatus:@"Connection Failed" :@"Sign in Failed!" :0];
+            }
+
         }
 
     }

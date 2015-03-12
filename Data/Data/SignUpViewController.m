@@ -34,7 +34,6 @@
             
             [self alertStatus:@"Please enter an email valid" :@"Sign in Failed!" :0];
 
-            
         } else if (![self.passwordTextField.text isEqualToString: self.confirmationPasswordTextField.text]) {
             
             [self alertStatus:@"you're 2 passwords are different" :@"Sign up Failed!" :0];
@@ -51,11 +50,12 @@
             
             if ((long)[response statusCode] == 201) {
                 NSError *error = nil;
-                NSDictionary *jsonData = [self serializeJson:urlData Error:error];
-                [ApiController sharedInstance].user = jsonData;
+                NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
+                [ApiController sharedInstance].user = jsonData[@"user"];
+                [self performSegueWithIdentifier:@"signup_succes" sender:self];
             } else if((long)[response statusCode] == 409) {
                 NSError *error = nil;
-                NSDictionary *jsonData = [self serializeJson:urlData Error:error];
+                NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
                 [self alertStatus:jsonData[@"error"] :@"Sign in Failed!" :0];
             } else {
                 [self alertStatus:@"Connection Failed" :@"Sign in Failed!" :0];
@@ -88,14 +88,6 @@
     NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:checkString];
-}
-
-- (NSDictionary *)serializeJson:(NSData *)data Error:(NSError *)error {
-    NSDictionary *jsonData = [NSJSONSerialization
-                              JSONObjectWithData:data
-                              options:NSJSONReadingMutableContainers
-                              error:&error];
-    return jsonData;
 }
 
 - (IBAction)backgroundTap:(id)sender {
