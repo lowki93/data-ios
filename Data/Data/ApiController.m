@@ -22,7 +22,20 @@
 }
 
 - (void)loadApi {
-    self.url = [NSString stringWithFormat:@"http://data.vm:5000"];
+    self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
+}
+
+- (NSMutableURLRequest *)postRequest:(NSURL *)url Data:(NSData *)postData postLenght:(NSString *)postLength {
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
+    
+    return request;
 }
 
 - (NSDictionary *)serializeJson:(NSData *)data Error:(NSError *)error {
@@ -35,36 +48,20 @@
 
 - (NSMutableURLRequest *)signUpUser:(NSString *)post {
 
-    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/user/create", self.url]];
+    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/create", self.url]];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:url];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:postData];
-
-    return request;
+    
+    return [[ApiController sharedInstance] postRequest:url Data:postData postLenght:postLength];
 }
 
 - (NSMutableURLRequest *)signInUser:(NSString *)post {
 
-    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/user/login", self.url]];
+    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/login", self.url]];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
 
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:url];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:postData];
-
-    return request;
+    return [[ApiController sharedInstance] postRequest:url Data:postData postLenght:postLength];
 }
 
 @end

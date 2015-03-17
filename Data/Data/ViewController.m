@@ -67,6 +67,8 @@
     CLLocation *location = [locations lastObject];
     NSLog(@"latitude : %f, longitude : %f", location.coordinate.latitude, location.coordinate.longitude);
     
+//    http://api.openweathermap.org/data/2.5/weather?lat=48.83&lon=2.35
+    
 }
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"error");

@@ -16,6 +16,7 @@
 
 + (ApiController *)sharedInstance;
 - (void)loadApi;
+- (NSMutableURLRequest *)postRequest:(NSURL *)url Data:(NSData *)postData postLenght:(NSString *)postLength
 - (NSDictionary *)serializeJson:(NSData *)data Error:(NSError *)error;
 - (NSMutableURLRequest *)signUpUser:(NSString *)post;
 - (NSMutableURLRequest *)signInUser:(NSString *)post;
