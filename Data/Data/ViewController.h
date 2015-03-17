@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <HealthKit/HealthKit.h>
 @import CoreMotion;
+@import AssetsLibrary;
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>
 {

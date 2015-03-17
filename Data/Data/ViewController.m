@@ -36,10 +36,31 @@
 //        self.pedometer = [[CMPedometer alloc] init];
 //    }
 //    
-//    NSDate *to = [NSDate date];
-//    float time = 3;
-//    NSDate *from = [to dateByAddingTimeInterval:-(1. * time * 3600)];
-//    [self queryDataFrom:from toDate:to];
+    NSDate *startDate = [NSDate date];
+    float time = 3;
+    NSDate *endDate = [startDate dateByAddingTimeInterval:-(1. * time * 3600)];
+    [self queryDataFrom:endDate toDate:startDate];
+
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+        [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
+            if (alAsset) {
+//                ALAssetRepresentation *representation = [alAsset defaultRepresentation];
+                if([[alAsset valueForProperty:ALAssetPropertyDate] compare: endDate] == NSOrderedDescending) {
+                    NSLog(@"photo date %@", [alAsset valueForProperty:ALAssetPropertyDate]);
+                    NSLog(@"%@", alAsset);
+                } else {
+                    NSLog(@"stop photo");
+                    // stop for getting photo
+                    *stop = YES; *innerStop = YES;
+                }
+            }
+        }];
+    } failureBlock: ^(NSError *error) {
+        NSLog(@"No groups");
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {
