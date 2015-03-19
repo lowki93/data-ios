@@ -41,15 +41,62 @@
     NSDate *endDate = [startDate dateByAddingTimeInterval:-(1. * time * 3600)];
     [self queryDataFrom:endDate toDate:startDate];
 
+    // get photo on library
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         [group setAssetsFilter:[ALAssetsFilter allPhotos]];
         [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
             if (alAsset) {
-//                ALAssetRepresentation *representation = [alAsset defaultRepresentation];
-                if([[alAsset valueForProperty:ALAssetPropertyDate] compare: endDate] == NSOrderedDescending) {
+                ALAssetRepresentation *representation = [alAsset defaultRepresentation];
+                UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullScreenImage]];
+                if([((NSDate *)[alAsset valueForProperty:ALAssetPropertyDate]) compare: endDate] == NSOrderedDescending) {
                     NSLog(@"photo date %@", [alAsset valueForProperty:ALAssetPropertyDate]);
                     NSLog(@"%@", alAsset);
+                    
+                    // test upload image
+                    NSString *urlString = @"http://data.vm:5000/api/files/uploads?access_token=c006d1dbee4d6d2077611fdbd8064b52";
+                    
+                    NSData *imgData = UIImageJPEGRepresentation(latestPhoto, 0.2);
+                    NSString *str = @"image";
+                    
+                    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+                    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+                    [request setHTTPShouldHandleCookies:NO];
+                    [request setTimeoutInterval:30];
+                    [request setURL:[NSURL URLWithString:urlString]];
+                    
+                    [request setHTTPMethod:@"POST"];
+                    
+                    NSString *boundary = [NSString stringWithFormat:@"---------------------------14737809831464368775746641449"];
+                    
+                    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+                    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+                    
+                    NSMutableData *body = [NSMutableData data];
+                    
+                    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"currentEventID\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:[@"52344457901000006" dataUsingEncoding:NSUTF8StringEncoding]];
+                    
+                    if (imgData) {
+                        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"myimage.jpg\"\r\n", str] dataUsingEncoding:NSUTF8StringEncoding]];
+                        
+                        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:imgData];
+                        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+                    }
+                    
+                    
+                    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [request setHTTPBody:body];
+
+                    
+                    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+                    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+                    NSLog(@"Response : %@",returnString);
+                    
+                    
                 } else {
                     NSLog(@"stop photo");
                     // stop for getting photo
