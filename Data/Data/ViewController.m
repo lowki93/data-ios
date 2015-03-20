@@ -45,18 +45,35 @@
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+        
+        NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
+        NSString *zippedPath = [NSString stringWithFormat:@"%@/toto.zip", [tmpDirURL path]];
+        NSMutableArray *inputPaths = [NSMutableArray new];
+
         [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
+
             if (alAsset) {
-                ALAssetRepresentation *representation = [alAsset defaultRepresentation];
-                UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullScreenImage]];
                 if([((NSDate *)[alAsset valueForProperty:ALAssetPropertyDate]) compare: endDate] == NSOrderedDescending) {
-                    NSLog(@"photo date %@", [alAsset valueForProperty:ALAssetPropertyDate]);
-                    NSLog(@"%@", alAsset);
+
+                    // Create image in tmp
+                    ALAssetRepresentation *representation = [alAsset defaultRepresentation];
+                    UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullScreenImage]];
+                    NSData *data = UIImageJPEGRepresentation(latestPhoto, 0.2);
+                    NSString *imagePath = [NSString stringWithFormat:@"%@/%@",[tmpDirURL path], [representation filename]];
+                    [data writeToFile:imagePath atomically:YES];
+
+                    [inputPaths addObject:imagePath];
                     
-                    // test upload image
+                } else {
+
+                    // stop for getting photo
+                    *stop = YES; *innerStop = YES;
+                    [SSZipArchive createZipFileAtPath:zippedPath withFilesAtPaths:inputPaths];
+
                     NSString *urlString = @"http://data.vm:5000/api/files/uploads?access_token=c006d1dbee4d6d2077611fdbd8064b52";
                     
-                    NSData *imgData = UIImageJPEGRepresentation(latestPhoto, 0.2);
+                    NSData *zipData = [[NSData alloc] initWithContentsOfFile:zippedPath]; // zipFile contains the zip file path
+                    
                     NSString *str = @"image";
                     
                     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -78,29 +95,28 @@
                     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"currentEventID\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
                     [body appendData:[@"52344457901000006" dataUsingEncoding:NSUTF8StringEncoding]];
                     
-                    if (imgData) {
+                    if (zipData) {
                         [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-                        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"myimage.jpg\"\r\n", str] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"myimage.zip\"\r\n", str] dataUsingEncoding:NSUTF8StringEncoding]];
                         
-                        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                        [body appendData:imgData];
+                        [body appendData:[@"Content-Type: zip\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:zipData];
                         [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
                     }
                     
                     
                     [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
                     [request setHTTPBody:body];
-
+                    
                     
                     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
                     NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
                     NSLog(@"Response : %@",returnString);
                     
-                    
-                } else {
-                    NSLog(@"stop photo");
-                    // stop for getting photo
-                    *stop = YES; *innerStop = YES;
+                    NSFileManager *fm = [NSFileManager defaultManager];
+                    NSError *error = nil;
+                    [fm removeItemAtPath:[tmpDirURL path] error:&error];
+
                 }
             }
         }];

@@ -11,6 +11,7 @@
 #import <HealthKit/HealthKit.h>
 @import CoreMotion;
 @import AssetsLibrary;
+#import "SSZipArchive.h"
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>
 {

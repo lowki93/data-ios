@@ -19,6 +19,12 @@
 		17CF52A51AA5FE68001C7E65 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17CF52A41AA5FE68001C7E65 /* HealthKit.framework */; };
 		17D3A6FF1AADC01400612D0E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D3A6FE1AADC01400612D0E /* SignUpViewController.m */; };
 		17DCD4EA1AA99A8700818722 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DCD4E91AA99A8700818722 /* LoginViewController.m */; };
+		A81789371ABC1756004319BA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A81789361ABC1756004319BA /* libz.dylib */; };
+		A81789451ABC1D34004319BA /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = A817893B1ABC1D34004319BA /* ioapi.c */; };
+		A81789461ABC1D34004319BA /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = A817893D1ABC1D34004319BA /* mztools.c */; };
+		A81789471ABC1D34004319BA /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = A817893F1ABC1D34004319BA /* unzip.c */; };
+		A81789481ABC1D34004319BA /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = A81789411ABC1D34004319BA /* zip.c */; };
+		A81789491ABC1D34004319BA /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = A81789441ABC1D34004319BA /* SSZipArchive.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +61,18 @@
 		17D3A6FE1AADC01400612D0E /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		17DCD4E81AA99A8700818722 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		17DCD4E91AA99A8700818722 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		A81789361ABC1756004319BA /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		A817893A1ABC1D34004319BA /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		A817893B1ABC1D34004319BA /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		A817893C1ABC1D34004319BA /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		A817893D1ABC1D34004319BA /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		A817893E1ABC1D34004319BA /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		A817893F1ABC1D34004319BA /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		A81789401ABC1D34004319BA /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		A81789411ABC1D34004319BA /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		A81789421ABC1D34004319BA /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		A81789431ABC1D34004319BA /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		A81789441ABC1D34004319BA /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A81789371ABC1756004319BA /* libz.dylib in Frameworks */,
 				17CF52A21AA5FB64001C7E65 /* CoreLocation.framework in Frameworks */,
 				17CF52A51AA5FE68001C7E65 /* HealthKit.framework in Frameworks */,
 			);
@@ -89,6 +108,7 @@
 		17CF526F1AA5F8F6001C7E65 = {
 			isa = PBXGroup;
 			children = (
+				A81789361ABC1756004319BA /* libz.dylib */,
 				17CF52A41AA5FE68001C7E65 /* HealthKit.framework */,
 				17CF52A11AA5FB64001C7E65 /* CoreLocation.framework */,
 				17CF527A1AA5F8F6001C7E65 /* Data */,
@@ -109,6 +129,7 @@
 		17CF527A1AA5F8F6001C7E65 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				A817894F1ABC6A7D004319BA /* Library */,
 				177138D11AADF9E1002AFEF0 /* API */,
 				17DCD4EB1AA99EF100818722 /* ViewController */,
 				17CF52A31AA5FE68001C7E65 /* Data.entitlements */,
@@ -160,6 +181,40 @@
 				17D3A6FE1AADC01400612D0E /* SignUpViewController.m */,
 			);
 			name = ViewController;
+			sourceTree = "<group>";
+		};
+		A81789381ABC1D34004319BA /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				A81789391ABC1D34004319BA /* minizip */,
+				A81789431ABC1D34004319BA /* SSZipArchive.h */,
+				A81789441ABC1D34004319BA /* SSZipArchive.m */,
+			);
+			path = SSZipArchive;
+			sourceTree = "<group>";
+		};
+		A81789391ABC1D34004319BA /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				A817893A1ABC1D34004319BA /* crypt.h */,
+				A817893B1ABC1D34004319BA /* ioapi.c */,
+				A817893C1ABC1D34004319BA /* ioapi.h */,
+				A817893D1ABC1D34004319BA /* mztools.c */,
+				A817893E1ABC1D34004319BA /* mztools.h */,
+				A817893F1ABC1D34004319BA /* unzip.c */,
+				A81789401ABC1D34004319BA /* unzip.h */,
+				A81789411ABC1D34004319BA /* zip.c */,
+				A81789421ABC1D34004319BA /* zip.h */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
+		A817894F1ABC6A7D004319BA /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				A81789381ABC1D34004319BA /* SSZipArchive */,
+			);
+			name = Library;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,12 +323,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A81789471ABC1D34004319BA /* unzip.c in Sources */,
 				177138D41AADFA01002AFEF0 /* ApiController.m in Sources */,
 				17DCD4EA1AA99A8700818722 /* LoginViewController.m in Sources */,
+				A81789481ABC1D34004319BA /* zip.c in Sources */,
+				A81789461ABC1D34004319BA /* mztools.c in Sources */,
 				17D3A6FF1AADC01400612D0E /* SignUpViewController.m in Sources */,
 				17CF52841AA5F8F6001C7E65 /* ViewController.m in Sources */,
 				17CF52811AA5F8F6001C7E65 /* AppDelegate.m in Sources */,
 				17CF527E1AA5F8F6001C7E65 /* main.m in Sources */,
+				A81789451ABC1D34004319BA /* ioapi.c in Sources */,
+				A81789491ABC1D34004319BA /* SSZipArchive.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
