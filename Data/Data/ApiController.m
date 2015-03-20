@@ -64,4 +64,39 @@
     return [[ApiController sharedInstance] postRequest:url Data:postData postLenght:postLength];
 }
 
+- (NSMutableURLRequest *)uploadZip:(NSData *)zipData {
+    
+    NSString *name = @"c006d1dbee4d6d2077611fdbd8064b52";
+    
+    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/files/uploads?access_token=%@", self.url, name]];
+    NSString *str = @"zip";
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:30];
+    [request setURL:url];
+    [request setHTTPMethod:@"POST"];
+    
+    NSString *boundary = [NSString stringWithFormat:@"---------------------------14737809831464368775746641449"];
+    
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    NSMutableData *body = [NSMutableData data];
+    
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"currentEventID\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"52344457901000006" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@.zip\"\r\n", str, name] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Type: zip\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:zipData];
+    [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:body];
+
+    return request;
+}
+
 @end

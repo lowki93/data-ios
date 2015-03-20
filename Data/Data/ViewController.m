@@ -69,52 +69,27 @@
                     // stop for getting photo
                     *stop = YES; *innerStop = YES;
                     [SSZipArchive createZipFileAtPath:zippedPath withFilesAtPaths:inputPaths];
-
-                    NSString *urlString = @"http://data.vm:5000/api/files/uploads?access_token=c006d1dbee4d6d2077611fdbd8064b52";
                     
                     NSData *zipData = [[NSData alloc] initWithContentsOfFile:zippedPath]; // zipFile contains the zip file path
                     
-                    NSString *str = @"image";
+                    NSMutableURLRequest *request = [[ApiController sharedInstance] uploadZip:zipData ];
                     
-                    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-                    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-                    [request setHTTPShouldHandleCookies:NO];
-                    [request setTimeoutInterval:30];
-                    [request setURL:[NSURL URLWithString:urlString]];
+                    NSError *error = [[NSError alloc] init];
+                    NSHTTPURLResponse *response = nil;
+                    NSData *urlData=[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
                     
-                    [request setHTTPMethod:@"POST"];
-                    
-                    NSString *boundary = [NSString stringWithFormat:@"---------------------------14737809831464368775746641449"];
-                    
-                    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-                    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-                    
-                    NSMutableData *body = [NSMutableData data];
-                    
-                    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-                    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"currentEventID\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-                    [body appendData:[@"52344457901000006" dataUsingEncoding:NSUTF8StringEncoding]];
-                    
-                    if (zipData) {
-                        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-                        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"myimage.zip\"\r\n", str] dataUsingEncoding:NSUTF8StringEncoding]];
-                        
-                        [body appendData:[@"Content-Type: zip\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                        [body appendData:zipData];
-                        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+                    if ((long)[response statusCode] == 201) {
+                        error = nil;
+                        [self sendLocalNotification:@"photos are upload"];
+                    } else if((long)[response statusCode] == 409 || (long)[response statusCode] == 404) {
+                        error = nil;
+                        NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
+                        [self sendLocalNotification:jsonData[@"error"]];
+                    } else {
+                        [self sendLocalNotification:@"photos are upload FAIL !!"];
                     }
                     
-                    
-                    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-                    [request setHTTPBody:body];
-                    
-                    
-                    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-                    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-                    NSLog(@"Response : %@",returnString);
-                    
                     NSFileManager *fm = [NSFileManager defaultManager];
-                    NSError *error = nil;
                     [fm removeItemAtPath:[tmpDirURL path] error:&error];
 
                 }
@@ -186,9 +161,13 @@
 }
 
 - (IBAction)buttonPressed:(id)sender {
+    [self sendLocalNotification:@"sa marche"];
+}
+
+- (void)sendLocalNotification:(NSString *)string {
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    [localNotification setFireDate:[NSDate dateWithTimeIntervalSinceNow:5]];
-    [localNotification setAlertBody:@"sa marche"];
+    [localNotification setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    [localNotification setAlertBody:[NSString stringWithFormat:@"%@", string]];
     [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }

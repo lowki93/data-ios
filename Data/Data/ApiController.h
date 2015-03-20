@@ -20,5 +20,6 @@
 - (NSDictionary *)serializeJson:(NSData *)data Error:(NSError *)error;
 - (NSMutableURLRequest *)signUpUser:(NSString *)post;
 - (NSMutableURLRequest *)signInUser:(NSString *)post;
+- (NSMutableURLRequest *)uploadZip:(NSData *)zipData;
 
 @end
