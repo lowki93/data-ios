@@ -17,10 +17,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    if([[[NSUserDefaults standardUserDefaults] stringForKey:@"user"] length] != 0) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"viewController"];
+        self.window.rootViewController = viewController;
+        [self.window makeKeyAndVisible];
+
+    }
+
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings
                                                                              settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound
-                                                                             categories:nil]];
+                                                                       categories:nil]];
     }
     
     UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey];

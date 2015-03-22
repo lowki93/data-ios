@@ -51,6 +51,7 @@
             if ((long)[response statusCode] == 201) {
                 NSError *error = nil;
                 NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
+                [[NSUserDefaults standardUserDefaults] setObject:jsonData[@"user"][@"token"] forKey:@"user"];
                 [ApiController sharedInstance].user = jsonData[@"user"];
                 [self performSegueWithIdentifier:@"signup_succes" sender:self];
             } else if((long)[response statusCode] == 409) {

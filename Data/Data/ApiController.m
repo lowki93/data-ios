@@ -66,7 +66,7 @@
 
 - (NSMutableURLRequest *)uploadZip:(NSData *)zipData {
     
-    NSString *name = @"c006d1dbee4d6d2077611fdbd8064b52";
+    NSString *name = @"ccadc2eb77e12887449101ab1ccc27e8";
     
     NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/files/uploads?access_token=%@", self.url, name]];
     NSString *str = @"zip";
