@@ -9,6 +9,8 @@
 #import "LoginViewController.h"
 #import "User.h"
 
+#import "AFHTTPRequestOperationManager.h"
+
 @interface LoginViewController (){
   NSArray* items;
 }
@@ -31,30 +33,37 @@
 
             [self alertStatus:@"Please enter Email and Password" :@"Sign in Failed!" :0];
 
+        } else if(![[ApiController sharedInstance] NSStringIsValidEmail:[self.usernameTextField text]]) {
+
+            [self alertStatus:@"Please enter an email valid" :@"Sign in Failed!" :0];
+
         } else {
 
-            NSString *post =[[NSString alloc] initWithFormat:@"email=%@&password=%@",[self.usernameTextField text],[self.passwordTextField text]];
+            NSString *urlString = [[ApiController sharedInstance] getUrlSignIn];
 
-            NSMutableURLRequest *request = [[ApiController sharedInstance] signInUser:post];
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            NSDictionary *parameters = @{
+                                         @"email": [self.usernameTextField text],
+                                         @"password": [self.passwordTextField text]
+                                        };
+            [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
-            NSError *error = [[NSError alloc] init];
-            NSHTTPURLResponse *response = nil;
-            NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-
-            if ((long)[response statusCode] == 200) {
-                NSError *error = nil;
-                NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
-                User *user = [[User alloc] initWithDictionary:jsonData[@"user"] error:nil];
-                [[NSUserDefaults standardUserDefaults] setObject:jsonData[@"user"] forKey:@"user"];
+                User *user = [[User alloc] initWithDictionary:responseObject[@"user"] error:nil];
+                [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"user"] forKey:@"user"];
                 [ApiController sharedInstance].user = user;
                 [self performSegueWithIdentifier:@"login_succes" sender:self];
-            } else if((long)[response statusCode] == 409 || (long)[response statusCode] == 404) {
-                NSError *error = nil;
-                NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
-                [self alertStatus:jsonData[@"error"] :@"Sign in Failed!" :0];
-            } else {
-                [self alertStatus:@"Connection Failed" :@"Sign in Failed!" :0];
-            }
+
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+                long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
+
+                if(responseCode == 409 || responseCode == 404) {
+                    [self alertStatus:@"Bad credential" :@"Sign in Failed!" :0];
+                } else {
+                    [self alertStatus:@"Connection Failed" :@"Sign in Failed!" :0];
+                }
+
+            }];
 
         }
 

@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 
+#import "AFURLSessionManager.h"
+
 @interface ViewController ()
 
 @property (nonatomic) CLLocationCoordinate2D userLocation;
@@ -105,33 +107,33 @@ NSDate *startDate, *endDate;
 }
 
 - (IBAction)buttonPressed:(id)sender {
-    [self getPedometerInformation:endDate toDate:startDate];
-    
-    NSDictionary *locationDictionnary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                         [NSString stringWithFormat:@"%f", latitude], @"latitude",
-                                         nil];
-    
-    NSMutableArray *arrayData = [[NSMutableArray alloc] init];
-    [arrayData addObject:locationDictionnary];
-    
-//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrayData options:NSJSONWritingPrettyPrinted error:nil];
-//    NSString *jsonData = [arrayData JSONRepresentation];
-    NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:locationDictionnary options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData2 encoding:NSUTF8StringEncoding];
-
-    
-    NSString *post =[[NSString alloc] initWithFormat:@"data=%@",jsonString];
-    
-    NSMutableURLRequest *request = [[ApiController sharedInstance] updateData:post];
-    
-    NSError *error = [[NSError alloc] init];
-    NSHTTPURLResponse *response = nil;
-    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    NSLog(@"%@", response);
-    
-    [self sendLocalNotification:@"information are upload"];
-//    [self getPhotoOnLibrary];
+//    [self getPedometerInformation:endDate toDate:startDate];
+//    
+//    NSDictionary *locationDictionnary = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                         [NSString stringWithFormat:@"%f", latitude], @"latitude",
+//                                         nil];
+//    
+//    NSMutableArray *arrayData = [[NSMutableArray alloc] init];
+//    [arrayData addObject:locationDictionnary];
+//    
+////    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrayData options:NSJSONWritingPrettyPrinted error:nil];
+////    NSString *jsonData = [arrayData JSONRepresentation];
+//    NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:locationDictionnary options:NSJSONWritingPrettyPrinted error:nil];
+//    NSString *jsonString = [[NSString alloc] initWithData:jsonData2 encoding:NSUTF8StringEncoding];
+//
+//    
+//    NSString *post =[[NSString alloc] initWithFormat:@"data=%@",jsonString];
+//    
+//    NSMutableURLRequest *request = [[ApiController sharedInstance] updateData:post];
+//    
+//    NSError *error = [[NSError alloc] init];
+//    NSHTTPURLResponse *response = nil;
+//    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//    
+//    NSLog(@"%@", response);
+//    
+//    [self sendLocalNotification:@"information are upload"];
+    [self getPhotoOnLibrary];
 }
 
 - (IBAction)logoutPressed:(id)sender {
@@ -176,25 +178,36 @@ NSDate *startDate, *endDate;
                     // stop for getting photo
                     *stop = YES; *innerStop = YES;
                     [SSZipArchive createZipFileAtPath:zippedPath withFilesAtPaths:inputPaths];
-                    
-                    NSData *zipData = [[NSData alloc] initWithContentsOfFile:zippedPath]; // zipFile contains the zip file path
-                    
-                    NSMutableURLRequest *request = [[ApiController sharedInstance] uploadZip:zipData ];
-                    
+
+                    NSString *urlString = [[ApiController sharedInstance] getUrlUploadImages];
+                    NSString *fileName = [NSString stringWithFormat:@"%@.zip",[ApiController sharedInstance].user.token];
+
+                    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer]
+                                                    multipartFormRequestWithMethod:@"POST"
+                                                    URLString:urlString
+                                                    parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                                                        [formData appendPartWithFileURL:[NSURL fileURLWithPath:zippedPath]
+                                                                                   name:@"zip"
+                                                                               fileName:fileName
+                                                                               mimeType:@"image/jpeg"
+                                                                                  error:nil];
+                                                    }
+                                                    error:nil];
+
+                    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                    NSProgress *progress = nil;
+
+                    NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                        if (error) {
+                           [self sendLocalNotification:@"photos are upload FAIL !!"];
+                        } else {
+                            [self sendLocalNotification:@"photos are upload"];
+                        }
+                    }];
+                                 
+                    [uploadTask resume];
+
                     NSError *error = [[NSError alloc] init];
-                    NSHTTPURLResponse *response = nil;
-                    NSData *urlData=[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-                    if ((long)[response statusCode] == 201) {
-                        error = nil;
-                        [self sendLocalNotification:@"photos are upload"];
-                    } else if((long)[response statusCode] == 409 || (long)[response statusCode] == 404) {
-                        error = nil;
-                        NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
-                        [self sendLocalNotification:jsonData[@"error"]];
-                    } else {
-                        [self sendLocalNotification:@"photos are upload FAIL !!"];
-                    }
-                    
                     NSFileManager *fm = [NSFileManager defaultManager];
                     [fm removeItemAtPath:[tmpDirURL path] error:&error];
                     

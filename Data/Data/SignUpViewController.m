@@ -8,6 +8,8 @@
 
 #import "SignUpViewController.h"
 
+#import "AFHTTPRequestOperationManager.h"
+
 @interface SignUpViewController ()
 
 @end
@@ -30,7 +32,7 @@
             
             [self alertStatus:@"Please enter Email and Password" :@"Sign in Failed!" :0];
             
-        } else if(![self NSStringIsValidEmail:[self.mailTextField text]]) {
+        } else if(![[ApiController sharedInstance] NSStringIsValidEmail:[self.mailTextField text]]) {
             
             [self alertStatus:@"Please enter an email valid" :@"Sign in Failed!" :0];
 
@@ -40,27 +42,31 @@
             
         } else {
             
-            NSString *post =[[NSString alloc] initWithFormat:@"email=%@&password=%@",[self.mailTextField text],[self.passwordTextField text]];
-            
-            NSMutableURLRequest *request = [[ApiController sharedInstance] signUpUser:post];
-            
-            NSError *error = [[NSError alloc] init];
-            NSHTTPURLResponse *response = nil;
-            NSData *urlData=[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-            
-            if ((long)[response statusCode] == 201) {
-                NSError *error = nil;
-                NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
-                [[NSUserDefaults standardUserDefaults] setObject:jsonData[@"user"][@"token"] forKey:@"user"];
-                [ApiController sharedInstance].user = jsonData[@"user"];
+            NSString *urlString = [[ApiController sharedInstance] getUrlSignUp];
+
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            NSDictionary *parameters = @{
+                                         @"email": [self.mailTextField text],
+                                         @"password": [self.passwordTextField text]
+                                         };
+            [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+                User *user = [[User alloc] initWithDictionary:responseObject[@"user"] error:nil];
+                [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"user"] forKey:@"user"];
+                [ApiController sharedInstance].user = user;
                 [self performSegueWithIdentifier:@"signup_succes" sender:self];
-            } else if((long)[response statusCode] == 409) {
-                NSError *error = nil;
-                NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
-                [self alertStatus:jsonData[@"error"] :@"Sign in Failed!" :0];
-            } else {
-                [self alertStatus:@"Connection Failed" :@"Sign in Failed!" :0];
-            }
+
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+                long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
+
+                if(responseCode == 409) {
+                    [self alertStatus:@"Email already used" :@"Sign in Failed!" :0];
+                } else {
+                    [self alertStatus:@"Connection Failed" :@"Sign in Failed!" :0];
+                }
+                
+            }];
         }
         
     }
@@ -79,16 +85,6 @@
                                               otherButtonTitles:nil, nil];
     alertView.tag = tag;
     [alertView show];
-}
-
-- (BOOL)NSStringIsValidEmail:(NSString *)checkString
-{
-    BOOL stricterFilter = NO;
-    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
-    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
-    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    return [emailTest evaluateWithObject:checkString];
 }
 
 - (IBAction)backgroundTap:(id)sender {

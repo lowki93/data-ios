@@ -26,97 +26,46 @@
     self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
     // ip pc test phone
 //    self.url = [NSString stringWithFormat:@"http://172.18.35.1:5000/api"];
-
-    if([[[NSUserDefaults standardUserDefaults] stringForKey:@"user"] length] != 0) {
-    }
 }
 
-- (NSMutableURLRequest *)postRequest:(NSURL *)url Data:(NSData *)postData postLenght:(NSString *)postLength {
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:url];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:postData];
-    
-    return request;
+
+
+- (NSString *)getUrlSignIn {
+
+    return [NSString stringWithFormat:@"%@/user/login", self.url];
+
 }
 
-- (NSDictionary *)serializeJson:(NSData *)data Error:(NSError *)error {
-    NSDictionary *jsonData = [NSJSONSerialization
-                              JSONObjectWithData:data
-                              options:NSJSONReadingMutableContainers
-                              error:&error];
-    return jsonData;
-}
+- (NSString *)getUrlSignUp {
 
-- (void)loadUser:(NSString *)token {
+    return [NSString stringWithFormat:@"%@/user/create", self.url];
     
 }
 
-- (NSMutableURLRequest *)signUpUser:(NSString *)post {
+- (NSString *)getUrlUploadImages {
 
-    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/create", self.url]];
-    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-    
-    return [[ApiController sharedInstance] postRequest:url Data:postData postLenght:postLength];
+    return [NSString stringWithFormat:@"%@/files/uploads?access_token=%@", self.url, self.user.token];
+
 }
 
-- (NSMutableURLRequest *)signInUser:(NSString *)post {
+//- (NSMutableURLRequest *)updateData:(NSString *)post {
+//    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/data/save?access_token=%@", self.url, self.user.token]];
+//    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+//    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
+//    
+////    return [[ApiController sharedInstance] postRequest:url Data:postData postLenght:postLength];
+//
+//}
 
-    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/login", self.url]];
-    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-
-    return [[ApiController sharedInstance] postRequest:url Data:postData postLenght:postLength];
+- (BOOL)NSStringIsValidEmail:(NSString *)checkString
+{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
 }
 
-- (NSMutableURLRequest *)updateData:(NSString *)post {
-    
-    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/data/save?access_token=%@", self.url, self.user.token]];
-    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-    
-    return [[ApiController sharedInstance] postRequest:url Data:postData postLenght:postLength];
-    
-}
-
-- (NSMutableURLRequest *)uploadZip:(NSData *)zipData {
-
-    NSString *name = self.user.token;
-    
-    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/files/uploads?access_token=%@", self.url, name]];
-    NSString *str = @"zip";
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    [request setHTTPShouldHandleCookies:NO];
-    [request setTimeoutInterval:30];
-    [request setURL:url];
-    [request setHTTPMethod:@"POST"];
-    
-    NSString *boundary = [NSString stringWithFormat:@"---------------------------14737809831464368775746641449"];
-    
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-    
-    NSMutableData *body = [NSMutableData data];
-    
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"currentEventID\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[@"52344457901000006" dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@.zip\"\r\n", str, name] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[@"Content-Type: zip\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:zipData];
-    [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [request setHTTPBody:body];
-
-    return request;
-}
 
 @end
