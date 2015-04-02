@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TZT-aY-fJO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TZT-aY-fJO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
@@ -126,7 +126,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHg-Eq-tUX">
-                                <rect key="frame" x="553" y="20" width="31" height="30"/>
+                                <rect key="frame" x="285" y="285" width="31" height="30"/>
                                 <state key="normal" title="start">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -134,13 +134,28 @@
                                     <action selector="buttonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="8pg-sS-U86"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yi0-GX-rlY">
+                                <rect key="frame" x="16" y="20" width="44" height="30"/>
+                                <state key="normal" title="logout">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rRb-mk-fKk"/>
+                                    <action selector="logoutPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1QH-MK-AsO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="NHg-Eq-tUX" secondAttribute="centerY" constant="265" id="JPf-br-Mz3"/>
-                            <constraint firstAttribute="centerX" secondItem="NHg-Eq-tUX" secondAttribute="centerX" constant="-268.5" id="dew-di-DIk"/>
+                            <constraint firstItem="Yi0-GX-rlY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="J8u-d4-ojo"/>
+                            <constraint firstAttribute="centerY" secondItem="NHg-Eq-tUX" secondAttribute="centerY" id="JPf-br-Mz3"/>
+                            <constraint firstItem="Yi0-GX-rlY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="YmT-NO-KGh"/>
+                            <constraint firstAttribute="centerX" secondItem="NHg-Eq-tUX" secondAttribute="centerX" id="dew-di-DIk"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="HVH-gC-8UG" kind="showDetail" identifier="logout" id="Wpd-tb-qqR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
@@ -287,5 +302,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="P9o-O8-RET"/>
+        <segue reference="Wpd-tb-qqR"/>
     </inferredMetricsTieBreakers>
 </document>

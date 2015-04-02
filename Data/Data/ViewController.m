@@ -54,7 +54,7 @@
 
             if (alAsset) {
                 if([((NSDate *)[alAsset valueForProperty:ALAssetPropertyDate]) compare: endDate] == NSOrderedDescending) {
-
+                    // bug photo si que photo a update et rien apres
                     // Create image in tmp
                     ALAssetRepresentation *representation = [alAsset defaultRepresentation];
                     UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullScreenImage]];
@@ -65,7 +65,6 @@
                     [inputPaths addObject:imagePath];
                     
                 } else {
-
                     // stop for getting photo
                     *stop = YES; *innerStop = YES;
                     [SSZipArchive createZipFileAtPath:zippedPath withFilesAtPaths:inputPaths];
@@ -77,7 +76,6 @@
                     NSError *error = [[NSError alloc] init];
                     NSHTTPURLResponse *response = nil;
                     NSData *urlData=[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-                    
                     if ((long)[response statusCode] == 201) {
                         error = nil;
                         [self sendLocalNotification:@"photos are upload"];
@@ -162,6 +160,12 @@
 
 - (IBAction)buttonPressed:(id)sender {
     [self sendLocalNotification:@"sa marche"];
+}
+
+- (IBAction)logoutPressed:(id)sender {
+    [ApiController sharedInstance].user = nil;
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
+    [self performSegueWithIdentifier:@"logout" sender:self];
 }
 
 - (void)sendLocalNotification:(NSString *)string {

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "User.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    if([[[NSUserDefaults standardUserDefaults] stringForKey:@"user"] length] != 0) {
+    if([[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"] != nil) {
+        NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
+        User *user = [[User alloc] initWithDictionary:dictionary error:nil];
+        [ApiController sharedInstance].user = user;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"viewController"];
         self.window.rootViewController = viewController;

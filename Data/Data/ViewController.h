@@ -21,5 +21,6 @@
 @property (nonatomic, strong) CMPedometer *pedometer;
 
 - (IBAction)buttonPressed:(id)sender;
+- (IBAction)logoutPressed:(id)sender;
 
 @end

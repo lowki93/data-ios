@@ -7,9 +7,11 @@
 //
 
 #import "LoginViewController.h"
+#import "User.h"
 
-@interface LoginViewController ()
-
+@interface LoginViewController (){
+  NSArray* items;
+}
 @end
 
 @implementation LoginViewController
@@ -42,8 +44,9 @@
             if ((long)[response statusCode] == 200) {
                 NSError *error = nil;
                 NSDictionary *jsonData = [[ApiController sharedInstance] serializeJson:urlData Error:error];
-                [[NSUserDefaults standardUserDefaults] setObject:jsonData[@"user"][@"token"] forKey:@"user"];
-                [ApiController sharedInstance].user = jsonData[@"user"];
+                User *user = [[User alloc] initWithDictionary:jsonData[@"user"] error:nil];
+                [[NSUserDefaults standardUserDefaults] setObject:jsonData[@"user"] forKey:@"user"];
+                [ApiController sharedInstance].user = user;
                 [self performSegueWithIdentifier:@"login_succes" sender:self];
             } else if((long)[response statusCode] == 409 || (long)[response statusCode] == 404) {
                 NSError *error = nil;

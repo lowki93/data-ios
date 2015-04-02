@@ -23,6 +23,8 @@
 
 - (void)loadApi {
     self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
+    if([[[NSUserDefaults standardUserDefaults] stringForKey:@"user"] length] != 0) {
+    }
 }
 
 - (NSMutableURLRequest *)postRequest:(NSURL *)url Data:(NSData *)postData postLenght:(NSString *)postLength {
@@ -46,6 +48,10 @@
     return jsonData;
 }
 
+- (void)loadUser:(NSString *)token {
+    
+}
+
 - (NSMutableURLRequest *)signUpUser:(NSString *)post {
 
     NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/create", self.url]];
@@ -65,8 +71,8 @@
 }
 
 - (NSMutableURLRequest *)uploadZip:(NSData *)zipData {
-    
-    NSString *name = @"ccadc2eb77e12887449101ab1ccc27e8";
+
+    NSString *name = self.user.token;
     
     NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/files/uploads?access_token=%@", self.url, name]];
     NSString *str = @"zip";
