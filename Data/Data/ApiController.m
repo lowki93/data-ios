@@ -48,14 +48,11 @@
 
 }
 
-//- (NSMutableURLRequest *)updateData:(NSString *)post {
-//    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/data/save?access_token=%@", self.url, self.user.token]];
-//    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-//    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-//    
-////    return [[ApiController sharedInstance] postRequest:url Data:postData postLenght:postLength];
-//
-//}
+- (NSString *)getUrlUploadData {
+
+    return [NSString stringWithFormat:@"%@/data/save?access_token=%@", self.url, self.user.token];
+
+}
 
 - (BOOL)NSStringIsValidEmail:(NSString *)checkString
 {

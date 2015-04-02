@@ -20,6 +20,7 @@
 - (NSString *)getUrlSignIn;
 - (NSString *)getUrlSignUp;
 - (NSString *)getUrlUploadImages;
+- (NSString *)getUrlUploadData;
 - (BOOL)NSStringIsValidEmail:(NSString *)checkString;
 
 @end

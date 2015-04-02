@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 #import "AFURLSessionManager.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface ViewController ()
 
@@ -108,32 +109,34 @@ NSDate *startDate, *endDate;
 
 - (IBAction)buttonPressed:(id)sender {
 //    [self getPedometerInformation:endDate toDate:startDate];
-//    
-//    NSDictionary *locationDictionnary = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                         [NSString stringWithFormat:@"%f", latitude], @"latitude",
-//                                         nil];
-//    
-//    NSMutableArray *arrayData = [[NSMutableArray alloc] init];
-//    [arrayData addObject:locationDictionnary];
-//    
-////    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrayData options:NSJSONWritingPrettyPrinted error:nil];
-////    NSString *jsonData = [arrayData JSONRepresentation];
-//    NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:locationDictionnary options:NSJSONWritingPrettyPrinted error:nil];
-//    NSString *jsonString = [[NSString alloc] initWithData:jsonData2 encoding:NSUTF8StringEncoding];
-//
-//    
-//    NSString *post =[[NSString alloc] initWithFormat:@"data=%@",jsonString];
-//    
-//    NSMutableURLRequest *request = [[ApiController sharedInstance] updateData:post];
-//    
-//    NSError *error = [[NSError alloc] init];
-//    NSHTTPURLResponse *response = nil;
-//    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-//    
-//    NSLog(@"%@", response);
-//    
+
+    NSString *urlString = [[ApiController sharedInstance] getUrlUploadData];
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{
+                                 @"latitude":[NSString stringWithFormat:@"%f", latitude],
+                                 @"longitude":[NSString stringWithFormat:@"%f", longitude]
+                                };
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        [self sendLocalNotification:@"information are upload"];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+        long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
+
+        if(responseCode == 409 || responseCode == 404) {
+//            [self alertStatus:@"Bad credential" :@"Sign in Failed!" :0];
+        } else {
+//            [self alertStatus:@"Connection Failed" :@"Sign in Failed!" :0];
+        }
+
+    }];
+
 //    [self sendLocalNotification:@"information are upload"];
-    [self getPhotoOnLibrary];
+
+    // for upload images
+//    [self getPhotoOnLibrary];
 }
 
 - (IBAction)logoutPressed:(id)sender {
