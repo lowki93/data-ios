@@ -26,12 +26,6 @@
 	<string>alors ?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>alors ?</string>
-	<key>Required Background Modes</key>
-	<array>
-		<string>location</string>
-	</array>
-	<key>UIApplicationExitsOnSuspend</key>
-	<false/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -43,7 +37,6 @@
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string></string>
 		<string>armv7</string>
 		<string>healthkit</string>
 	</array>
@@ -52,7 +45,5 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
-	<key>registerUserNotificationSettings</key>
-	<string>notification ?</string>
 </dict>
 </plist>

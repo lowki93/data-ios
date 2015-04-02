@@ -22,7 +22,11 @@
 }
 
 - (void)loadApi {
+    // local
     self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
+    // ip pc test phone
+//    self.url = [NSString stringWithFormat:@"http://172.18.35.1:5000/api"];
+
     if([[[NSUserDefaults standardUserDefaults] stringForKey:@"user"] length] != 0) {
     }
 }
@@ -68,6 +72,16 @@
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
 
     return [[ApiController sharedInstance] postRequest:url Data:postData postLenght:postLength];
+}
+
+- (NSMutableURLRequest *)updateData:(NSString *)post {
+    
+    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/data/save?access_token=%@", self.url, self.user.token]];
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
+    
+    return [[ApiController sharedInstance] postRequest:url Data:postData postLenght:postLength];
+    
 }
 
 - (NSMutableURLRequest *)uploadZip:(NSData *)zipData {

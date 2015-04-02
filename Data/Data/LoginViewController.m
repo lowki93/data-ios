@@ -39,7 +39,7 @@
 
             NSError *error = [[NSError alloc] init];
             NSHTTPURLResponse *response = nil;
-            NSData *urlData=[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+            NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 
             if ((long)[response statusCode] == 200) {
                 NSError *error = nil;
