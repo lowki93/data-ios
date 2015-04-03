@@ -47,7 +47,6 @@
                                          @"password": [self.passwordTextField text]
                                         };
             [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
                 User *user = [[User alloc] initWithDictionary:responseObject[@"user"] error:nil];
                 [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"user"] forKey:@"user"];
                 [ApiController sharedInstance].user = user;

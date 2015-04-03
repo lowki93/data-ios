@@ -76,8 +76,6 @@ NSDate *startDate, *endDate;
     latitude = location.coordinate.latitude;
     longitude = location.coordinate.longitude;
     
-//    http://api.openweathermap.org/data/2.5/weather?lat=48.83&lon=2.35
-    
 }
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"error");
@@ -125,18 +123,33 @@ NSDate *startDate, *endDate;
 
         long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
 
-        if(responseCode == 409 || responseCode == 404) {
-//            [self alertStatus:@"Bad credential" :@"Sign in Failed!" :0];
+        if(responseCode == 200) {
+            [self sendLocalNotification:@"information are upload"];
         } else {
-//            [self alertStatus:@"Connection Failed" :@"Sign in Failed!" :0];
+            [self sendLocalNotification:@"server error"];
         }
-
     }];
-
-//    [self sendLocalNotification:@"information are upload"];
 
     // for upload images
 //    [self getPhotoOnLibrary];
+}
+
+- (IBAction)finishStart:(id)sender {
+    
+     NSString *urlString = [[ApiController sharedInstance] getUrlExperienceCreate];
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"%@", responseObject[@"user"]);
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
+        User *user = [[User alloc] initWithDictionary:responseObject[@"user"] error:nil];
+        [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"user"] forKey:@"user"];
+        [ApiController sharedInstance].user = user;
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 - (IBAction)logoutPressed:(id)sender {

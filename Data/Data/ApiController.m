@@ -50,8 +50,13 @@
 
 - (NSString *)getUrlUploadData {
 
-    return [NSString stringWithFormat:@"%@/data/save?access_token=%@", self.url, self.user.token];
+    return [NSString stringWithFormat:@"%@/data/%@/save?access_token=%@", self.url, self.user.id, self.user.token];
 
+}
+
+- (NSString *)getUrlExperienceCreate {
+
+    return [NSString stringWithFormat:@"%@/experience/%@/create?access_token=%@", self.url, self.user.id, self.user.token];
 }
 
 - (BOOL)NSStringIsValidEmail:(NSString *)checkString

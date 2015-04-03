@@ -10,16 +10,4 @@
 
 @implementation User
 
-- (NSString *)getId {
-    return self.id;
-}
-
-- (NSString *)getEmail {
-    return self.email;
-}
-
-- (NSString *)getToken {
-    return self.token;
-}
-
 @end

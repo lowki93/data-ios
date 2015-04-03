@@ -6,13 +6,14 @@
 //  Copyright (c) 2015 kevin Budain. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "JSONModel.h"
+#import "Experience.h"
 
 @interface User : JSONModel
 
 @property(assign, nonatomic) NSString *id;
 @property(assign, nonatomic) NSString *email;
 @property(assign, nonatomic) NSString *token;
+@property(assign, nonatomic) Experience<Optional> *currentData;
 
 @end

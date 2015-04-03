@@ -21,6 +21,7 @@
 - (NSString *)getUrlSignUp;
 - (NSString *)getUrlUploadImages;
 - (NSString *)getUrlUploadData;
+- (NSString *)getUrlExperienceCreate;
 - (BOOL)NSStringIsValidEmail:(NSString *)checkString;
 
 @end

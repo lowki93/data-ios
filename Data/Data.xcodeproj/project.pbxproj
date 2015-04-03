@@ -37,6 +37,8 @@
 		A8D391F21ACD682B0062BABD /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D391E71ACD682B0062BABD /* JSONKeyMapper.m */; };
 		A8D391F31ACD682B0062BABD /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D391E91ACD682B0062BABD /* JSONValueTransformer.m */; };
 		A8D391F71ACD69020062BABD /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D391F61ACD69020062BABD /* User.m */; };
+		A8DE94311ACEDA6D00EF1EDC /* Experience.m in Sources */ = {isa = PBXBuildFile; fileRef = A8DE94301ACEDA6D00EF1EDC /* Experience.m */; };
+		A8DE94341ACEDDCE00EF1EDC /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = A8DE94331ACEDDCE00EF1EDC /* Data.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,10 @@
 		A8D391E91ACD682B0062BABD /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
 		A8D391F51ACD69020062BABD /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		A8D391F61ACD69020062BABD /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		A8DE942F1ACEDA6D00EF1EDC /* Experience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Experience.h; sourceTree = "<group>"; };
+		A8DE94301ACEDA6D00EF1EDC /* Experience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Experience.m; sourceTree = "<group>"; };
+		A8DE94321ACEDDCE00EF1EDC /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
+		A8DE94331ACEDDCE00EF1EDC /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
 		E28C1E8100702626A930A888 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E8336D570266289D4E1EB570 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -342,6 +348,10 @@
 			children = (
 				A8D391F51ACD69020062BABD /* User.h */,
 				A8D391F61ACD69020062BABD /* User.m */,
+				A8DE942F1ACEDA6D00EF1EDC /* Experience.h */,
+				A8DE94301ACEDA6D00EF1EDC /* Experience.m */,
+				A8DE94321ACEDDCE00EF1EDC /* Data.h */,
+				A8DE94331ACEDDCE00EF1EDC /* Data.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -501,7 +511,9 @@
 				A81789481ABC1D34004319BA /* zip.c in Sources */,
 				A8D391EF1ACD682B0062BABD /* JSONAPI.m in Sources */,
 				A81789461ABC1D34004319BA /* mztools.c in Sources */,
+				A8DE94341ACEDDCE00EF1EDC /* Data.m in Sources */,
 				17D3A6FF1AADC01400612D0E /* SignUpViewController.m in Sources */,
+				A8DE94311ACEDA6D00EF1EDC /* Experience.m in Sources */,
 				A8D391F31ACD682B0062BABD /* JSONValueTransformer.m in Sources */,
 				17CF52841AA5F8F6001C7E65 /* ViewController.m in Sources */,
 				A8D391EC1ACD682B0062BABD /* JSONModelClassProperty.m in Sources */,
