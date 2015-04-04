@@ -9,6 +9,8 @@
 #import "JSONModel.h"
 #import "Experience.h"
 
+//@protocol User @end
+
 @interface User : JSONModel
 
 @property(assign, nonatomic) NSString *id;

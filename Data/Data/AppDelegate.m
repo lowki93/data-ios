@@ -20,8 +20,7 @@
     // Override point for customization after application launch.
     if([[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"] != nil) {
         NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
-        User *user = [[User alloc] initWithDictionary:dictionary error:nil];NSLog(@"%@", user);
-        [ApiController sharedInstance].user = user;
+        [[ApiController sharedInstance] setUserLoad:dictionary];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"viewController"];
         self.window.rootViewController = viewController;

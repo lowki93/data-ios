@@ -25,7 +25,12 @@ NSDate *startDate, *endDate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    if([ApiController sharedInstance].user.currentData != nil) {
+        [self.startButton setHidden:YES];
+        [self.synchronizeButton setHidden:NO];
+    }
+
     // FOR GEOLOCALIZATION
     locationManager = [[CLLocationManager alloc] init];
     if ([CLLocationManager locationServicesEnabled] ) {
@@ -78,7 +83,7 @@ NSDate *startDate, *endDate;
     
 }
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"error");
+//    NSLog(@"error");
 }
 
 - (NSString *)stringForDate:(NSDate *)date {
@@ -96,7 +101,7 @@ NSDate *startDate, *endDate;
                                    withHandler:^(CMPedometerData *pedometerData, NSError *error) {
                                        dispatch_async(dispatch_get_main_queue(), ^{
                                            if (error) {
-                                               NSLog(@"error");
+//                                               NSLog(@"error");
                                            } else {
                                                stepNumber = [pedometerData.numberOfSteps intValue];
                                                distance = [pedometerData.distance floatValue];
@@ -117,12 +122,14 @@ NSDate *startDate, *endDate;
                                 };
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
+        NSDictionary *dictionary = responseObject[@"user"];
+        NSLog(@"%@", dictionary);
         [self sendLocalNotification:@"information are upload"];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
         long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
-
+        NSLog(@"%@", error);
         if(responseCode == 200) {
             [self sendLocalNotification:@"information are upload"];
         } else {
@@ -140,12 +147,11 @@ NSDate *startDate, *endDate;
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"%@", responseObject[@"user"]);
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
-        User *user = [[User alloc] initWithDictionary:responseObject[@"user"] error:nil];
-        [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"user"] forKey:@"user"];
-        [ApiController sharedInstance].user = user;
+
+        NSDictionary *dictionary = responseObject[@"user"];
+        [[ApiController sharedInstance] setUserLoad:dictionary];
+        [self.startButton setHidden:YES];
+        [self.synchronizeButton setHidden:NO];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
