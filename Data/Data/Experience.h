@@ -7,7 +7,6 @@
 //
 
 #import "JSONModel.h"
-#import "Data.h"
 
 @protocol Experience
 @end
@@ -18,6 +17,6 @@
 @property(assign, nonatomic) NSString<Optional> *title;
 @property(assign, nonatomic) NSString<Optional> *descriptionContent;
 @property(assign, nonatomic) BOOL private;
-@property(assign, nonatomic) NSArray<Data, Optional> *data;
+@property(assign, nonatomic) NSArray<Optional> *data;
 
 @end

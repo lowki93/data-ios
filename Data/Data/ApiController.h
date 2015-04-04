@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "User.h"
+#import "Experience.h"
 
 @interface ApiController : NSObject
 
 @property (nonatomic) NSString *url;
 @property (nonatomic) User *user;
+@property (nonatomic) Experience *experience;
 
 + (ApiController *)sharedInstance;
 - (void)loadApi;

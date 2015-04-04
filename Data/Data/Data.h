@@ -7,13 +7,13 @@
 //
 
 #import "JSONModel.h"
-
-@protocol Data
-@end
+#import "JSONValueTransformer.h"
 
 @interface Data : JSONModel
 
 @property(assign, nonatomic) NSDate *date;
-//@property(assign, nonatomic) NSObject *atmosphere;
+@property(assign, nonatomic) NSObject *atmosphere;
+
+-(id)initWithDictionary:(NSDictionary*)dictionary error:(NSError *__autoreleasing *)err;
 
 @end

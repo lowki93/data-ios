@@ -26,7 +26,7 @@ NSDate *startDate, *endDate;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if([ApiController sharedInstance].user.currentData != nil) {
+    if([ApiController sharedInstance].experience != nil) {
         [self.startButton setHidden:YES];
         [self.synchronizeButton setHidden:NO];
     }
@@ -118,18 +118,19 @@ NSDate *startDate, *endDate;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{
                                  @"latitude":[NSString stringWithFormat:@"%f", latitude],
-                                 @"longitude":[NSString stringWithFormat:@"%f", longitude]
+                                 @"longitude":[NSString stringWithFormat:@"%f", longitude],
+                                 @"time": [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]]
                                 };
+    NSLog(@"%@",[NSDate date] );
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         NSDictionary *dictionary = responseObject[@"user"];
-        NSLog(@"%@", dictionary);
+        [[ApiController sharedInstance] setUserLoad:dictionary];
         [self sendLocalNotification:@"information are upload"];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
         long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
-        NSLog(@"%@", error);
         if(responseCode == 200) {
             [self sendLocalNotification:@"information are upload"];
         } else {

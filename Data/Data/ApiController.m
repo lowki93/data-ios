@@ -31,21 +31,18 @@
 }
 
 - (void)setUserLoad:(NSDictionary *)dictionary {
-//    NSLog(@"%@", dictionary);
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
     User *user = [[User alloc] initWithDictionary:dictionary error:nil];
     Experience *experience = [[Experience alloc] initWithDictionary:dictionary[@"currentData"] error:nil];
     NSMutableArray *dataMutableArray = [[NSMutableArray alloc]init];
     for (int i = 0; i < [dictionary[@"currentData"][@"data"] count]; i++){
         Data *data = [[Data alloc] initWithDictionary:dictionary[@"currentData"][@"data"][i] error:nil];
-        NSLog(@"%@", dictionary[@"currentData"][@"data"][i][@"date"]);
-        NSLog(@"%@", data);
         [dataMutableArray addObject:data];
     }
     NSArray *dataArray = [NSArray arrayWithArray:dataMutableArray];
     experience.data = dataArray;
+    [ApiController sharedInstance].experience = experience;
     user.currentData = experience;
-    NSLog(@"%@", user);
     [ApiController sharedInstance].user = user;
     [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"user"];
 }
