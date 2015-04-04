@@ -47,8 +47,8 @@ NSDate *startDate, *endDate;
     if ([CMPedometer isStepCountingAvailable]) {
         self.pedometer = [[CMPedometer alloc] init];
     }
-    
-    startDate = [NSDate date];
+
+    startDate = [[ApiController sharedInstance] getCurrentDate];
     float time = 3;
     endDate = [startDate dateByAddingTimeInterval:-(1. * time * 3600)];
 
@@ -119,9 +119,8 @@ NSDate *startDate, *endDate;
     NSDictionary *parameters = @{
                                  @"latitude":[NSString stringWithFormat:@"%f", latitude],
                                  @"longitude":[NSString stringWithFormat:@"%f", longitude],
-                                 @"time": [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]]
+                                 @"time": [NSString stringWithFormat:@"%f", [[[ApiController sharedInstance] getCurrentDate] timeIntervalSince1970]]
                                 };
-    NSLog(@"%@",[NSDate date] );
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         NSDictionary *dictionary = responseObject[@"user"];

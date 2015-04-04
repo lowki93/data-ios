@@ -47,6 +47,22 @@
     [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"user"];
 }
 
+- (NSDate *)getCurrentDate {
+
+    NSDate* sourceDate = [NSDate date];
+
+    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+
+    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:sourceDate];
+    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:sourceDate];
+    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+
+    NSDate* destinationDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:sourceDate];
+
+    return destinationDate;
+}
+
 - (NSString *)getUrlSignIn {
 
     return [NSString stringWithFormat:@"%@/user/login", self.url];

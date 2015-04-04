@@ -20,6 +20,7 @@
 + (ApiController *)sharedInstance;
 - (void)loadApi;
 - (void)setUserLoad:(NSDictionary *)dictionary;
+- (NSDate *)getCurrentDate;
 - (NSString *)getUrlSignIn;
 - (NSString *)getUrlSignUp;
 - (NSString *)getUrlUploadImages;
