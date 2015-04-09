@@ -154,7 +154,7 @@ NSDate *startDate, *endDate;
         [self.synchronizeButton setHidden:NO];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        [self sendLocalNotification:@"server error"];
     }];
 }
 

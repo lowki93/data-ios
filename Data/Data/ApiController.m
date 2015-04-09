@@ -8,6 +8,7 @@
 
 #import "ApiController.h"
 #import "Experience.h"
+#import "Day.h"
 #import "Data.h"
 
 @implementation ApiController
@@ -27,23 +28,19 @@
     // local
     self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
     // ip pc test phone
-//    self.url = [NSString stringWithFormat:@"http://172.18.35.1:5000/api"];
+//    self.url = [NSString stringWithFormat:@"http://10.0.1.152.data.vm:5000/api"];
 }
 
 - (void)setUserLoad:(NSDictionary *)dictionary {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
-    User *user = [[User alloc] initWithDictionary:dictionary error:nil];
     Experience *experience = [[Experience alloc] initWithDictionary:dictionary[@"currentData"] error:nil];
-    NSMutableArray *dataMutableArray = [[NSMutableArray alloc]init];
-    for (int i = 0; i < [dictionary[@"currentData"][@"data"] count]; i++){
-        Data *data = [[Data alloc] initWithDictionary:dictionary[@"currentData"][@"data"][i] error:nil];
-        [dataMutableArray addObject:data];
-    }
-    NSArray *dataArray = [NSArray arrayWithArray:dataMutableArray];
-    experience.data = dataArray;
+    User *user = [[User alloc] initWithDictionary:dictionary error:nil];
     [ApiController sharedInstance].experience = experience;
     user.currentData = experience;
     [ApiController sharedInstance].user = user;
+//    Day *day = experience.day[0];
+//    Data *data = day.data[0];
+//    NSLog(@"%@", day);
     [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"user"];
 }
 

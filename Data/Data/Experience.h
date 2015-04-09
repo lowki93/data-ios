@@ -7,16 +7,16 @@
 //
 
 #import "JSONModel.h"
+#import "Day.h"
 
-@protocol Experience
-@end
+@protocol Experience @end
 
 @interface Experience : JSONModel
 
-@property(assign, nonatomic) NSString *id;
+@property(assign, nonatomic) NSString *_id;
 @property(assign, nonatomic) NSString<Optional> *title;
 @property(assign, nonatomic) NSString<Optional> *descriptionContent;
 @property(assign, nonatomic) BOOL private;
-@property(assign, nonatomic) NSArray<Optional> *data;
+@property(assign, nonatomic) NSArray<Day,Optional> *day;
 
 @end
