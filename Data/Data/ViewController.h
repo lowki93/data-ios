@@ -21,6 +21,7 @@
 @property (nonatomic, strong) CMPedometer *pedometer;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIButton *synchronizeButton;
+@property (weak, nonatomic) IBOutlet UILabel *synchroLabel;
 
 - (IBAction)buttonPressed:(id)sender;
 - (IBAction)logoutPressed:(id)sender;

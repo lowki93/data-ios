@@ -154,19 +154,28 @@
                                     <action selector="finishStart:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="yVQ-qe-udq"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zI7-2w-LOM">
+                                <rect key="frame" x="279" y="559" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="zI7-2w-LOM" secondAttribute="centerX" id="4qP-BE-diH"/>
                             <constraint firstItem="Yi0-GX-rlY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="J8u-d4-ojo"/>
                             <constraint firstAttribute="centerY" secondItem="NHg-Eq-tUX" secondAttribute="centerY" id="JPf-br-Mz3"/>
                             <constraint firstItem="KAn-9e-J8G" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="WUh-nN-BVS"/>
                             <constraint firstItem="Yi0-GX-rlY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="YmT-NO-KGh"/>
                             <constraint firstAttribute="centerX" secondItem="NHg-Eq-tUX" secondAttribute="centerX" id="dew-di-DIk"/>
                             <constraint firstItem="KAn-9e-J8G" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="esa-f1-tbC"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="zI7-2w-LOM" secondAttribute="bottom" constant="20" id="pXp-p6-pNr"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="startButton" destination="KAn-9e-J8G" id="AyN-PY-lj5"/>
+                        <outlet property="synchroLabel" destination="zI7-2w-LOM" id="UL0-g2-O2I"/>
                         <outlet property="synchronizeButton" destination="NHg-Eq-tUX" id="3CT-WQ-wdi"/>
                         <segue destination="HVH-gC-8UG" kind="showDetail" identifier="logout" id="Wpd-tb-qqR"/>
                     </connections>

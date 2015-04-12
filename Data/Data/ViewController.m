@@ -29,6 +29,7 @@ NSDate *startDate, *endDate;
     if([ApiController sharedInstance].experience != nil) {
         [self.startButton setHidden:YES];
         [self.synchronizeButton setHidden:NO];
+        [self updateSynchroLabel];
     }
 
     // FOR GEOLOCALIZATION
@@ -126,6 +127,7 @@ NSDate *startDate, *endDate;
         NSDictionary *dictionary = responseObject[@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
         [self sendLocalNotification:@"information are upload"];
+        [self updateSynchroLabel];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -239,6 +241,14 @@ NSDate *startDate, *endDate;
     } failureBlock: ^(NSError *error) {
         NSLog(@"No groups");
     }];
+}
+
+- (void)updateSynchroLabel {
+    NSInteger dayCount = [[ApiController sharedInstance].experience.day count] - 1;
+    Day *currentDay = [ApiController sharedInstance].experience.day[dayCount];
+    NSInteger dataCount = [currentDay.data count] - 1;
+    Data *currentData = currentDay.data[dataCount];
+    [self.synchroLabel setText:currentData.date];
 }
 
 @end
