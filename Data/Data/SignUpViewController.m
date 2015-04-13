@@ -14,11 +14,19 @@
 
 @end
 
+BaseViewController *baseView;
+
 @implementation SignUpViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    baseView = [[BaseViewController alloc] init];
+    [baseView initView:self];
+
+    [self.sigupButton setBackgroundImage:[baseView imageWithColor:baseView.purpleColor] forState:UIControlStateHighlighted];
+    [[self.sigupButton layer] setBorderWidth:1.0f];
+    [[self.sigupButton layer] setBorderColor:baseView.purpleColor.CGColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,15 +38,15 @@
         
         if([[self.mailTextField text] isEqualToString:@""] || [[self.passwordTextField text] isEqualToString:@""] || [[self.confirmationPasswordTextField text] isEqualToString:@""] ) {
             
-            [self alertStatus:@"Please enter Email and Password" :@"Sign in Failed!" :0];
+            [baseView alertStatus:@"Please enter Email and Password" :@"Sign in Failed!"];
             
         } else if(![[ApiController sharedInstance] NSStringIsValidEmail:[self.mailTextField text]]) {
             
-            [self alertStatus:@"Please enter an email valid" :@"Sign in Failed!" :0];
+            [baseView alertStatus:@"Please enter an email valid" :@"Sign in Failed!"];
 
         } else if (![self.passwordTextField.text isEqualToString: self.confirmationPasswordTextField.text]) {
             
-            [self alertStatus:@"you're 2 passwords are different" :@"Sign up Failed!" :0];
+            [baseView alertStatus:@"you're 2 passwords are different" :@"Sign up Failed!"];
             
         } else {
             
@@ -60,9 +68,9 @@
                 long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
 
                 if(responseCode == 409) {
-                    [self alertStatus:@"Email already used" :@"Sign in Failed!" :0];
+                    [baseView alertStatus:@"Email already used" :@"Sign in Failed!"];
                 } else {
-                    [self alertStatus:@"Connection Failed" :@"Sign in Failed!" :0];
+                    [baseView alertStatus:@"Connection Failed" :@"Sign in Failed!"];
                 }
                 
             }];
@@ -71,19 +79,8 @@
     }
     @catch (NSException * e) {
         NSLog(@"Exception: %@", e);
-        [self alertStatus:@"Sign in Failed." :@"Error!" :0];
+        [baseView alertStatus:@"Sign in Failed." :@"Error!"];
     }
-}
-
-- (void) alertStatus:(NSString *)msg :(NSString *)title :(int) tag
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
-                                                        message:msg
-                                                       delegate:self
-                                              cancelButtonTitle:@"ok"
-                                              otherButtonTitles:nil, nil];
-    alertView.tag = tag;
-    [alertView show];
 }
 
 - (IBAction)backgroundTap:(id)sender {
@@ -94,5 +91,37 @@
     [textField resignFirstResponder];
     return YES;
 }
-   
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    switch (textField.tag) {
+        case 1:
+            [self.emailView setBackgroundColor:baseView.purpleColor];
+            break;
+        case 2:
+            [self.firstView setBackgroundColor:baseView.purpleColor];
+            break;
+        case 3:
+            [self.secondView setBackgroundColor:baseView.purpleColor];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    switch (textField.tag) {
+        case 1:
+            [self.emailView setBackgroundColor:baseView.lightGrey];
+            break;
+        case 2:
+            [self.firstView setBackgroundColor:baseView.lightGrey];
+            break;
+        case 3:
+            [self.secondView setBackgroundColor:baseView.lightGrey];
+            break;
+        default:
+            break;
+    }
+}
+
 @end

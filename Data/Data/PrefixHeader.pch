@@ -17,6 +17,8 @@
 #import <Foundation/Foundation.h>
 #import "ApiController.h"
 #import "BaseViewController.h"
+#import "PXAlertView.h"
+#import "PXAlertView+Customization.h"
 #endif
 
 #endif

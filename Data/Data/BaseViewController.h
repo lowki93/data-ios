@@ -12,9 +12,11 @@
 
 @property(retain, nonatomic) UIColor *purpleColor;
 @property(retain, nonatomic) UIColor *lightGrey;
+@property(retain, nonatomic) UIColor *grey;
 
 - (void)initView:(UIViewController *)viewController;
 - (UIColor *)colorWithRGB:(float)red :(float)green :(float)blue :(float)alpha;
 - (UIImage *)imageWithColor:(UIColor *)color;
+- (void)alertStatus:(NSString *)msg :(NSString *)title;
 
 @end

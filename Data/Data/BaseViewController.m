@@ -19,6 +19,7 @@
     /** color */
     _purpleColor = [self colorWithRGB:28 :32 :73 :1];
     _lightGrey = [self colorWithRGB:237 :237 :237 :1];
+    _grey = [self colorWithRGB:166 :168 :170 :1];
 
     /** color for navigationBar **/
     UINavigationBar *navigationBar = viewController.navigationController.navigationBar;
@@ -46,6 +47,29 @@
     UIGraphicsEndImageContext();
     
     return image;
+}
+
+- (void)alertStatus:(NSString *)msg :(NSString *)title
+{
+    PXAlertView *alert = [PXAlertView showAlertWithTitle:title
+                                                 message:msg
+                                             cancelTitle:@"OK"
+                                              completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                              }];
+
+    /** remove corner radius **/
+    [alert.view.layer.sublayers[1] setBorderWidth:1.f];
+    [alert.view.layer.sublayers[1] setCornerRadius:0];
+    [alert.view.layer.sublayers[1] setBorderColor:self.purpleColor.CGColor];
+    [alert setWindowTintColor:[self colorWithRGB:0 :0 :0 :0.5]];
+    [alert setBackgroundColor:[self colorWithRGB:255 :255 :255 :1]];
+    [alert setTitleFont:[UIFont fontWithName:@"MaisonNeue-Light" size:15.0f]];
+    [alert setTitleColor:self.purpleColor];
+    [alert setMessageColor:self.grey];
+    [alert setMessageFont:[UIFont fontWithName:@"MaisonNeue-Light" size:15.0f]];
+    [alert setCancelButtonTextColor:self.purpleColor];
+//    [alert setCancelButtonBackgroundColor:[UIColor redColor]];
+
 }
 
 @end
