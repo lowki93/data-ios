@@ -40,6 +40,12 @@
 		<string>armv7</string>
 		<string>healthkit</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>MaisonNeue-Medium.ttf</string>
+		<string>MaisonNeue-Light.ttf</string>
+		<string>MaisonNeue-Book.ttf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -16,10 +16,20 @@
 }
 @end
 
+BaseViewController *baseView;
+
 @implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    baseView = [[BaseViewController alloc] init];
+    [baseView initView:self];
+    
+    [self.loginButton setBackgroundImage:[baseView imageWithColor:baseView.purpleColor] forState:UIControlStateHighlighted];
+    [[self.loginButton layer] setBorderWidth:1.0f];
+    [[self.loginButton layer] setBorderColor:baseView.purpleColor.CGColor];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -91,6 +101,32 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    switch (textField.tag) {
+        case 1:
+            [self.usernameView setBackgroundColor:baseView.purpleColor];
+            break;
+        case 2:
+            [self.passwordView setBackgroundColor:baseView.purpleColor];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    switch (textField.tag) {
+        case 1:
+            [self.usernameView setBackgroundColor:baseView.lightGrey];
+            break;
+        case 2:
+            [self.passwordView setBackgroundColor:baseView.lightGrey];
+            break;
+        default:
+            break;
+    }
 }
 
 @end
