@@ -20,14 +20,17 @@ PODS:
   - AFNetworking/UIKit (2.5.2):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - JSONModel (1.0.2)
   - PXAlertView (0.1.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
+  - JSONModel
   - PXAlertView (~> 0.1.0)
 
 SPEC CHECKSUMS:
   AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
+  JSONModel: 6ffcb4ffa3659c9e9a2e5d45d6c7705bab187c03
   PXAlertView: bb8a7e6bb95f73fe3fe091cacd279b683460f084
 
 COCOAPODS: 0.36.3
