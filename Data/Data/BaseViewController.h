@@ -13,6 +13,9 @@
 @property(retain, nonatomic) UIColor *purpleColor;
 @property(retain, nonatomic) UIColor *lightGrey;
 @property(retain, nonatomic) UIColor *grey;
+@property(retain, nonatomic) UIColor *lightBlue;
+@property(retain, nonatomic) UIColor *blue;
+@property(retain, nonatomic) UIColor *circlePhotoColor;
 
 - (void)initView:(UIViewController *)viewController;
 - (UIColor *)colorWithRGB:(float)red :(float)green :(float)blue :(float)alpha;

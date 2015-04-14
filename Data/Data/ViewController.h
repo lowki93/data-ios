@@ -23,6 +23,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *synchronizeButton;
 @property (weak, nonatomic) IBOutlet UILabel *synchroLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewHeightConstraint;
+
+
 - (IBAction)buttonPressed:(id)sender;
 - (IBAction)logoutPressed:(id)sender;
 

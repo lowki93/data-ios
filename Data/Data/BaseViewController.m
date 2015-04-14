@@ -20,6 +20,9 @@
     _purpleColor = [self colorWithRGB:28 :32 :73 :1];
     _lightGrey = [self colorWithRGB:237 :237 :237 :1];
     _grey = [self colorWithRGB:166 :168 :170 :1];
+    _lightBlue = [self colorWithRGB:159 :179 :204 :1];
+    _blue = [self colorWithRGB:20 :179 :210 :1];
+    _circlePhotoColor = [self colorWithRGB:243 :146 :0 :0.4];
 
     /** color for navigationBar **/
     UINavigationBar *navigationBar = viewController.navigationController.navigationBar;

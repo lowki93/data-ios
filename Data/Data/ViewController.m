@@ -17,14 +17,47 @@
 
 @end
 
+BaseViewController *baseView;
+
 float latitude, longitude, distance;
 int stepNumber;
 NSDate *startDate, *endDate;
+CGPoint centerCircle;
+CGFloat radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
+float heightContentView;
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    baseView = [[BaseViewController alloc] init];
+    [baseView initView:self];
+
+    heightContentView = self.view.bounds.size.height * 0.75;
+
+    /** update constraint **/
+    [self.contentViewHeightConstraint setConstant:heightContentView];
+
+    /** test draw circle **/
+    centerCircle = CGPointMake(self.view.bounds.size.width/2, heightContentView/2);
+    radiusFirstCicle = (self.view.bounds.size.width * 0.046875) / 2;
+    radiusPhotoCicle = (self.view.bounds.size.width * 0.203125) / 2;
+    radiusGeolocCircle = (self.view.bounds.size.width * 0.484375) / 2;
+    radiusCaptaCircle = (self.view.bounds.size.width * 0.6484375) / 2;
+    radiusPedometerCircle = (self.view.bounds.size.width * 0.8125) / 2;
+
+    [self drawCircle:centerCircle radius:radiusFirstCicle startAngle:0 strokeColor:baseView.lightBlue fillColor:[UIColor clearColor] dotted:NO];
+    [self drawCircle:centerCircle radius:radiusPhotoCicle startAngle:20 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
+    [self drawCircle:centerCircle radius:radiusGeolocCircle startAngle:40 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
+    [self drawCircle:centerCircle radius:radiusCaptaCircle startAngle:60 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
+    [self drawCircle:centerCircle radius:radiusPedometerCircle startAngle:80 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
+
+
+    CGFloat theta = ((M_PI * 40)/ 180) * 2; //((M_PI * startAngle)/ 180);
+    CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * radiusPhotoCicle, sinf(theta) * radiusPhotoCicle + heightContentView/2);
+    [self drawCircle:newCenter radius:5 startAngle:0 strokeColor:[UIColor clearColor] fillColor:baseView.circlePhotoColor dotted:NO];
+
 
     if([ApiController sharedInstance].experience != nil) {
         [self.startButton setHidden:YES];
@@ -249,6 +282,41 @@ NSDate *startDate, *endDate;
     NSInteger dataCount = [currentDay.data count] - 1;
     Data *currentData = currentDay.data[dataCount];
     [self.synchroLabel setText:currentData.date];
+}
+
+- (void)drawCircle:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle strokeColor:(UIColor * )strokeColor fillColor:(UIColor * )fillColor dotted:(BOOL)dotted {
+
+    CGFloat angle = ((M_PI * startAngle)/ 180);
+
+    UIBezierPath *aPath = [UIBezierPath bezierPathWithArcCenter:center
+                                                         radius:radius
+                                                     startAngle:angle
+                                                       endAngle:2 * M_PI + angle
+                                                      clockwise:YES];
+
+    CAShapeLayer *progressLayer = [[CAShapeLayer alloc] init];
+    [progressLayer setPath:aPath.CGPath];
+    [progressLayer setStrokeColor:strokeColor.CGColor];
+    [progressLayer setFillColor:fillColor.CGColor];
+    [progressLayer setLineWidth:1.f];
+    [progressLayer setStrokeStart:0/100];
+    [progressLayer setStrokeEnd:0/100];
+    [self.contentView.layer addSublayer:progressLayer];
+
+    if(dotted) {
+        [progressLayer setLineJoin:kCALineJoinRound];
+        [progressLayer setLineDashPattern:[NSArray arrayWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],nil]];
+    }
+
+    [CATransaction begin];
+    CABasicAnimation *animateStrokeDown = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    [animateStrokeDown setFromValue:[NSNumber numberWithFloat:0/100.]];
+    [animateStrokeDown setToValue:[NSNumber numberWithFloat:100/100.]];
+    [animateStrokeDown setDuration:2];
+    [animateStrokeDown setFillMode:kCAFillModeForwards];
+    [animateStrokeDown setRemovedOnCompletion:NO];
+    [progressLayer addAnimation:animateStrokeDown forKey:@"strokeEnd"];
+    [CATransaction commit];
 }
 
 @end
