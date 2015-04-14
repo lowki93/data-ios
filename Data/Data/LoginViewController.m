@@ -11,9 +11,7 @@
 
 #import "AFHTTPRequestOperationManager.h"
 
-@interface LoginViewController (){
-  NSArray* items;
-}
+@interface LoginViewController ()
 @end
 
 BaseViewController *baseView;

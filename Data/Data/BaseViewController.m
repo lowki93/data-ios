@@ -58,7 +58,7 @@
                                               }];
 
     /** remove corner radius **/
-    [alert.view.layer.sublayers[1] setBorderWidth:1.f];
+    [alert.view.layer.sublayers[1] setBorderWidth:2.f];
     [alert.view.layer.sublayers[1] setCornerRadius:0];
     [alert.view.layer.sublayers[1] setBorderColor:self.purpleColor.CGColor];
     [alert setWindowTintColor:[self colorWithRGB:0 :0 :0 :0.5]];
