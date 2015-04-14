@@ -50,13 +50,40 @@ float heightContentView;
     [self drawCircle:centerCircle radius:radiusFirstCicle startAngle:0 strokeColor:baseView.lightBlue fillColor:[UIColor clearColor] dotted:NO];
     [self drawCircle:centerCircle radius:radiusPhotoCicle startAngle:20 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
     [self drawCircle:centerCircle radius:radiusGeolocCircle startAngle:40 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
-    [self drawCircle:centerCircle radius:radiusCaptaCircle startAngle:60 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
+//    [self drawCircle:centerCircle radius:radiusCaptaCircle startAngle:60 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
     [self drawCircle:centerCircle radius:radiusPedometerCircle startAngle:80 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
 
+    int nbSynchro = 3;
 
-    CGFloat theta = ((M_PI * 40)/ 180) * 2; //((M_PI * startAngle)/ 180);
-    CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * radiusPhotoCicle, sinf(theta) * radiusPhotoCicle + heightContentView/2);
-    [self drawCircle:newCenter radius:5 startAngle:0 strokeColor:[UIColor clearColor] fillColor:baseView.circlePhotoColor dotted:NO];
+    for (int i = 0; i < 3; i++) {
+        int lowerAlpha = 1;
+        int upperAlpha = 7;
+        float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
+        int randomAngle = arc4random() % 45;
+        CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
+        CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * radiusPhotoCicle, sinf(theta) * radiusPhotoCicle + heightContentView/2);
+        [self drawCircle:newCenter radius:10 startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlePhotoColor colorWithAlphaComponent:randomAlpha] dotted:NO];
+    }
+
+    for (int i = 0; i < 5; i++) {
+        /* random alpha */
+        int lowerAlpha = 1;
+        int upperAlpha = 7;
+        float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
+        /* random angle */
+        int randomAngle = arc4random() % 45;
+        /* random radius */
+        int lowerRadius = radiusGeolocCircle - 20;
+        int upperRadius = radiusGeolocCircle + 20;
+        int randomRadius = lowerRadius + arc4random() % (upperRadius - lowerRadius);
+        /* random radius */
+        int lowerCircleRadius = 5;
+        int upperCircleRadius = 20;
+        int randomCircleRadius = lowerCircleRadius + arc4random() % (upperCircleRadius - lowerCircleRadius);
+        CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
+        CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * randomRadius, sinf(theta) * randomRadius + heightContentView/2);
+        [self drawCircle:newCenter radius:randomCircleRadius startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlegeolocColor colorWithAlphaComponent:randomAlpha] dotted:NO];
+    }
 
 
     if([ApiController sharedInstance].experience != nil) {

@@ -22,7 +22,8 @@
     _grey = [self colorWithRGB:166 :168 :170 :1];
     _lightBlue = [self colorWithRGB:159 :179 :204 :1];
     _blue = [self colorWithRGB:20 :179 :210 :1];
-    _circlePhotoColor = [self colorWithRGB:243 :146 :0 :0.4];
+    _circlePhotoColor = [self colorWithRGB:243 :146 :0 :1];
+    _circlegeolocColor = [self colorWithRGB:23 :0 :134 :1];
 
     /** color for navigationBar **/
     UINavigationBar *navigationBar = viewController.navigationController.navigationBar;

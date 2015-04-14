@@ -28,7 +28,7 @@
     // local
     self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
     // ip pc test phone
-//    self.url = [NSString stringWithFormat:@"http://10.0.1.152.data.vm:5000/api"];
+//    self.url = [NSString stringWithFormat:@"http://172.18.34.78:5000/api"];
 }
 
 - (void)setUserLoad:(NSDictionary *)dictionary {
@@ -38,9 +38,6 @@
     [ApiController sharedInstance].experience = experience;
     user.currentData = experience;
     [ApiController sharedInstance].user = user;
-//    Day *day = experience.day[0];
-//    Data *data = day.data[0];
-//    NSLog(@"%@", day);
     [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"user"];
 }
 
