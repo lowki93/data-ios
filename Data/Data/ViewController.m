@@ -40,51 +40,8 @@ float heightContentView;
     [self.contentViewHeightConstraint setConstant:heightContentView];
 
     /** test draw circle **/
-    centerCircle = CGPointMake(self.view.bounds.size.width/2, heightContentView/2);
-    radiusFirstCicle = (self.view.bounds.size.width * 0.046875) / 2;
-    radiusPhotoCicle = (self.view.bounds.size.width * 0.203125) / 2;
-    radiusGeolocCircle = (self.view.bounds.size.width * 0.484375) / 2;
-    radiusCaptaCircle = (self.view.bounds.size.width * 0.6484375) / 2;
-    radiusPedometerCircle = (self.view.bounds.size.width * 0.8125) / 2;
-
-    [self drawCircle:centerCircle radius:radiusFirstCicle startAngle:0 strokeColor:baseView.lightBlue fillColor:[UIColor clearColor] dotted:NO];
-    [self drawCircle:centerCircle radius:radiusPhotoCicle startAngle:20 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
-    [self drawCircle:centerCircle radius:radiusGeolocCircle startAngle:40 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
-//    [self drawCircle:centerCircle radius:radiusCaptaCircle startAngle:60 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
-    [self drawCircle:centerCircle radius:radiusPedometerCircle startAngle:80 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
-
-    int nbSynchro = 3;
-
-    for (int i = 0; i < 3; i++) {
-        int lowerAlpha = 1;
-        int upperAlpha = 7;
-        float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
-        int randomAngle = arc4random() % 45;
-        CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
-        CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * radiusPhotoCicle, sinf(theta) * radiusPhotoCicle + heightContentView/2);
-        [self drawCircle:newCenter radius:10 startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlePhotoColor colorWithAlphaComponent:randomAlpha] dotted:NO];
-    }
-
-    for (int i = 0; i < 5; i++) {
-        /* random alpha */
-        int lowerAlpha = 1;
-        int upperAlpha = 7;
-        float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
-        /* random angle */
-        int randomAngle = arc4random() % 45;
-        /* random radius */
-        int lowerRadius = radiusGeolocCircle - 20;
-        int upperRadius = radiusGeolocCircle + 20;
-        int randomRadius = lowerRadius + arc4random() % (upperRadius - lowerRadius);
-        /* random radius */
-        int lowerCircleRadius = 5;
-        int upperCircleRadius = 20;
-        int randomCircleRadius = lowerCircleRadius + arc4random() % (upperCircleRadius - lowerCircleRadius);
-        CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
-        CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * randomRadius, sinf(theta) * randomRadius + heightContentView/2);
-        [self drawCircle:newCenter radius:randomCircleRadius startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlegeolocColor colorWithAlphaComponent:randomAlpha] dotted:NO];
-    }
-
+    [self createCircle];
+    [self displayData];
 
     if([ApiController sharedInstance].experience != nil) {
         [self.startButton setHidden:YES];
@@ -173,7 +130,7 @@ float heightContentView;
 
 - (IBAction)buttonPressed:(id)sender {
 //    [self getPedometerInformation:endDate toDate:startDate];
-
+//
     NSString *urlString = [[ApiController sharedInstance] getUrlUploadData];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -187,20 +144,18 @@ float heightContentView;
         NSDictionary *dictionary = responseObject[@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
         [self sendLocalNotification:@"information are upload"];
-        [self updateSynchroLabel];
+        NSLog(@"end upload data");
+        // for upload images
+        [self getPhotoOnLibrary];
+
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
-        long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
-        if(responseCode == 200) {
-            [self sendLocalNotification:@"information are upload"];
-        } else {
-            [self sendLocalNotification:@"server error"];
-        }
+//        long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
+        [self sendLocalNotification:@"server error"];
+
     }];
 
-    // for upload images
-//    [self getPhotoOnLibrary];
 }
 
 - (IBAction)finishStart:(id)sender {
@@ -250,6 +205,7 @@ float heightContentView;
                 if([((NSDate *)[alAsset valueForProperty:ALAssetPropertyDate]) compare: endDate] == NSOrderedDescending) {
                     // bug photo si que photo a update et rien apres
                     // Create image in tmp
+                    NSLog(@"toto");
                     ALAssetRepresentation *representation = [alAsset defaultRepresentation];
                     UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullScreenImage]];
                     NSData *data = UIImageJPEGRepresentation(latestPhoto, 0.2);
@@ -261,15 +217,18 @@ float heightContentView;
                 } else {
                     // stop for getting photo
                     *stop = YES; *innerStop = YES;
-                    [SSZipArchive createZipFileAtPath:zippedPath withFilesAtPaths:inputPaths];
 
-                    NSString *urlString = [[ApiController sharedInstance] getUrlUploadImages];
-                    NSString *fileName = [NSString stringWithFormat:@"%@.zip",[ApiController sharedInstance].user.token];
+                    if ([inputPaths count] != 0) {
+                        NSLog(@"uploads photo");
+                        [SSZipArchive createZipFileAtPath:zippedPath withFilesAtPaths:inputPaths];
 
-                    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer]
-                                                    multipartFormRequestWithMethod:@"POST"
-                                                    URLString:urlString
-                                                    parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                        NSString *urlString = [[ApiController sharedInstance] getUrlUploadImages];
+                        NSString *fileName = [NSString stringWithFormat:@"%@.zip",[ApiController sharedInstance].user.token];
+
+                        NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer]
+                                                        multipartFormRequestWithMethod:@"POST"
+                                                        URLString:urlString
+                                                        parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                                                         [formData appendPartWithFileURL:[NSURL fileURLWithPath:zippedPath]
                                                                                    name:@"zip"
                                                                                fileName:fileName
@@ -278,23 +237,30 @@ float heightContentView;
                                                     }
                                                     error:nil];
 
-                    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-                    NSProgress *progress = nil;
+                        
+                        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                        NSProgress *progress = nil;
 
-                    NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-                        if (error) {
-                           [self sendLocalNotification:@"photos are upload FAIL !!"];
-                        } else {
-                            [self sendLocalNotification:@"photos are upload"];
-                        }
-                    }];
+                        NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                            if (error) {
+                                [self sendLocalNotification:@"photos are upload FAIL !!"];
+                            } else {
+                                [self sendLocalNotification:@"photos are upload"];
+                                NSDictionary *dictionary = responseObject[@"user"];
+                                [[ApiController sharedInstance] setUserLoad:dictionary];
+                                [self updateDataAfterSynchro];
+                            }
+                        }];
                                  
-                    [uploadTask resume];
+                        [uploadTask resume];
 
-                    NSError *error = [[NSError alloc] init];
-                    NSFileManager *fm = [NSFileManager defaultManager];
-                    [fm removeItemAtPath:[tmpDirURL path] error:&error];
-                    
+                        NSError *error = [[NSError alloc] init];
+                        NSFileManager *fm = [NSFileManager defaultManager];
+                        [fm removeItemAtPath:[tmpDirURL path] error:&error];
+                    } else {
+                         NSLog(@"nothings to uploads photo");
+                        [self updateDataAfterSynchro];
+                    }
                 }
             }
         }];
@@ -327,23 +293,102 @@ float heightContentView;
     [progressLayer setFillColor:fillColor.CGColor];
     [progressLayer setLineWidth:1.f];
     [progressLayer setStrokeStart:0/100];
-    [progressLayer setStrokeEnd:0/100];
-    [self.contentView.layer addSublayer:progressLayer];
-
+    [progressLayer setStrokeEnd:100/100];
     if(dotted) {
         [progressLayer setLineJoin:kCALineJoinRound];
         [progressLayer setLineDashPattern:[NSArray arrayWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],nil]];
     }
+    [self.contentView.layer addSublayer:progressLayer];
 
-    [CATransaction begin];
-    CABasicAnimation *animateStrokeDown = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    [animateStrokeDown setFromValue:[NSNumber numberWithFloat:0/100.]];
-    [animateStrokeDown setToValue:[NSNumber numberWithFloat:100/100.]];
-    [animateStrokeDown setDuration:2];
-    [animateStrokeDown setFillMode:kCAFillModeForwards];
-    [animateStrokeDown setRemovedOnCompletion:NO];
-    [progressLayer addAnimation:animateStrokeDown forKey:@"strokeEnd"];
-    [CATransaction commit];
+//
+//    [CATransaction begin];
+//    CABasicAnimation *animateStrokeDown = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+//    [animateStrokeDown setFromValue:[NSNumber numberWithFloat:0/100.]];
+//    [animateStrokeDown setToValue:[NSNumber numberWithFloat:100/100.]];
+//    [animateStrokeDown setDuration:2];
+//    [animateStrokeDown setFillMode:kCAFillModeForwards];
+//    [animateStrokeDown setRemovedOnCompletion:NO];
+//    [progressLayer addAnimation:animateStrokeDown forKey:@"strokeEnd"];
+//    [CATransaction commit];
+}
+
+- (void)createCircle {
+    centerCircle = CGPointMake(self.view.bounds.size.width/2, heightContentView/2);
+    radiusFirstCicle = (self.view.bounds.size.width * 0.046875) / 2;
+    radiusPhotoCicle = (self.view.bounds.size.width * 0.203125) / 2;
+    radiusGeolocCircle = (self.view.bounds.size.width * 0.484375) / 2;
+    radiusCaptaCircle = (self.view.bounds.size.width * 0.6484375) / 2;
+    radiusPedometerCircle = (self.view.bounds.size.width * 0.8125) / 2;
+
+    [self drawCircle:centerCircle radius:radiusFirstCicle startAngle:0 strokeColor:baseView.lightBlue fillColor:[UIColor clearColor] dotted:NO];
+    [self drawCircle:centerCircle radius:radiusPhotoCicle startAngle:20 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
+    [self drawCircle:centerCircle radius:radiusGeolocCircle startAngle:40 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
+    [self drawCircle:centerCircle radius:radiusCaptaCircle startAngle:60 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
+    [self drawCircle:centerCircle radius:radiusPedometerCircle startAngle:80 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
+}
+
+- (void)displayData {
+    if([ApiController sharedInstance].experience.day != nil ) {
+        NSInteger dayCount = [[ApiController sharedInstance].experience.day count] - 1;
+        Day *currentDay = [ApiController sharedInstance].experience.day[dayCount];
+        for (int i = 0; i < [currentDay.data count]; i++) {
+            int nbSynchro = i;
+            Data *currentData = currentDay.data[i];
+            /** for photos **/
+            [self updatePhotoData:currentData Synchro:nbSynchro];
+            /** for geoloc **/
+            [self updateGeolocData:currentData Synchro:nbSynchro];
+
+        }
+    }
+}
+
+- (void)updateDataAfterSynchro {
+    NSLog(@"update data circle");
+    NSInteger dayCount = [[ApiController sharedInstance].experience.day count] - 1;
+    Day *currentDay = [ApiController sharedInstance].experience.day[dayCount];
+    NSInteger dataCount = [currentDay.data count] - 1;
+    Data *currentData = currentDay.data[dataCount];
+    int nbSynchro = (int)dataCount;
+    /** for photos **/
+    [self updatePhotoData:currentData Synchro:nbSynchro];
+    /** for geoloc **/
+    [self updateGeolocData:currentData Synchro:nbSynchro];
+}
+
+- (void)updatePhotoData:(Data *)data Synchro:(NSInteger)nbSynchro {
+    for (int i = 0; i < [data.photos count]; i++) {
+        int lowerAlpha = 1;
+        int upperAlpha = 7;
+        float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
+        int randomAngle = arc4random() % 45;
+        CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
+        CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * radiusPhotoCicle, sinf(theta) * radiusPhotoCicle + heightContentView/2);
+        [self drawCircle:newCenter radius:10 startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlePhotoColor colorWithAlphaComponent:randomAlpha] dotted:NO];
+    }
+}
+
+- (void)updateGeolocData:(Data *)data Synchro:(NSInteger)nbSynchro {
+//    [data.atmosphere count]
+    for (int i = 0; i < 1; i++) {
+        /* random alpha */
+        int lowerAlpha = 1;
+        int upperAlpha = 7;
+        float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
+        /* random angle */
+        int randomAngle = arc4random() % 45;
+        /* random radius */
+        int lowerRadius = radiusGeolocCircle - 20;
+        int upperRadius = radiusGeolocCircle + 20;
+        int randomRadius = lowerRadius + arc4random() % (upperRadius - lowerRadius);
+        /* random radius */
+        int lowerCircleRadius = 5;
+        int upperCircleRadius = 20;
+        int randomCircleRadius = lowerCircleRadius + arc4random() % (upperCircleRadius - lowerCircleRadius);
+        CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
+        CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * randomRadius, sinf(theta) * randomRadius + heightContentView/2);
+        [self drawCircle:newCenter radius:randomCircleRadius startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlegeolocColor colorWithAlphaComponent:randomAlpha] dotted:NO];
+    }
 }
 
 @end

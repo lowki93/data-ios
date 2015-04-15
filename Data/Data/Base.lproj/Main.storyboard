@@ -568,7 +568,7 @@
         <image name="background" width="640" height="1136"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="P9o-O8-RET"/>
         <segue reference="Wpd-tb-qqR"/>
-        <segue reference="xtx-Dd-Lhm"/>
     </inferredMetricsTieBreakers>
 </document>
