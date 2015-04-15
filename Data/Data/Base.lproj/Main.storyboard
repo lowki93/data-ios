@@ -279,7 +279,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rRb-mk-fKk"/>
                                     <action selector="logoutPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1QH-MK-AsO"/>
                                 </connections>
                             </button>

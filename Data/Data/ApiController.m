@@ -71,7 +71,7 @@
 
 - (NSString *)getUrlUploadImages {
 
-    return [NSString stringWithFormat:@"%@/files/uploads?access_token=%@", self.url, self.user.token];
+    return [NSString stringWithFormat:@"%@/files/uploads/%@?access_token=%@", self.url, self.user.id, self.user.token];
 
 }
 
