@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import "Experience.h"
+#import "Data.h"
 
 @interface ApiController : NSObject
 
@@ -27,5 +28,7 @@
 - (NSString *)getUrlUploadData;
 - (NSString *)getUrlExperienceCreate;
 - (BOOL)NSStringIsValidEmail:(NSString *)checkString;
+- (Data *)GetLastData;
+- (int)getIndexData;
 
 @end

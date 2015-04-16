@@ -101,7 +101,7 @@ float heightContentView;
     
 }
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-//    NSLog(@"error");
+    NSLog(@"error");
 }
 
 - (NSString *)stringForDate:(NSDate *)date {
@@ -119,7 +119,7 @@ float heightContentView;
                                    withHandler:^(CMPedometerData *pedometerData, NSError *error) {
                                        dispatch_async(dispatch_get_main_queue(), ^{
                                            if (error) {
-//                                               NSLog(@"error");
+                                               NSLog(@"error");
                                            } else {
                                                stepNumber = [pedometerData.numberOfSteps intValue];
                                                distance = [pedometerData.distance floatValue];
@@ -142,8 +142,10 @@ float heightContentView;
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         NSDictionary *dictionary = responseObject[@"user"];
+
         [[ApiController sharedInstance] setUserLoad:dictionary];
         [self sendLocalNotification:@"information are upload"];
+        [self updateDataGeolocAfterSynchro];
         NSLog(@"end upload data");
         // for upload images
         [self getPhotoOnLibrary];
@@ -155,7 +157,6 @@ float heightContentView;
         [self sendLocalNotification:@"server error"];
 
     }];
-
 }
 
 - (IBAction)finishStart:(id)sender {
@@ -192,15 +193,15 @@ float heightContentView;
 // get photo on library
 - (void)getPhotoOnLibrary {
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    // ALAssetsGroupLibrary , ALAssetsGroupSavedPhotos
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-        
+
+        NSMutableArray *inputPaths = [NSMutableArray new];
         NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
         NSString *zippedPath = [NSString stringWithFormat:@"%@/toto.zip", [tmpDirURL path]];
-        NSMutableArray *inputPaths = [NSMutableArray new];
         
         [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
-            
             if (alAsset) {
                 if([((NSDate *)[alAsset valueForProperty:ALAssetPropertyDate]) compare: endDate] == NSOrderedDescending) {
                     // bug photo si que photo a update et rien apres
@@ -216,7 +217,7 @@ float heightContentView;
                     
                 } else {
                     // stop for getting photo
-                    *stop = YES; *innerStop = YES;
+                    *innerStop = YES; *stop = YES;
 
                     if ([inputPaths count] != 0) {
                         NSLog(@"uploads photo");
@@ -241,14 +242,17 @@ float heightContentView;
                         AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
                         NSProgress *progress = nil;
 
+                        NSLog(@"start upload photos");
                         NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
                             if (error) {
+                                NSLog(@"error upload photo");
                                 [self sendLocalNotification:@"photos are upload FAIL !!"];
+                                 [self performSelector:@selector(getPhotoOnLibrary) withObject:nil afterDelay:2.0f];
                             } else {
                                 [self sendLocalNotification:@"photos are upload"];
                                 NSDictionary *dictionary = responseObject[@"user"];
                                 [[ApiController sharedInstance] setUserLoad:dictionary];
-                                [self updateDataAfterSynchro];
+                                [self updateDataPhotoAfterSynchro];
                             }
                         }];
                                  
@@ -258,8 +262,7 @@ float heightContentView;
                         NSFileManager *fm = [NSFileManager defaultManager];
                         [fm removeItemAtPath:[tmpDirURL path] error:&error];
                     } else {
-                         NSLog(@"nothings to uploads photo");
-                        [self updateDataAfterSynchro];
+                        NSLog(@"no photos");
                     }
                 }
             }
@@ -343,17 +346,20 @@ float heightContentView;
     }
 }
 
-- (void)updateDataAfterSynchro {
-    NSLog(@"update data circle");
-    NSInteger dayCount = [[ApiController sharedInstance].experience.day count] - 1;
-    Day *currentDay = [ApiController sharedInstance].experience.day[dayCount];
-    NSInteger dataCount = [currentDay.data count] - 1;
-    Data *currentData = currentDay.data[dataCount];
-    int nbSynchro = (int)dataCount;
-    /** for photos **/
-    [self updatePhotoData:currentData Synchro:nbSynchro];
+- (void)updateDataGeolocAfterSynchro {
+    NSLog(@"update data geoloc");
+    Data *currentData = [[ApiController sharedInstance] GetLastData];
+    int nbSynchro = [[ApiController sharedInstance]getIndexData];
     /** for geoloc **/
     [self updateGeolocData:currentData Synchro:nbSynchro];
+}
+
+- (void)updateDataPhotoAfterSynchro {
+    NSLog(@"update data photo");
+    Data *currentData = [[ApiController sharedInstance] GetLastData];
+    int nbSynchro = [[ApiController sharedInstance]getIndexData];
+    /** for phoho **/
+    [self updatePhotoData:currentData Synchro:nbSynchro];
 }
 
 - (void)updatePhotoData:(Data *)data Synchro:(NSInteger)nbSynchro {

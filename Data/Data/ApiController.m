@@ -96,4 +96,18 @@
     return [emailTest evaluateWithObject:checkString];
 }
 
+- (Data *)GetLastData {
+    NSInteger dayCount = [[ApiController sharedInstance].experience.day count] - 1;
+    Day *currentDay = [ApiController sharedInstance].experience.day[dayCount];
+    NSInteger dataCount = [currentDay.data count] - 1;
+    Data *currentData = currentDay.data[dataCount];
+    return currentData;
+}
+
+- (int)getIndexData {
+    NSInteger dayCount = [[ApiController sharedInstance].experience.day count] - 1;
+    Day *currentDay = [ApiController sharedInstance].experience.day[dayCount];
+    return (int)[currentDay.data count] - 1;
+}
+
 @end
