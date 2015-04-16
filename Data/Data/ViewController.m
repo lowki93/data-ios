@@ -39,14 +39,13 @@ float heightContentView;
     /** update constraint **/
     [self.contentViewHeightConstraint setConstant:heightContentView];
 
-    /** test draw circle **/
-    [self createCircle];
-    [self displayData];
-
     if([ApiController sharedInstance].experience != nil) {
         [self.startButton setHidden:YES];
         [self.synchronizeButton setHidden:NO];
         [self updateSynchroLabel];
+        /** test draw circle **/
+        [self createCircle];
+        [self displayData];
     }
 
     // FOR GEOLOCALIZATION
@@ -343,6 +342,8 @@ float heightContentView;
             [self updateGeolocData:currentData Synchro:nbSynchro];
 
         }
+
+//        self.contentView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
     }
 }
 
