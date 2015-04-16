@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1737EFA01ADFF296002E4811 /* TimeLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1737EF9F1ADFF296002E4811 /* TimeLineView.m */; };
 		1756E5011AD5F8B8006CA988 /* Day.m in Sources */ = {isa = PBXBuildFile; fileRef = 1756E5001AD5F8B8006CA988 /* Day.m */; };
 		177138D41AADFA01002AFEF0 /* ApiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 177138D31AADFA01002AFEF0 /* ApiController.m */; };
 		17CF527E1AA5F8F6001C7E65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF527D1AA5F8F6001C7E65 /* main.m */; };
@@ -66,6 +67,8 @@
 
 /* Begin PBXFileReference section */
 		10BC74DE36AF14F6E3863A59 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1737EF9E1ADFF296002E4811 /* TimeLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineView.h; sourceTree = "<group>"; };
+		1737EF9F1ADFF296002E4811 /* TimeLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLineView.m; sourceTree = "<group>"; };
 		1756E4FF1AD5F8B8006CA988 /* Day.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Day.h; sourceTree = "<group>"; };
 		1756E5001AD5F8B8006CA988 /* Day.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Day.m; sourceTree = "<group>"; };
 		177138D01AADF9B3002AFEF0 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				17CF52881AA5F8F6001C7E65 /* Images.xcassets */,
 				17CF528A1AA5F8F6001C7E65 /* LaunchScreen.xib */,
 				17CF527B1AA5F8F6001C7E65 /* Supporting Files */,
+				1737EF9E1ADFF296002E4811 /* TimeLineView.h */,
+				1737EF9F1ADFF296002E4811 /* TimeLineView.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -558,6 +563,7 @@
 				17CF527E1AA5F8F6001C7E65 /* main.m in Sources */,
 				A81789451ABC1D34004319BA /* ioapi.c in Sources */,
 				A81789491ABC1D34004319BA /* SSZipArchive.m in Sources */,
+				1737EFA01ADFF296002E4811 /* TimeLineView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

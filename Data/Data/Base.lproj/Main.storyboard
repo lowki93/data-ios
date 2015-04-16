@@ -308,6 +308,15 @@
                                     <constraint firstAttribute="centerX" secondItem="zI7-2w-LOM" secondAttribute="centerX" id="Y2Y-dp-oa2"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B7P-dI-7xB">
+                                <rect key="frame" x="16" y="58" width="46" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="VIq-F2-NgP" kind="show" id="VMi-wA-xjW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -319,6 +328,8 @@
                             <constraint firstItem="Yi0-GX-rlY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="YmT-NO-KGh"/>
                             <constraint firstAttribute="centerX" secondItem="NHg-Eq-tUX" secondAttribute="centerX" id="dew-di-DIk"/>
                             <constraint firstItem="KAn-9e-J8G" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="esa-f1-tbC"/>
+                            <constraint firstItem="B7P-dI-7xB" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="fC7-gi-Yd8"/>
+                            <constraint firstItem="B7P-dI-7xB" firstAttribute="top" secondItem="Yi0-GX-rlY" secondAttribute="bottom" constant="8" id="gzC-X7-HnK"/>
                             <constraint firstAttribute="trailing" secondItem="RWe-Se-sPz" secondAttribute="trailing" id="qCF-ru-diD"/>
                         </constraints>
                     </view>
@@ -333,7 +344,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1217" y="387"/>
+            <point key="canvasLocation" x="1233" y="-369"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="bzX-8H-7l9">
+            <objects>
+                <viewController id="VIq-F2-NgP" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="r4G-1p-gtM"/>
+                        <viewControllerLayoutGuide type="bottom" id="47w-zZ-GEp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hyV-rp-ujo" customClass="TimeLineView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vy4-6i-I2v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1233" y="387"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="fs8-FH-6ez">
