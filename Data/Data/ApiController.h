@@ -17,6 +17,7 @@
 @property (nonatomic) NSString *url;
 @property (nonatomic) User *user;
 @property (nonatomic) Experience *experience;
+@property (nonatomic) NSMutableArray *location;
 
 + (ApiController *)sharedInstance;
 - (void)loadApi;

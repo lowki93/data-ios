@@ -25,7 +25,6 @@
         UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"viewController"];
         self.window.rootViewController = viewController;
         [self.window makeKeyAndVisible];
-
     }
 
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
@@ -50,6 +49,17 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    self.bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        NSLog(@"ending background task");
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        [localNotification setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+        [localNotification setAlertBody:@"Relaunch Data application"];
+        [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        [[UIApplication sharedApplication] endBackgroundTask:self.bgTask];
+        self.bgTask = UIBackgroundTaskInvalid;
+    }];
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -61,7 +71,11 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    [localNotification setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    [localNotification setAlertBody:[NSString stringWithFormat:@"Launch Data Application for catching data"]];
+    [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 @end

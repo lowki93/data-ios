@@ -19,7 +19,7 @@
 
 BaseViewController *baseView;
 
-float latitude, longitude, distance;
+float latitude, longitude, timeSynchro, distance;
 int stepNumber;
 NSDate *startDate, *endDate;
 CGPoint centerCircle;
@@ -46,28 +46,29 @@ float heightContentView;
         /** test draw circle **/
         [self createCircle];
         [self displayData];
+        [self activeTracker];
+        [self synchroAuto];
     }
 
     // FOR GEOLOCALIZATION
-    locationManager = [[CLLocationManager alloc] init];
-    if ([CLLocationManager locationServicesEnabled] ) {
-        [locationManager setDelegate: self];
-        [locationManager setDesiredAccuracy: kCLLocationAccuracyBest];
-        [locationManager setDistanceFilter: 100.f];
-        if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)] ) {
-            [locationManager requestWhenInUseAuthorization];
-        }
-        [locationManager startUpdatingLocation];
-    }
-    
+//    self.locationManager = [[CLLocationManager alloc] init];
+//    if ([CLLocationManager locationServicesEnabled] ) {
+//        [self.locationManager  setDelegate: self];
+//        [self.locationManager  setDesiredAccuracy: kCLLocationAccuracyBest];
+//        [self.locationManager  setDistanceFilter: 100.f];
+//        if ([self.locationManager  respondsToSelector:@selector(requestWhenInUseAuthorization)] ) {
+//            [self.locationManager  requestWhenInUseAuthorization];
+//        }
+////        [self.locationManager  startUpdatingLocation];
+//    }
+
     // FOR PODOMETER
     if ([CMPedometer isStepCountingAvailable]) {
         self.pedometer = [[CMPedometer alloc] init];
     }
 
-    startDate = [[ApiController sharedInstance] getCurrentDate];
-    float time = 3;
-    endDate = [startDate dateByAddingTimeInterval:-(1. * time * 3600)];
+    timeSynchro = 3;
+    [self updateDate];
 
 }
 
@@ -83,24 +84,15 @@ float heightContentView;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self.pedometer startPedometerUpdatesFromDate:[NSDate date]
-                                      withHandler:^(CMPedometerData *pedometerData, NSError *error) {
-                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                          });
-                                      }];
 }
 
-#pragma mark - CLLocationDelegate
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    CLLocation *location = [locations lastObject];
-    
-    latitude = location.coordinate.latitude;
-    longitude = location.coordinate.longitude;
-    
-}
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"error");
+//    NSLog(@"error");
+}
+
+- (void)updateDate {
+        startDate = [[ApiController sharedInstance] getCurrentDate];
+        endDate = [startDate dateByAddingTimeInterval:-(1. * timeSynchro * 3600)];
 }
 
 - (NSString *)stringForDate:(NSDate *)date {
@@ -111,56 +103,35 @@ float heightContentView;
     return [formatter stringFromDate:date];
 }
 
-- (void)getPedometerInformation:(NSDate *)startDate toDate:(NSDate *)endDate {
-    
+- (void)queryPedometerDataFromDate:(NSDate *)startDate toDate:(NSDate *)endDate {
+
     [self.pedometer queryPedometerDataFromDate:startDate
                                         toDate:endDate
                                    withHandler:^(CMPedometerData *pedometerData, NSError *error) {
                                        dispatch_async(dispatch_get_main_queue(), ^{
                                            if (error) {
-                                               NSLog(@"error");
+                                               NSLog(@"%@", error);
                                            } else {
-                                               stepNumber = [pedometerData.numberOfSteps intValue];
+                                               self.pedometerInformation = [[NSMutableDictionary alloc]init];
                                                distance = [pedometerData.distance floatValue];
+                                               [self.pedometerInformation setObject:[NSNumber numberWithInt:[pedometerData.numberOfSteps intValue]] forKey:@"stepNumber"];
+                                               [self.pedometerInformation setObject:[NSNumber numberWithFloat:distance] forKey:@"distance"];
+                                               [self.pedometerInformation setObject:[NSNumber numberWithFloat:(distance / 1000 / timeSynchro)] forKey:@"vitesse"];
+                                               [self updateData];
                                            }
                                        });
                                    }];
 }
 
 - (IBAction)buttonPressed:(id)sender {
-//    [self getPedometerInformation:endDate toDate:startDate];
-//
-    NSString *urlString = [[ApiController sharedInstance] getUrlUploadData];
-
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{
-                                 @"latitude":[NSString stringWithFormat:@"%f", latitude],
-                                 @"longitude":[NSString stringWithFormat:@"%f", longitude],
-                                 @"time": [NSString stringWithFormat:@"%f", [[[ApiController sharedInstance] getCurrentDate] timeIntervalSince1970]]
-                                };
-    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
-        NSDictionary *dictionary = responseObject[@"user"];
-
-        [[ApiController sharedInstance] setUserLoad:dictionary];
-        [self sendLocalNotification:@"information are upload"];
-        [self updateDataGeolocAfterSynchro];
-        NSLog(@"end upload data");
-        // for upload images
-        [self getPhotoOnLibrary];
-
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
-//        long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
-        [self sendLocalNotification:@"server error"];
-
-    }];
+    [self lauchSyncho];
 }
 
 - (IBAction)finishStart:(id)sender {
-    
-     NSString *urlString = [[ApiController sharedInstance] getUrlExperienceCreate];
+    NSLog(@"Finish start");
+
+
+    NSString *urlString = [[ApiController sharedInstance] getUrlExperienceCreate];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -169,13 +140,26 @@ float heightContentView;
         [[ApiController sharedInstance] setUserLoad:dictionary];
         [self.startButton setHidden:YES];
         [self.synchronizeButton setHidden:NO];
+        [self createCircle];
+        [self activeTracker];
+        [self synchroAuto];
+
+        NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
+        [dict setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
+        [dict setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
+        [[ApiController sharedInstance].location addObject:dict];
+
+        [self lauchSyncho];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"error code %d",[operation.response statusCode]);
         [self sendLocalNotification:@"server error"];
     }];
 }
 
 - (IBAction)logoutPressed:(id)sender {
+    [self.accuracyTimer invalidate];
+    [self.locationTimer invalidate];
     [ApiController sharedInstance].user = nil;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
     [self performSegueWithIdentifier:@"logout" sender:self];
@@ -197,21 +181,21 @@ float heightContentView;
         [group setAssetsFilter:[ALAssetsFilter allPhotos]];
 
         NSMutableArray *inputPaths = [NSMutableArray new];
-        NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
-        NSString *zippedPath = [NSString stringWithFormat:@"%@/toto.zip", [tmpDirURL path]];
+        NSArray *URLs = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+        NSURL *tmpDirURL = URLs[0];
+
+        NSString *zippedPath = [NSString stringWithFormat:@"%@/%@.zip", [tmpDirURL path], [ApiController sharedInstance].user.token];
         
         [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
             if (alAsset) {
                 if([((NSDate *)[alAsset valueForProperty:ALAssetPropertyDate]) compare: endDate] == NSOrderedDescending) {
                     // bug photo si que photo a update et rien apres
                     // Create image in tmp
-                    NSLog(@"toto");
                     ALAssetRepresentation *representation = [alAsset defaultRepresentation];
                     UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullScreenImage]];
                     NSData *data = UIImageJPEGRepresentation(latestPhoto, 0.2);
                     NSString *imagePath = [NSString stringWithFormat:@"%@/%@",[tmpDirURL path], [representation filename]];
                     [data writeToFile:imagePath atomically:YES];
-                    
                     [inputPaths addObject:imagePath];
                     
                 } else {
@@ -220,51 +204,64 @@ float heightContentView;
 
                     if ([inputPaths count] != 0) {
                         NSLog(@"uploads photo");
+
                         [SSZipArchive createZipFileAtPath:zippedPath withFilesAtPaths:inputPaths];
 
                         NSString *urlString = [[ApiController sharedInstance] getUrlUploadImages];
                         NSString *fileName = [NSString stringWithFormat:@"%@.zip",[ApiController sharedInstance].user.token];
 
-                        NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer]
-                                                        multipartFormRequestWithMethod:@"POST"
-                                                        URLString:urlString
-                                                        parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                                                        [formData appendPartWithFileURL:[NSURL fileURLWithPath:zippedPath]
-                                                                                   name:@"zip"
-                                                                               fileName:fileName
-                                                                               mimeType:@"image/jpeg"
-                                                                                  error:nil];
-                                                    }
-                                                    error:nil];
+                        NSData *zipData = [[NSData alloc] initWithContentsOfFile:zippedPath];
+                        NSURL *url=[NSURL URLWithString:urlString];
+                        NSString *str = @"zip";
 
-                        
-                        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-                        NSProgress *progress = nil;
+                        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+                        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+                        [request setHTTPShouldHandleCookies:NO];
+                        [request setTimeoutInterval:30];
+                        [request setURL:url];
+                        [request setHTTPMethod:@"POST"];
 
-                        NSLog(@"start upload photos");
-                        NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-                            if (error) {
-                                NSLog(@"error upload photo");
-                                [self sendLocalNotification:@"photos are upload FAIL !!"];
-                                 [self performSelector:@selector(getPhotoOnLibrary) withObject:nil afterDelay:2.0f];
-                            } else {
-                                [self sendLocalNotification:@"photos are upload"];
-                                NSDictionary *dictionary = responseObject[@"user"];
-                                [[ApiController sharedInstance] setUserLoad:dictionary];
-                                [self updateDataPhotoAfterSynchro];
-                            }
-                        }];
-                                 
-                        [uploadTask resume];
+                        NSString *boundary = [NSString stringWithFormat:@"---------------------------14737809831464368775746641449"];
+                        NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+                        [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+
+                        NSMutableData *body = [NSMutableData data];
+                        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"currentEventID\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[@"52344457901000006" dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", str, fileName] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[@"Content-Type: zip\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:zipData];
+                        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [request setHTTPBody:body];
 
                         NSError *error = [[NSError alloc] init];
+                        NSHTTPURLResponse *response = nil;
+                        NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+                        if ((long)[response statusCode] == 200) {
+                            error = nil;
+                            [self sendLocalNotification:@"photos are upload"];
+                            NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:urlData
+                                                                                     options:NSJSONReadingMutableContainers
+                                                                                       error:&error];
+                            [[ApiController sharedInstance] setUserLoad:jsonData[@"user"]];
+                            [self updateDataPhotoAfterSynchro];
+                        } else {
+                            [self sendLocalNotification:@"photos are upload FAIL !!"];
+                            [self performSelector:@selector(getPhotoOnLibrary) withObject:nil afterDelay:60.0f];
+                        }
+
                         NSFileManager *fm = [NSFileManager defaultManager];
                         [fm removeItemAtPath:[tmpDirURL path] error:&error];
                     } else {
-                        NSLog(@"no photos");
+                        [self sendLocalNotification:@"No photo to update"];
                     }
                 }
             }
+
         }];
     } failureBlock: ^(NSError *error) {
         NSLog(@"No groups");
@@ -365,37 +362,181 @@ float heightContentView;
 
 - (void)updatePhotoData:(Data *)data Synchro:(NSInteger)nbSynchro {
     for (int i = 0; i < [data.photos count]; i++) {
-        int lowerAlpha = 1;
-        int upperAlpha = 7;
-        float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
-        int randomAngle = arc4random() % 45;
-        CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
-        CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * radiusPhotoCicle, sinf(theta) * radiusPhotoCicle + heightContentView/2);
-        [self drawCircle:newCenter radius:10 startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlePhotoColor colorWithAlphaComponent:randomAlpha] dotted:NO];
+        [self drawCirclePhoto:nbSynchro];
     }
 }
 
+- (void)drawCirclePhoto:(NSInteger)nbSynchro {
+    int lowerAlpha = 1;
+    int upperAlpha = 7;
+    float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
+    int randomAngle = arc4random() % 45;
+    CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
+    CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * radiusPhotoCicle, sinf(theta) * radiusPhotoCicle + heightContentView/2);
+    [self drawCircle:newCenter radius:10 startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlePhotoColor colorWithAlphaComponent:randomAlpha] dotted:NO];
+}
+
 - (void)updateGeolocData:(Data *)data Synchro:(NSInteger)nbSynchro {
-//    [data.atmosphere count]
-    for (int i = 0; i < 1; i++) {
-        /* random alpha */
-        int lowerAlpha = 1;
-        int upperAlpha = 7;
-        float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
-        /* random angle */
-        int randomAngle = arc4random() % 45;
-        /* random radius */
-        int lowerRadius = radiusGeolocCircle - 20;
-        int upperRadius = radiusGeolocCircle + 20;
-        int randomRadius = lowerRadius + arc4random() % (upperRadius - lowerRadius);
-        /* random radius */
-        int lowerCircleRadius = 5;
-        int upperCircleRadius = 20;
-        int randomCircleRadius = lowerCircleRadius + arc4random() % (upperCircleRadius - lowerCircleRadius);
-        CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
-        CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * randomRadius, sinf(theta) * randomRadius + heightContentView/2);
-        [self drawCircle:newCenter radius:randomCircleRadius startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlegeolocColor colorWithAlphaComponent:randomAlpha] dotted:NO];
+    for (int i = 0; i < [data.atmosphere count]; i++) {
+        [self drawCircleGeoloc:nbSynchro];
     }
+}
+
+- (void)drawCircleGeoloc:(NSInteger)nbSynchro {
+    /* random alpha */
+    int lowerAlpha = 1;
+    int upperAlpha = 7;
+    float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
+    /* random angle */
+    int randomAngle = arc4random() % 45;
+    /* random radius */
+    int lowerRadius = radiusGeolocCircle - 20;
+    int upperRadius = radiusGeolocCircle + 20;
+    int randomRadius = lowerRadius + arc4random() % (upperRadius - lowerRadius);
+    /* random radius */
+    int lowerCircleRadius = 5;
+    int upperCircleRadius = 20;
+    int randomCircleRadius = lowerCircleRadius + arc4random() % (upperCircleRadius - lowerCircleRadius);
+    CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
+    CGPoint newCenter = CGPointMake(self.view.bounds.size.width/2 + cosf(theta) * randomRadius, sinf(theta) * randomRadius + heightContentView/2);
+    [self drawCircle:newCenter radius:randomCircleRadius startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlegeolocColor colorWithAlphaComponent:randomAlpha] dotted:NO];
+
+}
+
+- (void)lauchSyncho {
+    if ([CMPedometer isStepCountingAvailable]) {
+        [self updateDate];
+        [self queryPedometerDataFromDate:endDate toDate:startDate];
+    } else {
+        [self updateData];
+    }
+}
+
+- (void)updateData {
+    NSLog(@"update");
+
+    if ([[ApiController sharedInstance].location count] != 0){
+
+        NSMutableDictionary * dictio = [[NSMutableDictionary alloc]init];
+        [dictio setObject:[ApiController sharedInstance].location forKey:@"geolo"];
+        if (![CMPedometer isStepCountingAvailable]) {
+            self.pedometerInformation = [[NSMutableDictionary alloc]init];
+            [self.pedometerInformation setObject:[NSNumber numberWithInt:1] forKey:@"stepNumber"];
+            [self.pedometerInformation setObject:[NSNumber numberWithFloat:1.f] forKey:@"distance"];
+            [self.pedometerInformation setObject:[NSNumber numberWithFloat:1.f] forKey:@"vitesse"];
+            [dictio setObject:self.pedometerInformation forKey:@"pedometer"];
+        } else {
+            [dictio setObject:self.pedometerInformation forKey:@"pedometer"];
+        }
+
+
+        [dictio setObject:[NSString stringWithFormat:@"%f", [[[ApiController sharedInstance] getCurrentDate] timeIntervalSince1970]] forKey:@"time"];
+
+        NSString *urlString = [[ApiController sharedInstance] getUrlUploadData];
+
+        NSDictionary *dict = [dictio mutableCopy];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        [manager setRequestSerializer: [AFJSONRequestSerializer serializer]];
+        [manager POST:urlString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+            NSDictionary *dictionary = responseObject[@"user"];
+            [[ApiController sharedInstance] setUserLoad:dictionary];
+            [self sendLocalNotification:@"information are upload"];
+            [[ApiController sharedInstance].location removeAllObjects];
+            [self updateDataGeolocAfterSynchro];
+            NSLog(@"end upload data");
+            // for upload images
+            [self getPhotoOnLibrary];
+
+
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+            NSLog(@"%@", error);
+            NSLog(@"error code %ld",(long)[operation.response statusCode]);
+            [self sendLocalNotification:@"information are upload FAIL !!"];
+            [self performSelector:@selector(updateData) withObject:nil afterDelay:60.0f];
+
+        }];
+    }
+
+}
+
+
+- (void)synchroAuto {
+    NSLog(@"active synchro");
+    // 3600 -> 1h, 1200 -> 20mn, 10800 -> 3h
+    [NSTimer scheduledTimerWithTimeInterval:10800. target:self
+                                   selector:@selector(lauchSyncho) userInfo:nil repeats:YES];
+}
+
+- (void)activeTracker {
+    NSLog(@"active location tracker");
+    UIAlertView * alert;
+
+    //We have to make sure that the Background App Refresh is enable for the Location updates to work in the background.
+    if([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusDenied){
+
+        alert = [[UIAlertView alloc]initWithTitle:@""
+                                          message:@"The app doesn't work without the Background App Refresh enabled. To turn it on, go to Settings > General > Background App Refresh"
+                                         delegate:nil
+                                cancelButtonTitle:@"Ok"
+                                otherButtonTitles:nil, nil];
+        [alert show];
+
+    }else if([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusRestricted){
+
+        alert = [[UIAlertView alloc]initWithTitle:@""
+                                          message:@"The functions of this app are limited because the Background App Refresh is disable."
+                                         delegate:nil
+                                cancelButtonTitle:@"Ok"
+                                otherButtonTitles:nil, nil];
+        [alert show];
+
+    } else{
+
+        // Override point for customization after application launch.
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        [self.locationManager startUpdatingLocation];
+
+        self.accuracyTimer = [NSTimer scheduledTimerWithTimeInterval:60.
+                                                      target:self
+                                                    selector:@selector(changeAccuracy)
+                                                    userInfo:nil
+                                                     repeats:YES];
+
+        // 600 s -> 10min, 720 s -> 12min
+        self.locationTimer = [NSTimer scheduledTimerWithTimeInterval:720.
+                                                       target:self
+                                                     selector:@selector(updateLocation)
+                                                     userInfo:nil
+                                                      repeats:YES];
+    }
+
+}
+
+- (void) changeAccuracy {
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    [self.locationManager setDistanceFilter:kCLDistanceFilterNone];
+}
+
+- (void)locationManager:(CLLocationManager *)lm didUpdateLocations:(NSArray *)locations{
+    self.location = [locations lastObject];
+
+    latitude = self.location.coordinate.latitude;
+    longitude = self.location.coordinate.longitude;
+    [lm setDesiredAccuracy:kCLLocationAccuracyThreeKilometers];
+    [lm setDistanceFilter:99999];
+}
+
+- (void)updateLocation {
+    NSMutableDictionary * myBestLocation = [[NSMutableDictionary alloc]init];
+    [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.latitude] forKey:@"latitude"];
+    [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.longitude] forKey:@"longitude"];
+    [myBestLocation setObject:[NSNumber numberWithFloat:[self.lastLocation distanceFromLocation:self.location]] forKey:@"distance"];
+    [myBestLocation setObject:[NSString stringWithFormat:@"%f", [[[ApiController sharedInstance] getCurrentDate] timeIntervalSince1970]] forKey:@"time"];
+    self.lastLocation = self.location;
+    [[ApiController sharedInstance].location addObject:myBestLocation];
 }
 
 @end
