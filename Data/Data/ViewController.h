@@ -28,6 +28,8 @@
 @property (nonatomic) CLLocation *location;
 @property (nonatomic) CLLocation *lastLocation;
 @property (nonatomic) CLLocationManager *locationManager;
+@property (nonatomic) CLGeocoder *geocoder;
+@property (nonatomic) CLPlacemark *placemark;
 @property (nonatomic) NSMutableDictionary *pedometerInformation;
 
 

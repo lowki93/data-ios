@@ -497,6 +497,7 @@ float heightContentView;
         // Override point for customization after application launch.
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
+        self.geocoder = [[CLGeocoder alloc] init];
         [self.locationManager startUpdatingLocation];
 
         self.accuracyTimer = [NSTimer scheduledTimerWithTimeInterval:60.
@@ -506,7 +507,7 @@ float heightContentView;
                                                      repeats:YES];
 
         // 600 s -> 10min, 720 s -> 12min
-        self.locationTimer = [NSTimer scheduledTimerWithTimeInterval:720.
+        self.locationTimer = [NSTimer scheduledTimerWithTimeInterval:10.
                                                        target:self
                                                      selector:@selector(updateLocation)
                                                      userInfo:nil
@@ -530,10 +531,31 @@ float heightContentView;
 }
 
 - (void)updateLocation {
-    NSMutableDictionary * myBestLocation = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *myBestLocation = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *addressLocation = [[NSMutableDictionary alloc] init];
+
+    [self.geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && [placemarks count] > 0) {
+            self.placemark = [placemarks lastObject];
+//            NSLog(@"%@ %@\n%@ %@\n%@\n%@",
+//                                 self.placemark.subThoroughfare, self.placemark.thoroughfare,
+//                                 self.placemark.postalCode, self.placemark.locality,
+//                                 self.placemark.administrativeArea,
+//                                 self.placemark.country);
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.subThoroughfare] forKey:@"numbers"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.thoroughfare] forKey:@"way"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.postalCode] forKey:@"postalCode"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.locality] forKey:@"town"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.administrativeArea] forKey:@"area"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.country] forKey:@"country"];
+        } else {
+            NSLog(@"%@", error.debugDescription);
+        }
+    }];
     [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.latitude] forKey:@"latitude"];
     [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.longitude] forKey:@"longitude"];
     [myBestLocation setObject:[NSNumber numberWithFloat:[self.lastLocation distanceFromLocation:self.location]] forKey:@"distance"];
+    [myBestLocation setObject:addressLocation forKey:@"address"];
     [myBestLocation setObject:[NSString stringWithFormat:@"%f", [[[ApiController sharedInstance] getCurrentDate] timeIntervalSince1970]] forKey:@"time"];
     self.lastLocation = self.location;
     [[ApiController sharedInstance].location addObject:myBestLocation];
