@@ -148,12 +148,7 @@ float heightContentView;
         [self activeTracker];
         [self synchroAuto];
 
-        NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
-        [dict setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
-        [dict setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
-        [[ApiController sharedInstance].location addObject:dict];
-
-        [self lauchSyncho];
+        [self performSelector:@selector(lauchSyncho) withObject:nil afterDelay:3.f];//[self lauchSyncho];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        NSLog(@"error code %d",[operation.response statusCode]);
@@ -508,6 +503,8 @@ float heightContentView;
         self.locationManager.delegate = self;
         self.geocoder = [[CLGeocoder alloc] init];
         [self.locationManager startUpdatingLocation];
+
+        [self performSelector:@selector(updateLocation) withObject:nil afterDelay:1.f];
 
         self.accuracyTimer = [NSTimer scheduledTimerWithTimeInterval:60.
                                                       target:self
