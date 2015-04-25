@@ -42,23 +42,29 @@
     [ApiController sharedInstance].experience = experience;
     user.currentData = experience;
     [ApiController sharedInstance].user = user;
+    self.nbDay = [experience .day count];
     [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"user"];
 }
 
-- (NSDate *)getCurrentDate {
+- (NSString *)getDateWithTime {
 
-    NSDate* sourceDate = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *now = [[NSDate alloc] init];
+    NSString *dateTime = [dateFormat stringFromDate:now];
 
-    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+    return dateTime;
 
-    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:sourceDate];
-    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:sourceDate];
-    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+}
 
-    NSDate* destinationDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:sourceDate];
+- (NSString *)getDate {
 
-    return destinationDate;
+    NSDateFormatter *dateFormatDate = [[NSDateFormatter alloc] init];
+    [dateFormatDate setDateFormat:@"yyyy-MM-dd"];
+    NSDate *now = [[NSDate alloc] init];
+    NSString *theDate = [dateFormatDate stringFromDate:now];
+
+    return theDate;
 }
 
 - (NSString *)getUrlSignIn {

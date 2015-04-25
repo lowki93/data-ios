@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIButton *synchronizeButton;
 @property (weak, nonatomic) IBOutlet UILabel *synchroLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dataLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewHeightConstraint;

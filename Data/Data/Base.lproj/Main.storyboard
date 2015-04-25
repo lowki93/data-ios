@@ -297,7 +297,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zI7-2w-LOM">
                                         <rect key="frame" x="279" y="59" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -317,12 +317,20 @@
                                     <segue destination="VIq-F2-NgP" kind="show" id="VMi-wA-xjW"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a24-kc-O8A">
+                                <rect key="frame" x="279" y="108" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="RWe-Se-sPz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="1dw-Hw-M5z"/>
                             <constraint firstItem="NHg-Eq-tUX" firstAttribute="centerY" secondItem="KAn-9e-J8G" secondAttribute="centerY" id="524-Bg-Kyu"/>
+                            <constraint firstItem="a24-kc-O8A" firstAttribute="top" secondItem="NHg-Eq-tUX" secondAttribute="bottom" constant="50" id="8jd-bD-1nT"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="RWe-Se-sPz" secondAttribute="bottom" id="AjY-CH-apK"/>
+                            <constraint firstAttribute="centerX" secondItem="a24-kc-O8A" secondAttribute="centerX" id="Ixs-Ry-i1G"/>
                             <constraint firstItem="Yi0-GX-rlY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="J8u-d4-ojo"/>
                             <constraint firstItem="KAn-9e-J8G" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="WUh-nN-BVS"/>
                             <constraint firstItem="Yi0-GX-rlY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="YmT-NO-KGh"/>
@@ -336,6 +344,7 @@
                     <connections>
                         <outlet property="contentView" destination="RWe-Se-sPz" id="F4v-69-znm"/>
                         <outlet property="contentViewHeightConstraint" destination="Foj-wo-fRD" id="Qhh-eh-LtD"/>
+                        <outlet property="dataLabel" destination="a24-kc-O8A" id="gd0-bP-YBm"/>
                         <outlet property="startButton" destination="KAn-9e-J8G" id="AyN-PY-lj5"/>
                         <outlet property="synchroLabel" destination="zI7-2w-LOM" id="UL0-g2-O2I"/>
                         <outlet property="synchronizeButton" destination="NHg-Eq-tUX" id="3CT-WQ-wdi"/>

@@ -18,11 +18,13 @@
 @property (nonatomic) User *user;
 @property (nonatomic) Experience *experience;
 @property (nonatomic) NSMutableArray *location;
+@property (nonatomic) long nbDay;
 
 + (ApiController *)sharedInstance;
 - (void)loadApi;
 - (void)setUserLoad:(NSDictionary *)dictionary;
-- (NSDate *)getCurrentDate;
+- (NSString *)getDateWithTime;
+- (NSString *)getDate;
 - (NSString *)getUrlSignIn;
 - (NSString *)getUrlSignUp;
 - (NSString *)getUrlUploadImages;

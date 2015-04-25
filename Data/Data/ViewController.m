@@ -19,7 +19,7 @@
 
 BaseViewController *baseView;
 
-float latitude, longitude, timeSynchro, distance;
+float latitude, longitude, timeSynchro, distance, synchroTime, locationTime;
 int stepNumber;
 NSDate *startDate, *endDate;
 CGPoint centerCircle;
@@ -42,6 +42,7 @@ float heightContentView;
     if([ApiController sharedInstance].experience != nil) {
         [self.startButton setHidden:YES];
         [self.synchronizeButton setHidden:NO];
+        [self updateDateLabel];
         [self updateSynchroLabel];
         /** test draw circle **/
         [self createCircle];
@@ -68,6 +69,8 @@ float heightContentView;
     }
 
     timeSynchro = 3;
+    synchroTime = 10800.;
+    locationTime = 720.;
     [self updateDate];
 
 }
@@ -91,7 +94,8 @@ float heightContentView;
 }
 
 - (void)updateDate {
-        startDate = [[ApiController sharedInstance] getCurrentDate];
+        NSDate *now = [[NSDate alloc] init];
+        startDate = now;
         endDate = [startDate dateByAddingTimeInterval:-(1. * timeSynchro * 3600)];
 }
 
@@ -413,10 +417,9 @@ float heightContentView;
 }
 
 - (void)updateData {
-    NSLog(@"update");
 
     if ([[ApiController sharedInstance].location count] != 0){
-
+        NSLog(@"update");
         NSMutableDictionary * dictio = [[NSMutableDictionary alloc]init];
         [dictio setObject:[ApiController sharedInstance].location forKey:@"geolo"];
         if (![CMPedometer isStepCountingAvailable]) {
@@ -429,8 +432,8 @@ float heightContentView;
             [dictio setObject:self.pedometerInformation forKey:@"pedometer"];
         }
 
-
-        [dictio setObject:[NSString stringWithFormat:@"%f", [[[ApiController sharedInstance] getCurrentDate] timeIntervalSince1970]] forKey:@"time"];
+        [dictio setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
+        [dictio setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDate]] forKey:@"day"];
 
         NSString *urlString = [[ApiController sharedInstance] getUrlUploadData];
 
@@ -440,11 +443,17 @@ float heightContentView;
         [manager POST:urlString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
             NSDictionary *dictionary = responseObject[@"user"];
+            if( (unsigned long)[dictionary[@"currentData"][@"day"] count] != [ApiController sharedInstance].nbDay) {
+                self.contentView.layer.sublayers = nil;
+                [self createCircle];
+            }
+            [self updateDateLabel];
             [[ApiController sharedInstance] setUserLoad:dictionary];
             [self sendLocalNotification:@"information are upload"];
             [[ApiController sharedInstance].location removeAllObjects];
             [self updateDataGeolocAfterSynchro];
             NSLog(@"end upload data");
+            [self updateSynchroLabel];
             // for upload images
             [self getPhotoOnLibrary];
 
@@ -507,7 +516,7 @@ float heightContentView;
                                                      repeats:YES];
 
         // 600 s -> 10min, 720 s -> 12min
-        self.locationTimer = [NSTimer scheduledTimerWithTimeInterval:10.
+        self.locationTimer = [NSTimer scheduledTimerWithTimeInterval:720.
                                                        target:self
                                                      selector:@selector(updateLocation)
                                                      userInfo:nil
@@ -537,11 +546,11 @@ float heightContentView;
     [self.geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error == nil && [placemarks count] > 0) {
             self.placemark = [placemarks lastObject];
-//            NSLog(@"%@ %@\n%@ %@\n%@\n%@",
-//                                 self.placemark.subThoroughfare, self.placemark.thoroughfare,
-//                                 self.placemark.postalCode, self.placemark.locality,
-//                                 self.placemark.administrativeArea,
-//                                 self.placemark.country);
+            NSLog(@"%@ %@\n%@ %@\n%@\n%@",
+                                 self.placemark.subThoroughfare, self.placemark.thoroughfare,
+                                 self.placemark.postalCode, self.placemark.locality,
+                                 self.placemark.administrativeArea,
+                                 self.placemark.country);
             [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.subThoroughfare] forKey:@"numbers"];
             [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.thoroughfare] forKey:@"way"];
             [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.postalCode] forKey:@"postalCode"];
@@ -556,9 +565,14 @@ float heightContentView;
     [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.longitude] forKey:@"longitude"];
     [myBestLocation setObject:[NSNumber numberWithFloat:[self.lastLocation distanceFromLocation:self.location]] forKey:@"distance"];
     [myBestLocation setObject:addressLocation forKey:@"address"];
-    [myBestLocation setObject:[NSString stringWithFormat:@"%f", [[[ApiController sharedInstance] getCurrentDate] timeIntervalSince1970]] forKey:@"time"];
+
+    [myBestLocation setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
     self.lastLocation = self.location;
     [[ApiController sharedInstance].location addObject:myBestLocation];
+}
+
+- (void)updateDateLabel {
+    [self.dataLabel setText:[[ApiController sharedInstance] getDate]];
 }
 
 @end
