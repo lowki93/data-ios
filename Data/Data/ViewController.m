@@ -48,7 +48,6 @@ float heightContentView;
         [self createCircle];
         [self displayData];
         [self activeTracker];
-        [self synchroAuto];
     }
 
     // FOR GEOLOCALIZATION
@@ -146,7 +145,6 @@ float heightContentView;
         [self.synchronizeButton setHidden:NO];
         [self createCircle];
         [self activeTracker];
-        [self synchroAuto];
 
         [self performSelector:@selector(lauchSyncho) withObject:nil afterDelay:3.f];//[self lauchSyncho];
 
@@ -250,7 +248,7 @@ float heightContentView;
                             [self updateDataPhotoAfterSynchro];
                         } else {
                             [self sendLocalNotification:@"photos are upload FAIL !!"];
-                            [self performSelector:@selector(getPhotoOnLibrary) withObject:nil afterDelay:60.0f];
+                            [self performSelector:@selector(getPhotoOnLibrary) withObject:nil afterDelay:120.0f];
                         }
 
                         NSFileManager *fm = [NSFileManager defaultManager];
@@ -273,6 +271,7 @@ float heightContentView;
     NSInteger dataCount = [currentDay.data count] - 1;
     Data *currentData = currentDay.data[dataCount];
     [self.synchroLabel setText:currentData.date];
+    [self synchroAuto];
 }
 
 - (void)drawCircle:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle strokeColor:(UIColor * )strokeColor fillColor:(UIColor * )fillColor dotted:(BOOL)dotted {
@@ -458,7 +457,7 @@ float heightContentView;
             NSLog(@"%@", error);
             NSLog(@"error code %ld",(long)[operation.response statusCode]);
             [self sendLocalNotification:@"information are upload FAIL !!"];
-            [self performSelector:@selector(updateData) withObject:nil afterDelay:60.0f];
+            [self performSelector:@selector(updateData) withObject:nil afterDelay:120.0f];
 
         }];
     }
@@ -470,7 +469,7 @@ float heightContentView;
     NSLog(@"active synchro");
     // 3600 -> 1h, 1200 -> 20mn, 10800 -> 3h
     [NSTimer scheduledTimerWithTimeInterval:10800. target:self
-                                   selector:@selector(lauchSyncho) userInfo:nil repeats:YES];
+                                   selector:@selector(lauchSyncho) userInfo:nil repeats:NO];
 }
 
 - (void)activeTracker {
@@ -506,7 +505,7 @@ float heightContentView;
 
         [self performSelector:@selector(updateLocation) withObject:nil afterDelay:1.f];
 
-        self.accuracyTimer = [NSTimer scheduledTimerWithTimeInterval:60.
+        self.accuracyTimer = [NSTimer scheduledTimerWithTimeInterval:300.
                                                       target:self
                                                     selector:@selector(changeAccuracy)
                                                     userInfo:nil
@@ -540,36 +539,49 @@ float heightContentView;
     NSMutableDictionary *myBestLocation = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *addressLocation = [[NSMutableDictionary alloc] init];
 
+    /** add location and distance **/
+    [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.latitude] forKey:@"latitude"];
+    [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.longitude] forKey:@"longitude"];
+    [myBestLocation setObject:[NSNumber numberWithFloat:[self.lastLocation distanceFromLocation:self.location]] forKey:@"distance"];
+
     [self.geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error == nil && [placemarks count] > 0) {
             self.placemark = [placemarks lastObject];
-            NSLog(@"%@ %@\n%@ %@\n%@\n%@",
-                                 self.placemark.subThoroughfare, self.placemark.thoroughfare,
-                                 self.placemark.postalCode, self.placemark.locality,
-                                 self.placemark.administrativeArea,
-                                 self.placemark.country);
+//            NSLog(@"%@ %@\n%@ %@\n%@\n%@",
+//                                 self.placemark.subThoroughfare, self.placemark.thoroughfare,
+//                                 self.placemark.postalCode, self.placemark.locality,
+//                                 self.placemark.administrativeArea,
+//                                 self.placemark.country);
+            /** address location **/
             [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.subThoroughfare] forKey:@"numbers"];
             [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.thoroughfare] forKey:@"way"];
             [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.postalCode] forKey:@"postalCode"];
             [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.locality] forKey:@"town"];
             [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.administrativeArea] forKey:@"area"];
             [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.country] forKey:@"country"];
+            /** add to myBestLocation **/
+            [myBestLocation setObject:addressLocation forKey:@"address"];
+            [self saveLocation:myBestLocation];
+
         } else {
-            NSLog(@"%@", error.debugDescription);
+
+            [myBestLocation setObject:addressLocation forKey:@"address"];
+            [self saveLocation:myBestLocation];
+
         }
     }];
-    [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.latitude] forKey:@"latitude"];
-    [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.longitude] forKey:@"longitude"];
-    [myBestLocation setObject:[NSNumber numberWithFloat:[self.lastLocation distanceFromLocation:self.location]] forKey:@"distance"];
-    [myBestLocation setObject:addressLocation forKey:@"address"];
-
-    [myBestLocation setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
-    self.lastLocation = self.location;
-    [[ApiController sharedInstance].location addObject:myBestLocation];
 }
 
 - (void)updateDateLabel {
     [self.dataLabel setText:[[ApiController sharedInstance] getDate]];
+}
+
+- (void)saveLocation:(NSMutableDictionary *)myBestLocation {
+    
+    [myBestLocation setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
+    self.lastLocation = self.location;
+    [[ApiController sharedInstance].location addObject:myBestLocation];
+
 }
 
 @end
