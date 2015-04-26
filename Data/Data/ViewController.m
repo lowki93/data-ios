@@ -155,6 +155,8 @@ float heightContentView;
 }
 
 - (IBAction)logoutPressed:(id)sender {
+    NSLog(@"logout and kill timer");
+    [self.synchroTimer invalidate];
     [self.accuracyTimer invalidate];
     [self.locationTimer invalidate];
     [ApiController sharedInstance].user = nil;
@@ -468,8 +470,10 @@ float heightContentView;
 - (void)synchroAuto {
     NSLog(@"active synchro");
     // 3600 -> 1h, 1200 -> 20mn, 10800 -> 3h
-    [NSTimer scheduledTimerWithTimeInterval:10800. target:self
-                                   selector:@selector(lauchSyncho) userInfo:nil repeats:NO];
+    self.synchroTimer = [NSTimer scheduledTimerWithTimeInterval:10800.
+                                                         target:self
+                                                       selector:@selector(lauchSyncho)
+                                                       userInfo:nil repeats:NO];
 }
 
 - (void)activeTracker {

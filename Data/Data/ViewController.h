@@ -26,6 +26,7 @@
 
 @property (nonatomic) NSTimer *accuracyTimer;
 @property (nonatomic) NSTimer *locationTimer;
+@property (nonatomic) NSTimer *synchroTimer;
 @property (nonatomic) CLLocation *location;
 @property (nonatomic) CLLocation *lastLocation;
 @property (nonatomic) CLLocationManager *locationManager;
