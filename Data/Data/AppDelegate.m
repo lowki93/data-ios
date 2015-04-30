@@ -22,7 +22,7 @@
         NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"viewController"];
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"DataViewController"];
         self.window.rootViewController = viewController;
         [self.window makeKeyAndVisible];
     }
@@ -31,6 +31,17 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings
                                                                              settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound
                                                                        categories:nil]];
+    }
+
+    //This code will work in iOS 8.0 xcode 6.0 or later
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeNewsstandContentAvailability| UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
     
     UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey];
@@ -76,6 +87,12 @@
     [localNotification setAlertBody:[NSString stringWithFormat:@"Launch Data Application for catching data"]];
     [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[deviceToken description] forKey:@"MyAppSpecificGloballyUniqueString"];
+    NSLog(@"Device_Token -----> %@\n",[deviceToken description]);
 }
 
 @end

@@ -10,4 +10,12 @@
 
 @interface TimeLineView : UIView
 
+@property (nonatomic, strong) CAShapeLayer *progressLayer;
+@property (nonatomic, assign) int indexDay;
+@property (nonatomic, assign) int nbDay;
+@property (nonatomic, assign) int currentDay;
+
+- (void)initTimeLine:(int)nbDay indexDay:(int)indexDay;
+- (void)animatedTimeLine:(int)indexDay;
+
 @end

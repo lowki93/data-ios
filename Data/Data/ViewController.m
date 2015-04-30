@@ -19,7 +19,7 @@
 
 BaseViewController *baseView;
 
-float latitude, longitude, timeSynchro, distance, synchroTime, locationTime;
+float latitude, longitude, timeSynchro, distance, synchroTime;
 int stepNumber;
 NSDate *startDate, *endDate;
 CGPoint centerCircle;
@@ -29,6 +29,7 @@ float heightContentView;
 @implementation ViewController
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
 
     baseView = [[BaseViewController alloc] init];
@@ -47,20 +48,21 @@ float heightContentView;
         /** test draw circle **/
         [self createCircle];
         [self displayData];
-        [self activeTracker];
     }
 
     // FOR GEOLOCALIZATION
-//    self.locationManager = [[CLLocationManager alloc] init];
-//    if ([CLLocationManager locationServicesEnabled] ) {
-//        [self.locationManager  setDelegate: self];
-//        [self.locationManager  setDesiredAccuracy: kCLLocationAccuracyBest];
-//        [self.locationManager  setDistanceFilter: 100.f];
-//        if ([self.locationManager  respondsToSelector:@selector(requestWhenInUseAuthorization)] ) {
-//            [self.locationManager  requestWhenInUseAuthorization];
-//        }
+    self.locationManager = [[CLLocationManager alloc] init];
+    if ([CLLocationManager locationServicesEnabled] ) {
+        [self.locationManager  setDelegate: self];
+        [self.locationManager  setDesiredAccuracy: kCLLocationAccuracyThreeKilometers];
+        [self.locationManager  setDistanceFilter: 9999];
+        if ([self.locationManager  respondsToSelector:@selector(requestAlwaysAuthorization)] ) {
+            [self.locationManager  requestAlwaysAuthorization];
+        }
+        [self.locationManager startUpdatingLocation];
+        [self activeTracker];
 ////        [self.locationManager  startUpdatingLocation];
-//    }
+    }
 
     // FOR PODOMETER
     if ([CMPedometer isStepCountingAvailable]) {
@@ -69,7 +71,6 @@ float heightContentView;
 
     timeSynchro = 3;
     synchroTime = 10800.;
-    locationTime = 720.;
     [self updateDate];
 
 }
@@ -133,7 +134,6 @@ float heightContentView;
 - (IBAction)finishStart:(id)sender {
     NSLog(@"Finish start");
 
-
     NSString *urlString = [[ApiController sharedInstance] getUrlExperienceCreate];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -146,7 +146,7 @@ float heightContentView;
         [self createCircle];
         [self activeTracker];
 
-        [self performSelector:@selector(lauchSyncho) withObject:nil afterDelay:3.f];//[self lauchSyncho];
+        [self performSelector:@selector(lauchSyncho) withObject:nil afterDelay:3.f];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        NSLog(@"error code %d",[operation.response statusCode]);
@@ -249,8 +249,8 @@ float heightContentView;
                             [[ApiController sharedInstance] setUserLoad:jsonData[@"user"]];
                             [self updateDataPhotoAfterSynchro];
                         } else {
-                            [self sendLocalNotification:@"photos are upload FAIL !!"];
-                            [self performSelector:@selector(getPhotoOnLibrary) withObject:nil afterDelay:120.0f];
+                            [self sendLocalNotification:[NSString stringWithFormat:@"upload photo FAIL with code : %ld, error : %@ !!", (long)[response statusCode], error]];
+                            [self performSelector:@selector(getPhotoOnLibrary) withObject:nil afterDelay:300.0f];
                         }
 
                         NSFileManager *fm = [NSFileManager defaultManager];
@@ -273,7 +273,7 @@ float heightContentView;
     NSInteger dataCount = [currentDay.data count] - 1;
     Data *currentData = currentDay.data[dataCount];
     [self.synchroLabel setText:currentData.date];
-    [self synchroAuto];
+//    [self synchroAuto];
 }
 
 - (void)drawCircle:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle strokeColor:(UIColor * )strokeColor fillColor:(UIColor * )fillColor dotted:(BOOL)dotted {
@@ -337,10 +337,7 @@ float heightContentView;
             [self updatePhotoData:currentData Synchro:nbSynchro];
             /** for geoloc **/
             [self updateGeolocData:currentData Synchro:nbSynchro];
-
         }
-
-//        self.contentView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
     }
 }
 
@@ -416,6 +413,7 @@ float heightContentView;
 
     if ([[ApiController sharedInstance].location count] != 0){
         NSLog(@"update");
+        [self sendLocalNotification:@"Update data start"];
         NSMutableDictionary * dictio = [[NSMutableDictionary alloc]init];
         [dictio setObject:[ApiController sharedInstance].location forKey:@"geolo"];
         if (![CMPedometer isStepCountingAvailable]) {
@@ -445,11 +443,15 @@ float heightContentView;
             }
             [self updateDateLabel];
             [[ApiController sharedInstance] setUserLoad:dictionary];
-            [self sendLocalNotification:@"information are upload"];
+            [self sendLocalNotification:@"data are upload"];
             [[ApiController sharedInstance].location removeAllObjects];
             [self updateDataGeolocAfterSynchro];
             NSLog(@"end upload data");
             [self updateSynchroLabel];
+            [self.synchroTimer invalidate];
+            [self.accuracyTimer invalidate];
+            [self.locationTimer invalidate];
+            [self activeTracker];
             // for upload images
             [self getPhotoOnLibrary];
 
@@ -458,8 +460,8 @@ float heightContentView;
 
             NSLog(@"%@", error);
             NSLog(@"error code %ld",(long)[operation.response statusCode]);
-            [self sendLocalNotification:@"information are upload FAIL !!"];
-            [self performSelector:@selector(updateData) withObject:nil afterDelay:120.0f];
+            [self sendLocalNotification:[NSString stringWithFormat:@"upload data FAIL with code : %ld, error : %@ !!", (long)[operation.response statusCode], error]];
+//            [self performSelector:@selector(updateData) withObject:nil afterDelay:120.0f];
 
         }];
     }
@@ -467,17 +469,18 @@ float heightContentView;
 }
 
 
-- (void)synchroAuto {
-    NSLog(@"active synchro");
-    // 3600 -> 1h, 1200 -> 20mn, 10800 -> 3h
-    self.synchroTimer = [NSTimer scheduledTimerWithTimeInterval:10800.
-                                                         target:self
-                                                       selector:@selector(lauchSyncho)
-                                                       userInfo:nil repeats:NO];
-}
+//- (void)synchroAuto {
+//    NSLog(@"active synchro");
+//    // 3600 -> 1h, 1200 -> 20mn, 10800 -> 3h
+//    self.synchroTimer = [NSTimer scheduledTimerWithTimeInterval:10800.
+//                                                         target:self
+//                                                       selector:@selector(lauchSyncho)
+//                                                       userInfo:nil repeats:NO];
+//}
 
 - (void)activeTracker {
     NSLog(@"active location tracker");
+    [self sendLocalNotification:@"start location tracker"];
     UIAlertView * alert;
 
     //We have to make sure that the Background App Refresh is enable for the Location updates to work in the background.
@@ -502,43 +505,55 @@ float heightContentView;
     } else{
 
         // Override point for customization after application launch.
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
+//        self.locationManager = [[CLLocationManager alloc] init];
+//        self.locationManager.delegate = self;
         self.geocoder = [[CLGeocoder alloc] init];
-        [self.locationManager startUpdatingLocation];
+//        [self.locationManager startUpdatingLocation];
 
         [self performSelector:@selector(updateLocation) withObject:nil afterDelay:1.f];
 
         self.accuracyTimer = [NSTimer scheduledTimerWithTimeInterval:300.
-                                                      target:self
-                                                    selector:@selector(changeAccuracy)
-                                                    userInfo:nil
-                                                     repeats:YES];
+                                                              target:self
+                                                            selector:@selector(changeAccuracy)
+                                                            userInfo:nil
+                                                             repeats:YES];
 
-        // 600 s -> 10min, 720 s -> 12min
-        self.locationTimer = [NSTimer scheduledTimerWithTimeInterval:720.
-                                                       target:self
-                                                     selector:@selector(updateLocation)
-                                                     userInfo:nil
-                                                      repeats:YES];
+//        self.locationTimer = [NSTimer scheduledTimerWithTimeInterval:10.
+//                                                              target:self
+//                                                            selector:@selector(updateLocation)
+//                                                            userInfo:nil
+//                                                             repeats:YES];
     }
 
 }
 
 - (void) changeAccuracy {
+
     [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     [self.locationManager setDistanceFilter:kCLDistanceFilterNone];
+
 }
 
+/** get current Location **/
 - (void)locationManager:(CLLocationManager *)lm didUpdateLocations:(NSArray *)locations{
-    self.location = [locations lastObject];
 
+    self.location = [locations lastObject];
     latitude = self.location.coordinate.latitude;
     longitude = self.location.coordinate.longitude;
     [lm setDesiredAccuracy:kCLLocationAccuracyThreeKilometers];
     [lm setDistanceFilter:99999];
+
+    CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:[self.location coordinate] radius:300 identifier:[[NSUUID UUID] UUIDString]];
+
+//    NSLog(@"%i",[self.locationManager requestStateForRegion:region]);
+
+    // Start Monitoring Region
+    [self.locationManager startMonitoringForRegion:region];
+    [self.locationManager stopUpdatingLocation];
+
 }
 
+/** update location Array **/
 - (void)updateLocation {
     NSMutableDictionary *myBestLocation = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *addressLocation = [[NSMutableDictionary alloc] init];
@@ -581,11 +596,38 @@ float heightContentView;
 }
 
 - (void)saveLocation:(NSMutableDictionary *)myBestLocation {
-    
+
     [myBestLocation setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
     self.lastLocation = self.location;
     [[ApiController sharedInstance].location addObject:myBestLocation];
 
+    [self sendLocalNotification:[NSString stringWithFormat:@"nb location : %lu - location : %f, %f", (unsigned long)[[ApiController sharedInstance].location count],self.location.coordinate.latitude, self.location.coordinate.longitude]];
+    if ([[ApiController sharedInstance].location count] >= 15) {
+        [self lauchSyncho];
+    }
+
 }
+
+//-(void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+//    NSLog(@"Welcome to %@", region.identifier);
+//    NSLog(@"location : %f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude);
+//    [self sendLocalNotification:@"new region"];
+//}
+//
+//
+//-(void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+//    NSLog(@"Bye bye");
+//    [self.locationManager startUpdatingLocation];
+//}
+//
+//-(void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
+//    NSLog(@"Now monitoring for %@", region.identifier);
+//    [self sendLocalNotification:@"start monitoring region"];
+//}
+//
+//-(void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+//    NSLog(@"alor");
+//    [self sendLocalNotification:@"didDetermineState"];
+//}
 
 @end
