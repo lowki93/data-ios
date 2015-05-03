@@ -11,6 +11,8 @@
 
 @interface DataView : UIView
 
+@property (nonatomic) NSMutableArray *arrayData;
+
 - (void)initView;
 - (void)drawData:(int)indexDay;
 

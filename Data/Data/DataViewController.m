@@ -146,6 +146,17 @@ float secondScale;
 
             }
 
+            for (UIView *subView in view.subviews) {
+
+                CGRect frame;
+                frame.origin.x = subView.frame.origin.x / secondScale;
+                frame.origin.y = subView.frame.origin.y / secondScale;
+                frame.size.height = subView.frame.size.height / secondScale;
+                frame.size.width = subView.frame.size.width / secondScale;
+                subView.frame = frame;
+                
+            }
+
             count++;
 
         }
@@ -171,25 +182,7 @@ float secondScale;
 
     [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 
-        int count = 0;
-        float base = (self.view.bounds.size.width / 2) - (self.view.bounds.size.width * firstScale / 2);
-
-        for (UIView *view in self.contentScrollView.subviews) {
-            CGRect frame;
-            frame.origin.x =  base + ((((self.view.bounds.size.width + margin) * firstScale)) * count);
-            frame.origin.y = positionTop ;
-            frame.size.height = heigtViewDetail * firstScale;
-            frame.size.width = self.view.bounds.size.width * firstScale;
-            view.frame = frame;
-
-            for (CAShapeLayer *layer in view.layer.sublayers) {
-                
-                [self animateLayer:layer Start:@1 End:[NSNumber numberWithFloat:firstScale] Delay:0];
-
-            }
-
-            count++;
-        }
+        [self animateView:firstScale ScaleView:firstScale];
 
         CGRect frame = self.contentScrollView.frame;
         frame.origin.x = (self.view.bounds.size.width + margin) * firstScale * indexDay;
@@ -197,9 +190,9 @@ float secondScale;
 
     } completion:^(BOOL finished){
 
-        
         [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 
+//            [self animateView:secondScale ScaleView:(firstScale * secondScale)];
             int count = 0;
             float base = (self.view.bounds.size.width / 2) - (self.view.bounds.size.width * secondScale / 2);
 
@@ -215,6 +208,17 @@ float secondScale;
 
                     [self animateLayer:layer Start:[NSNumber numberWithFloat:firstScale] End:[NSNumber numberWithFloat:secondScale] Delay:0];
 
+                }
+
+                for (UIView *subView in view.subviews) {
+
+                    CGRect frame;
+                    frame.origin.x = subView.frame.origin.x / firstScale * secondScale;
+                    frame.origin.y = subView.frame.origin.y / firstScale * secondScale;
+                    frame.size.height = subView.frame.size.height / firstScale * secondScale;
+                    frame.size.width = subView.frame.size.width / firstScale * secondScale;
+                    subView.frame = frame;
+                    
                 }
 
                 count++;
@@ -238,6 +242,42 @@ float secondScale;
     }];
     
     
+}
+
+- (void)animateView:(float)scaleLayer ScaleView:(float)scaleView {
+
+    int count = 0;
+    float base = (self.view.bounds.size.width / 2) - (self.view.bounds.size.width * scaleLayer / 2);
+
+    for (UIView *view in self.contentScrollView.subviews) {
+        CGRect frame;
+        frame.origin.x =  base + ((((self.view.bounds.size.width + margin) * scaleLayer)) * count);
+        frame.origin.y = positionTop ;
+        frame.size.height = heigtViewDetail * scaleLayer;
+        frame.size.width = self.view.bounds.size.width * scaleLayer;
+        view.frame = frame;
+
+        for (CAShapeLayer *layer in view.layer.sublayers) {
+
+            [self animateLayer:layer Start:@1 End:[NSNumber numberWithFloat:scaleLayer] Delay:0];
+
+        }
+
+        for (UIView *subView in view.subviews) {
+
+            CGRect frame;
+            frame.origin.x = subView.frame.origin.x * scaleView;
+            frame.origin.y = subView.frame.origin.y * scaleView;
+            frame.size.height = subView.frame.size.height * scaleView;
+            frame.size.width = subView.frame.size.width * scaleView;
+            subView.frame = frame;
+
+        }
+
+        count++;
+    }
+
+
 }
 
 - (void)animateLayer:(CAShapeLayer *)layer Start:(NSNumber *)start End:(NSNumber *)end Delay:(float)delay {

@@ -16,32 +16,36 @@ BaseViewController *baseView;
 
 float heightContentView;
 CGPoint centerCircle;
-CGFloat radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
+CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
 
 - (void)initView {
+
+    self.arrayData = [[NSMutableArray alloc] init];
 
     baseView = [[BaseViewController alloc] init];
     [baseView initView:baseView];
 
     heightContentView = self.bounds.size.height;
+//    centerCircle = CGPointMake(self.bounds.size.width/2, heightContentView/2);
+//    radiusFirstCicle = (self.bounds.size.width * 0.046875) / 2;
+//    radiusPhotoCicle = (self.bounds.size.width * 0.203125) / 2;
+//    radiusGeolocCircle = (self.bounds.size.width * 0.484375) / 2;
+//    radiusCaptaCircle = (self.bounds.size.width * 0.6484375) / 2;
+//    radiusPedometerCircle = (self.bounds.size.width * 0.8125) / 2;
+    radiusData = (self.bounds.size.width * 0.8125) / 2;
+
     [self createCircle];
 
 }
 
 - (void)createCircle {
 
-    centerCircle = CGPointMake(self.bounds.size.width/2, heightContentView/2);
-    radiusFirstCicle = (self.bounds.size.width * 0.046875) / 2;
-    radiusPhotoCicle = (self.bounds.size.width * 0.203125) / 2;
-    radiusGeolocCircle = (self.bounds.size.width * 0.484375) / 2;
-    radiusCaptaCircle = (self.bounds.size.width * 0.6484375) / 2;
-    radiusPedometerCircle = (self.bounds.size.width * 0.8125) / 2;
 
-    [self drawCircle:centerCircle radius:radiusFirstCicle startAngle:0 strokeColor:baseView.lightBlue fillColor:[UIColor clearColor] dotted:NO];
-    [self drawCircle:centerCircle radius:radiusPhotoCicle startAngle:20 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
-    [self drawCircle:centerCircle radius:radiusGeolocCircle startAngle:40 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
-    [self drawCircle:centerCircle radius:radiusCaptaCircle startAngle:60 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
-    [self drawCircle:centerCircle radius:radiusPedometerCircle startAngle:80 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
+//    [self drawCircle:centerCircle radius:radiusFirstCicle startAngle:0 strokeColor:baseView.lightBlue fillColor:[UIColor clearColor] dotted:NO];
+//    [self drawCircle:centerCircle radius:radiusPhotoCicle startAngle:20 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
+//    [self drawCircle:centerCircle radius:radiusGeolocCircle startAngle:40 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
+//    [self drawCircle:centerCircle radius:radiusCaptaCircle startAngle:60 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
+    [self drawCircle:centerCircle radius:radiusData startAngle:80 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
 }
 
 - (void)drawCircle:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle strokeColor:(UIColor * )strokeColor fillColor:(UIColor * )fillColor dotted:(BOOL)dotted {
@@ -75,14 +79,64 @@ CGFloat radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radiusCaptaCircl
 
     for (int i = 0; i < [currentDay.data count]; i++) {
 
-        int nbSynchro = i;
+//        int nbSynchro = i;
         Data *currentData = currentDay.data[i];
-        /** for photos **/
-        [self updatePhotoData:currentData Synchro:nbSynchro];
-        /** for geoloc **/
-        [self updateGeolocData:currentData Synchro:nbSynchro];
-        
+//        /** for photos **/
+//        [self updatePhotoData:currentData Synchro:nbSynchro];
+//        /** for geoloc **/
+//        [self updateGeolocData:currentData Synchro:nbSynchro];
+
+        NSMutableDictionary *dataDictionnary = [[NSMutableDictionary alloc] init];
+        [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.photos count]] forKey:@"photo"];
+        [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.atmosphere count]] forKey:@"geoloc"];
+        [dataDictionnary setObject:currentData.deplacement[@"stepNumber"] forKey:@"numberStep"];
+
+        [self.arrayData addObject:dataDictionnary];
+
+        [self createButton:i];
     }
+
+}
+
+- (void)createButton:(int)index {
+
+    float radiusButton = 20;
+
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTag:index];
+    [button addTarget:self action:@selector(getInfoData:) forControlEvents:UIControlEventTouchUpInside];
+
+    CGFloat theta = (M_PI * 15 / 180 * index) - M_PI_2;
+    CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + heightContentView/2);
+    [button setFrame:CGRectMake(newCenter.x - radiusButton/ 2, newCenter.y - radiusButton / 2, radiusButton, radiusButton)];
+    [button setClipsToBounds:YES];
+    [button setBackgroundColor:[UIColor redColor]];
+    [button.layer setCornerRadius:radiusButton/2.f];
+
+    [self addSubview:button];
+
+}
+
+- (IBAction)getInfoData:(id)sender {
+
+
+    for (UIView *subview in [self subviews]) {
+
+        if([subview isKindOfClass:[UIButton class]]) {
+
+            UIButton *button = (UIButton *)subview;
+            [button.layer setBorderColor:[UIColor clearColor].CGColor];
+            [button.layer setBorderWidth:0.f];
+
+        }
+    }
+
+    UIButton *button = (UIButton *)sender;
+    [button.layer setBorderColor:[UIColor greenColor].CGColor];
+    [button.layer setBorderWidth:2.f];
+
+    int nbTag = (int)[button tag];
+    NSLog(@"%@", [self.arrayData objectAtIndex:nbTag]);
 
 }
 
