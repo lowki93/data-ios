@@ -40,9 +40,9 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
     Experience *experience = [[Experience alloc] initWithDictionary:dictionary[@"currentData"] error:nil];
     User *user = [[User alloc] initWithDictionary:dictionary error:nil];
-    [ApiController sharedInstance].experience = experience;
+    self.experience = experience;
     user.currentData = experience;
-    [ApiController sharedInstance].user = user;
+    self.user = user;
     self.nbDay = [experience.day count];
     [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"user"];
 
