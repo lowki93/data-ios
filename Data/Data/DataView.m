@@ -26,13 +26,26 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [baseView initView:baseView];
 
     heightContentView = self.bounds.size.height;
-//    centerCircle = CGPointMake(self.bounds.size.width/2, heightContentView/2);
+    centerCircle = CGPointMake(self.bounds.size.width/2, heightContentView/2);
 //    radiusFirstCicle = (self.bounds.size.width * 0.046875) / 2;
 //    radiusPhotoCicle = (self.bounds.size.width * 0.203125) / 2;
 //    radiusGeolocCircle = (self.bounds.size.width * 0.484375) / 2;
 //    radiusCaptaCircle = (self.bounds.size.width * 0.6484375) / 2;
 //    radiusPedometerCircle = (self.bounds.size.width * 0.8125) / 2;
     radiusData = (self.bounds.size.width * 0.8125) / 2;
+
+    float informationViewWidth = (radiusData - 20) * 2;
+    self.informationView = [[DataInformationView alloc] init];
+    [self.informationView setFrame:CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
+                               (self.bounds.size.height / 2) - (informationViewWidth / 2),
+                               informationViewWidth,
+                               informationViewWidth)];
+    [self.informationView.layer setCornerRadius:informationViewWidth/2.];
+    [self.informationView.layer setMasksToBounds:YES];
+    [self.informationView setBackgroundColor:[UIColor whiteColor]];
+    [self.informationView init:informationViewWidth];
+
+    [self addSubview:self.informationView];
 
     [self createCircle];
 
@@ -65,10 +78,14 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [progressLayer setLineWidth:1.f];
     [progressLayer setStrokeStart:0/100];
     [progressLayer setStrokeEnd:100/100];
+
     if(dotted) {
+
         [progressLayer setLineJoin:kCALineJoinRound];
         [progressLayer setLineDashPattern:[NSArray arrayWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],nil]];
+
     }
+
     [self.layer addSublayer:progressLayer];
 
 }
@@ -136,7 +153,9 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [button.layer setBorderWidth:2.f];
 
     int nbTag = (int)[button tag];
-    NSLog(@"%@", [self.arrayData objectAtIndex:nbTag]);
+    NSDictionary *dictionnary = [self.arrayData objectAtIndex:nbTag];
+    [self.informationView.photoInformationLabel setText:[NSString stringWithFormat:@"%@",dictionnary[@"photo"]]];
+//    NSLog(@"%@", dictionnary[@"photo"]);
 
 }
 

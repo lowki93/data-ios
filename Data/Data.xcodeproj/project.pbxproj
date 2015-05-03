@@ -17,6 +17,7 @@
 		174598E21AEF85DC002606CD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174598E11AEF85DC002606CD /* QuartzCore.framework */; };
 		174598E41AEF85E3002606CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174598E31AEF85E3002606CD /* Security.framework */; };
 		1756E5011AD5F8B8006CA988 /* Day.m in Sources */ = {isa = PBXBuildFile; fileRef = 1756E5001AD5F8B8006CA988 /* Day.m */; };
+		176476791AF6D401007657DB /* DataInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 176476781AF6D401007657DB /* DataInformationView.m */; };
 		177138D41AADFA01002AFEF0 /* ApiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 177138D31AADFA01002AFEF0 /* ApiController.m */; };
 		1771BF001AF27A8F000D4D89 /* PairingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BEFF1AF27A8F000D4D89 /* PairingViewController.m */; };
 		1771BF031AF2820E000D4D89 /* GeolocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BF021AF2820E000D4D89 /* GeolocViewController.m */; };
@@ -92,6 +93,8 @@
 		174598E31AEF85E3002606CD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1756E4FF1AD5F8B8006CA988 /* Day.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Day.h; sourceTree = "<group>"; };
 		1756E5001AD5F8B8006CA988 /* Day.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Day.m; sourceTree = "<group>"; };
+		176476771AF6D401007657DB /* DataInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInformationView.h; sourceTree = "<group>"; };
+		176476781AF6D401007657DB /* DataInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInformationView.m; sourceTree = "<group>"; };
 		177138D01AADF9B3002AFEF0 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		177138D21AADFA01002AFEF0 /* ApiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiController.h; sourceTree = "<group>"; };
 		177138D31AADFA01002AFEF0 /* ApiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiController.m; sourceTree = "<group>"; };
@@ -201,6 +204,8 @@
 				1737EF9F1ADFF296002E4811 /* TimeLineView.m */,
 				17AFE6811AF6C15200CDD08F /* DataView.h */,
 				17AFE6821AF6C15200CDD08F /* DataView.m */,
+				176476771AF6D401007657DB /* DataInformationView.h */,
+				176476781AF6D401007657DB /* DataInformationView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -618,6 +623,7 @@
 				A8DE94311ACEDA6D00EF1EDC /* Experience.m in Sources */,
 				17CF52841AA5F8F6001C7E65 /* ViewController.m in Sources */,
 				1756E5011AD5F8B8006CA988 /* Day.m in Sources */,
+				176476791AF6D401007657DB /* DataInformationView.m in Sources */,
 				17CF52811AA5F8F6001C7E65 /* AppDelegate.m in Sources */,
 				1771BF001AF27A8F000D4D89 /* PairingViewController.m in Sources */,
 				17AFE6831AF6C15200CDD08F /* DataView.m in Sources */,
