@@ -47,6 +47,8 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
     [self addSubview:self.informationView];
 
+    [self.informationView setHidden:YES];
+
     [self createCircle];
 
 }
@@ -136,17 +138,8 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
 - (IBAction)getInfoData:(id)sender {
 
-
-    for (UIView *subview in [self subviews]) {
-
-        if([subview isKindOfClass:[UIButton class]]) {
-
-            UIButton *button = (UIButton *)subview;
-            [button.layer setBorderColor:[UIColor clearColor].CGColor];
-            [button.layer setBorderWidth:0.f];
-
-        }
-    }
+    [self.informationView setHidden:NO];
+    [self removeBorderButton];
 
     UIButton *button = (UIButton *)sender;
     [button.layer setBorderColor:[UIColor greenColor].CGColor];
@@ -155,7 +148,23 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     int nbTag = (int)[button tag];
     NSDictionary *dictionnary = [self.arrayData objectAtIndex:nbTag];
     [self.informationView.photoInformationLabel setText:[NSString stringWithFormat:@"%@",dictionnary[@"photo"]]];
-//    NSLog(@"%@", dictionnary[@"photo"]);
+    [self.informationView.pedometerInformationLabel setText:[NSString stringWithFormat:@"%@ step",dictionnary[@"numberStep"]]];
+    [self.informationView.geolocInformationLabel setText:[NSString stringWithFormat:@"%@",dictionnary[@"geoloc"]]];
+
+}
+
+- (void)removeBorderButton {
+
+    for (UIView *subview in [self subviews]) {
+
+        if([subview isKindOfClass:[UIButton class]]) {
+
+            UIButton *button = (UIButton *)subview;
+            [button.layer setBorderColor:[UIColor clearColor].CGColor];
+            [button.layer setBorderWidth:0.f];
+            
+        }
+    }
 
 }
 

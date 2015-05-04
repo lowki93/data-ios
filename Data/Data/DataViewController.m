@@ -16,7 +16,7 @@ BaseViewController *baseView;
 
 int nbDay, margin, indexDay = 0, positionTop, heigtViewDetail;
 UISwipeGestureRecognizer *leftGesture, *rightGesture, *upGesture;
-UITapGestureRecognizer *tapGesture;
+UITapGestureRecognizer *tapGesture, *informationDataGesture;
 float firstScale;
 float secondScale;
 
@@ -84,6 +84,10 @@ float secondScale;
     [self.view addGestureRecognizer:upGesture];
 
     tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+
+    informationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(informationData:)];
+
+    [self.view addGestureRecognizer:informationDataGesture];
 
 }
 
@@ -171,6 +175,7 @@ float secondScale;
     } completion:^(BOOL finished){
 
         [self.view addGestureRecognizer:upGesture];
+        [self.view addGestureRecognizer:informationDataGesture];
 
     }];
 
@@ -178,7 +183,9 @@ float secondScale;
 
 - (void)swipeUp:(UISwipeGestureRecognizer *)recognizer {
 
+    [self hideInformationData];
     [self.view removeGestureRecognizer:upGesture];
+    [self.view removeGestureRecognizer:informationDataGesture];
 
     [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 
@@ -244,6 +251,12 @@ float secondScale;
     
 }
 
+-(void)informationData:(UITapGestureRecognizer *)tapGestureRecognizer {
+
+    [self hideInformationData];
+
+}
+
 - (void)animateView:(float)scaleLayer ScaleView:(float)scaleView {
 
     int count = 0;
@@ -277,6 +290,35 @@ float secondScale;
         count++;
     }
 
+
+}
+
+- (void)hideInformationData {
+
+    int count = 0;
+
+    for (UIView *view in self.contentScrollView.subviews) {
+
+        if([view isKindOfClass:[DataView class]]) {
+
+            DataView *dataView = (DataView *)view;
+            [dataView removeBorderButton];
+
+        }
+
+
+        for (UIView *subView in view.subviews) {
+
+            if([subView isKindOfClass:[DataInformationView class]]) {
+
+                [subView setHidden:YES];
+
+            }
+
+        }
+        
+        count++;
+    }
 
 }
 

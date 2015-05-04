@@ -12,6 +12,8 @@
 @interface DataInformationView : UIView
 
 @property (nonatomic) UILabel *photoInformationLabel;
+@property (nonatomic) UILabel *pedometerInformationLabel;
+@property (nonatomic) UILabel *geolocInformationLabel;
 
 - (void)init:(float)size;
 

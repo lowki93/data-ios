@@ -17,5 +17,6 @@
 
 - (void)initView;
 - (void)drawData:(int)indexDay;
+- (void)removeBorderButton;
 
 @end
