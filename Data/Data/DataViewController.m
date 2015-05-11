@@ -456,7 +456,6 @@ NSTimer *timerLocation;
 
     [self.view removeGestureRecognizer:informationDataGesture];
 
-    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
 
         int count = 0;
 
@@ -466,8 +465,25 @@ NSTimer *timerLocation;
 
                 if([subView isKindOfClass:[DataView class]]) {
 
-                    CGAffineTransform transform = subView.transform;
-                    subView.transform = CGAffineTransformScale(transform, 1.2, 1.2);
+                    DataView *dataView = (DataView *)subView;
+
+                    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+
+                        CGAffineTransform transform = dataView.transform;
+                        dataView.transform = CGAffineTransformScale(transform, 1.2, 1.2);
+
+                    } completion:nil];
+
+                    [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
+
+                        dataView.allDataView.transform = CGAffineTransformIdentity;
+                        dataView.allDataView.alpha = 1;
+
+                    } completion:^(BOOL finished){
+
+                        [self.view addGestureRecognizer:closeInformationDataGesture];
+
+                    }];
 
                 }
             }
@@ -475,12 +491,6 @@ NSTimer *timerLocation;
             count++;
             
         }
-
-    } completion:^(BOOL finished){
-
-        [self.view addGestureRecognizer:closeInformationDataGesture];
-
-    }];
 
 }
 
@@ -488,8 +498,6 @@ NSTimer *timerLocation;
 
     [self.view removeGestureRecognizer:closeInformationDataGesture];
 
-    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
-
         int count = 0;
 
         for (UIView *view in self.contentScrollView.subviews) {
@@ -498,7 +506,25 @@ NSTimer *timerLocation;
 
                 if([subView isKindOfClass:[DataView class]]) {
 
-                    subView.transform = CGAffineTransformIdentity;
+                    DataView *dataView = (DataView *)subView;
+
+                    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+
+                        CGAffineTransform transform = dataView.allDataView.transform;
+                        dataView.allDataView.transform = CGAffineTransformScale(transform, 0.1, 0.1);
+                        dataView.allDataView.alpha = 0;
+
+                    } completion:nil];
+
+                    [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
+
+                        dataView.transform = CGAffineTransformIdentity;
+
+                    } completion:^(BOOL finished){
+
+                        [self.view addGestureRecognizer:informationDataGesture];
+                        
+                    }];
 
                 }
             }
@@ -506,12 +532,6 @@ NSTimer *timerLocation;
             count++;
 
         }
-
-    } completion:^(BOOL finished){
-        
-        [self.view addGestureRecognizer:informationDataGesture];
-        
-    }];
 
 
 }

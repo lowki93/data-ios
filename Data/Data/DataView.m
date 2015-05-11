@@ -30,12 +30,6 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     baseView = [[BaseViewController alloc] init];
     [baseView initView:baseView];
 
-//    self.contentData = [[UIView alloc] init];
-//    [self updateDataContent:CGRectNull Float:1.2];
-//    [self.contentData setBackgroundColor:[UIColor yellowColor]];
-//
-//    [self addSubview:self.contentData];
-
     heightContentView = self.bounds.size.height;
     centerCircle = CGPointMake(self.bounds.size.width/2, heightContentView/2);
 //    radiusFirstCicle = (self.bounds.size.width * 0.046875) / 2;
@@ -59,6 +53,22 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [self addSubview:self.informationView];
 
     [self.informationView setHidden:YES];
+
+    self.allDataView = [[UIView alloc] init];
+    informationViewWidth = informationViewWidth + 10;
+    [self.allDataView setFrame:CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
+                                              (self.bounds.size.height / 2) - (informationViewWidth / 2),
+                                              informationViewWidth,
+                                              informationViewWidth)];
+    [self.allDataView.layer setCornerRadius:informationViewWidth/2.];
+    [self.allDataView setBackgroundColor:[UIColor whiteColor]];
+    [self.allDataView.layer setMasksToBounds:YES];
+
+    CGAffineTransform transform = self.allDataView.transform;
+    self.allDataView.transform = CGAffineTransformScale(transform, 0, 0);
+    self.allDataView.alpha = 0;
+
+    [self addSubview:self.allDataView];
 
     [self createCircle];
 
@@ -205,30 +215,6 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
             
         }
     }
-
-}
-
-- (void)updateDataContent:(CGRect)frame Float:(float)scale {
-
-    NSLog(@"%f, %f", self.bounds.size.width, scale);
-    if( CGRectIsEmpty(frame) ) {
-        frame = CGRectMake(-((self.bounds.size.width * scale / 2 ) - ( self.bounds.size.width / 2)),
-                   -((self.bounds.size.height * scale /2 ) - (self.bounds.size.height / 2)),
-                   self.bounds.size.width * scale,
-                   self.bounds.size.height * scale);
-    } else {
-        frame = CGRectMake(-((frame.size.width * scale / 2 ) - ( frame.size.width / 2)),
-                           -((frame.size.height * scale /2 ) - (frame.size.height / 2)),
-                           frame.size.width * scale,
-                           frame.size.height * scale);
-    }
-
-    [self.contentData setFrame:CGRectMake(-((self.bounds.size.width * scale / 2 ) - ( self.bounds.size.width / 2)),
-                                          -((self.bounds.size.height * scale /2 ) - (self.bounds.size.height / 2)),
-                                          self.bounds.size.width * scale,
-                                          self.bounds.size.height * scale)];
-    [self.contentData setBackgroundColor:[UIColor yellowColor]];
-
 
 }
 
