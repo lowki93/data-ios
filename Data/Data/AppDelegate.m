@@ -22,15 +22,15 @@
         NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"ChooseDayViewController"];
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"DataViewController"];
         self.window.rootViewController = viewController;
         [self.window makeKeyAndVisible];
     }
 
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
-        UIUserNotificationType types = UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeAlert;
-        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-        [application registerUserNotificationSettings:notificationSettings];
+//        UIUserNotificationType types = UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeAlert;
+//        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+//        [application registerUserNotificationSettings:notificationSettings];
 //        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings
 //                                                                             settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound
 //                                                                       categories:nil]];
@@ -39,8 +39,9 @@
     //This code will work in iOS 8.0 xcode 6.0 or later
 //    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 //    {
-//        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-//        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:
+         [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
 //    }
 //    else
 //    {

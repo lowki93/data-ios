@@ -23,6 +23,7 @@
 + (ApiController *)sharedInstance;
 - (void)loadApi;
 - (void)setUserLoad:(NSDictionary *)dictionary;
+- (void)removeUser;
 - (NSString *)getDateWithTime;
 - (NSString *)getDate;
 - (NSString *)getUrlSignIn;
@@ -33,5 +34,6 @@
 - (BOOL)NSStringIsValidEmail:(NSString *)checkString;
 - (Data *)GetLastData;
 - (int)getIndexData;
+- (void)updateToken;
 
 @end

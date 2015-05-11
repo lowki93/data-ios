@@ -355,7 +355,6 @@
                         <outlet property="startButton" destination="KAn-9e-J8G" id="AyN-PY-lj5"/>
                         <outlet property="synchroLabel" destination="zI7-2w-LOM" id="UL0-g2-O2I"/>
                         <outlet property="synchronizeButton" destination="NHg-Eq-tUX" id="3CT-WQ-wdi"/>
-                        <segue destination="HVH-gC-8UG" kind="showDetail" identifier="logout" id="Wpd-tb-qqR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -389,11 +388,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jib-wF-uB4">
+                                <rect key="frame" x="36" y="550" width="49" height="30"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="logoutAction:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="Fnd-eB-M8k"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="G6c-Zv-6bt" secondAttribute="trailing" id="7mq-9A-iRV"/>
                             <constraint firstAttribute="trailing" secondItem="bI4-JP-187" secondAttribute="trailing" id="Fio-1e-HZn"/>
+                            <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="jib-wF-uB4" secondAttribute="bottom" constant="20" id="N2T-R5-VSN"/>
+                            <constraint firstItem="jib-wF-uB4" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" constant="20" id="RgW-XU-5ib"/>
                             <constraint firstItem="ivx-3O-myV" firstAttribute="top" secondItem="4fH-C9-3fe" secondAttribute="bottom" constant="-20" id="V9R-bx-WuY"/>
                             <constraint firstItem="G6c-Zv-6bt" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leading" id="WD9-Td-pRf"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="ivx-3O-myV" secondAttribute="bottom" id="aPG-Ez-3Lk"/>
@@ -409,6 +419,7 @@
                         <outlet property="contentScrollView" destination="G6c-Zv-6bt" id="IU4-06-ASa"/>
                         <outlet property="logTextView" destination="bI4-JP-187" id="qM9-DX-4g2"/>
                         <outlet property="timeLineView" destination="ivx-3O-myV" id="laC-05-wuc"/>
+                        <segue destination="HVH-gC-8UG" kind="show" identifier="logout" id="Ewf-ih-IQW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qZ9-4Z-jNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -691,7 +702,7 @@ de l’experience</string>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1du-Pu-DfQ">
                                 <rect key="frame" x="281" y="340" width="38" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tul-Uz-Zfr">
@@ -975,6 +986,6 @@ de l’experience</string>
         <image name="loader" width="344" height="312"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jaz-iH-Ugo"/>
+        <segue reference="Ewf-ih-IQW"/>
     </inferredMetricsTieBreakers>
 </document>

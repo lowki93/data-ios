@@ -20,6 +20,7 @@
 @property (nonatomic) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet UITextView *logTextView;
 
+- (IBAction)logoutAction:(id)sender;
 - (IBAction)removePlist:(id)sender;
 - (void)uploadFile;
 

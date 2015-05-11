@@ -61,6 +61,7 @@ BaseViewController *baseView;
 
                 NSDictionary *dictionary = responseObject[@"user"];
                 [[ApiController sharedInstance] setUserLoad:dictionary];
+                [[ApiController sharedInstance] updateToken];
                 [self performSegueWithIdentifier:@"signup_succes" sender:self];
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

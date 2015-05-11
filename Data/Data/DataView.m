@@ -135,11 +135,11 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
     Day *currentDay = [ApiController sharedInstance].experience.day[indexDay];
 
-//    for (int i = 0; i < [currentDay.data count]; i++) {
-    for (int i = 0; i < 25; i++) {
+    for (int i = 0; i < [currentDay.data count]; i++) {
+//    for (int i = 0; i < 25; i++) {
 
 //        int nbSynchro = i;
-//        Data *currentData = currentDay.data[i];
+        Data *currentData = currentDay.data[i];
 //        /** for photos **/
 //        [self updatePhotoData:currentData Synchro:nbSynchro];
 //        /** for geoloc **/

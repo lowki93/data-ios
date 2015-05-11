@@ -10,6 +10,7 @@
 #import "Experience.h"
 #import "Day.h"
 #import "Data.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @implementation ApiController
 
@@ -45,6 +46,15 @@
     self.user = user;
     self.nbDay = [experience.day count];
     [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"user"];
+
+}
+
+- (void)removeUser {
+
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
+    self.experience = nil;
+    self.user = nil;
+    self.nbDay = 0;
 
 }
 
@@ -120,6 +130,35 @@
     NSInteger dayCount = [[ApiController sharedInstance].experience.day count] - 1;
     Day *currentDay = [ApiController sharedInstance].experience.day[dayCount];
     return (int)[currentDay.data count] - 1;
+}
+
+- (void)updateToken {
+
+    if (![ApiController sharedInstance].user.deviceToken) {
+
+        NSString *urlString = [NSString stringWithFormat:@"%@/user/update/%@/deviceToken?access_token=%@", self.url, self.user.id, self.user.token];
+
+        NSString *deviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"deviceToken"];
+//        NSString *deviceToken = @"<75fedbaa f43d810d e308bf55 1862c25c d464de93 27b2a763 5aab8b38 0ad1fdc0>";
+
+        NSLog(@"%@", deviceToken);
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{
+                                 @"deviceToken": deviceToken,
+                                 };
+
+        [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+            NSDictionary *dictionary = responseObject[@"user"];
+            [self setUserLoad:dictionary];
+
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+            [self performSelector:@selector(updateToken) withObject:nil afterDelay:120.0f];
+
+        }];
+    }
+
 }
 
 @end

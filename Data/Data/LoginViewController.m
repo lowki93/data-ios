@@ -58,9 +58,17 @@ BaseViewController *baseView;
 
                 NSDictionary *dictionary = responseObject[@"user"];
                 [[ApiController sharedInstance] setUserLoad:dictionary];
-                [self performSegueWithIdentifier:@"login_succes" sender:self];
+                [[ApiController sharedInstance] updateToken];
+
+//                double delayInSeconds = 5.0;
+//                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+//                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [self performSegueWithIdentifier:@"login_succes" sender:self];
+//                });
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+                NSLog(@"%@", error);
 
                 long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
 

@@ -666,4 +666,10 @@ NSTimer *timerLocation;
 
 }
 
+- (IBAction)logoutAction:(id)sender {
+
+    NSLog(@"logout");
+    [[ApiController sharedInstance] removeUser];
+    [self performSegueWithIdentifier:@"logout" sender:self];
+}
 @end

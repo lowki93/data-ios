@@ -18,7 +18,7 @@ float radius, ratioCenter;
 
 - (void)initTimeLine:(int)nbDay indexDay:(int)indexDay {
 
-    self.nbDay = 10;
+    self.nbDay = nbDay;
     self.indexDay = indexDay;
     ratioCenter = 0.575;
 
