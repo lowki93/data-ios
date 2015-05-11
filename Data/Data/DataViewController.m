@@ -498,8 +498,7 @@ NSTimer *timerLocation;
 
                 if([subView isKindOfClass:[DataView class]]) {
 
-                    CGAffineTransform transform = subView.transform;
-                    subView.transform = CGAffineTransformScale(transform, 0.9, 0.9);
+                    subView.transform = CGAffineTransformIdentity;
 
                 }
             }

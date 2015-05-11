@@ -27,6 +27,8 @@ BaseViewController *baseView;
     [self.sigupButton setBackgroundImage:[baseView imageWithColor:baseView.purpleColor] forState:UIControlStateHighlighted];
     [[self.sigupButton layer] setBorderWidth:1.0f];
     [[self.sigupButton layer] setBorderColor:baseView.purpleColor.CGColor];
+    [[self.sigupButton layer] setCornerRadius:25];
+    [self.sigupButton setClipsToBounds:YES];
 }
 
 - (void)didReceiveMemoryWarning {

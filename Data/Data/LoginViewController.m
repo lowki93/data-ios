@@ -27,6 +27,8 @@ BaseViewController *baseView;
     [self.loginButton setBackgroundImage:[baseView imageWithColor:baseView.purpleColor] forState:UIControlStateHighlighted];
     [[self.loginButton layer] setBorderWidth:1.0f];
     [[self.loginButton layer] setBorderColor:baseView.purpleColor.CGColor];
+    [[self.loginButton layer] setCornerRadius:25];
+    [self.loginButton setClipsToBounds:YES];
 
 }
 
