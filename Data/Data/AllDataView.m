@@ -1,30 +1,43 @@
 //
-//  DataInformationView.m
+//  AllDataView.m
 //  Data
 //
-//  Created by kevin Budain on 04/05/2015.
+//  Created by kevin Budain on 11/05/2015.
 //  Copyright (c) 2015 kevin Budain. All rights reserved.
 //
 
-#import "DataInformationView.h"
+#import "AllDataView.h"
 
-@implementation DataInformationView
+@implementation AllDataView
 
 BaseViewController *baseView;
 
-- (void)init:(float)size {
+- (void)initView {
+
 
     baseView = [[BaseViewController alloc] init];
     [baseView initView:baseView];
 
     UIFont *titleLabelFont = [UIFont fontWithName:@"MaisonNeue-Book" size:15];
 
+    UILabel *todayLabel = [[UILabel alloc] init];
+    [todayLabel setText:@"TODAY"];
+    [todayLabel setFont:titleLabelFont];
+    [todayLabel sizeToFit];
+    [todayLabel setFrame:CGRectMake((self.bounds.size.width / 2 ) - (todayLabel.bounds.size.width / 2),
+                                    self.bounds.size.height / 6,
+                                    todayLabel.bounds.size.width,
+                                    todayLabel.bounds.size.height)];
+    [todayLabel setTextColor:[baseView colorWithRGB:29 :29 :27 :1]];
+    [todayLabel setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:todayLabel];
+
     UILabel *photoLabel = [[UILabel alloc] init];
     [photoLabel setText:@"photos"];
     [photoLabel setFont:titleLabelFont];
     [photoLabel sizeToFit];
-    [photoLabel setFrame:CGRectMake((self.bounds.size.width / 3 ) - (photoLabel.bounds.size.width / 2),
-                                    self.bounds.size.height / 4,
+    [photoLabel setFrame:CGRectMake((self.bounds.size.width / 2 ) - photoLabel.bounds.size.width - 5,
+                                    self.bounds.size.height / 3,
                                     photoLabel.bounds.size.width,
                                     photoLabel.bounds.size.height)];
     [photoLabel setTextColor:[baseView colorWithRGB:29 :29 :27 :1]];
@@ -35,10 +48,10 @@ BaseViewController *baseView;
     [self.photoInformationLabel setText:@"photos"];
     [self.photoInformationLabel setFont:titleLabelFont];
     [self.photoInformationLabel sizeToFit];
-    [self.photoInformationLabel setFrame:CGRectMake((self.bounds.size.width / 3 ) + (photoLabel.bounds.size.width / 2) + 10,
-                                    self.bounds.size.height / 4,
-                                    photoLabel.bounds.size.width,
-                                    photoLabel.bounds.size.height)];
+    [self.photoInformationLabel setFrame:CGRectMake((self.bounds.size.width / 2 ) + 5 /*+ (photoLabel.bounds.size.width / 2)*/,
+                                                    self.bounds.size.height / 3,
+                                                    photoLabel.bounds.size.width,
+                                                    photoLabel.bounds.size.height)];
     [self.photoInformationLabel setTextColor:[baseView colorWithRGB:29 :29 :27 :1]];
     [self.photoInformationLabel setTextAlignment:NSTextAlignmentLeft];
     [self addSubview:self.photoInformationLabel];
@@ -47,10 +60,10 @@ BaseViewController *baseView;
     [pedometerLabel setText:@"pedometer"];
     [pedometerLabel setFont:titleLabelFont];
     [pedometerLabel sizeToFit];
-    [pedometerLabel setFrame:CGRectMake((self.bounds.size.width / 3 ) - (pedometerLabel.bounds.size.width / 2),
-                                    self.bounds.size.height / 2,
-                                    pedometerLabel.bounds.size.width,
-                                    pedometerLabel.bounds.size.height)];
+    [pedometerLabel setFrame:CGRectMake((self.bounds.size.width / 2 ) - pedometerLabel.bounds.size.width - 5,
+                                        self.bounds.size.height / 2 + 10,
+                                        pedometerLabel.bounds.size.width,
+                                        pedometerLabel.bounds.size.height)];
     [pedometerLabel setTextColor:[baseView colorWithRGB:29 :29 :27 :1]];
     [pedometerLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:pedometerLabel];
@@ -59,8 +72,8 @@ BaseViewController *baseView;
     [self.pedometerInformationLabel setText:@"pedometer"];
     [self.pedometerInformationLabel setFont:titleLabelFont];
     [self.pedometerInformationLabel sizeToFit];
-    [self.pedometerInformationLabel setFrame:CGRectMake((self.bounds.size.width / 3 ) + (pedometerLabel.bounds.size.width / 2) + 10,
-                                                        self.bounds.size.height / 2,
+    [self.pedometerInformationLabel setFrame:CGRectMake((self.bounds.size.width / 2 ) + 5,
+                                                        self.bounds.size.height / 2 + 10,
                                                         pedometerLabel.bounds.size.width,
                                                         pedometerLabel.bounds.size.height)];
     [self.pedometerInformationLabel setTextColor:[baseView colorWithRGB:29 :29 :27 :1]];
@@ -72,9 +85,9 @@ BaseViewController *baseView;
     [geolocLabel setFont:titleLabelFont];
     [geolocLabel sizeToFit];
     [geolocLabel setFrame:CGRectMake((self.bounds.size.width / 2 ) - (geolocLabel.bounds.size.width / 3 * 2),
-                                        self.bounds.size.height / 4 * 3,
-                                        geolocLabel.bounds.size.width,
-                                        geolocLabel.bounds.size.height)];
+                                     self.bounds.size.height / 4 * 3 + 10,
+                                     geolocLabel.bounds.size.width,
+                                     geolocLabel.bounds.size.height)];
     [geolocLabel setTextColor:[baseView colorWithRGB:29 :29 :27 :1]];
     [geolocLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:geolocLabel];
@@ -84,7 +97,7 @@ BaseViewController *baseView;
     [self.geolocInformationLabel setFont:titleLabelFont];
     [self.geolocInformationLabel sizeToFit];
     [self.geolocInformationLabel setFrame:CGRectMake((self.bounds.size.width / 2 ) + (geolocLabel.bounds.size.width / 3) + 10,
-                                                     self.bounds.size.height / 4 * 3,
+                                                     self.bounds.size.height / 4 * 3 + 10,
                                                      geolocLabel.bounds.size.width,
                                                      geolocLabel.bounds.size.height)];
     [self.geolocInformationLabel setTextColor:[baseView colorWithRGB:29 :29 :27 :1]];

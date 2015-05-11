@@ -54,7 +54,7 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
     [self.informationView setHidden:YES];
 
-    self.allDataView = [[UIView alloc] init];
+    self.allDataView = [[AllDataView alloc] init];
     informationViewWidth = informationViewWidth + 10;
     [self.allDataView setFrame:CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
                                               (self.bounds.size.height / 2) - (informationViewWidth / 2),
@@ -63,6 +63,7 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [self.allDataView.layer setCornerRadius:informationViewWidth/2.];
     [self.allDataView setBackgroundColor:[UIColor whiteColor]];
     [self.allDataView.layer setMasksToBounds:YES];
+    [self.allDataView initView];
 
     CGAffineTransform transform = self.allDataView.transform;
     self.allDataView.transform = CGAffineTransformScale(transform, 0, 0);
@@ -145,6 +146,8 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
     Day *currentDay = [ApiController sharedInstance].experience.day[indexDay];
 
+    int nbPhoto = 0, nbGeoloc = 0, nbNumberStep = 0;
+
     for (int i = 0; i < [currentDay.data count]; i++) {
 //    for (int i = 0; i < 25; i++) {
 
@@ -155,15 +158,23 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 //        /** for geoloc **/
 //        [self updateGeolocData:currentData Synchro:nbSynchro];
 
-//        NSMutableDictionary *dataDictionnary = [[NSMutableDictionary alloc] init];
-//        [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.photos count]] forKey:@"photo"];
-//        [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.atmosphere count]] forKey:@"geoloc"];
-//        [dataDictionnary setObject:currentData.deplacement[@"stepNumber"] forKey:@"numberStep"];
-//
-//        [self.arrayData addObject:dataDictionnary];
+        NSMutableDictionary *dataDictionnary = [[NSMutableDictionary alloc] init];
+        [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.photos count]] forKey:@"photo"];
+        [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.atmosphere count]] forKey:@"geoloc"];
+        [dataDictionnary setObject:currentData.deplacement[@"stepNumber"] forKey:@"numberStep"];
+
+        nbPhoto += (int)[currentData.photos count];
+        nbGeoloc += (int)[currentData.atmosphere count];
+        nbNumberStep += [currentData.deplacement[@"stepNumber"] intValue];
+
+        [self.arrayData addObject:dataDictionnary];
 
         [self createButton:i];
     }
+
+    [self.allDataView.photoInformationLabel setText:[NSString stringWithFormat:@"%i",nbPhoto]];
+    [self.allDataView.pedometerInformationLabel setText:[NSString stringWithFormat:@"%i",nbNumberStep]];
+    [self.allDataView.geolocInformationLabel setText:[NSString stringWithFormat:@"%i",nbGeoloc]];
 
 }
 

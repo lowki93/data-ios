@@ -452,7 +452,7 @@ NSTimer *timerLocation;
 
 - (void)informationData:(UITapGestureRecognizer *)tapGestureRecognizer {
 
-//    [self hideInformationData];
+    [self hideInformationData];
 
     [self.view removeGestureRecognizer:informationDataGesture];
 
@@ -608,19 +608,23 @@ NSTimer *timerLocation;
 
     for (UIView *view in self.contentScrollView.subviews) {
 
-        if([view isKindOfClass:[DataView class]]) {
-
-            DataView *dataView = (DataView *)view;
-            [dataView removeBorderButton];
-
-        }
-
-
         for (UIView *subView in view.subviews) {
 
-            if([subView isKindOfClass:[DataInformationView class]]) {
+            if([subView isKindOfClass:[DataView class]]) {
 
-                [subView setHidden:YES];
+                DataView *dataView = (DataView *)subView;
+                [dataView removeBorderButton];
+
+            }
+
+
+            for (UIView *subSubView in subView.subviews) {
+
+                if([subSubView isKindOfClass:[DataInformationView class]]) {
+
+                    [subSubView setHidden:YES];
+
+                }
 
             }
 

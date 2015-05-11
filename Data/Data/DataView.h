@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "DataInformationView.h"
+#import "AllDataView.h"
 
 @interface DataView : UIView
 
 @property (nonatomic) NSMutableArray *arrayData;
 @property (nonatomic) UIView *contentData;
 @property (nonatomic) DataInformationView *informationView;
-@property (nonatomic) UIView *allDataView;
+@property (nonatomic) AllDataView *allDataView;
 
 - (void)initView;
 - (void)drawData:(int)indexDay;
