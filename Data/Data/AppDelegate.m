@@ -22,28 +22,31 @@
         NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"DataViewController"];
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"ChooseDayViewController"];
         self.window.rootViewController = viewController;
         [self.window makeKeyAndVisible];
     }
 
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings
-                                                                             settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound
-                                                                       categories:nil]];
+        UIUserNotificationType types = UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [application registerUserNotificationSettings:notificationSettings];
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings
+//                                                                             settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound
+//                                                                       categories:nil]];
     }
 
     //This code will work in iOS 8.0 xcode 6.0 or later
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-    {
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-    }
-    else
-    {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeNewsstandContentAvailability| UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    }
-    
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+//    {
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+//        [[UIApplication sharedApplication] registerForRemoteNotifications];
+//    }
+//    else
+//    {
+//        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeNewsstandContentAvailability| UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+//    }
+
     UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey];
     
     if (localNotification){
@@ -60,16 +63,6 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    self.bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        NSLog(@"ending background task");
-        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-        [localNotification setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-        [localNotification setAlertBody:@"Relaunch Data application"];
-        [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        [[UIApplication sharedApplication] endBackgroundTask:self.bgTask];
-        self.bgTask = UIBackgroundTaskInvalid;
-    }];
 
 }
 
@@ -82,17 +75,21 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    [localNotification setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-    [localNotification setAlertBody:[NSString stringWithFormat:@"Launch Data Application for catching data"]];
-    [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
-    [[NSUserDefaults standardUserDefaults] setObject:[deviceToken description] forKey:@"MyAppSpecificGloballyUniqueString"];
+    [[NSUserDefaults standardUserDefaults] setObject:[deviceToken description] forKey:@"deviceToken"];
     NSLog(@"Device_Token -----> %@\n",[deviceToken description]);
+}
+
+- (void)           application:(UIApplication *)application
+  didReceiveRemoteNotification:(NSDictionary *)userInfo
+        fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    self.dataViewController = [[DataViewController alloc] init];
+    [self.dataViewController uploadFile];
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 @end

@@ -34,7 +34,7 @@ float labelWidth, firstMargin;
 
     nbDayTime = 14;
     labelWidth = self.view.bounds.size.width / 4;
-    indexDay = 3;
+    indexDay = 7;
     firstMargin = ((self.view.bounds.size.width / 2) - (labelWidth / 2 ));
 
     [self.dayScrollView setBackgroundColor:[UIColor clearColor]];

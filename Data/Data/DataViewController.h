@@ -10,10 +10,17 @@
 #import "TimeLineView.h"
 #import "DataView.h"
 #import "BaseViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface DataViewController : UIViewController
+@interface DataViewController : UIViewController <CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
 @property (weak, nonatomic) IBOutlet TimeLineView *timeLineView;
+
+@property (nonatomic) CLLocationManager *locationManager;
+@property (weak, nonatomic) IBOutlet UITextView *logTextView;
+
+- (IBAction)removePlist:(id)sender;
+- (void)uploadFile;
 
 @end

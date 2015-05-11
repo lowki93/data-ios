@@ -13,10 +13,13 @@
 @interface DataView : UIView
 
 @property (nonatomic) NSMutableArray *arrayData;
+@property (nonatomic) UIView *contentData;
 @property (nonatomic) DataInformationView *informationView;
 
 - (void)initView;
 - (void)drawData:(int)indexDay;
 - (void)removeBorderButton;
+//- (void)updateDataContent:(UIView *)view Float:(float)scale;
+- (void)updateDataContent:(CGRect)frame Float:(float)scale;
 
 @end

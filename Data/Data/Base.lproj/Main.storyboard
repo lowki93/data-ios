@@ -380,21 +380,34 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-3O-myV" customClass="TimeLineView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bI4-JP-187">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="bs9-gz-uGZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="G6c-Zv-6bt" secondAttribute="trailing" id="7mq-9A-iRV"/>
+                            <constraint firstAttribute="trailing" secondItem="bI4-JP-187" secondAttribute="trailing" id="Fio-1e-HZn"/>
                             <constraint firstItem="ivx-3O-myV" firstAttribute="top" secondItem="4fH-C9-3fe" secondAttribute="bottom" constant="-20" id="V9R-bx-WuY"/>
                             <constraint firstItem="G6c-Zv-6bt" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leading" id="WD9-Td-pRf"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="ivx-3O-myV" secondAttribute="bottom" id="aPG-Ez-3Lk"/>
                             <constraint firstItem="ivx-3O-myV" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leading" id="alC-H2-Mb1"/>
                             <constraint firstAttribute="trailing" secondItem="ivx-3O-myV" secondAttribute="trailing" id="dSk-Ni-QzP"/>
+                            <constraint firstItem="bI4-JP-187" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leading" id="fDY-Q2-Zv2"/>
                             <constraint firstItem="G6c-Zv-6bt" firstAttribute="top" secondItem="5Gq-4e-hfR" secondAttribute="top" id="fKq-nN-iRW"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="G6c-Zv-6bt" secondAttribute="bottom" id="l9r-67-Agd"/>
+                            <constraint firstItem="bI4-JP-187" firstAttribute="top" secondItem="5Gq-4e-hfR" secondAttribute="top" id="rdS-th-fK9"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="contentScrollView" destination="G6c-Zv-6bt" id="IU4-06-ASa"/>
+                        <outlet property="logTextView" destination="bI4-JP-187" id="qM9-DX-4g2"/>
                         <outlet property="timeLineView" destination="ivx-3O-myV" id="laC-05-wuc"/>
                     </connections>
                 </viewController>
@@ -709,27 +722,15 @@ de l’experience</string>
                             <constraint firstItem="tul-Uz-Zfr" firstAttribute="top" secondItem="smy-Kx-qZ7" secondAttribute="bottom" constant="10" id="5uQ-gf-pDe"/>
                             <constraint firstAttribute="centerX" secondItem="1du-Pu-DfQ" secondAttribute="centerX" id="6tg-5l-eZA"/>
                             <constraint firstItem="smy-Kx-qZ7" firstAttribute="leading" secondItem="cdj-oT-qHA" secondAttribute="leading" id="BM8-AX-b9X"/>
-                            <constraint firstItem="1du-Pu-DfQ" firstAttribute="bottom" secondItem="smy-Kx-qZ7" secondAttribute="bottom" id="FIe-Vu-d9T"/>
-                            <constraint firstItem="1du-Pu-DfQ" firstAttribute="top" secondItem="cdj-oT-qHA" secondAttribute="top" id="GB4-Hw-ihG"/>
                             <constraint firstItem="1du-Pu-DfQ" firstAttribute="centerY" secondItem="smy-Kx-qZ7" secondAttribute="centerY" constant="50" id="Iy5-b0-e81"/>
                             <constraint firstAttribute="centerX" secondItem="tul-Uz-Zfr" secondAttribute="centerX" id="KHC-Ep-de8"/>
                             <constraint firstAttribute="centerX" secondItem="WuR-QS-0Pq" secondAttribute="centerX" id="RXU-fU-Om8"/>
                             <constraint firstAttribute="centerY" secondItem="smy-Kx-qZ7" secondAttribute="centerY" id="S1K-sL-hud"/>
                             <constraint firstItem="HUa-aO-JIP" firstAttribute="top" secondItem="WuR-QS-0Pq" secondAttribute="bottom" constant="20" id="V0b-75-f8s"/>
-                            <constraint firstAttribute="centerX" secondItem="1du-Pu-DfQ" secondAttribute="centerX" id="ZPh-qG-zS5"/>
                             <constraint firstAttribute="centerX" secondItem="HUa-aO-JIP" secondAttribute="centerX" id="Zj2-Ft-RgG"/>
                             <constraint firstItem="WuR-QS-0Pq" firstAttribute="top" secondItem="cdj-oT-qHA" secondAttribute="top" constant="50" id="deB-XH-z6m"/>
                             <constraint firstAttribute="trailing" secondItem="smy-Kx-qZ7" secondAttribute="trailing" id="qYk-X3-9KQ"/>
-                            <constraint firstAttribute="centerY" secondItem="1du-Pu-DfQ" secondAttribute="centerY" id="tnp-To-0kC"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="FIe-Vu-d9T"/>
-                                <exclude reference="GB4-Hw-ihG"/>
-                                <exclude reference="ZPh-qG-zS5"/>
-                                <exclude reference="tnp-To-0kC"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="dayScrollView" destination="smy-Kx-qZ7" id="GCl-Lw-JeB"/>

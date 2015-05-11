@@ -20,4 +20,5 @@
 
 - (IBAction)backgroundTap:(id)sender;
 - (IBAction)signupClicked:(id)sender;
+
 @end

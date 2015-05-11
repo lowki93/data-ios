@@ -7,33 +7,70 @@
 //
 
 #import "TimeLineView.h"
+#import "BaseViewController.h"
 
 @implementation TimeLineView
 
+BaseViewController *baseView;
+
 CGFloat endPogressLayer = 0;
-float radius;
+float radius, ratioCenter;
 
 - (void)initTimeLine:(int)nbDay indexDay:(int)indexDay {
 
-    self.nbDay = nbDay;
+    self.nbDay = 10;
     self.indexDay = indexDay;
+    ratioCenter = 0.575;
+
+    baseView = [[BaseViewController alloc] init];
+    [baseView initView:baseView];
 
 }
 
 - (void)drawRect:(CGRect)rect {
-
-    radius = (self.bounds.size.width /2 ) - 20;
+    
+    radius = (self.bounds.size.width /2 ) - 40;
 
     for (int i = 0; i < self.nbDay; i++) {
         CGFloat theta = ((M_PI * (360.0 / self.nbDay) * i)/ 180) - M_PI_2 + (M_PI_4 * 0 );
-        CGPoint newCenter = CGPointMake(cosf(theta) * radius + self.bounds.size.width / 2, sinf(theta) * radius + self.bounds.size.height / 2);
-        [self drawCircle:newCenter radius:5 endRadius:-M_PI_2 + (M_PI * 2) strokeColor:[UIColor greenColor] fillColor:[UIColor greenColor] withAnimation:NO];
+        CGPoint startPoint = CGPointMake(cosf(theta) * radius + self.bounds.size.width / 2, sinf(theta) * radius + self.bounds.size.height * ratioCenter);
+        CGPoint endPoint = CGPointMake(cosf(theta) * (radius + 20) + self.bounds.size.width / 2, sinf(theta) * (radius + 20) + self.bounds.size.height * ratioCenter);
+//        [self drawCircle:newCenter radius:5 endRadius:-M_PI_2 + (M_PI * 2) strokeColor:[UIColor greenColor] fillColor:[UIColor greenColor] withAnimation:NO];
+
+        UIBezierPath *path = [[UIBezierPath alloc] init];
+        [path moveToPoint:CGPointMake(startPoint.x, startPoint.y)];
+        [path addLineToPoint:CGPointMake(endPoint.x, endPoint.y)];
+
+        CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
+        [shapeLayer setPath:path.CGPath];
+        [shapeLayer setStrokeColor:baseView.blackTimeLineColor.CGColor];
+        [shapeLayer setLineWidth:5.0];
+
+        [self.layer addSublayer:shapeLayer];
+
     }
 
-    [self drawCircle:CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2) radius:radius endRadius:-M_PI_2 + (M_PI * 2) strokeColor:[UIColor yellowColor] fillColor:[UIColor clearColor] withAnimation:YES];
+
+    [self drawCircle:CGPointMake(self.bounds.size.width / 2, self.bounds.size.height * ratioCenter) radius:radius - 20 endRadius:-M_PI_2 + (M_PI * 2) strokeColor:baseView.greyTimeLineColor fillColor:[UIColor clearColor] withAnimation:YES];
 
     [self animatedLayer:endPogressLayer End:(CGFloat)self.indexDay/self.nbDay * 100];
 
+//    for (CAShapeLayer *layer in self.layer.sublayers) {
+//        NSLog(@"layer");
+//        layer.anchorPoint = CGPointMake(.5,.5);
+//        layer.contentsGravity = @"center";
+//
+//        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+//        [animation setFromValue:@1];
+//        [animation setToValue:@1.1];
+//        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+//        [animation setDuration:0.5];
+//        [animation setBeginTime:CACurrentMediaTime()];
+//        [animation setFillMode:kCAFillModeForwards];
+//        [animation setRemovedOnCompletion:NO];
+//        [layer addAnimation:animation forKey:@"scale"];
+//
+//    }
 
 }
 
@@ -58,7 +95,7 @@ float radius;
     [self.layer addSublayer:self.progressLayer];
 }
 
-- (void)animatedTimeLine:(int)indexDay; {
+- (void)animatedTimeLine:(int)indexDay {
 
     [self animatedLayer:endPogressLayer End:(CGFloat)indexDay/self.nbDay * 100];
 
