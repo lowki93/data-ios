@@ -20,8 +20,11 @@
 @property (nonatomic) AllDataView *allDataView;
 @property (nonatomic) UIViewController *dataViewController;
 
+@property (nonatomic) bool informationViewActive;
+
 - (void)initView:(UIViewController *)dataViewController;
 - (void)drawData:(int)indexDay;
 - (void)removeBorderButton;
+- (void)scaleInformationView;
 
 @end

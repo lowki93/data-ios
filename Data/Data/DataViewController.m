@@ -589,7 +589,21 @@ NSTimer *timerLocation;
             if([subView isKindOfClass:[DataView class]]) {
 
                 DataView *dataView = (DataView *)subView;
-                [dataView.informationView setHidden:YES];
+                dataView.informationViewActive = NO;
+
+                [dataView.informationView animatedAllLabel:dataView.informationView.duration
+                                               Translation:dataView.informationView.translation
+                                                     Alpha:0];
+
+                [UIView animateWithDuration:dataView.informationView.duration
+                                      delay:dataView.informationView.duration
+                                    options:0 animations:^{
+
+                    [dataView scaleInformationView];
+
+
+                } completion:nil];
+
                 [dataView removeBorderButton];
 
             }

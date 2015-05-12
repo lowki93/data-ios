@@ -15,7 +15,6 @@
 BaseViewController *baseView;
 DataViewController *dataViewController2;
 
-bool informationViewActive;
 float heightContentView;
 CGPoint centerCircle;
 CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
@@ -53,17 +52,9 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [self.informationView.layer setMasksToBounds:YES];
     [self.informationView setBackgroundColor:[UIColor whiteColor]];
     [self.informationView init:informationViewWidth];
-    informationViewActive = NO;
+    self.informationViewActive = NO;
+    [self scaleInformationView];
     [self addSubview:self.informationView];
-
-//    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
-
-        CGAffineTransform informationViewtransform = self.informationView.transform;
-        [self.informationView setTransform:CGAffineTransformScale(informationViewtransform, 0.1, 0.1)];
-        [self.informationView setAlpha:0];
-//    } completion:nil];
-
-//    [self.informationView setHidden:YES];
 
     self.allDataView = [[AllDataView alloc] init];
     informationViewWidth = informationViewWidth + 10;
@@ -212,9 +203,9 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 - (IBAction)getInfoData:(id)sender {
 
 //    [self.informationView setHidden:NO];
-    if (!informationViewActive) {
+    if (!self.informationViewActive) {
 
-        informationViewActive = YES;
+        self.informationViewActive = YES;
         [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
 
             [self.informationView setTransform:CGAffineTransformIdentity];
@@ -268,6 +259,14 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
             
         }
     }
+
+}
+
+- (void)scaleInformationView {
+
+    CGAffineTransform informationViewtransform = self.informationView.transform;
+    [self.informationView setTransform:CGAffineTransformScale(informationViewtransform, 0.1, 0.1)];
+    [self.informationView setAlpha:0];
 
 }
 
