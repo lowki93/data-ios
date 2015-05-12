@@ -15,6 +15,9 @@ int size = 20;
 
 - (void)init:(float)size {
 
+    self.translation = 20;
+    self.duration = 0.5;
+
     baseView = [[BaseViewController alloc] init];
     [baseView initView:baseView];
 
@@ -95,6 +98,30 @@ int size = 20;
                                     20)];
     [photoLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:photoLabel];
+
+    [self animatedAllLabel:0 Translation:self.translation Alpha:0];
+
+}
+
+- (void)animatedAllLabel:(float)duration Translation:(int)translation Alpha:(int)alpha {
+
+    for (UIView *view in self.subviews) {
+
+        if([view isKindOfClass:[UILabel class]]) {
+
+            UILabel *label = (UILabel *)view;
+
+            [UIView animateWithDuration:duration delay:0 options:0 animations:^{
+
+                label.transform = CGAffineTransformMakeTranslation(0, translation);
+                label.alpha = alpha;
+
+            } completion:nil];
+            
+
+        }
+
+    }
 
 }
 

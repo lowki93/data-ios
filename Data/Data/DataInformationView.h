@@ -14,7 +14,10 @@
 @property (nonatomic) UILabel *photoInformationLabel;
 @property (nonatomic) UILabel *pedometerInformationLabel;
 @property (nonatomic) UILabel *geolocInformationLabel;
+@property (nonatomic) int translation;
+@property (nonatomic) float duration;
 
 - (void)init:(float)size;
+- (void)animatedAllLabel:(float)duration Translation:(int)translation Alpha:(int)alpha;
 
 @end

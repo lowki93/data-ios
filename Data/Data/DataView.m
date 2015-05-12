@@ -15,6 +15,7 @@
 BaseViewController *baseView;
 DataViewController *dataViewController2;
 
+bool informationViewActive;
 float heightContentView;
 CGPoint centerCircle;
 CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
@@ -26,7 +27,6 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
         [subLayer removeFromSuperlayer];
     }
 
-//    self.dataViewController = dataViewController;
     self.arrayData = [[NSMutableArray alloc] init];
 
      dataViewController2 = dataViewController;
@@ -53,8 +53,15 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [self.informationView.layer setMasksToBounds:YES];
     [self.informationView setBackgroundColor:[UIColor whiteColor]];
     [self.informationView init:informationViewWidth];
-
+    informationViewActive = NO;
     [self addSubview:self.informationView];
+
+//    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+
+        CGAffineTransform informationViewtransform = self.informationView.transform;
+        [self.informationView setTransform:CGAffineTransformScale(informationViewtransform, 0.1, 0.1)];
+        [self.informationView setAlpha:0];
+//    } completion:nil];
 
 //    [self.informationView setHidden:YES];
 
@@ -70,8 +77,8 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [self.allDataView initView];
 
     CGAffineTransform transform = self.allDataView.transform;
-    self.allDataView.transform = CGAffineTransformScale(transform, 0.1, 0.1);
-    self.allDataView.alpha = 0;
+    [self.allDataView setTransform:CGAffineTransformScale(transform, 0.1, 0.1)];
+    [self.allDataView setAlpha:0];
 
     [self addSubview:self.allDataView];
 
@@ -204,7 +211,24 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
 - (IBAction)getInfoData:(id)sender {
 
-    [self.informationView setHidden:NO];
+//    [self.informationView setHidden:NO];
+    if (!informationViewActive) {
+
+        informationViewActive = YES;
+        [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
+
+            [self.informationView setTransform:CGAffineTransformIdentity];
+            [self.informationView setAlpha:1];
+
+        } completion:^(BOOL finished){
+
+
+
+        }];
+
+
+    }
+
 
     [dataViewController2.view removeGestureRecognizer:dataViewController2.informationDataGesture];
     [dataViewController2.view addGestureRecognizer:dataViewController2.closeInformationGesture];
@@ -214,12 +238,22 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [button.layer setBorderColor:[UIColor greenColor].CGColor];
     [button.layer setBorderWidth:2.f];
 
-    int nbTag = (int)[button tag];
-    NSDictionary *dictionnary = [self.arrayData objectAtIndex:nbTag];
-    [self.informationView.photoInformationLabel setText:[NSString stringWithFormat:@"%@",dictionnary[@"photo"]]];
-    [self.informationView.pedometerInformationLabel setText:[NSString stringWithFormat:@"%@ km",dictionnary[@"distance"]]];
-    [self.informationView.geolocInformationLabel setText:[NSString stringWithFormat:@"%@",dictionnary[@"geoloc"]]];
+    [self.informationView animatedAllLabel:self.informationView.duration Translation:self.informationView.translation Alpha:0];
 
+    int nbTag = (int)[button tag];
+    NSDictionary *dictionary = [self.arrayData objectAtIndex:nbTag];
+    [self performSelector:@selector(changeText:) withObject:dictionary afterDelay:self.informationView.duration];
+
+}
+
+- (void)changeText:(NSDictionary *)dictionary {
+
+    [self.informationView.photoInformationLabel setText:[NSString stringWithFormat:@"%@",dictionary[@"photo"]]];
+    [self.informationView.pedometerInformationLabel setText:[NSString stringWithFormat:@"%@ km",dictionary[@"distance"]]];
+    [self.informationView.geolocInformationLabel setText:[NSString stringWithFormat:@"%@",dictionary[@"geoloc"]]];
+
+    [self.informationView animatedAllLabel:self.informationView.duration Translation:0 Alpha:1];
+    
 }
 
 - (void)removeBorderButton {
