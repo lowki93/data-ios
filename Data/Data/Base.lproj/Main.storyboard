@@ -42,6 +42,7 @@
             <string>MaisonNeue-Medium</string>
             <string>MaisonNeue-Medium</string>
             <string>MaisonNeue-Medium</string>
+            <string>MaisonNeue-Medium</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -415,14 +416,24 @@
                                     <action selector="removePlist:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="0bp-Ql-aQQ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mF-GS-Snp">
+                                <rect key="frame" x="26" y="40" width="548" height="30"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="30"/>
+                                <color key="textColor" red="0.11372549019607843" green="0.11372549019607843" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="8mF-GS-Snp" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" constant="10" id="0FZ-nR-1Cw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8mF-GS-Snp" secondAttribute="trailing" constant="10" id="21w-fj-LmX"/>
                             <constraint firstAttribute="trailing" secondItem="G6c-Zv-6bt" secondAttribute="trailing" id="7mq-9A-iRV"/>
+                            <constraint firstAttribute="centerX" secondItem="8mF-GS-Snp" secondAttribute="centerX" id="BWM-EK-qPU"/>
                             <constraint firstAttribute="trailing" secondItem="bI4-JP-187" secondAttribute="trailing" id="Fio-1e-HZn"/>
                             <constraint firstAttribute="centerX" secondItem="qgj-Xv-zcP" secondAttribute="centerX" id="Ijb-L9-iNj"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="jib-wF-uB4" secondAttribute="bottom" constant="20" id="N2T-R5-VSN"/>
                             <constraint firstItem="jib-wF-uB4" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" constant="20" id="RgW-XU-5ib"/>
+                            <constraint firstItem="8mF-GS-Snp" firstAttribute="top" secondItem="4fH-C9-3fe" secondAttribute="bottom" constant="20" id="RnL-B5-5xI"/>
                             <constraint firstItem="ivx-3O-myV" firstAttribute="top" secondItem="4fH-C9-3fe" secondAttribute="bottom" constant="-20" id="V9R-bx-WuY"/>
                             <constraint firstItem="G6c-Zv-6bt" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leading" id="WD9-Td-pRf"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="ivx-3O-myV" secondAttribute="bottom" id="aPG-Ez-3Lk"/>
@@ -439,8 +450,10 @@
                     </view>
                     <connections>
                         <outlet property="contentScrollView" destination="G6c-Zv-6bt" id="IU4-06-ASa"/>
+                        <outlet property="dateLabel" destination="8mF-GS-Snp" id="TTZ-Wf-MOw"/>
                         <outlet property="logTextView" destination="bI4-JP-187" id="qM9-DX-4g2"/>
                         <outlet property="timeLineView" destination="ivx-3O-myV" id="laC-05-wuc"/>
+                        <outlet property="topConstraint" destination="RnL-B5-5xI" id="t5a-p0-qrd"/>
                         <segue destination="HVH-gC-8UG" kind="show" identifier="logout" id="Ewf-ih-IQW"/>
                     </connections>
                 </viewController>

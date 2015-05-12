@@ -14,10 +14,12 @@
 
 BaseViewController *baseView;
 
+NSMutableArray *dateArray;
+
 int nbDay, margin, indexDay = 0, positionTop, heigtViewDetail;
 UISwipeGestureRecognizer *leftGesture, *rightGesture, *upGesture;
 UITapGestureRecognizer *closeGesture, *closeAllInformationDataGesture;
-float firstScale,secondScale, upScale, downScale;
+float firstScale,secondScale, upScale, downScale, transition;
 
 /** for location **/
 NSString *filePath;
@@ -49,6 +51,10 @@ NSTimer *timerLocation;
     upScale = 1.5;
     positionTop = self.view.bounds.size.height * 0.30;
     heigtViewDetail = self.view.bounds.size.height * 0.70;
+    transition = 20;
+
+    [self.topConstraint setConstant:self.view.bounds.size.height * 0.10];
+    dateArray = [[NSMutableArray alloc] init];
 
     /** TIMELINE **/
     [self.timeLineView setBackgroundColor:[UIColor clearColor]];
@@ -77,12 +83,26 @@ NSTimer *timerLocation;
         [dataView initView:self];
         [dataView drawData:i];
         [view addSubview:dataView];
+        Day *currentDay = [ApiController sharedInstance].experience.day[i];
+
+        /** test **/
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSDate *date = [dateFormatter dateFromString: currentDay.date];
+
+        NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init] ;
+        [dayFormatter setDateFormat:@"EEEE dd"];
+
+        NSString *week = [dayFormatter stringFromDate:date];
+        [dateArray addObject:week];
 
 //        CGAffineTransform transform = view.transform;
 //        view.transform = CGAffineTransformScale(transform, 1.2, 1.2);
 
         [self.contentScrollView addSubview:view];
     }
+
+    [self.dateLabel setText:[dateArray objectAtIndex:indexDay]];
 
     CGRect frame = self.contentScrollView.frame;
     frame.origin.x = (self.view.bounds.size.width + margin ) * indexDay;
@@ -270,6 +290,7 @@ NSTimer *timerLocation;
 
         [self.contentScrollView scrollRectToVisible:frame animated:YES];
         [self.timeLineView animatedTimeLine:indexDay];
+        [self animateDateLabel:transition];
 
     }
 }
@@ -283,6 +304,7 @@ NSTimer *timerLocation;
         frame.origin.x = (self.view.bounds.size.width + margin) * secondScale * indexDay;
         [self.contentScrollView scrollRectToVisible:frame animated:YES];
         [self.timeLineView animatedTimeLine:indexDay];
+        [self animateDateLabel:-transition];
 
     }
 
@@ -622,7 +644,7 @@ NSTimer *timerLocation;
 
 }
 
-- (void)animateLayer:(CAShapeLayer *)layer Start:(NSNumber *)start End:(NSNumber *)end Delay:(float)delay {
+- (void)animateLayer:(CAShapeLayer *)layer Start:(NSNumber *)start Ends:(NSNumber *)end Delay:(float)delay {
 
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     [animation setFromValue:start]; //layer.transform = CATransform3DMakeScale(.65, .65, 1);
@@ -694,6 +716,33 @@ NSTimer *timerLocation;
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
     
     return YES;
+}
+
+- (void)animateDateLabel:(float)translation {
+
+    [UIView animateWithDuration:0.2 delay:0 options:0 animations:^{
+
+        [self.dateLabel setAlpha:0];
+        [self.dateLabel setTransform:CGAffineTransformMakeTranslation(translation, 0)];
+
+    } completion:^(BOOL finished){
+
+        [self.dateLabel setText:[dateArray objectAtIndex:indexDay]];
+        [self.dateLabel setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
+
+        [UIView animateWithDuration:0.2 delay:0 options:0 animations:^{
+
+            [self.dateLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
+            [self.dateLabel setAlpha:1];
+
+        } completion:nil];
+
+
+
+    }];
+
+
+
 }
 
 - (void)animateTimeLine:(float)scale Alpha:(float)alpha {

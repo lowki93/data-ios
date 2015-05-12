@@ -19,9 +19,11 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
 @property (weak, nonatomic) IBOutlet TimeLineView *timeLineView;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 @property (nonatomic) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet UITextView *logTextView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 - (IBAction)logoutAction:(id)sender;
 - (void)uploadFile;
