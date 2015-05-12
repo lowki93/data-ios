@@ -485,6 +485,7 @@ NSTimer *timerLocation;
 
                     } completion:^(BOOL finished){
 
+                        [dataView.allDataView animatedAllLabel:dataView.allDataView.duration Translation:0 Alpha:1];
                         [self.view addGestureRecognizer:closeAllInformationDataGesture];
 
                     }];
@@ -599,7 +600,7 @@ NSTimer *timerLocation;
                                       delay:dataView.informationView.duration
                                     options:0 animations:^{
 
-                    [dataView scaleInformationView];
+                    [dataView scaleInformationView:dataView.informationView];
 
 
                 } completion:nil];
@@ -660,24 +661,21 @@ NSTimer *timerLocation;
 
                 DataView *dataView = (DataView *)subView;
 
-                [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+                [dataView.allDataView animatedAllLabel:dataView.allDataView.duration
+                                           Translation:dataView.allDataView.translation
+                                                 Alpha:0];
 
-                    CGAffineTransform transform = dataView.allDataView.transform;
-                    dataView.allDataView.transform = CGAffineTransformScale(transform, 0.1, 0.1);
-                    dataView.allDataView.alpha = 0;
-
-                } completion:nil];
-
-                [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
+                [UIView animateWithDuration:0.5 delay:dataView.allDataView.duration options:0 animations:^{
 
                     dataView.transform = CGAffineTransformIdentity;
+                    [dataView scaleInformationView:dataView.allDataView];
 
                 } completion:^(BOOL finished){
 
                     [self.view addGestureRecognizer:self.informationDataGesture];
                     
                 }];
-                
+
             }
         }
         

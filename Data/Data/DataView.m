@@ -53,10 +53,10 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [self.informationView setBackgroundColor:[UIColor whiteColor]];
     [self.informationView init:informationViewWidth];
     self.informationViewActive = NO;
-    [self scaleInformationView];
+    [self scaleInformationView:self.informationView];
     [self addSubview:self.informationView];
 
-    self.allDataView = [[AllDataView alloc] init];
+    self.allDataView = [[DataInformationView alloc] init];
     informationViewWidth = informationViewWidth + 10;
     [self.allDataView setFrame:CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
                                               (self.bounds.size.height / 2) - (informationViewWidth / 2),
@@ -64,12 +64,9 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
                                               informationViewWidth)];
     [self.allDataView.layer setCornerRadius:informationViewWidth/2.];
     [self.allDataView setBackgroundColor:[UIColor whiteColor]];
+    [self.allDataView init:informationViewWidth];
     [self.allDataView.layer setMasksToBounds:YES];
-    [self.allDataView initView];
-
-    CGAffineTransform transform = self.allDataView.transform;
-    [self.allDataView setTransform:CGAffineTransformScale(transform, 0.1, 0.1)];
-    [self.allDataView setAlpha:0];
+    [self scaleInformationView:self.allDataView];
 
     [self addSubview:self.allDataView];
 
@@ -262,11 +259,11 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
 }
 
-- (void)scaleInformationView {
+- (void)scaleInformationView:(UIView *)view {
 
-    CGAffineTransform informationViewtransform = self.informationView.transform;
-    [self.informationView setTransform:CGAffineTransformScale(informationViewtransform, 0.1, 0.1)];
-    [self.informationView setAlpha:0];
+    CGAffineTransform informationViewtransform = view.transform;
+    [view setTransform:CGAffineTransformScale(informationViewtransform, 0.1, 0.1)];
+    [view setAlpha:0];
 
 }
 

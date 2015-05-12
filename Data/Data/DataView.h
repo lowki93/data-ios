@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "DataInformationView.h"
-#import "AllDataView.h"
 #import "DataViewController.h"
 
 @interface DataView : UIView
@@ -17,7 +16,7 @@
 @property (nonatomic) NSMutableArray *arrayData;
 @property (nonatomic) UIView *contentData;
 @property (nonatomic) DataInformationView *informationView;
-@property (nonatomic) AllDataView *allDataView;
+@property (nonatomic) DataInformationView *allDataView;
 @property (nonatomic) UIViewController *dataViewController;
 
 @property (nonatomic) bool informationViewActive;
@@ -25,6 +24,6 @@
 - (void)initView:(UIViewController *)dataViewController;
 - (void)drawData:(int)indexDay;
 - (void)removeBorderButton;
-- (void)scaleInformationView;
+- (void)scaleInformationView:(UIView *)view;
 
 @end
