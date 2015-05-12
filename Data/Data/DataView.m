@@ -176,7 +176,7 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
         NSDate *date = [dateFormatter dateFromString: currentData.date];
 
         NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-        [timeFormat setDateFormat:@"hh:mm a"];
+        [timeFormat setDateFormat:@"h:mm a"];
         NSString *dateString = [timeFormat stringFromDate:date];
 
         [dataDictionnary setObject:[NSString stringWithFormat:@"%@", dateString] forKey:@"date"];
