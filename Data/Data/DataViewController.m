@@ -16,7 +16,7 @@ BaseViewController *baseView;
 
 int nbDay, margin, indexDay = 0, positionTop, heigtViewDetail;
 UISwipeGestureRecognizer *leftGesture, *rightGesture, *upGesture;
-UITapGestureRecognizer *tapGesture, *informationDataGesture, *closeInformationDataGesture;
+UITapGestureRecognizer *closeGesture, *closeAllInformationDataGesture;
 float firstScale,secondScale, upScale, downScale;
 
 /** for location **/
@@ -74,7 +74,7 @@ NSTimer *timerLocation;
 
         DataView *dataView = [[DataView alloc] init];
         [dataView setFrame:CGRectMake(0, 0, self.view.bounds.size.width, heigtViewDetail)];
-        [dataView initView];
+        [dataView initView:self];
         [dataView drawData:i];
         [view addSubview:dataView];
 
@@ -101,12 +101,14 @@ NSTimer *timerLocation;
     [upGesture setDirection:(UISwipeGestureRecognizerDirectionUp)];
     [self.view addGestureRecognizer:upGesture];
 
-    tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    closeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
 
-    informationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(informationData:)];
-    [self.view addGestureRecognizer:informationDataGesture];
+    self.informationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(informationData:)];
+    [self.view addGestureRecognizer:self.informationDataGesture];
 
-    closeInformationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeInformationData:)];
+    closeAllInformationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeAllInformationData:)];
+
+    self.closeInformationGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeInformationData:)];
 
 
     /** for location **/
@@ -255,6 +257,9 @@ NSTimer *timerLocation;
 
 }
 
+- (IBAction)lauchSynchro:(id)sender {
+}
+
 -(void)swipeLeft:(UISwipeGestureRecognizer *)recognizer {
 
     if (indexDay > 0) {
@@ -287,7 +292,7 @@ NSTimer *timerLocation;
 
     [self.view removeGestureRecognizer:leftGesture];
     [self.view removeGestureRecognizer:rightGesture];
-    [self.view removeGestureRecognizer:tapGesture];
+    [self.view removeGestureRecognizer:closeGesture];
     [self.timeLineView setHidden:NO];
     [self animateTimeLine:upScale Alpha:0];
 
@@ -346,7 +351,7 @@ NSTimer *timerLocation;
     } completion:^(BOOL finished){
 
         [self.view addGestureRecognizer:upGesture];
-        [self.view addGestureRecognizer:informationDataGesture];
+        [self.view addGestureRecognizer:self.informationDataGesture];
 
     }];
 
@@ -355,8 +360,9 @@ NSTimer *timerLocation;
 - (void)swipeUp:(UISwipeGestureRecognizer *)recognizer {
 
     [self hideInformationData];
+    [self animationCloseAllData];
     [self.view removeGestureRecognizer:upGesture];
-    [self.view removeGestureRecognizer:informationDataGesture];
+    [self.view removeGestureRecognizer:self.informationDataGesture];
     [self.timeLineView setHidden:NO];
 
     [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -441,7 +447,7 @@ NSTimer *timerLocation;
 
             [self.view addGestureRecognizer:leftGesture];
             [self.view addGestureRecognizer:rightGesture];
-            [self.view addGestureRecognizer:tapGesture];
+            [self.view addGestureRecognizer:closeGesture];
 
         }];
 
@@ -452,9 +458,9 @@ NSTimer *timerLocation;
 
 - (void)informationData:(UITapGestureRecognizer *)tapGestureRecognizer {
 
-    [self hideInformationData];
+//    [self hideInformationData];
 
-    [self.view removeGestureRecognizer:informationDataGesture];
+    [self.view removeGestureRecognizer:self.informationDataGesture];
 
 
         int count = 0;
@@ -481,7 +487,7 @@ NSTimer *timerLocation;
 
                     } completion:^(BOOL finished){
 
-                        [self.view addGestureRecognizer:closeInformationDataGesture];
+                        [self.view addGestureRecognizer:closeAllInformationDataGesture];
 
                     }];
 
@@ -494,45 +500,17 @@ NSTimer *timerLocation;
 
 }
 
+- (void)closeAllInformationData:(UITapGestureRecognizer *)tapGestureRecognizer {
+
+    [self animationCloseAllData];
+
+}
+
 - (void)closeInformationData:(UITapGestureRecognizer *)tapGestureRecognizer {
 
-    [self.view removeGestureRecognizer:closeInformationDataGesture];
-
-        int count = 0;
-
-        for (UIView *view in self.contentScrollView.subviews) {
-
-            for (UIView *subView in view.subviews) {
-
-                if([subView isKindOfClass:[DataView class]]) {
-
-                    DataView *dataView = (DataView *)subView;
-
-                    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
-
-                        CGAffineTransform transform = dataView.allDataView.transform;
-                        dataView.allDataView.transform = CGAffineTransformScale(transform, 0.1, 0.1);
-                        dataView.allDataView.alpha = 0;
-
-                    } completion:nil];
-
-                    [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
-
-                        dataView.transform = CGAffineTransformIdentity;
-
-                    } completion:^(BOOL finished){
-
-                        [self.view addGestureRecognizer:informationDataGesture];
-                        
-                    }];
-
-                }
-            }
-
-            count++;
-
-        }
-
+    [self hideInformationData];
+    [self.view removeGestureRecognizer:self.closeInformationGesture];
+    [self.view addGestureRecognizer:self.informationDataGesture];
 
 }
 
@@ -663,6 +641,47 @@ NSTimer *timerLocation;
 //    frame.size.height = layer.frame.size.height * [end floatValue];
 //    frame.size.width = layer.frame.size.width * [end floatValue];
 //    layer.frame = frame;
+
+}
+
+- (void)animationCloseAllData {
+
+    [self.view removeGestureRecognizer:closeAllInformationDataGesture];
+
+    int count = 0;
+
+    for (UIView *view in self.contentScrollView.subviews) {
+
+        for (UIView *subView in view.subviews) {
+
+            if([subView isKindOfClass:[DataView class]]) {
+
+                DataView *dataView = (DataView *)subView;
+
+                [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+
+                    CGAffineTransform transform = dataView.allDataView.transform;
+                    dataView.allDataView.transform = CGAffineTransformScale(transform, 0.1, 0.1);
+                    dataView.allDataView.alpha = 0;
+
+                } completion:nil];
+
+                [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
+
+                    dataView.transform = CGAffineTransformIdentity;
+
+                } completion:^(BOOL finished){
+
+                    [self.view addGestureRecognizer:self.informationDataGesture];
+                    
+                }];
+                
+            }
+        }
+        
+        count++;
+        
+    }
 
 }
 

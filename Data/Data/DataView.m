@@ -13,19 +13,23 @@
 @implementation DataView
 
 BaseViewController *baseView;
+DataViewController *dataViewController2;
 
 float heightContentView;
 CGPoint centerCircle;
 CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
 
-- (void)initView {
+- (void)initView:(DataViewController *)dataViewController {
 
     for (CALayer *subLayer in self.layer.sublayers)
     {
         [subLayer removeFromSuperlayer];
     }
 
+//    self.dataViewController = dataViewController;
     self.arrayData = [[NSMutableArray alloc] init];
+
+     dataViewController2 = dataViewController;
 
     baseView = [[BaseViewController alloc] init];
     [baseView initView:baseView];
@@ -52,7 +56,7 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
     [self addSubview:self.informationView];
 
-    [self.informationView setHidden:YES];
+//    [self.informationView setHidden:YES];
 
     self.allDataView = [[AllDataView alloc] init];
     informationViewWidth = informationViewWidth + 10;
@@ -66,7 +70,7 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [self.allDataView initView];
 
     CGAffineTransform transform = self.allDataView.transform;
-    self.allDataView.transform = CGAffineTransformScale(transform, 0, 0);
+    self.allDataView.transform = CGAffineTransformScale(transform, 0.1, 0.1);
     self.allDataView.alpha = 0;
 
     [self addSubview:self.allDataView];
@@ -146,7 +150,8 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
     Day *currentDay = [ApiController sharedInstance].experience.day[indexDay];
 
-    int nbPhoto = 0, nbGeoloc = 0, nbNumberStep = 0;
+    int nbPhoto = 0, nbGeoloc = 0;
+    float distance = 0;
 
     for (int i = 0; i < [currentDay.data count]; i++) {
 //    for (int i = 0; i < 25; i++) {
@@ -161,11 +166,11 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
         NSMutableDictionary *dataDictionnary = [[NSMutableDictionary alloc] init];
         [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.photos count]] forKey:@"photo"];
         [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.atmosphere count]] forKey:@"geoloc"];
-        [dataDictionnary setObject:currentData.deplacement[@"stepNumber"] forKey:@"numberStep"];
+        [dataDictionnary setObject:[NSString stringWithFormat:@"%.2f", [currentData.deplacement[@"distance"] floatValue] / 1000] forKey:@"distance"];
 
         nbPhoto += (int)[currentData.photos count];
         nbGeoloc += (int)[currentData.atmosphere count];
-        nbNumberStep += [currentData.deplacement[@"stepNumber"] intValue];
+        distance += [currentData.deplacement[@"distance"] intValue] / 1000;
 
         [self.arrayData addObject:dataDictionnary];
 
@@ -173,7 +178,7 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     }
 
     [self.allDataView.photoInformationLabel setText:[NSString stringWithFormat:@"%i",nbPhoto]];
-    [self.allDataView.pedometerInformationLabel setText:[NSString stringWithFormat:@"%i",nbNumberStep]];
+    [self.allDataView.pedometerInformationLabel setText:[NSString stringWithFormat:@"%.2f",distance]];
     [self.allDataView.geolocInformationLabel setText:[NSString stringWithFormat:@"%i",nbGeoloc]];
 
 }
@@ -200,6 +205,9 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 - (IBAction)getInfoData:(id)sender {
 
     [self.informationView setHidden:NO];
+
+    [dataViewController2.view removeGestureRecognizer:dataViewController2.informationDataGesture];
+    [dataViewController2.view addGestureRecognizer:dataViewController2.closeInformationGesture];
     [self removeBorderButton];
 
     UIButton *button = (UIButton *)sender;
@@ -209,7 +217,7 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     int nbTag = (int)[button tag];
     NSDictionary *dictionnary = [self.arrayData objectAtIndex:nbTag];
     [self.informationView.photoInformationLabel setText:[NSString stringWithFormat:@"%@",dictionnary[@"photo"]]];
-    [self.informationView.pedometerInformationLabel setText:[NSString stringWithFormat:@"%@ step",dictionnary[@"numberStep"]]];
+    [self.informationView.pedometerInformationLabel setText:[NSString stringWithFormat:@"%@ km",dictionnary[@"distance"]]];
     [self.informationView.geolocInformationLabel setText:[NSString stringWithFormat:@"%@",dictionnary[@"geoloc"]]];
 
 }

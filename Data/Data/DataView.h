@@ -10,6 +10,7 @@
 #import "BaseViewController.h"
 #import "DataInformationView.h"
 #import "AllDataView.h"
+#import "DataViewController.h"
 
 @interface DataView : UIView
 
@@ -17,8 +18,9 @@
 @property (nonatomic) UIView *contentData;
 @property (nonatomic) DataInformationView *informationView;
 @property (nonatomic) AllDataView *allDataView;
+@property (nonatomic) UIViewController *dataViewController;
 
-- (void)initView;
+- (void)initView:(UIViewController *)dataViewController;
 - (void)drawData:(int)indexDay;
 - (void)removeBorderButton;
 

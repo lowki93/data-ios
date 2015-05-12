@@ -397,11 +397,30 @@
                                     <action selector="logoutAction:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="Fnd-eB-M8k"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axA-9Z-JyO">
+                                <rect key="frame" x="525" y="550" width="55" height="30"/>
+                                <state key="normal" title="synchro">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="lauchSynchro:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="qfy-1W-hKF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgj-Xv-zcP">
+                                <rect key="frame" x="265" y="550" width="71" height="30"/>
+                                <state key="normal" title="clean Plist">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="removePlist:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="0bp-Ql-aQQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="G6c-Zv-6bt" secondAttribute="trailing" id="7mq-9A-iRV"/>
                             <constraint firstAttribute="trailing" secondItem="bI4-JP-187" secondAttribute="trailing" id="Fio-1e-HZn"/>
+                            <constraint firstAttribute="centerX" secondItem="qgj-Xv-zcP" secondAttribute="centerX" id="Ijb-L9-iNj"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="jib-wF-uB4" secondAttribute="bottom" constant="20" id="N2T-R5-VSN"/>
                             <constraint firstItem="jib-wF-uB4" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" constant="20" id="RgW-XU-5ib"/>
                             <constraint firstItem="ivx-3O-myV" firstAttribute="top" secondItem="4fH-C9-3fe" secondAttribute="bottom" constant="-20" id="V9R-bx-WuY"/>
@@ -412,7 +431,10 @@
                             <constraint firstItem="bI4-JP-187" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leading" id="fDY-Q2-Zv2"/>
                             <constraint firstItem="G6c-Zv-6bt" firstAttribute="top" secondItem="5Gq-4e-hfR" secondAttribute="top" id="fKq-nN-iRW"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="G6c-Zv-6bt" secondAttribute="bottom" id="l9r-67-Agd"/>
+                            <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="qgj-Xv-zcP" secondAttribute="bottom" constant="20" id="pBJ-b8-aDk"/>
                             <constraint firstItem="bI4-JP-187" firstAttribute="top" secondItem="5Gq-4e-hfR" secondAttribute="top" id="rdS-th-fK9"/>
+                            <constraint firstAttribute="trailing" secondItem="axA-9Z-JyO" secondAttribute="trailing" constant="20" id="vFf-CP-Pkn"/>
+                            <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="axA-9Z-JyO" secondAttribute="bottom" constant="20" id="y31-eD-ejX"/>
                         </constraints>
                     </view>
                     <connections>
