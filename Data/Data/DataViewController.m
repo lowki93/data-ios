@@ -605,6 +605,12 @@ NSTimer *timerLocation;
 
                 } completion:nil];
 
+                [UIView animateWithDuration:dataView.informationView.duration delay:0 options:0 animations:^{
+
+                    [dataView.hoursLabel setAlpha:0];
+                    
+                } completion:nil];
+
                 [dataView removeBorderButton];
 
             }

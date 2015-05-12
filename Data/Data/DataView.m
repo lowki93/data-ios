@@ -13,13 +13,13 @@
 @implementation DataView
 
 BaseViewController *baseView;
-DataViewController *dataViewController2;
+DataViewController *dataViewController;
 
 float heightContentView;
 CGPoint centerCircle;
 CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
 
-- (void)initView:(DataViewController *)dataViewController {
+- (void)initView:(DataViewController *)viewController {
 
     for (CALayer *subLayer in self.layer.sublayers)
     {
@@ -28,7 +28,7 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
     self.arrayData = [[NSMutableArray alloc] init];
 
-     dataViewController2 = dataViewController;
+    dataViewController = viewController;
 
     baseView = [[BaseViewController alloc] init];
     [baseView initView:baseView];
@@ -42,7 +42,19 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 //    radiusPedometerCircle = (self.bounds.size.width * 0.8125) / 2;
     radiusData = (self.bounds.size.width * 0.8125) / 2;
 
+    /** label for hours **/
+    UIFont *labelFont = [UIFont fontWithName:@"MaisonNeue-Book" size:15];
+    UIColor *labelColor = [baseView colorWithRGB:157 :157 :156 :1];
+    self.hoursLabel = [[UILabel alloc] init];
+    [self.hoursLabel setFrame:CGRectMake(0, 20, self.bounds.size.width, 15)];
+    [self.hoursLabel setText:@""];
+    [self.hoursLabel setTextColor:labelColor];
+    [self.hoursLabel setFont:labelFont];
+    [self.hoursLabel setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:self.hoursLabel];
+
     float informationViewWidth = (radiusData - 20) * 2;
+    /** information by hours **/
     self.informationView = [[DataInformationView alloc] init];
     [self.informationView setFrame:CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
                                (self.bounds.size.height / 2) - (informationViewWidth / 2),
@@ -56,6 +68,7 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [self scaleInformationView:self.informationView];
     [self addSubview:self.informationView];
 
+    /** information by Day **/
     self.allDataView = [[DataInformationView alloc] init];
     informationViewWidth = informationViewWidth + 10;
     [self.allDataView setFrame:CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
@@ -67,7 +80,6 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [self.allDataView init:informationViewWidth];
     [self.allDataView.layer setMasksToBounds:YES];
     [self scaleInformationView:self.allDataView];
-
     [self addSubview:self.allDataView];
 
     [self createCircle];
@@ -125,19 +137,18 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
 
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.startPoint = CGPointMake(0.5,1.0);
-    gradientLayer.endPoint = CGPointMake(0.5,0.0);
-    gradientLayer.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+    [gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
+    [gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
+    [gradientLayer setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
 
     NSMutableArray *colors = [NSMutableArray array];
     for (int i = 0; i < 10; i++) {
         [colors addObject:(id)[[UIColor colorWithHue:(0.1 * i) saturation:1 brightness:.8 alpha:1] CGColor]];
     }
-    gradientLayer.colors = colors;
-
+    [gradientLayer setColors:colors];
     [gradientLayer setMask:gradientMask];
-    [self.layer addSublayer:gradientLayer];
 
+    [self.layer addSublayer:gradientLayer];
 
 }
 
@@ -159,6 +170,16 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 //        [self updateGeolocData:currentData Synchro:nbSynchro];
 
         NSMutableDictionary *dataDictionnary = [[NSMutableDictionary alloc] init];
+
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *date = [dateFormatter dateFromString: currentData.date];
+
+        NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+        [timeFormat setDateFormat:@"hh:mm a"];
+        NSString *dateString = [timeFormat stringFromDate:date];
+
+        [dataDictionnary setObject:[NSString stringWithFormat:@"%@", dateString] forKey:@"date"];
         [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.photos count]] forKey:@"photo"];
         [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.atmosphere count]] forKey:@"geoloc"];
         [dataDictionnary setObject:[NSString stringWithFormat:@"%.2f", [currentData.deplacement[@"distance"] floatValue] / 1000] forKey:@"distance"];
@@ -199,7 +220,6 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
 - (IBAction)getInfoData:(id)sender {
 
-//    [self.informationView setHidden:NO];
     if (!self.informationViewActive) {
 
         self.informationViewActive = YES;
@@ -208,18 +228,12 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
             [self.informationView setTransform:CGAffineTransformIdentity];
             [self.informationView setAlpha:1];
 
-        } completion:^(BOOL finished){
-
-
-
-        }];
-
+        } completion:nil];
 
     }
 
-
-    [dataViewController2.view removeGestureRecognizer:dataViewController2.informationDataGesture];
-    [dataViewController2.view addGestureRecognizer:dataViewController2.closeInformationGesture];
+    [dataViewController.view removeGestureRecognizer:dataViewController.informationDataGesture];
+    [dataViewController.view addGestureRecognizer:dataViewController.closeInformationGesture];
     [self removeBorderButton];
 
     UIButton *button = (UIButton *)sender;
@@ -227,20 +241,33 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [button.layer setBorderWidth:2.f];
 
     [self.informationView animatedAllLabel:self.informationView.duration Translation:self.informationView.translation Alpha:0];
+    [UIView animateWithDuration:self.informationView.duration delay:0 options:0 animations:^{
 
-    int nbTag = (int)[button tag];
-    NSDictionary *dictionary = [self.arrayData objectAtIndex:nbTag];
-    [self performSelector:@selector(changeText:) withObject:dictionary afterDelay:self.informationView.duration];
+        [self.hoursLabel setAlpha:0];
+
+    } completion:^(BOOL finished){
+
+        int nbTag = (int)[button tag];
+        NSDictionary *dictionary = [self.arrayData objectAtIndex:nbTag];
+        [self changeText:dictionary];
+
+    }];
 
 }
 
 - (void)changeText:(NSDictionary *)dictionary {
 
+    [self.hoursLabel setText:[NSString stringWithFormat:@"%@",dictionary[@"date"]]];
     [self.informationView.photoInformationLabel setText:[NSString stringWithFormat:@"%@",dictionary[@"photo"]]];
     [self.informationView.pedometerInformationLabel setText:[NSString stringWithFormat:@"%@ km",dictionary[@"distance"]]];
     [self.informationView.geolocInformationLabel setText:[NSString stringWithFormat:@"%@",dictionary[@"geoloc"]]];
 
     [self.informationView animatedAllLabel:self.informationView.duration Translation:0 Alpha:1];
+    [UIView animateWithDuration:self.informationView.duration delay:0 options:0 animations:^{
+
+        [self.hoursLabel setAlpha:1];
+
+    } completion:nil];
     
 }
 

@@ -14,14 +14,14 @@
 @interface DataView : UIView
 
 @property (nonatomic) NSMutableArray *arrayData;
+@property (nonatomic) UILabel *hoursLabel;
 @property (nonatomic) UIView *contentData;
 @property (nonatomic) DataInformationView *informationView;
 @property (nonatomic) DataInformationView *allDataView;
-@property (nonatomic) UIViewController *dataViewController;
 
 @property (nonatomic) bool informationViewActive;
 
-- (void)initView:(UIViewController *)dataViewController;
+- (void)initView:(UIViewController *)viewController;
 - (void)drawData:(int)indexDay;
 - (void)removeBorderButton;
 - (void)scaleInformationView:(UIView *)view;
