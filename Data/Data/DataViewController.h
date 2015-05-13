@@ -11,6 +11,9 @@
 #import "DataView.h"
 #import "BaseViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import <HealthKit/HealthKit.h>
+@import CoreMotion;
+//@import AssetsLibrary;
 
 @interface DataViewController : UIViewController <CLLocationManagerDelegate>
 
@@ -21,7 +24,17 @@
 @property (weak, nonatomic) IBOutlet TimeLineView *timeLineView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
+/** location **/
 @property (nonatomic) CLLocationManager *locationManager;
+@property (nonatomic) CLLocation *location;
+@property (nonatomic) CLLocation *lastLocation;
+@property (nonatomic) CLGeocoder *geocoder;
+@property (nonatomic) CLPlacemark *placemark;
+@property (nonatomic) NSMutableDictionary *pedometerInformation;
+
+/** pedometer **/
+@property (nonatomic, strong) CMPedometer *pedometer;
+
 @property (weak, nonatomic) IBOutlet UITextView *logTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 

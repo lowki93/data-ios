@@ -415,7 +415,7 @@ float heightContentView;
         NSLog(@"update");
         [self sendLocalNotification:@"Update data start"];
         NSMutableDictionary * dictio = [[NSMutableDictionary alloc]init];
-        [dictio setObject:[ApiController sharedInstance].location forKey:@"geolo"];
+        [dictio setObject:[ApiController sharedInstance].location forKey:@"geoloc"];
         if (![CMPedometer isStepCountingAvailable]) {
             self.pedometerInformation = [[NSMutableDictionary alloc]init];
             [self.pedometerInformation setObject:[NSNumber numberWithInt:1] forKey:@"stepNumber"];
@@ -566,11 +566,6 @@ float heightContentView;
     [self.geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error == nil && [placemarks count] > 0) {
             self.placemark = [placemarks lastObject];
-//            NSLog(@"%@ %@\n%@ %@\n%@\n%@",
-//                                 self.placemark.subThoroughfare, self.placemark.thoroughfare,
-//                                 self.placemark.postalCode, self.placemark.locality,
-//                                 self.placemark.administrativeArea,
-//                                 self.placemark.country);
             /** address location **/
             [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.subThoroughfare] forKey:@"numbers"];
             [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.thoroughfare] forKey:@"way"];

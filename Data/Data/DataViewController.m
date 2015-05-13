@@ -14,19 +14,28 @@
 
 BaseViewController *baseView;
 
+/** dataView **/
 NSMutableArray *dateArray;
-
 int nbDay, margin, indexDay = 0, positionTop, heigtViewDetail;
-UISwipeGestureRecognizer *leftGesture, *rightGesture, *upGesture;
-UITapGestureRecognizer *closeGesture, *closeAllInformationDataGesture;
 float firstScale,secondScale, upScale, downScale, transition;
 
-/** for location **/
+/** synchro **/
+int timeSynchro;
+
+/** gesture **/
+UISwipeGestureRecognizer *leftGesture, *rightGesture, *upGesture;
+UITapGestureRecognizer *closeGesture, *closeAllInformationDataGesture;
+
+/** location **/
 NSString *filePath;
 NSMutableArray *logText;
 NSMutableArray *logArray;
 NSString *newTextLog;
 NSTimer *timerLocation;
+
+/** pedometer **/
+NSDate *startDate, *endDate;
+float distance;
 
 @implementation DataViewController
 
@@ -59,12 +68,10 @@ NSTimer *timerLocation;
     /** TIMELINE **/
     [self.timeLineView setBackgroundColor:[UIColor clearColor]];
     [self.timeLineView initTimeLine:nbDay indexDay:indexDay];
-//    self.timeLineView.alpha = 0;
     [self.timeLineView setHidden:YES];
-
     [self animateTimeLine:upScale Alpha:0];
 
-
+    /** dataView by day **/
     [self.contentScrollView setPagingEnabled:YES];
     [self.contentScrollView setContentSize:CGSizeMake(((self.view.bounds.size.width + margin) * nbDay), self.view.bounds.size.height)];
     [self.contentScrollView setBackgroundColor:[UIColor clearColor]];
@@ -85,19 +92,18 @@ NSTimer *timerLocation;
         [view addSubview:dataView];
         Day *currentDay = [ApiController sharedInstance].experience.day[i];
 
-        /** test **/
+        /** format date **/
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         NSDate *date = [dateFormatter dateFromString: currentDay.date];
 
+        NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
         NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init] ;
         [dayFormatter setDateFormat:@"EEEE dd"];
+        [dayFormatter setLocale:usLocale];
 
         NSString *week = [dayFormatter stringFromDate:date];
         [dateArray addObject:week];
-
-//        CGAffineTransform transform = view.transform;
-//        view.transform = CGAffineTransformScale(transform, 1.2, 1.2);
 
         [self.contentScrollView addSubview:view];
     }
@@ -111,6 +117,7 @@ NSTimer *timerLocation;
     [self.view sendSubviewToBack:self.contentScrollView];
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
 
+    /** Gesture **/
     leftGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
     [leftGesture setDirection:(UISwipeGestureRecognizerDirectionRight)];
 
@@ -130,18 +137,12 @@ NSTimer *timerLocation;
 
     self.closeInformationGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeInformationData:)];
 
-
     /** for location **/
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = paths[0];
-    filePath = [documentsDirectory stringByAppendingPathComponent:@"Log.plist"];
+    filePath = [documentsDirectory stringByAppendingPathComponent:@"geolocation.plist"];
 
-    logArray = [[NSMutableArray alloc] init];
-    NSString *firstString = [NSString stringWithFormat:@"%@\n\nStart application at %@",[self readPlist],[self getCurrentDate]];
-    [logArray addObject:firstString];
-    [self.logTextView setText:firstString];
-    [self writeIntoPlist:firstString];
-
+    self.geocoder = [[CLGeocoder alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     if ([CLLocationManager locationServicesEnabled] ) {
 
@@ -157,68 +158,142 @@ NSTimer *timerLocation;
         }
     }
 
-}
+    /** pedomoter **/
+    if ([CMPedometer isStepCountingAvailable]) {
+        self.pedometer = [[CMPedometer alloc] init];
+    }
 
-/** get current Location **/
-- (void)locationManager:(CLLocationManager *)lm didUpdateLocations:(NSArray *)locations {
-
-    NSLog(@"update location");
-    CLLocation *location = [locations lastObject];
-    [lm setDesiredAccuracy:kCLLocationAccuracyThreeKilometers];
-    [lm setDistanceFilter:99999];
-
-    //    CLCircularRegion *region = [[CLCircularRegion alloc] initCircularRegionWithCenter:[location coordinate] radius:300 identifier:[[NSUUID UUID] UUIDString]];
-
-    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:[location coordinate]
-                                                                 radius:1000
-                                                             identifier:[[NSUUID UUID] UUIDString]];
-
-    [self sendLocalNotification:[NSString stringWithFormat:@"coordinate: lagitude : %f, longitude : %f",location.coordinate.latitude, location.coordinate.longitude]];
-    newTextLog = [NSString stringWithFormat:@"%@\ncoordinate: lagitude : %f, longitude : %f",[self readPlist],location.coordinate.latitude, location.coordinate.longitude];
-    [self.logTextView setText:newTextLog];
-    [self writeIntoPlist:newTextLog];
-
-    [self.locationManager startMonitoringForRegion:(CLRegion *)region];
-    [self.locationManager stopUpdatingLocation];
+    /** time synchro : hour **/
+    timeSynchro = 1;
+    [self updateDate];
 
 }
 
 - (void)didReceiveMemoryWarning {
 
     [super didReceiveMemoryWarning];
+    
+}
+
+/** date method  **/
+- (void)updateDate {
+    NSDate *now = [[NSDate alloc] init];
+    startDate = now;
+    endDate = [startDate dateByAddingTimeInterval:-(1. * timeSynchro * 3600)];
+}
+
+/** pedometer method **/
+- (void)queryPedometerDataFromDate:(NSDate *)startDate toDate:(NSDate *)endDate {
+
+    [self.pedometer queryPedometerDataFromDate:startDate
+                                        toDate:endDate
+                                   withHandler:^(CMPedometerData *pedometerData, NSError *error) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           if (error) {
+                                               NSLog(@"%@", error);
+                                           } else {
+                                               self.pedometerInformation = [[NSMutableDictionary alloc]init];
+                                               distance = [pedometerData.distance floatValue];
+                                               [self.pedometerInformation setObject:[NSNumber numberWithInt:[pedometerData.numberOfSteps intValue]] forKey:@"stepNumber"];
+                                               [self.pedometerInformation setObject:[NSNumber numberWithFloat:distance] forKey:@"distance"];
+                                               [self.pedometerInformation setObject:[NSNumber numberWithFloat:(distance / 1000 / timeSynchro)] forKey:@"vitesse"];
+//                                               [self updateData];
+                                           }
+                                       });
+                                   }];
+}
+
+/** location method **/
+- (void)locationManager:(CLLocationManager *)lm didUpdateLocations:(NSArray *)locations {
+
+    NSLog(@"update location");
+    self.location = [locations lastObject];
+    [lm setDesiredAccuracy:kCLLocationAccuracyThreeKilometers];
+    [lm setDistanceFilter:99999];
+
+    //    CLCircularRegion *region = [[CLCircularRegion alloc] initCircularRegionWithCenter:[location coordinate] radius:300 identifier:[[NSUUID UUID] UUIDString]];
+
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:[self.location coordinate]
+                                                                 radius:1000
+                                                             identifier:[[NSUUID UUID] UUIDString]];
+
+    NSLog(@"coordinate: lagitude : %f, longitude : %f",self.location.coordinate.latitude, self.location.coordinate.longitude);
+
+    NSMutableDictionary *myBestLocation = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *addressLocation = [[NSMutableDictionary alloc] init];
+
+    /** add location and distance **/
+    [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.latitude] forKey:@"latitude"];
+    [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.longitude] forKey:@"longitude"];
+    [myBestLocation setObject:[NSNumber numberWithFloat:[self.lastLocation distanceFromLocation:self.location]] forKey:@"distance"];
+
+    [self.geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && [placemarks count] > 0) {
+            self.placemark = [placemarks lastObject];
+            /** address location **/
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.subThoroughfare] forKey:@"numbers"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.thoroughfare] forKey:@"way"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.postalCode] forKey:@"postalCode"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.locality] forKey:@"town"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.administrativeArea] forKey:@"area"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", self.placemark.country] forKey:@"country"];
+            /** add to myBestLocation **/
+            [myBestLocation setObject:addressLocation forKey:@"address"];
+            [self saveLocation:myBestLocation];
+
+        } else {
+
+            [myBestLocation setObject:addressLocation forKey:@"address"];
+            [self saveLocation:myBestLocation];
+
+        }
+        [self readPlist];
+    }];
+
+//    [self sendLocalNotification:[NSString stringWithFormat:@"coordinate: lagitude : %f, longitude : %f",self.location.coordinate.latitude, self.location.coordinate.longitude]];
+//    newTextLog = [NSString stringWithFormat:@"%@\ncoordinate: lagitude : %f, longitude : %f",[self readPlist],location.coordinate.latitude, location.coordinate.longitude];
+//    [self.logTextView setText:newTextLog];
+//    [self writeIntoPlist:newTextLog];
+
+    [self.locationManager startMonitoringForRegion:(CLRegion *)region];
+    [self.locationManager stopUpdatingLocation];
+
 
 }
 
--(void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+- (void)saveLocation:(NSMutableDictionary *)myBestLocation {
+
+    [myBestLocation setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
+    [self writeIntoPlist:myBestLocation];
+    self.lastLocation = self.location;
+//    [[ApiController sharedInstance].location addObject:myBestLocation];
+
+//    [self sendLocalNotification:[NSString stringWithFormat:@"nb location : %lu - location : %f, %f", (unsigned long)[[ApiController sharedInstance].location count],self.location.coordinate.latitude, self.location.coordinate.longitude]];
+//    if ([[ApiController sharedInstance].location count] >= 15) {
+//        [self lauchSyncho];
+//    }
+
+}
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
 
     NSLog(@"enter region");
     [self sendLocalNotification:@"new region"];
-    newTextLog = [NSString stringWithFormat:@"%@\nnew region - date %@",[self readPlist], [self getCurrentDate]];
-    [self.logTextView setText:newTextLog];
-    [self writeIntoPlist:newTextLog];
-
 }
 
-
--(void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
 
     NSLog(@"end region");
     [self sendLocalNotification:@"end region"];
     [self.locationManager startUpdatingLocation];
-    newTextLog = [NSString stringWithFormat:@"%@\nEnd Region - date %@\n\n",[self readPlist], [self getCurrentDate]];
-    [self.logTextView setText:newTextLog];
-    [self writeIntoPlist:newTextLog];
 
 }
 
--(void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
+- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
 
     NSLog(@"start region");
     [timerLocation invalidate];
     [self sendLocalNotification:@"start region"];
-    newTextLog = [NSString stringWithFormat:@"%@\nStart region - date %@",[self readPlist], [self getCurrentDate]];
-    [self.logTextView setText:newTextLog];
-    [self writeIntoPlist:newTextLog];
     // 10min : 600
     timerLocation = [NSTimer scheduledTimerWithTimeInterval:600.
                                                           target:self
@@ -228,6 +303,7 @@ NSTimer *timerLocation;
 
 }
 
+/** notification method **/
 - (void)sendLocalNotification:(NSString *)string {
 
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
@@ -238,25 +314,29 @@ NSTimer *timerLocation;
 
 }
 
--(void)writeIntoPlist:(NSString *)string {
+- (void)writeIntoPlist:(NSMutableDictionary *)mutableDictionary {
 
-    [logArray replaceObjectAtIndex:0 withObject:string];
-    [logArray writeToFile:filePath atomically:YES];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+
+        NSMutableArray *geolocMutableArray = [NSMutableArray arrayWithContentsOfFile:filePath];
+        [geolocMutableArray addObject:mutableDictionary];
+        [geolocMutableArray writeToFile:filePath atomically:YES];
+
+    } else {
+
+        NSMutableArray *geolocMutableArray = [[NSMutableArray alloc] init];
+        [geolocMutableArray addObject:mutableDictionary];
+        [geolocMutableArray writeToFile:filePath atomically:YES];
+
+    }
 
 }
 
-- (NSString *)readPlist {
+- (void)readPlist {
 
     NSMutableArray *logText = [NSMutableArray arrayWithContentsOfFile:filePath];
-    return [logText objectAtIndex:0];
-
-}
-
-- (NSString *)getCurrentDate {
-
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    return [formatter stringFromDate:[NSDate date]];
+    NSLog(@"%@", logText);
+//    return [logText objectAtIndex:0];
 
 }
 
@@ -270,17 +350,17 @@ NSTimer *timerLocation;
 
 - (IBAction)removePlist:(id)sender {
 
-    NSMutableArray *newLogArray = [[NSMutableArray alloc] init];
-    [newLogArray addObject:[NSString stringWithFormat:@"new plist at %@",[self getCurrentDate]]];
-    [newLogArray writeToFile:filePath atomically:YES];
-    [self.logTextView setText:[self readPlist]];
+    NSMutableArray *emptyArray = [[NSMutableArray alloc] init];
+    [emptyArray writeToFile:filePath atomically:YES];
+    [self readPlist];
 
 }
 
 - (IBAction)lauchSynchro:(id)sender {
 }
 
--(void)swipeLeft:(UISwipeGestureRecognizer *)recognizer {
+/** gesture method **/
+- (void)swipeLeft:(UISwipeGestureRecognizer *)recognizer {
 
     if (indexDay > 0) {
 
@@ -310,7 +390,7 @@ NSTimer *timerLocation;
 
 }
 
--(void)tapGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
+- (void)tapGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
 
     [self.view removeGestureRecognizer:leftGesture];
     [self.view removeGestureRecognizer:rightGesture];
@@ -535,6 +615,12 @@ NSTimer *timerLocation;
 
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+
+    return YES;
+}
+
+/** animation method **/
 - (void)animateView:(float)scaleLayer ScaleView:(float)scaleView {
 
     int count = 0;
@@ -713,11 +799,6 @@ NSTimer *timerLocation;
 
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
-    
-    return YES;
-}
-
 - (void)animateDateLabel:(float)translation {
 
     [UIView animateWithDuration:0.2 delay:0 options:0 animations:^{
@@ -757,6 +838,7 @@ NSTimer *timerLocation;
 
 }
 
+/** upload method **/
 - (void)uploadFile {
 
     [self sendLocalNotification:@"upload files"];
@@ -769,4 +851,5 @@ NSTimer *timerLocation;
     [[ApiController sharedInstance] removeUser];
     [self performSegueWithIdentifier:@"logout" sender:self];
 }
+
 @end
