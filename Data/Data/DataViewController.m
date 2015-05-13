@@ -7,6 +7,8 @@
 //
 
 #import "DataViewController.h"
+#import "AFURLSessionManager.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface DataViewController ()
 
@@ -52,7 +54,7 @@ float distance;
     }
 
     nbDay = (int)[ApiController sharedInstance].nbDay;
-    indexDay = 1;
+    indexDay = 5;
     margin = 50;
     firstScale = 0.8;
     secondScale = 0.5;
@@ -89,6 +91,7 @@ float distance;
         [dataView setFrame:CGRectMake(0, 0, self.view.bounds.size.width, heigtViewDetail)];
         [dataView initView:self];
         [dataView drawData:i];
+        [dataView setTag:i];
         [view addSubview:dataView];
         Day *currentDay = [ApiController sharedInstance].experience.day[i];
 
@@ -247,13 +250,7 @@ float distance;
             [self saveLocation:myBestLocation];
 
         }
-        [self readPlist];
     }];
-
-//    [self sendLocalNotification:[NSString stringWithFormat:@"coordinate: lagitude : %f, longitude : %f",self.location.coordinate.latitude, self.location.coordinate.longitude]];
-//    newTextLog = [NSString stringWithFormat:@"%@\ncoordinate: lagitude : %f, longitude : %f",[self readPlist],location.coordinate.latitude, location.coordinate.longitude];
-//    [self.logTextView setText:newTextLog];
-//    [self writeIntoPlist:newTextLog];
 
     [self.locationManager startMonitoringForRegion:(CLRegion *)region];
     [self.locationManager stopUpdatingLocation];
@@ -266,12 +263,6 @@ float distance;
     [myBestLocation setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
     [self writeIntoPlist:myBestLocation];
     self.lastLocation = self.location;
-//    [[ApiController sharedInstance].location addObject:myBestLocation];
-
-//    [self sendLocalNotification:[NSString stringWithFormat:@"nb location : %lu - location : %f, %f", (unsigned long)[[ApiController sharedInstance].location count],self.location.coordinate.latitude, self.location.coordinate.longitude]];
-//    if ([[ApiController sharedInstance].location count] >= 15) {
-//        [self lauchSyncho];
-//    }
 
 }
 
@@ -332,11 +323,10 @@ float distance;
 
 }
 
-- (void)readPlist {
+- (NSMutableArray *)contenPlist {
 
-    NSMutableArray *logText = [NSMutableArray arrayWithContentsOfFile:filePath];
-    NSLog(@"%@", logText);
-//    return [logText objectAtIndex:0];
+    NSMutableArray *contenPlist = [NSMutableArray arrayWithContentsOfFile:filePath];
+    return contenPlist;
 
 }
 
@@ -350,13 +340,16 @@ float distance;
 
 - (IBAction)removePlist:(id)sender {
 
-    NSMutableArray *emptyArray = [[NSMutableArray alloc] init];
-    [emptyArray writeToFile:filePath atomically:YES];
-    [self readPlist];
+    [self removePlist];
 
 }
 
-- (IBAction)lauchSynchro:(id)sender {
+- (void)removePlist {
+
+    NSMutableArray *emptyArray = [[NSMutableArray alloc] init];
+    NSLog(@"plist remove");
+    [emptyArray writeToFile:filePath atomically:YES];
+
 }
 
 /** gesture method **/
@@ -818,8 +811,6 @@ float distance;
 
         } completion:nil];
 
-
-
     }];
 
 
@@ -839,9 +830,101 @@ float distance;
 }
 
 /** upload method **/
+- (IBAction)lauchSynchro:(id)sender {
+    [self uploadFile];
+}
+
 - (void)uploadFile {
 
     [self sendLocalNotification:@"upload files"];
+    NSLog(@"upload files");
+    if ([CMPedometer isStepCountingAvailable]) {
+        [self updateDate];
+        [self queryPedometerDataFromDate:endDate toDate:startDate];
+    } else {
+        [self updateData];
+    }
+
+}
+
+- (void)updateData {
+
+    NSLog(@"update");
+    [self sendLocalNotification:@"Update data start"];
+    NSMutableDictionary * dictio = [[NSMutableDictionary alloc]init];
+    [dictio setObject:[self contenPlist] forKey:@"geoloc"];
+    if (![CMPedometer isStepCountingAvailable]) {
+        self.pedometerInformation = [[NSMutableDictionary alloc]init];
+        [self.pedometerInformation setObject:[NSNumber numberWithInt:1] forKey:@"stepNumber"];
+        [self.pedometerInformation setObject:[NSNumber numberWithFloat:1.f] forKey:@"distance"];
+        [self.pedometerInformation setObject:[NSNumber numberWithFloat:1.f] forKey:@"vitesse"];
+        [dictio setObject:self.pedometerInformation forKey:@"pedometer"];
+    } else {
+        [dictio setObject:self.pedometerInformation forKey:@"pedometer"];
+    }
+
+    [dictio setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
+    [dictio setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDate]] forKey:@"day"];
+
+    NSString *urlString = [[ApiController sharedInstance] getUrlUploadData];
+
+    NSDictionary *dict = [dictio mutableCopy];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager setRequestSerializer: [AFJSONRequestSerializer serializer]];
+    [manager POST:urlString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        NSDictionary *dictionary = responseObject[@"user"];
+//        if( (unsigned long)[dictionary[@"currentData"][@"day"] count] != [ApiController sharedInstance].nbDay) {
+//            self.contentView.layer.sublayers = nil;
+//            [self createCircle];
+//        }
+//        [self updateDateLabel];
+        [[ApiController sharedInstance] setUserLoad:dictionary];
+//        [self sendLocalNotification:@"data are upload"];
+//        [[ApiController sharedInstance].location removeAllObjects];
+//        [self updateDataGeolocAfterSynchro];
+        NSLog(@"end upload data");
+//        [self updateSynchroLabel];
+//        [self.synchroTimer invalidate];
+//        [self.accuracyTimer invalidate];
+//        [self.locationTimer invalidate];
+//        [self activeTracker];
+        // for upload images
+//        [self getPhotoOnLibrary];
+        [self updateCurrentDay];
+
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+        NSLog(@"error code %ld",(long)[operation.response statusCode]);
+        [self sendLocalNotification:[NSString stringWithFormat:@"upload data FAIL with code : %ld, error : %@ !!", (long)[operation.response statusCode], error]];
+        //            [self performSelector:@selector(updateData) withObject:nil afterDelay:120.0f];
+
+    }];
+
+}
+
+- (void)updateCurrentDay {
+
+    for (UIView *view in self.contentScrollView.subviews) {
+
+        for (UIView *subView in view.subviews) {
+
+            if([subView isKindOfClass:[DataView class]]) {
+
+                DataView *dataView = (DataView *)subView;
+
+                if(dataView.tag == (nbDay - 1)){
+
+                    [self removePlist];
+                    [dataView generateDataAfterSynchro:(int)dataView.tag NbData:0];
+                    
+                }
+                
+            }
+        }
+
+    }
 
 }
 

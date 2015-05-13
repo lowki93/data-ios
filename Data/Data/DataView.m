@@ -26,6 +26,10 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
         [subLayer removeFromSuperlayer];
     }
 
+    self.nbPhoto = 0;
+    self.nbGeoloc = 0;
+    self.distance = 0;
+
     self.arrayData = [[NSMutableArray alloc] init];
 
     dataViewController = viewController;
@@ -156,46 +160,42 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
     Day *currentDay = [ApiController sharedInstance].experience.day[indexDay];
 
-    int nbPhoto = 0, nbGeoloc = 0;
-    float distance = 0;
-
     for (int i = 0; i < [currentDay.data count]; i++) {
-//    for (int i = 0; i < 25; i++) {
 
-//        int nbSynchro = i;
-        Data *currentData = currentDay.data[i];
-//        /** for photos **/
-//        [self updatePhotoData:currentData Synchro:nbSynchro];
-//        /** for geoloc **/
-//        [self updateGeolocData:currentData Synchro:nbSynchro];
+        [self generateData:i Day:currentDay];
 
-        NSMutableDictionary *dataDictionnary = [[NSMutableDictionary alloc] init];
-
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        NSDate *date = [dateFormatter dateFromString: currentData.date];
-
-        NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-        [timeFormat setDateFormat:@"h:mm a"];
-        NSString *dateString = [timeFormat stringFromDate:date];
-
-        [dataDictionnary setObject:[NSString stringWithFormat:@"%@", dateString] forKey:@"date"];
-        [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.photos count]] forKey:@"photo"];
-        [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.atmosphere count]] forKey:@"geoloc"];
-        [dataDictionnary setObject:[NSString stringWithFormat:@"%.2f", [currentData.deplacement[@"distance"] floatValue] / 1000] forKey:@"distance"];
-
-        nbPhoto += (int)[currentData.photos count];
-        nbGeoloc += (int)[currentData.atmosphere count];
-        distance += [currentData.deplacement[@"distance"] intValue] / 1000;
-
-        [self.arrayData addObject:dataDictionnary];
-
-        [self createButton:i];
     }
 
-    [self.allDataView.photoInformationLabel setText:[NSString stringWithFormat:@"%i",nbPhoto]];
-    [self.allDataView.pedometerInformationLabel setText:[NSString stringWithFormat:@"%.2f",distance]];
-    [self.allDataView.geolocInformationLabel setText:[NSString stringWithFormat:@"%i",nbGeoloc]];
+    [self updateAllInformation];
+
+}
+
+- (void)generateData:(int)index Day:(Day *)day {
+
+    Data *currentData = day.data[index];
+
+    NSMutableDictionary *dataDictionnary = [[NSMutableDictionary alloc] init];
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *date = [dateFormatter dateFromString: currentData.date];
+
+    NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+    [timeFormat setDateFormat:@"h:mm a"];
+    NSString *dateString = [timeFormat stringFromDate:date];
+
+    [dataDictionnary setObject:[NSString stringWithFormat:@"%@", dateString] forKey:@"date"];
+    [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.photos count]] forKey:@"photo"];
+    [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.atmosphere count]] forKey:@"geoloc"];
+    [dataDictionnary setObject:[NSString stringWithFormat:@"%.2f", [currentData.deplacement[@"distance"] floatValue] / 1000] forKey:@"distance"];
+
+    self.nbPhoto += (int)[currentData.photos count];
+    self.nbGeoloc += (int)[currentData.atmosphere count];
+    self.distance += [currentData.deplacement[@"distance"] intValue] / 1000;
+
+    [self.arrayData addObject:dataDictionnary];
+
+    [self createButton:index];
 
 }
 
@@ -215,6 +215,16 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [button.layer setCornerRadius:radiusButton/2.f];
 
     [self addSubview:button];
+
+}
+
+- (void)generateDataAfterSynchro:(int)indexDay NbData:(int)indexData {
+
+    Day *currentDay = [ApiController sharedInstance].experience.day[indexDay];
+
+    [self generateData:(int)([currentDay.data count] - 1) Day:currentDay];
+
+    [self updateAllInformation];
 
 }
 
@@ -271,6 +281,14 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     
 }
 
+- (void)updateAllInformation {
+
+    [self.allDataView.photoInformationLabel setText:[NSString stringWithFormat:@"%i",self.nbPhoto]];
+    [self.allDataView.pedometerInformationLabel setText:[NSString stringWithFormat:@"%.2f km",self.distance]];
+    [self.allDataView.geolocInformationLabel setText:[NSString stringWithFormat:@"%i",self.nbGeoloc]];
+
+}
+
 - (void)removeBorderButton {
 
     for (UIView *subview in [self subviews]) {
@@ -293,61 +311,5 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [view setAlpha:0];
 
 }
-
-//- (void)updatePhotoData:(Data *)data Synchro:(NSInteger)nbSynchro {
-//
-//    for (int i = 0; i < [data.photos count]; i++) {
-//
-//        [self drawCirclePhoto:nbSynchro];
-//
-//    }
-//
-//}
-
-//- (void)drawCirclePhoto:(NSInteger)nbSynchro {
-//
-//    int lowerAlpha = 1;
-//    int upperAlpha = 7;
-//    float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
-//    int randomAngle = arc4random() % 45;
-//    CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
-//    CGPoint newCenter = CGPointMake(self.bounds.size.width/2 + cosf(theta) * radiusPhotoCicle, sinf(theta) * radiusPhotoCicle + heightContentView/2);
-//    [self drawCircle:newCenter radius:10 startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlePhotoColor colorWithAlphaComponent:randomAlpha] dotted:NO];
-//
-//}
-
-//- (void)updateGeolocData:(Data *)data Synchro:(NSInteger)nbSynchro {
-//
-//    for (int i = 0; i < [data.atmosphere count]; i++) {
-//
-//        [self drawCircleGeoloc:nbSynchro];
-//
-//    }
-//
-//}
-
-//- (void)drawCircleGeoloc:(NSInteger)nbSynchro {
-//    
-//    /* random alpha */
-//    int lowerAlpha = 1;
-//    int upperAlpha = 7;
-//    float randomAlpha = (lowerAlpha + arc4random() % (upperAlpha - lowerAlpha)) / 10. ;
-//    /* random angle */
-//    int randomAngle = arc4random() % 45;
-//    /* random radius */
-//    int lowerRadius = radiusGeolocCircle - 20;
-//    int upperRadius = radiusGeolocCircle + 20;
-//    int randomRadius = lowerRadius + arc4random() % (upperRadius - lowerRadius);
-//    /* random radius */
-//    int lowerCircleRadius = 5;
-//    int upperCircleRadius = 20;
-//    int randomCircleRadius = lowerCircleRadius + arc4random() % (upperCircleRadius - lowerCircleRadius);
-//    CGFloat theta = ((M_PI * randomAngle)/ 180) - M_PI_2 + (M_PI_4 * nbSynchro );
-//    CGPoint newCenter = CGPointMake(self.bounds.size.width/2 + cosf(theta) * randomRadius, sinf(theta) * randomRadius + heightContentView/2);
-//
-//    [self drawCircle:newCenter radius:randomCircleRadius startAngle:0 strokeColor:[UIColor clearColor] fillColor:[baseView.circlegeolocColor colorWithAlphaComponent:randomAlpha] dotted:NO];
-//
-//}
-
 
 @end

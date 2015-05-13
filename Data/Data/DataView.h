@@ -20,10 +20,14 @@
 @property (nonatomic) DataInformationView *allDataView;
 
 @property (nonatomic) bool informationViewActive;
+@property (nonatomic) int nbPhoto;
+@property (nonatomic) int nbGeoloc;
+@property (nonatomic) float distance;
 
 - (void)initView:(UIViewController *)viewController;
 - (void)drawData:(int)indexDay;
 - (void)removeBorderButton;
 - (void)scaleInformationView:(UIView *)view;
+- (void)generateDataAfterSynchro:(int)indexDay NbData:(int)indexData;
 
 @end

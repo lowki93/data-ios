@@ -27,11 +27,11 @@
 
 - (void)loadApi {
     // local
-//    self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
+    self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
     // ip pc test phone
 //    self.url = [NSString stringWithFormat:@"http://172.18.34.78:5000/api"];
     // prod
-    self.url = [NSString stringWithFormat:@"http://data-api.kevinbudain.fr/api"];
+//    self.url = [NSString stringWithFormat:@"http://data-api.kevinbudain.fr/api"];
 
     self.location = [[NSMutableArray alloc]init];
 }
@@ -138,8 +138,8 @@
 
         NSString *urlString = [NSString stringWithFormat:@"%@/user/update/%@/deviceToken?access_token=%@", self.url, self.user.id, self.user.token];
 
-        NSString *deviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"deviceToken"];
-//        NSString *deviceToken = @"<75fedbaa f43d810d e308bf55 1862c25c d464de93 27b2a763 5aab8b38 0ad1fdc0>";
+//        NSString *deviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"deviceToken"];
+        NSString *deviceToken = @"<75fedbaa f43d810d e308bf55 1862c25c d464de93 27b2a763 5aab8b38 0ad1fdc0>";
 
         NSLog(@"%@", deviceToken);
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

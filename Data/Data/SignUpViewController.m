@@ -38,9 +38,9 @@ BaseViewController *baseView;
 - (IBAction)signupClicked:(id)sender {
     @try {
         
-        if([[self.mailTextField text] isEqualToString:@""] || [[self.passwordTextField text] isEqualToString:@""] || [[self.confirmationPasswordTextField text] isEqualToString:@""] ) {
+        if([[self.mailTextField text] isEqualToString:@""] || [[self.passwordTextField text] isEqualToString:@""] || [[self.confirmationPasswordTextField text] isEqualToString:@""] || [[self.usernameTextField text] isEqualToString:@""]) {
             
-            [baseView alertStatus:@"Please enter Email and Password" :@"Sign in Failed!"];
+            [baseView alertStatus:@"fill in all fields" :@"Sign in Failed!"];
             
         } else if(![[ApiController sharedInstance] NSStringIsValidEmail:[self.mailTextField text]]) {
             
@@ -57,7 +57,8 @@ BaseViewController *baseView;
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             NSDictionary *parameters = @{
                                          @"email": [self.mailTextField text],
-                                         @"password": [self.passwordTextField text]
+                                         @"password": [self.passwordTextField text],
+                                         @"username": [self.usernameTextField text]
                                          };
             [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
