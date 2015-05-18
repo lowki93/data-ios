@@ -21,5 +21,6 @@
 
 - (IBAction)signinClicked:(id)sender;
 - (IBAction)backgroundTap:(id)sender;
+- (IBAction)signUpAction:(id)sender;
 
 @end

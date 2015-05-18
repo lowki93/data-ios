@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TZT-aY-fJO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HVH-gC-8UG">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="MaisonNeue-Book.ttf">
-            <string>MaisonNeue-Book</string>
-            <string>MaisonNeue-Book</string>
-            <string>MaisonNeue-Book</string>
-            <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
@@ -104,7 +100,7 @@
                                     <color key="titleColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="av7-GA-iJ7" kind="show" id="YeB-dC-kUi"/>
+                                    <action selector="signUpAction:" destination="HVH-gC-8UG" eventType="touchUpInside" id="iw8-Gq-lnQ"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4V-S9-xwC">
@@ -194,6 +190,11 @@
                             <constraint firstItem="pJ9-7X-ThZ" firstAttribute="top" secondItem="VH9-Gp-07i" secondAttribute="bottom" constant="50" id="tkB-hc-80v"/>
                             <constraint firstAttribute="centerX" secondItem="pJ9-7X-ThZ" secondAttribute="centerX" id="whk-jc-OTJ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="SGR-6K-yXZ"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="xqg-Cs-Pi9" appends="YES" id="pFf-5g-hGn"/>
                         </connections>
@@ -211,6 +212,7 @@
                         <outlet property="titleLabel" destination="BtU-BE-aK1" id="YEb-72-Tsb"/>
                         <outlet property="usernameTextField" destination="nAj-7c-BHa" id="pJT-Tq-gwF"/>
                         <segue destination="QGs-SJ-cRB" kind="show" identifier="login_succes" id="jyz-2R-Df6"/>
+                        <segue destination="av7-GA-iJ7" kind="custom" identifier="login_signUp" customClass="CustomSegue" id="RPU-Ly-yyP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lo8-a2-Cbl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -751,25 +753,19 @@ de l’experience</string>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="TNr-nx-XX2">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="username" placeholder="exemple@gmail.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="40r-y7-YFh">
-                                <rect key="frame" x="131" y="191" width="449" height="16"/>
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="username" placeholder="exemple@gmail.com" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="40r-y7-YFh">
+                                <rect key="frame" x="20" y="167" width="560" height="25"/>
                                 <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="25"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="9F6-65-9WX"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FO-Ts-qWE">
-                                <rect key="frame" x="20" y="191" width="84" height="18"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="18"/>
-                                <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="exemple@gmail.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lGE-zM-EUe">
-                                <rect key="frame" x="131" y="243" width="449" height="16"/>
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="exemple@gmail.com" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lGE-zM-EUe">
+                                <rect key="frame" x="20" y="222" width="560" height="25"/>
                                 <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="25"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="VVt-qV-SJm"/>
@@ -781,57 +777,10 @@ de l’experience</string>
                                 <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f5a-Aq-esx">
-                                <rect key="frame" x="20" y="270" width="560" height="1"/>
-                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="vzu-bf-RN3"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Odv-gD-dnE">
-                                <rect key="frame" x="20" y="219" width="560" height="1"/>
-                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="2H5-pb-KpH"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="b0G-k0-YcR"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wie-Cf-kll">
-                                <rect key="frame" x="20" y="242" width="45" height="18"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="18"/>
-                                <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="geD-6f-Exg">
-                                <rect key="frame" x="20" y="321" width="560" height="1"/>
-                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="EwU-hd-mRu"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TGP-Ps-9C5">
-                                <rect key="frame" x="20" y="372" width="560" height="1"/>
-                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="IOT-VQ-BO8"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCM-vQ-vVA">
-                                <rect key="frame" x="20" y="293" width="81" height="18"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="18"/>
-                                <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AxU-hU-1Lq">
-                                <rect key="frame" x="20" y="344" width="81" height="18"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="18"/>
-                                <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tpq-KI-7sU">
-                                <rect key="frame" x="131" y="294" width="449" height="16"/>
+                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tpq-KI-7sU">
+                                <rect key="frame" x="20" y="277" width="560" height="25"/>
                                 <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="25"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="v8v-qR-X43"/>
@@ -847,7 +796,7 @@ de l’experience</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1j-F6-cVy">
-                                <rect key="frame" x="20" y="528" width="560" height="1"/>
+                                <rect key="frame" x="20" y="538" width="560" height="1"/>
                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="KdJ-oN-6WV"/>
@@ -866,9 +815,12 @@ de l’experience</string>
                                 <state key="highlighted">
                                     <color key="titleColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginAction:" destination="av7-GA-iJ7" eventType="touchUpInside" id="fbc-Ea-BkJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Bz-6C-SQS">
-                                <rect key="frame" x="200" y="423" width="200" height="50"/>
+                                <rect key="frame" x="200" y="407" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="YNL-CR-tvG"/>
                                     <constraint firstAttribute="height" constant="50" id="noj-k7-ktM"/>
@@ -889,10 +841,10 @@ de l’experience</string>
                                     <action selector="signupClicked:" destination="av7-GA-iJ7" eventType="touchUpInside" id="IoI-uO-1SJ"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="repeat password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EP1-VL-BhH">
-                                <rect key="frame" x="131" y="345" width="449" height="16"/>
+                            <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="repeat password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EP1-VL-BhH">
+                                <rect key="frame" x="20" y="332" width="560" height="25"/>
                                 <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="25"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="6Qa-dz-Lcz"/>
@@ -902,53 +854,34 @@ de l’experience</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="geD-6f-Exg" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="0vq-A7-Oxa"/>
-                            <constraint firstItem="4Bz-6C-SQS" firstAttribute="top" secondItem="TGP-Ps-9C5" secondAttribute="bottom" constant="50" id="3zu-Vm-pvc"/>
+                            <constraint firstItem="lGE-zM-EUe" firstAttribute="top" secondItem="40r-y7-YFh" secondAttribute="bottom" constant="30" id="1dM-sy-NvR"/>
                             <constraint firstItem="TNr-nx-XX2" firstAttribute="top" secondItem="cnY-mF-lTW" secondAttribute="top" id="4Qj-OI-BjN"/>
-                            <constraint firstAttribute="trailing" secondItem="f5a-Aq-esx" secondAttribute="trailing" constant="20" id="5P1-Fx-Hmb"/>
                             <constraint firstItem="lx6-zA-vP2" firstAttribute="centerY" secondItem="6b4-4e-ANi" secondAttribute="centerY" id="7gi-Wy-RwN"/>
-                            <constraint firstItem="geD-6f-Exg" firstAttribute="top" secondItem="uCM-vQ-vVA" secondAttribute="bottom" constant="10" id="9L0-f6-1tO"/>
+                            <constraint firstItem="tpq-KI-7sU" firstAttribute="top" secondItem="lGE-zM-EUe" secondAttribute="bottom" constant="30" id="7xa-cq-yHw"/>
+                            <constraint firstAttribute="trailing" secondItem="40r-y7-YFh" secondAttribute="trailing" constant="20" id="9ED-Dl-zuJ"/>
                             <constraint firstItem="6b4-4e-ANi" firstAttribute="leading" secondItem="lx6-zA-vP2" secondAttribute="trailing" constant="8" id="9MS-lT-Wot"/>
-                            <constraint firstItem="40r-y7-YFh" firstAttribute="trailing" secondItem="Odv-gD-dnE" secondAttribute="trailing" id="BYg-8Y-DOq"/>
-                            <constraint firstItem="40r-y7-YFh" firstAttribute="leading" secondItem="lGE-zM-EUe" secondAttribute="leading" id="BZN-Iu-CPz"/>
-                            <constraint firstAttribute="trailing" secondItem="geD-6f-Exg" secondAttribute="trailing" constant="20" id="Brj-Hv-oK3"/>
-                            <constraint firstItem="TGP-Ps-9C5" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="C8R-EO-72G"/>
-                            <constraint firstItem="f5a-Aq-esx" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="CnI-Dk-W63"/>
                             <constraint firstItem="sZh-bd-OQf" firstAttribute="top" secondItem="TNr-nx-XX2" secondAttribute="bottom" id="DJ9-xa-0Xf"/>
                             <constraint firstItem="4pH-Nu-BPu" firstAttribute="top" secondItem="Ees-TN-ckW" secondAttribute="bottom" constant="50" id="DgB-Xo-SB4"/>
-                            <constraint firstItem="2FO-Ts-qWE" firstAttribute="leading" secondItem="Wie-Cf-kll" secondAttribute="leading" id="DwY-B4-WTv"/>
+                            <constraint firstItem="EP1-VL-BhH" firstAttribute="top" secondItem="tpq-KI-7sU" secondAttribute="bottom" constant="30" id="Eed-Q4-aJ1"/>
                             <constraint firstAttribute="centerX" secondItem="4Bz-6C-SQS" secondAttribute="centerX" id="Fxj-aA-dDv"/>
-                            <constraint firstItem="tpq-KI-7sU" firstAttribute="trailing" secondItem="geD-6f-Exg" secondAttribute="trailing" id="JAt-SC-ci4"/>
-                            <constraint firstItem="TGP-Ps-9C5" firstAttribute="top" secondItem="geD-6f-Exg" secondAttribute="bottom" constant="50" id="L3E-pK-8gm"/>
-                            <constraint firstItem="40r-y7-YFh" firstAttribute="centerY" secondItem="2FO-Ts-qWE" secondAttribute="centerY" constant="-1" id="MOO-o2-TWn"/>
+                            <constraint firstItem="4Bz-6C-SQS" firstAttribute="top" secondItem="EP1-VL-BhH" secondAttribute="bottom" constant="50" id="GZz-oR-kRG"/>
+                            <constraint firstItem="lGE-zM-EUe" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="Lbd-7b-v22"/>
                             <constraint firstItem="TNr-nx-XX2" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" id="MRm-bN-C75"/>
+                            <constraint firstAttribute="trailing" secondItem="lGE-zM-EUe" secondAttribute="trailing" constant="20" id="Oaf-ma-dkA"/>
                             <constraint firstAttribute="trailing" secondItem="TNr-nx-XX2" secondAttribute="trailing" id="PvQ-DY-JkS"/>
                             <constraint firstItem="sZh-bd-OQf" firstAttribute="top" secondItem="lx6-zA-vP2" secondAttribute="bottom" constant="20" id="Qcy-4a-cKj"/>
-                            <constraint firstItem="f5a-Aq-esx" firstAttribute="top" secondItem="Wie-Cf-kll" secondAttribute="bottom" constant="10" id="QhU-po-tRp"/>
-                            <constraint firstAttribute="trailing" secondItem="TGP-Ps-9C5" secondAttribute="trailing" constant="20" id="Vdt-bg-WzI"/>
-                            <constraint firstAttribute="centerY" secondItem="f5a-Aq-esx" secondAttribute="centerY" constant="30" id="WcY-vE-g6s"/>
-                            <constraint firstItem="Odv-gD-dnE" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="XYA-cu-Udf"/>
+                            <constraint firstItem="tpq-KI-7sU" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="Uxv-sn-dMN"/>
+                            <constraint firstAttribute="centerY" secondItem="40r-y7-YFh" secondAttribute="centerY" constant="120" id="VcH-xI-v2T"/>
                             <constraint firstAttribute="centerX" secondItem="4pH-Nu-BPu" secondAttribute="centerX" id="Xvw-z6-vV2"/>
-                            <constraint firstItem="lGE-zM-EUe" firstAttribute="leading" secondItem="tpq-KI-7sU" secondAttribute="leading" id="YbN-JJ-Hsn"/>
-                            <constraint firstItem="geD-6f-Exg" firstAttribute="top" secondItem="f5a-Aq-esx" secondAttribute="bottom" constant="50" id="YrT-No-fJL"/>
-                            <constraint firstItem="f5a-Aq-esx" firstAttribute="top" secondItem="Odv-gD-dnE" secondAttribute="bottom" constant="50" id="ZGd-8w-wbM"/>
                             <constraint firstItem="j1j-F6-cVy" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="ZOW-rk-SU7"/>
-                            <constraint firstItem="lx6-zA-vP2" firstAttribute="top" secondItem="j1j-F6-cVy" secondAttribute="bottom" constant="30" id="aRC-u5-Znx"/>
-                            <constraint firstItem="TGP-Ps-9C5" firstAttribute="leading" secondItem="AxU-hU-1Lq" secondAttribute="leading" id="aXG-kA-4a0"/>
+                            <constraint firstItem="40r-y7-YFh" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="ZX0-sD-66N"/>
+                            <constraint firstItem="lx6-zA-vP2" firstAttribute="top" secondItem="j1j-F6-cVy" secondAttribute="bottom" constant="20" id="aRC-u5-Znx"/>
                             <constraint firstAttribute="trailing" secondItem="j1j-F6-cVy" secondAttribute="trailing" constant="20" id="awz-B1-bW8"/>
-                            <constraint firstItem="EP1-VL-BhH" firstAttribute="centerY" secondItem="AxU-hU-1Lq" secondAttribute="centerY" id="b7B-Lz-peH"/>
-                            <constraint firstItem="TGP-Ps-9C5" firstAttribute="top" secondItem="AxU-hU-1Lq" secondAttribute="bottom" constant="10" id="bxy-wU-75m"/>
-                            <constraint firstItem="Odv-gD-dnE" firstAttribute="top" secondItem="2FO-Ts-qWE" secondAttribute="bottom" constant="10" id="cOH-2d-oCM"/>
-                            <constraint firstItem="tpq-KI-7sU" firstAttribute="leading" secondItem="EP1-VL-BhH" secondAttribute="leading" id="cic-k8-INS"/>
-                            <constraint firstItem="f5a-Aq-esx" firstAttribute="leading" secondItem="Wie-Cf-kll" secondAttribute="leading" id="ehN-5J-3hL"/>
+                            <constraint firstItem="EP1-VL-BhH" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="eYu-a8-kRs"/>
                             <constraint firstAttribute="centerX" secondItem="lx6-zA-vP2" secondAttribute="centerX" constant="40" id="f7T-Bb-dxe"/>
-                            <constraint firstItem="lGE-zM-EUe" firstAttribute="trailing" secondItem="f5a-Aq-esx" secondAttribute="trailing" id="fep-aI-CUC"/>
-                            <constraint firstItem="EP1-VL-BhH" firstAttribute="leading" secondItem="AxU-hU-1Lq" secondAttribute="trailing" constant="30" id="hJF-eJ-lAW"/>
-                            <constraint firstItem="TGP-Ps-9C5" firstAttribute="trailing" secondItem="EP1-VL-BhH" secondAttribute="trailing" id="r44-d4-pdG"/>
-                            <constraint firstItem="lGE-zM-EUe" firstAttribute="centerY" secondItem="Wie-Cf-kll" secondAttribute="centerY" id="tSB-H6-tIY"/>
-                            <constraint firstItem="tpq-KI-7sU" firstAttribute="centerY" secondItem="uCM-vQ-vVA" secondAttribute="centerY" constant="0.5" id="tgE-Gj-CvB"/>
-                            <constraint firstItem="geD-6f-Exg" firstAttribute="leading" secondItem="uCM-vQ-vVA" secondAttribute="leading" id="ws8-bR-MjW"/>
-                            <constraint firstAttribute="trailing" secondItem="Odv-gD-dnE" secondAttribute="trailing" constant="20" id="y6J-PT-40J"/>
+                            <constraint firstItem="40r-y7-YFh" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="qp1-18-GqO"/>
+                            <constraint firstAttribute="trailing" secondItem="tpq-KI-7sU" secondAttribute="trailing" constant="20" id="qzZ-IC-H13"/>
+                            <constraint firstAttribute="trailing" secondItem="EP1-VL-BhH" secondAttribute="trailing" constant="20" id="uiq-8C-NFK"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="dx7-aQ-Onj" appends="YES" id="n4X-x8-2Vv"/>
@@ -957,14 +890,16 @@ de l’experience</string>
                     <navigationItem key="navigationItem" id="vLB-gv-qPn"/>
                     <connections>
                         <outlet property="confirmationPasswordTextField" destination="tpq-KI-7sU" id="1OH-18-w9R"/>
-                        <outlet property="emailView" destination="f5a-Aq-esx" id="JqR-kY-OMK"/>
-                        <outlet property="firstView" destination="geD-6f-Exg" id="96v-hY-VV5"/>
+                        <outlet property="informationLabel" destination="lx6-zA-vP2" id="3bE-vK-QZN"/>
+                        <outlet property="lineView" destination="j1j-F6-cVy" id="OMU-FZ-tMB"/>
+                        <outlet property="loginButton" destination="6b4-4e-ANi" id="VJg-fD-DSp"/>
                         <outlet property="mailTextField" destination="lGE-zM-EUe" id="9U8-6t-ezP"/>
                         <outlet property="passwordTextField" destination="EP1-VL-BhH" id="yiH-wP-boi"/>
-                        <outlet property="secondView" destination="TGP-Ps-9C5" id="UKQ-pv-Wp4"/>
                         <outlet property="sigupButton" destination="4Bz-6C-SQS" id="kmE-LZ-5rr"/>
+                        <outlet property="titleLabel" destination="4pH-Nu-BPu" id="3rj-xp-4pG"/>
                         <outlet property="usernameTextField" destination="40r-y7-YFh" id="wyt-c5-KaI"/>
                         <segue destination="U74-IU-1BD" kind="show" identifier="signup_succes" id="0kN-7n-njY"/>
+                        <segue destination="HVH-gC-8UG" kind="custom" identifier="signUp_login" customClass="CustomSegue" id="vV7-CA-ZTr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xqu-Km-iX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -974,27 +909,7 @@ de l’experience</string>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="327" y="1211"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ZQW-Zc-nJu">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TZT-aY-fJO" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nLf-YH-pMJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="HVH-gC-8UG" kind="relationship" relationship="rootViewController" id="jaz-iH-Ugo"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1IF-wm-gu3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-498" y="387"/>
+            <point key="canvasLocation" x="327" y="1188"/>
         </scene>
     </scenes>
     <resources>
@@ -1002,6 +917,6 @@ de l’experience</string>
         <image name="loader" width="344" height="312"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ewf-ih-IQW"/>
+        <segue reference="vV7-CA-ZTr"/>
     </inferredMetricsTieBreakers>
 </document>

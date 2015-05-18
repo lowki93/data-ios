@@ -8,18 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignUpViewController : UIViewController <UITextFieldDelegate>
+@interface SignUpViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *mailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmationPasswordTextField;
-@property (weak, nonatomic) IBOutlet UIView *emailView;
-@property (weak, nonatomic) IBOutlet UIView *firstView;
-@property (weak, nonatomic) IBOutlet UIView *secondView;
 @property (weak, nonatomic) IBOutlet UIButton *sigupButton;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *informationLabel;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIView *lineView;
 
 - (IBAction)backgroundTap:(id)sender;
 - (IBAction)signupClicked:(id)sender;
+- (IBAction)loginAction:(id)sender;
 
 @end

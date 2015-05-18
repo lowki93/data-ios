@@ -16,6 +16,9 @@
 
 BaseViewController *baseView;
 
+int translation;
+float duration;
+
 @implementation SignUpViewController
 
 - (void)viewDidLoad {
@@ -24,11 +27,45 @@ BaseViewController *baseView;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
+    translation = 20;
+    duration = 0.5f;
+
     [self.sigupButton setBackgroundImage:[baseView imageWithColor:baseView.purpleColor] forState:UIControlStateHighlighted];
     [[self.sigupButton layer] setBorderWidth:1.0f];
     [[self.sigupButton layer] setBorderColor:baseView.purpleColor.CGColor];
     [[self.sigupButton layer] setCornerRadius:25];
     [self.sigupButton setClipsToBounds:YES];
+
+    /** title animation **/
+    [self animatedView:self.titleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+
+    /** textField animation **/
+    [self animatedView:self.usernameTextField Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.mailTextField Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.passwordTextField Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.confirmationPasswordTextField Duration:0 Delay:0 Alpha:0 Translaton:translation];
+
+    [self animatedView:self.usernameTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.mailTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.passwordTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.confirmationPasswordTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
+
+    /** button animation **/
+    [self animatedView:self.sigupButton Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.sigupButton Duration:duration Delay:duration Alpha:1 Translaton:0];
+
+    /** line animation **/
+    [self animatedView:self.lineView Duration:0 Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.lineView Duration:duration Delay:duration Alpha:1 Translaton:0];
+
+    /** button bottom animation **/
+    [self animatedView:self.informationLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.loginButton Duration:0 Delay:0 Alpha:0 Translaton:translation];
+
+    [self animatedView:self.informationLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.loginButton Duration:duration Delay:duration Alpha:1 Translaton:0];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,6 +124,36 @@ BaseViewController *baseView;
     }
 }
 
+- (IBAction)loginAction:(id)sender {
+
+    /** title animation **/
+    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+    /** textField animation **/
+    [self animatedView:self.usernameTextField Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.mailTextField Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.passwordTextField Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.confirmationPasswordTextField Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+    /** button animation **/
+    [self animatedView:self.sigupButton Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+    /** line animation **/
+    [self animatedView:self.lineView Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+    /** button bottom animation **/
+    [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.loginButton Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+        [self performSegueWithIdentifier:@"signUp_login" sender:self];
+        
+    });
+
+}
+
 - (IBAction)backgroundTap:(id)sender {
     [self.view endEditing:YES];
 }
@@ -96,36 +163,16 @@ BaseViewController *baseView;
     return YES;
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    switch (textField.tag) {
-        case 1:
-            [self.emailView setBackgroundColor:baseView.purpleColor];
-            break;
-        case 2:
-            [self.firstView setBackgroundColor:baseView.purpleColor];
-            break;
-        case 3:
-            [self.secondView setBackgroundColor:baseView.purpleColor];
-            break;
-        default:
-            break;
-    }
-}
+- (void)animatedView:(UIView *)view Duration:(float)duration Delay:(float)delay Alpha:(float)alpha Translaton:(int)translation{
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    switch (textField.tag) {
-        case 1:
-            [self.emailView setBackgroundColor:baseView.lightGrey];
-            break;
-        case 2:
-            [self.firstView setBackgroundColor:baseView.lightGrey];
-            break;
-        case 3:
-            [self.secondView setBackgroundColor:baseView.lightGrey];
-            break;
-        default:
-            break;
-    }
+    [UIView animateWithDuration:duration delay:delay options:0 animations:^{
+
+        [view setAlpha:alpha];
+        [view setTransform:CGAffineTransformMakeTranslation(0, translation)];
+
+    } completion:nil];
+    
+    
 }
 
 @end

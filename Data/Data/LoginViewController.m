@@ -126,6 +126,36 @@ float duration;
     [self.view endEditing:YES];
 }
 
+- (IBAction)signUpAction:(id)sender {
+
+    /** title animation **/
+    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+    /** textField animation **/
+    [self animatedView:self.usernameTextField Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.passwordTextField Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+    /** button animation **/
+    [self animatedView:self.loginButton Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.forgotPasswordButton Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+    /** line animation **/
+    [self animatedView:self.lineView Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.lineView Duration:duration Delay:duration Alpha:1 Translaton:0];
+
+    /** button bottom animation **/
+    [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.signUpButton Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+        [self performSegueWithIdentifier:@"login_signUp" sender:self];
+
+    });
+
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;

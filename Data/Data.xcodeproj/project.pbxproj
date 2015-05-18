@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		170135F11B09C98700B10C42 /* CustomSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 170135F01B09C98700B10C42 /* CustomSegue.m */; };
 		17169B7F1AF22C6D00321300 /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17169B7E1AF22C6D00321300 /* DataViewController.m */; };
 		1737EFA01ADFF296002E4811 /* TimeLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1737EF9F1ADFF296002E4811 /* TimeLineView.m */; };
 		173B2FB61AF3E60500A71BA5 /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 173B2FB51AF3E60500A71BA5 /* ChooseDayViewController.m */; };
@@ -79,6 +80,8 @@
 
 /* Begin PBXFileReference section */
 		10BC74DE36AF14F6E3863A59 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		170135EF1B09C98700B10C42 /* CustomSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegue.h; sourceTree = "<group>"; };
+		170135F01B09C98700B10C42 /* CustomSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegue.m; sourceTree = "<group>"; };
 		17169B7D1AF22C6D00321300 /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataViewController.h; sourceTree = "<group>"; };
 		17169B7E1AF22C6D00321300 /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
 		1737EF9E1ADFF296002E4811 /* TimeLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineView.h; sourceTree = "<group>"; };
@@ -197,6 +200,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		170135EE1B09C91E00B10C42 /* Segue */ = {
+			isa = PBXGroup;
+			children = (
+				170135EF1B09C98700B10C42 /* CustomSegue.h */,
+				170135F01B09C98700B10C42 /* CustomSegue.m */,
+			);
+			name = Segue;
+			sourceTree = "<group>";
+		};
 		175E664A1AF24D35007CC277 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +257,7 @@
 		17CF527A1AA5F8F6001C7E65 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				170135EE1B09C91E00B10C42 /* Segue */,
 				175E664A1AF24D35007CC277 /* View */,
 				A89AA8F71ADBFE74004AC207 /* Custom */,
 				A8DFAF651ADBBEA00028502C /* Fonts */,
@@ -629,6 +642,7 @@
 				17AFE6831AF6C15200CDD08F /* DataView.m in Sources */,
 				17CF527E1AA5F8F6001C7E65 /* main.m in Sources */,
 				173B2FB61AF3E60500A71BA5 /* ChooseDayViewController.m in Sources */,
+				170135F11B09C98700B10C42 /* CustomSegue.m in Sources */,
 				A81789451ABC1D34004319BA /* ioapi.c in Sources */,
 				A81789491ABC1D34004319BA /* SSZipArchive.m in Sources */,
 				1737EFA01ADFF296002E4811 /* TimeLineView.m in Sources */,
