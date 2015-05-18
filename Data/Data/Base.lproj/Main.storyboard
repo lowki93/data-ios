@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HVH-gC-8UG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="av7-GA-iJ7">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -59,7 +59,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BtU-BE-aK1">
-                                <rect key="frame" x="256" y="70" width="89" height="36"/>
+                                <rect key="frame" x="256" y="50" width="89" height="36"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="35"/>
                                 <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -200,7 +200,7 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="K6Z-f0-9hu"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="forgotPasswordButton" destination="GF2-v9-LwJ" id="sMs-Qh-onu"/>
@@ -330,7 +330,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6c-Zv-6bt">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-3O-myV" customClass="TimeLineView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-3O-myV" customClass="TimeLineView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jib-wF-uB4">
@@ -360,13 +360,13 @@
                                     <action selector="removePlist:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="0bp-Ql-aQQ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mF-GS-Snp">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Monday 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mF-GS-Snp">
                                 <rect key="frame" x="26" y="40" width="548" height="30"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="30"/>
                                 <color key="textColor" red="0.11372549019607843" green="0.11372549019607843" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day 4 / 14  —  30%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rcd-3J-Pzy">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Day 4 / 14  —  30%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rcd-3J-Pzy">
                                 <rect key="frame" x="36" y="78" width="528" height="13"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="13"/>
                                 <color key="textColor" red="0.61568627450980395" green="0.61568627450980395" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
@@ -483,7 +483,7 @@ your mobile phone with desktop</string>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="uX6-oU-oGn" kind="show" id="iUp-d5-GCA"/>
+                                    <action selector="action:" destination="U74-IU-1BD" eventType="touchUpInside" id="aLE-M4-10X"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader" translatesAutoresizingMaskIntoConstraints="NO" id="SaM-aR-YFq">
@@ -522,6 +522,15 @@ your mobile phone with desktop</string>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="continueButton" destination="uRf-h6-cQf" id="Xle-wu-oW5"/>
+                        <outlet property="informationLabel" destination="Tfe-8l-Tpg" id="1zB-bA-CTG"/>
+                        <outlet property="informationParringLabel" destination="0b2-LL-5bn" id="qiq-1O-xaY"/>
+                        <outlet property="lineView" destination="EYf-xB-WyT" id="YwB-Qp-xWH"/>
+                        <outlet property="titleLabel" destination="BW5-Im-l9o" id="Ru0-70-kZm"/>
+                        <outlet property="waitingLabel" destination="Y0c-3p-7VI" id="IxR-de-L4L"/>
+                        <segue destination="uX6-oU-oGn" kind="custom" identifier="parring_success" customClass="CustomSegue" id="CK0-fI-NEL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Bx-2b-AdO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -753,7 +762,7 @@ de l’experience</string>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="TNr-nx-XX2">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="username" placeholder="exemple@gmail.com" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="40r-y7-YFh">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="40r-y7-YFh">
                                 <rect key="frame" x="20" y="167" width="560" height="25"/>
                                 <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="25"/>
@@ -771,7 +780,7 @@ de l’experience</string>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="VVt-qV-SJm"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pH-Nu-BPu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Sign up" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pH-Nu-BPu">
                                 <rect key="frame" x="239" y="70" width="122" height="36"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="35"/>
                                 <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -888,6 +897,7 @@ de l’experience</string>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="vLB-gv-qPn"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="confirmationPasswordTextField" destination="tpq-KI-7sU" id="1OH-18-w9R"/>
                         <outlet property="informationLabel" destination="lx6-zA-vP2" id="3bE-vK-QZN"/>
@@ -898,7 +908,7 @@ de l’experience</string>
                         <outlet property="sigupButton" destination="4Bz-6C-SQS" id="kmE-LZ-5rr"/>
                         <outlet property="titleLabel" destination="4pH-Nu-BPu" id="3rj-xp-4pG"/>
                         <outlet property="usernameTextField" destination="40r-y7-YFh" id="wyt-c5-KaI"/>
-                        <segue destination="U74-IU-1BD" kind="show" identifier="signup_succes" id="0kN-7n-njY"/>
+                        <segue destination="U74-IU-1BD" kind="custom" identifier="signup_succes" customClass="CustomSegue" id="0kN-7n-njY"/>
                         <segue destination="HVH-gC-8UG" kind="custom" identifier="signUp_login" customClass="CustomSegue" id="vV7-CA-ZTr"/>
                     </connections>
                 </viewController>

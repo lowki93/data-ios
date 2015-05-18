@@ -10,4 +10,13 @@
 
 @interface PairingViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *waitingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *informationParringLabel;
+@property (weak, nonatomic) IBOutlet UILabel *informationLabel;
+@property (weak, nonatomic) IBOutlet UIButton *continueButton;
+@property (weak, nonatomic) IBOutlet UIView *lineView;
+
+- (IBAction)action:(id)sender;
+
 @end
