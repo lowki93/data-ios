@@ -26,5 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *captaTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stepLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *timeScrollView;
+@property (weak, nonatomic) IBOutlet UILabel *learnLabel;
+@property (weak, nonatomic) IBOutlet UIButton *touLabel;
 
 @end

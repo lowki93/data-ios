@@ -313,7 +313,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1261" y="-943"/>
+            <point key="canvasLocation" x="1261" y="-1079"/>
         </scene>
         <!--Data View Controller-->
         <scene sceneID="VfM-RL-Npb">
@@ -410,7 +410,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qZ9-4Z-jNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1261" y="-293"/>
+            <point key="canvasLocation" x="1261" y="-377"/>
         </scene>
         <!--Pairing View Controller-->
         <scene sceneID="joF-AF-9so">
@@ -593,7 +593,7 @@ your mobile phone with desktop</string>
                                     <constraint firstAttribute="height" constant="1" id="rB8-UJ-2XR"/>
                                 </constraints>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYi-wO-vJi">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYi-wO-vJi">
                                 <rect key="frame" x="242" y="410" width="116" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="5xo-Q8-Tt2"/>
@@ -609,7 +609,7 @@ des données</string>
                                     </mask>
                                 </variation>
                             </label>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader" translatesAutoresizingMaskIntoConstraints="NO" id="CBd-yb-pH3">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader" translatesAutoresizingMaskIntoConstraints="NO" id="CBd-yb-pH3">
                                 <rect key="frame" x="200" y="200" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="06n-Vb-6D5"/>
@@ -645,9 +645,12 @@ des données</string>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="captaTitleLabel" destination="DTs-eG-IFm" id="1CX-QS-GSf"/>
+                        <outlet property="learnLabel" destination="gK7-18-avS" id="Ia4-44-riQ"/>
                         <outlet property="loaderImageView" destination="CBd-yb-pH3" id="gvX-6N-Jv3"/>
                         <outlet property="stepLabel" destination="5vq-5n-HCu" id="QVl-Ha-6S7"/>
                         <outlet property="synchroniseLabel" destination="rYi-wO-vJi" id="BS6-dJ-nyS"/>
+                        <outlet property="touLabel" destination="dD1-ZG-ax3" id="P4L-jT-FAN"/>
+                        <segue destination="2uX-AE-AY7" kind="custom" identifier="choose_time" customClass="CustomSegue" id="iP6-J7-HbQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R2o-DR-HiI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -919,7 +922,7 @@ de l’experience</string>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="327" y="1188"/>
+            <point key="canvasLocation" x="327" y="1168"/>
         </scene>
     </scenes>
     <resources>
@@ -927,6 +930,6 @@ de l’experience</string>
         <image name="loader" width="344" height="312"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vV7-CA-ZTr"/>
+        <segue reference="Ewf-ih-IQW"/>
     </inferredMetricsTieBreakers>
 </document>

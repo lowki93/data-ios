@@ -12,7 +12,7 @@
 
 @end
 
-int step, nbStep, translation;
+int step, nbStep, translation, translationLoader;
 float duration;
 
 @implementation GeolocViewController
@@ -21,9 +21,12 @@ float duration;
 
     [super viewDidLoad];
 
+    translationLoader =  20;
+    [self hideingSynchro];
+
     step = 1;
     duration = 0.5f;
-    translation = 20;
+    translation = 75;
 
     if ([CMPedometer isStepCountingAvailable]) {
 
@@ -37,9 +40,13 @@ float duration;
 
     [self animatedView:self.stepLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
     [self animatedView:self.captaTitleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.touLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.learnLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
     [self updateStepLabel];
     [self animatedView:self.stepLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
     [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.touLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
     
     self.locationManager = [[CLLocationManager alloc] init];
 
@@ -51,7 +58,7 @@ float duration;
 
         if ([self.locationManager  respondsToSelector:@selector(requestAlwaysAuthorization)] ) {
 
-            [self.locationManager  requestAlwaysAuthorization]; 
+            [self.locationManager performSelector:@selector(requestAlwaysAuthorization) withObject:nil afterDelay:duration * 2];
 
         }
         NSLog(@"start location");
@@ -62,7 +69,9 @@ float duration;
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
 
-    [self displayingSynchro:NO];
+    [self.locationManager stopUpdatingLocation];
+    [self displayingSynchro];
+    NSLog(@"get location");
 //    CLLocation *loc = locations.lastObject;
 
     [self performSelector:@selector(stopTrackerGeoloc) withObject:nil afterDelay:5.0f];
@@ -71,21 +80,23 @@ float duration;
 
 - (void)stopTrackerGeoloc {
 
-    [self.locationManager stopUpdatingLocation];
-    [self displayingSynchro:YES];
+    [self hideingSynchro];
     step++;
 
     if ([CMPedometer isStepCountingAvailable]) {
 
         self.pedometer = [[CMPedometer alloc] init];
+        [self hideSynchroLabel];
         [self.captaTitleLabel setText:@"Pedometer"];
         [self updateStepLabel];
+        [self showSynchroLabel];
 
     } else {
 
+        [self hideSynchroLabel];
         [self.captaTitleLabel setText:@"Photo"];
         [self updateStepLabel];
-        [self getPhotos];
+        [self showSynchroLabel];
 
     }
 
@@ -98,15 +109,43 @@ float duration;
 
 }
 
-- (void)displayingSynchro:(BOOL)boolean {
+- (void)displayingSynchro {
 
-    [self.loaderImageView setHidden:boolean];
-    [self.synchroniseLabel setHidden:boolean];
-    [self.stepLabel setHidden:!boolean];
+    [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, translationLoader)];
+    [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, translationLoader)];
+
+    [UIView animateWithDuration:duration delay:0 options:0 animations:^{
+
+        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, 0)];
+        [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
+        [self.loaderImageView setAlpha:1];
+        [self.synchroniseLabel setAlpha:1];
+
+    } completion:nil];
 
 }
 
+- (void)hideingSynchro {
+
+    [UIView animateWithDuration:duration delay:0 options:0 animations:^{
+
+        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
+        [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
+        [self.loaderImageView setAlpha:0];
+        [self.synchroniseLabel setAlpha:0];
+
+    } completion:^(BOOL finished){
+
+        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, 0)];
+        [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
+
+    }];
+    
+}
+
 - (void)getPhotos {
+    NSLog(@"get photos");
+    [self displayingSynchro];
 
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     // ALAssetsGroupLibrary , ALAssetsGroupSavedPhotos
@@ -114,7 +153,6 @@ float duration;
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
 
         [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-         [self displayingSynchro:NO];
 
         NSMutableArray *inputPaths = [NSMutableArray new];
         NSArray *URLs = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
@@ -140,8 +178,7 @@ float duration;
 
                 if ([inputPaths count] != 0) {
 
-                    NSLog(@"SEND PHOTO SERVEUR");
-                    [self selectDay];
+                    [self performSelector:@selector(selectDay) withObject:nil afterDelay:3];
 
                 }
             }
@@ -150,18 +187,26 @@ float duration;
 
     } failureBlock: ^(NSError *error) {
 
-        NSLog(@"No groups");
-        [self selectDay];
-
+        [self performSelector:@selector(selectDay) withObject:nil afterDelay:3];
+//
     }];
 
 }
 
 - (void)selectDay {
 
-    [self.captaTitleLabel setText:@"Time"];
-    [self.stepLabel setText:@"Sélectionne la durée\nde l’experience"];
-    [self displayingSynchro:YES];
+    [self animatedView:self.stepLabel Duration:duration Delay:duration Alpha:0 Translaton:-translation];
+    [self animatedView:self.captaTitleLabel Duration:duration Delay:duration Alpha:0 Translaton:-translation];
+    [self hideingSynchro];
+    [self animatedView:self.touLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.learnLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * 2 * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+        [self performSegueWithIdentifier:@"choose_time" sender:self];
+
+    });
 
 }
 
@@ -181,6 +226,30 @@ float duration;
     } completion:nil];
     
     
+}
+
+- (void)hideSynchroLabel {
+
+    [self animatedView:self.stepLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.touLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.stepLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.captaTitleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.touLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.learnLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+
+}
+
+- (void)showSynchroLabel {
+
+    [self animatedView:self.stepLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.captaTitleLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.captaTitleLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.touLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.learnLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self performSelector:@selector(getPhotos) withObject:nil afterDelay:5.];
+
 }
 
 @end

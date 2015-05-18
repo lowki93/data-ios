@@ -12,7 +12,7 @@
 
 @end
 
-int translation;
+int translation, translationY;
 float duration;
 
 @implementation PairingViewController
@@ -22,6 +22,7 @@ float duration;
     [super viewDidLoad];
 
     translation = 20;
+    translationY = 75;
     duration = 0.5;
 
     /** title animation **/
@@ -68,18 +69,18 @@ float duration;
 - (IBAction)action:(id)sender {
 
     /** title animation **/
-    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
+    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
     /** content animation **/
-    [self animatedView:self.informationParringLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
-    [self animatedView:self.waitingLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
+    [self animatedView:self.informationParringLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+    [self animatedView:self.waitingLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
     /** line animation **/
-    [self animatedView:self.lineView Duration:0 Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
+    [self animatedView:self.lineView Duration:0 Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
     /** button bottom animation **/
-    [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
-    [self animatedView:self.continueButton Duration:duration Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
+    [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+    [self animatedView:self.continueButton Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
