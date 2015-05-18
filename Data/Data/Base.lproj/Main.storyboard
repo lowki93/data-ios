@@ -27,8 +27,6 @@
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
-            <string>MaisonNeue-Book</string>
-            <string>MaisonNeue-Book</string>
         </mutableArray>
         <mutableArray key="MaisonNeue-Light.ttf">
             <string>MaisonNeue-Light</string>
@@ -70,20 +68,8 @@
                                 <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHI-65-Ysf">
-                                <rect key="frame" x="20" y="202" width="45" height="18"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="18"/>
-                                <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOu-Ec-M5Z">
-                                <rect key="frame" x="20" y="255" width="81" height="18"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="18"/>
-                                <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJ9-7X-ThZ">
-                                <rect key="frame" x="200" y="332" width="200" height="50"/>
+                                <rect key="frame" x="200" y="338" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="7oZ-fU-IEP"/>
                                     <constraint firstAttribute="height" constant="50" id="znc-qf-qcG"/>
@@ -104,23 +90,6 @@
                                     <action selector="signinClicked:" destination="HVH-gC-8UG" eventType="touchUpInside" id="0tA-e6-a3E"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="password" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VH9-Gp-07i">
-                                <rect key="frame" x="131" y="256" width="449" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="NIA-Es-mTg"/>
-                                </constraints>
-                                <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="NIA-Es-mTg"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <outlet property="delegate" destination="HVH-gC-8UG" id="ehj-iE-omK"/>
-                                </connections>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21W-v2-eeZ">
                                 <rect key="frame" x="352" y="559" width="54" height="20"/>
                                 <constraints>
@@ -145,26 +114,13 @@
                                     <constraint firstAttribute="height" constant="1" id="grR-4H-bWn"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSX-Ir-oi4">
-                                <rect key="frame" x="20" y="230" width="560" height="1"/>
-                                <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="7Is-PW-fcC"/>
-                                    <constraint firstAttribute="height" constant="1" id="UJ5-nf-DBv"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="7Is-PW-fcC"/>
-                                    </mask>
-                                </variation>
-                            </view>
-                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="exemple@gmail.com" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nAj-7c-BHa">
-                                <rect key="frame" x="131" y="203" width="449" height="16"/>
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="exemple@gmail.com" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nAj-7c-BHa">
+                                <rect key="frame" x="20" y="188" width="560" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Q8o-IW-szd"/>
                                 </constraints>
                                 <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="25"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -175,21 +131,8 @@
                                     <outlet property="delegate" destination="HVH-gC-8UG" id="Fj7-mx-ehs"/>
                                 </connections>
                             </textField>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vkG-5T-J3k">
-                                <rect key="frame" x="20" y="281" width="560" height="1"/>
-                                <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="6al-0W-gXp"/>
-                                    <constraint firstAttribute="height" constant="1" id="eyO-VZ-39D"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="6al-0W-gXp"/>
-                                    </mask>
-                                </variation>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GF2-v9-LwJ">
-                                <rect key="frame" x="249" y="392" width="102" height="24"/>
+                                <rect key="frame" x="249" y="398" width="102" height="24"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="12"/>
                                 <state key="normal" title="Forgot password ?">
                                     <color key="titleColor" red="0.65098039215686276" green="0.6588235294117647" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
@@ -205,50 +148,52 @@
                                 <color key="textColor" red="0.65098039215686276" green="0.6588235294117647" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="password" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VH9-Gp-07i">
+                                <rect key="frame" x="20" y="263" width="560" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="NIA-Es-mTg"/>
+                                </constraints>
+                                <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="25"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="NIA-Es-mTg"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="HVH-gC-8UG" id="ehj-iE-omK"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="vkG-5T-J3k" firstAttribute="leading" secondItem="cSX-Ir-oi4" secondAttribute="leading" id="1iQ-8T-cYU"/>
+                            <constraint firstItem="nAj-7c-BHa" firstAttribute="leading" secondItem="9ZL-Q6-4Av" secondAttribute="leading" constant="20" id="03d-2d-ued"/>
                             <constraint firstItem="38f-VS-w1p" firstAttribute="top" secondItem="amH-7O-LG3" secondAttribute="bottom" id="5b9-G9-JHd"/>
                             <constraint firstItem="21W-v2-eeZ" firstAttribute="leading" secondItem="OE8-ie-q9H" secondAttribute="trailing" constant="8" id="6ML-Oz-PNe"/>
-                            <constraint firstItem="vkG-5T-J3k" firstAttribute="leading" secondItem="IOu-Ec-M5Z" secondAttribute="leading" id="717-ao-jVH"/>
                             <constraint firstItem="OE8-ie-q9H" firstAttribute="top" secondItem="k4V-S9-xwC" secondAttribute="bottom" constant="20" id="73I-Is-oyq"/>
+                            <constraint firstAttribute="trailing" secondItem="VH9-Gp-07i" secondAttribute="trailing" constant="20" id="7Hl-EV-PMr"/>
                             <constraint firstAttribute="trailing" secondItem="k4V-S9-xwC" secondAttribute="trailing" constant="20" id="7h4-6d-Mlk"/>
                             <constraint firstItem="amH-7O-LG3" firstAttribute="leading" secondItem="9ZL-Q6-4Av" secondAttribute="leading" id="8ge-o4-hFO"/>
-                            <constraint firstItem="cSX-Ir-oi4" firstAttribute="leading" secondItem="9ZL-Q6-4Av" secondAttribute="leading" constant="20" id="9Zg-Y7-1De"/>
-                            <constraint firstItem="pJ9-7X-ThZ" firstAttribute="top" secondItem="vkG-5T-J3k" secondAttribute="bottom" constant="50" id="9gm-zK-c5c"/>
                             <constraint firstItem="GF2-v9-LwJ" firstAttribute="top" secondItem="pJ9-7X-ThZ" secondAttribute="bottom" constant="10" id="B9I-YW-77A"/>
                             <constraint firstAttribute="centerX" secondItem="BtU-BE-aK1" secondAttribute="centerX" id="BaM-zE-g8r"/>
-                            <constraint firstItem="vkG-5T-J3k" firstAttribute="bottom" secondItem="IOu-Ec-M5Z" secondAttribute="bottom" constant="9" id="Dsa-ij-g7i"/>
-                            <constraint firstItem="vkG-5T-J3k" firstAttribute="top" secondItem="cSX-Ir-oi4" secondAttribute="bottom" constant="50" id="Ej1-Dj-TlY"/>
-                            <constraint firstAttribute="trailing" secondItem="cSX-Ir-oi4" secondAttribute="trailing" constant="20" id="FCP-7I-LjJ"/>
-                            <constraint firstItem="CHI-65-Ysf" firstAttribute="leading" secondItem="cSX-Ir-oi4" secondAttribute="leading" id="KrI-8l-NXO"/>
+                            <constraint firstAttribute="centerY" secondItem="nAj-7c-BHa" secondAttribute="centerY" constant="100" id="Bqt-s1-L1a"/>
                             <constraint firstItem="amH-7O-LG3" firstAttribute="top" secondItem="9ZL-Q6-4Av" secondAttribute="top" id="Pll-gR-OLP"/>
                             <constraint firstAttribute="trailing" secondItem="amH-7O-LG3" secondAttribute="trailing" id="QXS-ma-7ue"/>
                             <constraint firstItem="38f-VS-w1p" firstAttribute="top" secondItem="OE8-ie-q9H" secondAttribute="bottom" constant="20" id="QoN-MG-RJK"/>
-                            <constraint firstItem="vkG-5T-J3k" firstAttribute="trailing" secondItem="cSX-Ir-oi4" secondAttribute="trailing" id="RiQ-FC-LNm"/>
                             <constraint firstItem="VH9-Gp-07i" firstAttribute="leading" secondItem="nAj-7c-BHa" secondAttribute="leading" id="SGR-6K-yXZ"/>
-                            <constraint firstItem="VH9-Gp-07i" firstAttribute="leading" secondItem="IOu-Ec-M5Z" secondAttribute="trailing" constant="30" id="Tqa-Cp-YY1"/>
                             <constraint firstItem="BtU-BE-aK1" firstAttribute="top" secondItem="E69-xj-ki9" secondAttribute="bottom" constant="50" id="VUo-6l-kjr"/>
                             <constraint firstAttribute="centerX" secondItem="GF2-v9-LwJ" secondAttribute="centerX" id="WlV-yA-jvG"/>
-                            <constraint firstItem="VH9-Gp-07i" firstAttribute="trailing" secondItem="vkG-5T-J3k" secondAttribute="trailing" id="aDA-ZX-pNB"/>
-                            <constraint firstAttribute="centerY" secondItem="cSX-Ir-oi4" secondAttribute="centerY" constant="70" id="blu-To-pIV"/>
-                            <constraint firstItem="cSX-Ir-oi4" firstAttribute="top" secondItem="CHI-65-Ysf" secondAttribute="bottom" constant="10" id="cge-R2-BmM"/>
-                            <constraint firstItem="cSX-Ir-oi4" firstAttribute="trailing" secondItem="nAj-7c-BHa" secondAttribute="trailing" id="dry-Jf-Bjp"/>
+                            <constraint firstItem="VH9-Gp-07i" firstAttribute="leading" secondItem="9ZL-Q6-4Av" secondAttribute="leading" constant="20" id="dPJ-cU-1vZ"/>
+                            <constraint firstItem="VH9-Gp-07i" firstAttribute="top" secondItem="nAj-7c-BHa" secondAttribute="bottom" constant="50" id="ekT-2k-2s9"/>
                             <constraint firstItem="k4V-S9-xwC" firstAttribute="leading" secondItem="9ZL-Q6-4Av" secondAttribute="leading" constant="20" id="gHd-y5-d9h"/>
-                            <constraint firstItem="VH9-Gp-07i" firstAttribute="centerY" secondItem="IOu-Ec-M5Z" secondAttribute="centerY" constant="-0.5" id="gPY-dZ-Uvh"/>
-                            <constraint firstItem="CHI-65-Ysf" firstAttribute="centerY" secondItem="nAj-7c-BHa" secondAttribute="centerY" id="gnP-6L-Bve"/>
+                            <constraint firstAttribute="trailing" secondItem="nAj-7c-BHa" secondAttribute="trailing" constant="20" id="lgm-Qd-BmQ"/>
                             <constraint firstItem="OE8-ie-q9H" firstAttribute="centerY" secondItem="21W-v2-eeZ" secondAttribute="centerY" id="qvF-hk-8db"/>
                             <constraint firstAttribute="centerX" secondItem="OE8-ie-q9H" secondAttribute="centerX" constant="40" id="rnx-we-eGq"/>
-                            <constraint firstItem="38f-VS-w1p" firstAttribute="top" secondItem="OE8-ie-q9H" secondAttribute="bottom" constant="20" id="sNh-35-iOa"/>
+                            <constraint firstItem="pJ9-7X-ThZ" firstAttribute="top" secondItem="VH9-Gp-07i" secondAttribute="bottom" constant="50" id="tkB-hc-80v"/>
                             <constraint firstAttribute="centerX" secondItem="pJ9-7X-ThZ" secondAttribute="centerX" id="whk-jc-OTJ"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="sNh-35-iOa"/>
-                            </mask>
-                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="xqg-Cs-Pi9" appends="YES" id="pFf-5g-hGn"/>
                         </connections>
@@ -257,11 +202,14 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="forgotPasswordButton" destination="GF2-v9-LwJ" id="sMs-Qh-onu"/>
+                        <outlet property="informationLabel" destination="OE8-ie-q9H" id="k2t-ht-hZT"/>
+                        <outlet property="lineView" destination="k4V-S9-xwC" id="ekm-0G-VkZ"/>
                         <outlet property="loginButton" destination="pJ9-7X-ThZ" id="mmo-ah-wqE"/>
                         <outlet property="passwordTextField" destination="VH9-Gp-07i" id="ROf-XZ-30g"/>
-                        <outlet property="passwordView" destination="vkG-5T-J3k" id="YE0-OU-Lwk"/>
+                        <outlet property="signUpButton" destination="21W-v2-eeZ" id="w9p-4B-nbm"/>
+                        <outlet property="titleLabel" destination="BtU-BE-aK1" id="YEb-72-Tsb"/>
                         <outlet property="usernameTextField" destination="nAj-7c-BHa" id="pJT-Tq-gwF"/>
-                        <outlet property="usernameView" destination="cSX-Ir-oi4" id="QOI-Ux-g3O"/>
                         <segue destination="QGs-SJ-cRB" kind="show" identifier="login_succes" id="jyz-2R-Df6"/>
                     </connections>
                 </viewController>
@@ -272,7 +220,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="314" y="387"/>
+            <point key="canvasLocation" x="327" y="366"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">

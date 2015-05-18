@@ -16,19 +16,55 @@
 
 BaseViewController *baseView;
 
+int translation;
+float duration;
+
 @implementation LoginViewController
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
 
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
+
+    translation = 20;
+    duration = 0.5f;
     
     [self.loginButton setBackgroundImage:[baseView imageWithColor:baseView.purpleColor] forState:UIControlStateHighlighted];
     [[self.loginButton layer] setBorderWidth:1.0f];
     [[self.loginButton layer] setBorderColor:baseView.purpleColor.CGColor];
     [[self.loginButton layer] setCornerRadius:25];
     [self.loginButton setClipsToBounds:YES];
+
+    /** title animation **/
+    [self animatedView:self.titleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+
+    /** textField animation **/
+    [self animatedView:self.usernameTextField Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.passwordTextField Duration:0 Delay:0 Alpha:0 Translaton:translation];
+
+    [self animatedView:self.usernameTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.passwordTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
+
+    /** button animation **/
+    [self animatedView:self.loginButton Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.forgotPasswordButton Duration:0 Delay:0 Alpha:0 Translaton:translation];
+
+    [self animatedView:self.loginButton Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.forgotPasswordButton Duration:duration Delay:duration Alpha:1 Translaton:0];
+
+    /** line animation **/
+    [self animatedView:self.lineView Duration:0 Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.lineView Duration:duration Delay:duration Alpha:1 Translaton:0];
+
+    /** button bottom animation **/
+    [self animatedView:self.informationLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.signUpButton Duration:0 Delay:0 Alpha:0 Translaton:translation];
+
+    [self animatedView:self.informationLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.signUpButton Duration:duration Delay:duration Alpha:1 Translaton:0];
 
 }
 
@@ -61,12 +97,7 @@ BaseViewController *baseView;
                 NSDictionary *dictionary = responseObject[@"user"];
                 [[ApiController sharedInstance] setUserLoad:dictionary];
                 [[ApiController sharedInstance] updateToken];
-
-//                double delayInSeconds = 5.0;
-//                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    [self performSegueWithIdentifier:@"login_succes" sender:self];
-//                });
+                [self performSegueWithIdentifier:@"login_succes" sender:self];
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -100,30 +131,16 @@ BaseViewController *baseView;
     return YES;
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    switch (textField.tag) {
-        case 1:
-            [self.usernameView setBackgroundColor:baseView.purpleColor];
-            break;
-        case 2:
-            [self.passwordView setBackgroundColor:baseView.purpleColor];
-            break;
-        default:
-            break;
-    }
-}
+- (void)animatedView:(UIView *)view Duration:(float)duration Delay:(float)delay Alpha:(float)alpha Translaton:(int)translation{
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    switch (textField.tag) {
-        case 1:
-            [self.usernameView setBackgroundColor:baseView.lightGrey];
-            break;
-        case 2:
-            [self.passwordView setBackgroundColor:baseView.lightGrey];
-            break;
-        default:
-            break;
-    }
+    [UIView animateWithDuration:duration delay:delay options:0 animations:^{
+
+        [view setAlpha:alpha];
+        [view setTransform:CGAffineTransformMakeTranslation(0, translation)];
+
+    } completion:nil];
+
+
 }
 
 @end
