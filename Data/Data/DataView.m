@@ -187,11 +187,19 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [dataDictionnary setObject:[NSString stringWithFormat:@"%@", dateString] forKey:@"date"];
     [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.photos count]] forKey:@"photo"];
     [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.atmosphere count]] forKey:@"geoloc"];
-    [dataDictionnary setObject:[NSString stringWithFormat:@"%.2f", [currentData.deplacement[@"distance"] floatValue] / 1000] forKey:@"distance"];
+
+    float distance;
+    for(int i = 0; i < [currentData.atmosphere count]; i ++) {
+
+       distance += [currentData.atmosphere[i][@"distance"] floatValue] / 1000;
+
+    }
+
+    [dataDictionnary setObject:[NSString stringWithFormat:@"%.2f", distance] forKey:@"distance"];
 
     self.nbPhoto += (int)[currentData.photos count];
     self.nbGeoloc += (int)[currentData.atmosphere count];
-    self.distance += [currentData.deplacement[@"distance"] intValue] / 1000;
+    self.distance += distance   ;
 
     [self.arrayData addObject:dataDictionnary];
 
@@ -218,12 +226,10 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
 }
 
-- (void)generateDataAfterSynchro:(int)indexDay NbData:(int)indexData {
+- (void)generateDataAfterSynchro:(Day *)currentDay {
 
-    Day *currentDay = [ApiController sharedInstance].experience.day[indexDay];
-
+    NSLog(@"draw");
     [self generateData:(int)([currentDay.data count] - 1) Day:currentDay];
-
     [self updateAllInformation];
 
 }

@@ -383,15 +383,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-3O-myV" customClass="TimeLineView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bI4-JP-187">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="bs9-gz-uGZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jib-wF-uB4">
                                 <rect key="frame" x="36" y="550" width="49" height="30"/>
                                 <state key="normal" title="Logout">
@@ -440,7 +431,6 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Rcd-3J-Pzy" secondAttribute="trailing" constant="20" id="7OR-ao-Cue"/>
                             <constraint firstAttribute="trailing" secondItem="G6c-Zv-6bt" secondAttribute="trailing" id="7mq-9A-iRV"/>
                             <constraint firstAttribute="centerX" secondItem="8mF-GS-Snp" secondAttribute="centerX" id="BWM-EK-qPU"/>
-                            <constraint firstAttribute="trailing" secondItem="bI4-JP-187" secondAttribute="trailing" id="Fio-1e-HZn"/>
                             <constraint firstAttribute="centerX" secondItem="qgj-Xv-zcP" secondAttribute="centerX" id="Ijb-L9-iNj"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="jib-wF-uB4" secondAttribute="bottom" constant="20" id="N2T-R5-VSN"/>
                             <constraint firstItem="jib-wF-uB4" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" constant="20" id="RgW-XU-5ib"/>
@@ -450,11 +440,9 @@
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="ivx-3O-myV" secondAttribute="bottom" id="aPG-Ez-3Lk"/>
                             <constraint firstItem="ivx-3O-myV" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leading" id="alC-H2-Mb1"/>
                             <constraint firstAttribute="trailing" secondItem="ivx-3O-myV" secondAttribute="trailing" id="dSk-Ni-QzP"/>
-                            <constraint firstItem="bI4-JP-187" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leading" id="fDY-Q2-Zv2"/>
                             <constraint firstItem="G6c-Zv-6bt" firstAttribute="top" secondItem="5Gq-4e-hfR" secondAttribute="top" id="fKq-nN-iRW"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="G6c-Zv-6bt" secondAttribute="bottom" id="l9r-67-Agd"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="qgj-Xv-zcP" secondAttribute="bottom" constant="20" id="pBJ-b8-aDk"/>
-                            <constraint firstItem="bI4-JP-187" firstAttribute="top" secondItem="5Gq-4e-hfR" secondAttribute="top" id="rdS-th-fK9"/>
                             <constraint firstItem="Rcd-3J-Pzy" firstAttribute="top" secondItem="8mF-GS-Snp" secondAttribute="bottom" constant="8" id="tDd-ZH-woc"/>
                             <constraint firstItem="Rcd-3J-Pzy" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" constant="20" id="uHY-g8-Qbt"/>
                             <constraint firstAttribute="trailing" secondItem="axA-9Z-JyO" secondAttribute="trailing" constant="20" id="vFf-CP-Pkn"/>
@@ -464,7 +452,7 @@
                     <connections>
                         <outlet property="contentScrollView" destination="G6c-Zv-6bt" id="IU4-06-ASa"/>
                         <outlet property="dateLabel" destination="8mF-GS-Snp" id="TTZ-Wf-MOw"/>
-                        <outlet property="logTextView" destination="bI4-JP-187" id="qM9-DX-4g2"/>
+                        <outlet property="synchriButton" destination="axA-9Z-JyO" id="P1S-gd-yok"/>
                         <outlet property="timeLineView" destination="ivx-3O-myV" id="laC-05-wuc"/>
                         <outlet property="topConstraint" destination="RnL-B5-5xI" id="t5a-p0-qrd"/>
                         <segue destination="HVH-gC-8UG" kind="show" identifier="logout" id="Ewf-ih-IQW"/>

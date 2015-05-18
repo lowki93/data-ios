@@ -16,13 +16,17 @@
 
 BaseViewController *baseView;
 
+NSDictionary *dictionary;
+
 /** dataView **/
 NSMutableArray *dateArray;
+NSMutableArray *dataViewArray;;
 int nbDay, margin, indexDay = 0, positionTop, heigtViewDetail;
 float firstScale,secondScale, upScale, downScale, transition;
 
 /** synchro **/
 int timeSynchro;
+bool activeSyncho;
 
 /** gesture **/
 UISwipeGestureRecognizer *leftGesture, *rightGesture, *upGesture;
@@ -54,7 +58,7 @@ float distance;
     }
 
     nbDay = (int)[ApiController sharedInstance].nbDay;
-    indexDay = 5;
+    indexDay = 3;
     margin = 50;
     firstScale = 0.8;
     secondScale = 0.5;
@@ -66,6 +70,7 @@ float distance;
 
     [self.topConstraint setConstant:self.view.bounds.size.height * 0.10];
     dateArray = [[NSMutableArray alloc] init];
+    dataViewArray = [[NSMutableArray alloc] init];
 
     /** TIMELINE **/
     [self.timeLineView setBackgroundColor:[UIColor clearColor]];
@@ -107,6 +112,7 @@ float distance;
 
         NSString *week = [dayFormatter stringFromDate:date];
         [dateArray addObject:week];
+        [dataViewArray addObject:dataView];
 
         [self.contentScrollView addSubview:view];
     }
@@ -115,7 +121,7 @@ float distance;
 
     CGRect frame = self.contentScrollView.frame;
     frame.origin.x = (self.view.bounds.size.width + margin ) * indexDay;
-    [self.contentScrollView scrollRectToVisible:frame animated:YES];
+    [self.contentScrollView scrollRectToVisible:frame animated:NO];
 
     [self.view sendSubviewToBack:self.contentScrollView];
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
@@ -156,14 +162,14 @@ float distance;
         if ([self.locationManager  respondsToSelector:@selector(requestAlwaysAuthorization)] ) {
 
             [self.locationManager  requestAlwaysAuthorization];
-            [self.locationManager startUpdatingLocation];
+//            [self.locationManager startUpdatingLocation];
 
         }
     }
 
     /** pedomoter **/
     if ([CMPedometer isStepCountingAvailable]) {
-        self.pedometer = [[CMPedometer alloc] init];
+//
     }
 
     /** time synchro : hour **/
@@ -183,11 +189,11 @@ float distance;
     NSDate *now = [[NSDate alloc] init];
     startDate = now;
     endDate = [startDate dateByAddingTimeInterval:-(1. * timeSynchro * 3600)];
+    
 }
 
 /** pedometer method **/
 - (void)queryPedometerDataFromDate:(NSDate *)startDate toDate:(NSDate *)endDate {
-
     [self.pedometer queryPedometerDataFromDate:startDate
                                         toDate:endDate
                                    withHandler:^(CMPedometerData *pedometerData, NSError *error) {
@@ -200,7 +206,7 @@ float distance;
                                                [self.pedometerInformation setObject:[NSNumber numberWithInt:[pedometerData.numberOfSteps intValue]] forKey:@"stepNumber"];
                                                [self.pedometerInformation setObject:[NSNumber numberWithFloat:distance] forKey:@"distance"];
                                                [self.pedometerInformation setObject:[NSNumber numberWithFloat:(distance / 1000 / timeSynchro)] forKey:@"vitesse"];
-//                                               [self updateData];
+                                               [self updateData];
                                            }
                                        });
                                    }];
@@ -229,6 +235,7 @@ float distance;
     [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.latitude] forKey:@"latitude"];
     [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.longitude] forKey:@"longitude"];
     [myBestLocation setObject:[NSNumber numberWithFloat:[self.lastLocation distanceFromLocation:self.location]] forKey:@"distance"];
+    NSLog(@"%f", [self.lastLocation distanceFromLocation:self.location]);
 
     [self.geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error == nil && [placemarks count] > 0) {
@@ -250,6 +257,7 @@ float distance;
             [self saveLocation:myBestLocation];
 
         }
+        self.lastLocation = self.location;
     }];
 
     [self.locationManager startMonitoringForRegion:(CLRegion *)region];
@@ -262,7 +270,6 @@ float distance;
 
     [myBestLocation setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
     [self writeIntoPlist:myBestLocation];
-    self.lastLocation = self.location;
 
 }
 
@@ -835,14 +842,28 @@ float distance;
 }
 
 - (void)uploadFile {
+    [self sendLocalNotification:[NSString stringWithFormat:@"receive notification with %d", activeSyncho]];
 
-    [self sendLocalNotification:@"upload files"];
-    NSLog(@"upload files");
-    if ([CMPedometer isStepCountingAvailable]) {
-        [self updateDate];
-        [self queryPedometerDataFromDate:endDate toDate:startDate];
-    } else {
-        [self updateData];
+    if (!activeSyncho) {
+
+        activeSyncho = YES;
+        self.app = [UIApplication sharedApplication];
+        self.bgTask = [self.app beginBackgroundTaskWithExpirationHandler:^{
+            [self.app endBackgroundTask:self.bgTask];
+        }];
+        NSLog(@"%lu", (unsigned long)self.bgTask);
+
+        [self sendLocalNotification:@"upload files"];
+        NSLog(@"upload files");
+        if ([CMPedometer isStepCountingAvailable]) {
+            [self updateDate];
+            self.pedometer = [[CMPedometer alloc] init];
+            [self queryPedometerDataFromDate:endDate toDate:startDate];
+            //        [self updateData];
+        } else {
+            [self updateData];
+        }
+
     }
 
 }
@@ -852,7 +873,11 @@ float distance;
     NSLog(@"update");
     [self sendLocalNotification:@"Update data start"];
     NSMutableDictionary * dictio = [[NSMutableDictionary alloc]init];
-    [dictio setObject:[self contenPlist] forKey:@"geoloc"];
+    NSMutableArray *geoloArray = [[NSMutableArray alloc] init];
+    if( [self contenPlist] != nil) {
+        geoloArray = [self contenPlist];
+    }
+    [dictio setObject:geoloArray forKey:@"geoloc"];
     if (![CMPedometer isStepCountingAvailable]) {
         self.pedometerInformation = [[NSMutableDictionary alloc]init];
         [self.pedometerInformation setObject:[NSNumber numberWithInt:1] forKey:@"stepNumber"];
@@ -867,72 +892,153 @@ float distance;
     [dictio setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDate]] forKey:@"day"];
 
     NSString *urlString = [[ApiController sharedInstance] getUrlUploadData];
-
     NSDictionary *dict = [dictio mutableCopy];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager setRequestSerializer: [AFJSONRequestSerializer serializer]];
     [manager POST:urlString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
-        NSDictionary *dictionary = responseObject[@"user"];
-//        if( (unsigned long)[dictionary[@"currentData"][@"day"] count] != [ApiController sharedInstance].nbDay) {
-//            self.contentView.layer.sublayers = nil;
-//            [self createCircle];
-//        }
-//        [self updateDateLabel];
+        dictionary = responseObject[@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
-//        [self sendLocalNotification:@"data are upload"];
-//        [[ApiController sharedInstance].location removeAllObjects];
-//        [self updateDataGeolocAfterSynchro];
         NSLog(@"end upload data");
-//        [self updateSynchroLabel];
-//        [self.synchroTimer invalidate];
-//        [self.accuracyTimer invalidate];
-//        [self.locationTimer invalidate];
-//        [self activeTracker];
         // for upload images
-//        [self getPhotoOnLibrary];
-        [self updateCurrentDay];
-
+        [self getPhotoOnLibrary];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
-        NSLog(@"error code %ld",(long)[operation.response statusCode]);
-        [self sendLocalNotification:[NSString stringWithFormat:@"upload data FAIL with code : %ld, error : %@ !!", (long)[operation.response statusCode], error]];
-        //            [self performSelector:@selector(updateData) withObject:nil afterDelay:120.0f];
+        [self sendLocalNotification:[NSString stringWithFormat:@"upload data failed"]];
+        [self performSelector:@selector(updateData) withObject:nil afterDelay:120.0f];
 
     }];
 
 }
 
+- (void)getPhotoOnLibrary {
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+
+    [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+
+        NSMutableArray *inputPaths = [NSMutableArray new];
+        NSArray *URLs = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+        NSURL *tmpDirURL = URLs[0];
+
+        NSString *zippedPath = [NSString stringWithFormat:@"%@/%@.zip", [tmpDirURL path], [ApiController sharedInstance].user.token];
+
+        [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
+            if (alAsset) {
+                if([((NSDate *)[alAsset valueForProperty:ALAssetPropertyDate]) compare: endDate] == NSOrderedDescending) {
+                    // bug photo si que photo a update et rien apres
+                    // Create image in tmp
+                    ALAssetRepresentation *representation = [alAsset defaultRepresentation];
+                    UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullScreenImage]];
+                    NSData *data = UIImageJPEGRepresentation(latestPhoto, 0.2);
+                    NSString *imagePath = [NSString stringWithFormat:@"%@/%@",[tmpDirURL path], [representation filename]];
+                    [data writeToFile:imagePath atomically:YES];
+                    [inputPaths addObject:imagePath];
+
+                } else {
+                    // stop for getting photo
+                    *innerStop = YES; *stop = YES;
+
+                    if ([inputPaths count] != 0) {
+                        NSLog(@"uploads photo");
+
+                        [SSZipArchive createZipFileAtPath:zippedPath withFilesAtPaths:inputPaths];
+
+                        NSString *urlString = [[ApiController sharedInstance] getUrlUploadImages];
+                        NSString *fileName = [NSString stringWithFormat:@"%@.zip",[ApiController sharedInstance].user.token];
+
+                        NSData *zipData = [[NSData alloc] initWithContentsOfFile:zippedPath];
+                        NSURL *url=[NSURL URLWithString:urlString];
+                        NSString *str = @"zip";
+
+                        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+                        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+                        [request setHTTPShouldHandleCookies:NO];
+                        [request setTimeoutInterval:30];
+                        [request setURL:url];
+                        [request setHTTPMethod:@"POST"];
+
+                        NSString *boundary = [NSString stringWithFormat:@"---------------------------14737809831464368775746641449"];
+                        NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+                        [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+
+                        NSMutableData *body = [NSMutableData data];
+                        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"currentEventID\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[@"52344457901000006" dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", str, fileName] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[@"Content-Type: zip\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:zipData];
+                        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                        [request setHTTPBody:body];
+
+                        NSError *error = [[NSError alloc] init];
+                        NSHTTPURLResponse *response = nil;
+                        NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+                        if ((long)[response statusCode] == 200) {
+                            error = nil;
+                            NSLog(@"photos are upload");
+                            [self sendLocalNotification:@"photos are upload"];
+                            dictionary = [NSJSONSerialization JSONObjectWithData:urlData
+                                                                                     options:NSJSONReadingMutableContainers
+                                                                                       error:&error];
+                            [[ApiController sharedInstance] setUserLoad:dictionary[@"user"]];
+                            [self updateCurrentDay];
+
+                        } else {
+
+                            NSLog(@"photos upload Fail !!");
+                            [self sendLocalNotification:[NSString stringWithFormat:@"upload photo FAIL with code : %ld, error : %@ !!", (long)[response statusCode], error]];
+                            [self performSelector:@selector(getPhotoOnLibrary) withObject:nil afterDelay:300.0f];
+
+                        }
+
+                        NSFileManager *fm = [NSFileManager defaultManager];
+                        [fm removeItemAtPath:[tmpDirURL path] error:&error];
+                        
+                    } else {
+
+                        NSLog(@"no photo to update");
+                        [self sendLocalNotification:@"No photo to update"];
+                        [self updateCurrentDay];
+
+                    }
+                }
+            }
+            
+        }];
+    } failureBlock: ^(NSError *error) {
+        NSLog(@"No groups");
+        [self updateCurrentDay];
+    }];
+}
+
 - (void)updateCurrentDay {
 
-    for (UIView *view in self.contentScrollView.subviews) {
-
-        for (UIView *subView in view.subviews) {
-
-            if([subView isKindOfClass:[DataView class]]) {
-
-                DataView *dataView = (DataView *)subView;
-
-                if(dataView.tag == (nbDay - 1)){
-
-                    [self removePlist];
-                    [dataView generateDataAfterSynchro:(int)dataView.tag NbData:0];
-                    
-                }
-                
-            }
-        }
-
-    }
+    NSLog(@"update current day");
+    DataView *dataView = [dataViewArray objectAtIndex:(nbDay - 1)];
+    [self removePlist];
+    Day *currentDay = [[Day alloc] initWithDictionary:dictionary[@"currentData"][@"day"][(int)dataView.tag]
+                                                error:nil];
+    [dataView generateDataAfterSynchro:currentDay];
+    [self.app endBackgroundTask:self.bgTask];
+    self.bgTask = UIBackgroundTaskInvalid;
+    activeSyncho = NO;
+    NSLog(@"%lu", (unsigned long)self.bgTask);
 
 }
 
+/** action button **/
 - (IBAction)logoutAction:(id)sender {
 
     NSLog(@"logout");
     [[ApiController sharedInstance] removeUser];
     [self performSegueWithIdentifier:@"logout" sender:self];
+
 }
 
 @end

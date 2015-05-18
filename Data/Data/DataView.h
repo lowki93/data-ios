@@ -28,6 +28,6 @@
 - (void)drawData:(int)indexDay;
 - (void)removeBorderButton;
 - (void)scaleInformationView:(UIView *)view;
-- (void)generateDataAfterSynchro:(int)indexDay NbData:(int)indexData;
+- (void)generateDataAfterSynchro:(Day *)currentDay;
 
 @end

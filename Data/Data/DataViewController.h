@@ -12,8 +12,9 @@
 #import "BaseViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <HealthKit/HealthKit.h>
+#import "SSZipArchive.h"
 @import CoreMotion;
-//@import AssetsLibrary;
+@import AssetsLibrary;
 
 @interface DataViewController : UIViewController <CLLocationManagerDelegate>
 
@@ -32,8 +33,14 @@
 @property (nonatomic) CLPlacemark *placemark;
 @property (nonatomic) NSMutableDictionary *pedometerInformation;
 
+@property (weak, nonatomic) IBOutlet UIButton *synchriButton;
+
 /** pedometer **/
 @property (nonatomic, strong) CMPedometer *pedometer;
+
+/** background task **/
+@property (nonatomic) UIApplication *app;
+@property (nonatomic) UIBackgroundTaskIdentifier bgTask;
 
 @property (weak, nonatomic) IBOutlet UITextView *logTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
