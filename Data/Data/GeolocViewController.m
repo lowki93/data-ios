@@ -12,14 +12,18 @@
 
 @end
 
-int step, nbStep;
+int step, nbStep, translation;
+float duration;
 
 @implementation GeolocViewController
 
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+
     step = 1;
+    duration = 0.5f;
+    translation = 20;
 
     if ([CMPedometer isStepCountingAvailable]) {
 
@@ -31,7 +35,12 @@ int step, nbStep;
 
     }
 
+    [self animatedView:self.stepLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.captaTitleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
     [self updateStepLabel];
+    [self animatedView:self.stepLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    
     self.locationManager = [[CLLocationManager alloc] init];
 
     if ([CLLocationManager locationServicesEnabled] ) {
@@ -160,6 +169,18 @@ int step, nbStep;
 
     [super didReceiveMemoryWarning];
 
+}
+
+- (void)animatedView:(UIView *)view Duration:(float)duration Delay:(float)delay Alpha:(float)alpha Translaton:(int)translation{
+
+    [UIView animateWithDuration:duration delay:delay options:0 animations:^{
+
+        [view setAlpha:alpha];
+        [view setTransform:CGAffineTransformMakeTranslation(translation, 0)];
+
+    } completion:nil];
+    
+    
 }
 
 @end

@@ -73,8 +73,9 @@ float duration;
 }
 
 - (IBAction)signupClicked:(id)sender {
+
     @try {
-        
+
         if([[self.mailTextField text] isEqualToString:@""] || [[self.passwordTextField text] isEqualToString:@""] || [[self.confirmationPasswordTextField text] isEqualToString:@""] || [[self.usernameTextField text] isEqualToString:@""]) {
             
             [baseView alertStatus:@"fill in all fields" :@"Sign in Failed!"];
@@ -102,7 +103,13 @@ float duration;
                 NSDictionary *dictionary = responseObject[@"user"];
                 [[ApiController sharedInstance] setUserLoad:dictionary];
                 [[ApiController sharedInstance] updateToken];
-                [self performSegueWithIdentifier:@"signup_succes" sender:self];
+                [self hideContent];
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+                    [self performSegueWithIdentifier:@"signup_succes" sender:self];
+                    
+                });
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -122,9 +129,22 @@ float duration;
         NSLog(@"Exception: %@", e);
         [baseView alertStatus:@"Sign in Failed." :@"Error!"];
     }
+    
 }
 
 - (IBAction)loginAction:(id)sender {
+
+    [self hideContent];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+        [self performSegueWithIdentifier:@"signUp_login" sender:self];
+        
+    });
+
+}
+
+- (void)hideContent {
 
     /** title animation **/
     [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
@@ -144,13 +164,6 @@ float duration;
     /** button bottom animation **/
     [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
     [self animatedView:self.loginButton Duration:duration Delay:0 Alpha:0 Translaton:0];
-
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-
-        [self performSegueWithIdentifier:@"signUp_login" sender:self];
-        
-    });
 
 }
 

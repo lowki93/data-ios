@@ -170,7 +170,6 @@ float duration;
 
     } completion:nil];
 
-
 }
 
 @end
