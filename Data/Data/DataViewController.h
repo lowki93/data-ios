@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
 @property (weak, nonatomic) IBOutlet TimeLineView *timeLineView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *informationLabel;
 
 /** location **/
 @property (nonatomic) CLLocationManager *locationManager;

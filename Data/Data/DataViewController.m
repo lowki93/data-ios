@@ -22,7 +22,7 @@ NSDictionary *dictionary;
 NSMutableArray *dateArray;
 NSMutableArray *dataViewArray;;
 int nbDay, margin, indexDay = 0, positionTop, heigtViewDetail;
-float firstScale,secondScale, upScale, downScale, transition;
+float firstScale,secondScale, upScale, downScale, transition, translationDate;
 
 /** synchro **/
 int timeSynchro;
@@ -67,6 +67,7 @@ float distance;
     positionTop = self.view.bounds.size.height * 0.30;
     heigtViewDetail = self.view.bounds.size.height * 0.70;
     transition = 20;
+    translationDate = 20;
 
     [self.topConstraint setConstant:self.view.bounds.size.height * 0.10];
     dateArray = [[NSMutableArray alloc] init];
@@ -85,6 +86,7 @@ float distance;
     [self.contentScrollView setShowsHorizontalScrollIndicator:NO];
     [self.contentScrollView setShowsVerticalScrollIndicator:NO];
     [self.contentScrollView setScrollsToTop:NO];
+    [self.contentScrollView setAlpha:0];
 
     for (int i = 0; i < nbDay; i++) {
 
@@ -118,6 +120,9 @@ float distance;
     }
 
     [self.dateLabel setText:[dateArray objectAtIndex:indexDay]];
+    [self updateInformationLabel];
+    [self animatedView:self.dateLabel Duration:0 Delay:0 Alpha:0 Translaton:translationDate];
+    [self animatedView:self.informationLabel Duration:0 Delay:0 Alpha:0 Translaton:translationDate];
 
     CGRect frame = self.contentScrollView.frame;
     frame.origin.x = (self.view.bounds.size.width + margin ) * indexDay;
@@ -169,6 +174,15 @@ float distance;
 
     [self animatedUpScrollView:0 First:YES];
     [self performSelector:@selector(animatedCloseScrollView) withObject:nil afterDelay:0.5];
+
+    [self animatedView:self.dateLabel Duration:0.5 Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.informationLabel Duration:0.5 Delay:0.2 Alpha:1 Translaton:0];
+
+    [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+
+        [self.contentScrollView setAlpha:1];
+
+    } completion:nil ];
 
     /** time synchro : hour **/
     timeSynchro = 1;
@@ -698,16 +712,22 @@ float distance;
 
         [self.dateLabel setAlpha:0];
         [self.dateLabel setTransform:CGAffineTransformMakeTranslation(translation, 0)];
+        [self.informationLabel setAlpha:0];
+        [self.informationLabel setTransform:CGAffineTransformMakeTranslation(translation, 0)];
 
     } completion:^(BOOL finished){
 
         [self.dateLabel setText:[dateArray objectAtIndex:indexDay]];
+        [self updateInformationLabel];
         [self.dateLabel setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
+        [self.informationLabel setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
 
         [UIView animateWithDuration:0.2 delay:0 options:0 animations:^{
 
             [self.dateLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
             [self.dateLabel setAlpha:1];
+            [self.informationLabel setAlpha:1];
+            [self.informationLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
 
         } completion:nil];
 
@@ -886,6 +906,25 @@ float distance;
         [self.view addGestureRecognizer:self.informationDataGesture];
         
     }];
+
+}
+
+- (void)animatedView:(UIView *)view Duration:(float)duration Delay:(float)delay Alpha:(float)alpha Translaton:(int)translation{
+
+    [UIView animateWithDuration:duration delay:delay options:0 animations:^{
+
+        [view setAlpha:alpha];
+        [view setTransform:CGAffineTransformMakeTranslation(0, translation)];
+
+    } completion:nil];
+    
+    
+}
+
+- (void)updateInformationLabel {
+
+    float percent = (float) (indexDay + 1) / nbDay * 100;
+    [self.informationLabel setText:[NSString stringWithFormat:@"Day %i / %i - %.f%%", (indexDay + 1), nbDay, percent ]];
 
 }
 

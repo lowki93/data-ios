@@ -23,6 +23,7 @@
 @property (nonatomic) int nbPhoto;
 @property (nonatomic) int nbGeoloc;
 @property (nonatomic) float distance;
+@property (nonatomic) float delay;
 
 - (void)initView:(UIViewController *)viewController;
 - (void)drawData:(int)indexDay;

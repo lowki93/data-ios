@@ -29,6 +29,7 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     self.nbPhoto = 0;
     self.nbGeoloc = 0;
     self.distance = 0;
+    self.delay = 1;
 
     self.arrayData = [[NSMutableArray alloc] init];
 
@@ -57,7 +58,7 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [self.hoursLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:self.hoursLabel];
 
-    float informationViewWidth = (radiusData - 20) * 2;
+    float informationViewWidth = (radiusData - 30) * 2;
     /** information by hours **/
     self.informationView = [[DataInformationView alloc] init];
     [self.informationView setFrame:CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
@@ -166,6 +167,8 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
     }
 
+    self.delay = 0.5;
+
     [self updateAllInformation];
 
 }
@@ -221,9 +224,17 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [button setClipsToBounds:YES];
     [button setBackgroundColor:[UIColor redColor]];
     [button.layer setCornerRadius:radiusButton/2.f];
+    [button setAlpha:0];
 
     [self addSubview:button];
 
+    [UIView animateWithDuration:0.3 delay:self.delay options:0 animations:^{
+
+        [button setAlpha:1];
+
+    } completion:nil];
+
+    self.delay += 0.1;
 }
 
 - (void)generateDataAfterSynchro:(Day *)currentDay {
