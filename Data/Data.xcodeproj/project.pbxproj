@@ -25,7 +25,6 @@
 		17AFE6831AF6C15200CDD08F /* DataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AFE6821AF6C15200CDD08F /* DataView.m */; };
 		17CF527E1AA5F8F6001C7E65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF527D1AA5F8F6001C7E65 /* main.m */; };
 		17CF52811AA5F8F6001C7E65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF52801AA5F8F6001C7E65 /* AppDelegate.m */; };
-		17CF52841AA5F8F6001C7E65 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF52831AA5F8F6001C7E65 /* ViewController.m */; };
 		17CF52871AA5F8F6001C7E65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17CF52851AA5F8F6001C7E65 /* Main.storyboard */; };
 		17CF52891AA5F8F6001C7E65 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17CF52881AA5F8F6001C7E65 /* Images.xcassets */; };
 		17CF528C1AA5F8F6001C7E65 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17CF528A1AA5F8F6001C7E65 /* LaunchScreen.xib */; };
@@ -112,8 +111,6 @@
 		17CF527D1AA5F8F6001C7E65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		17CF527F1AA5F8F6001C7E65 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		17CF52801AA5F8F6001C7E65 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		17CF52821AA5F8F6001C7E65 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		17CF52831AA5F8F6001C7E65 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		17CF52861AA5F8F6001C7E65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		17CF52881AA5F8F6001C7E65 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		17CF528B1AA5F8F6001C7E65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -306,8 +303,6 @@
 		17DCD4EB1AA99EF100818722 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				17CF52821AA5F8F6001C7E65 /* ViewController.h */,
-				17CF52831AA5F8F6001C7E65 /* ViewController.m */,
 				17DCD4E81AA99A8700818722 /* LoginViewController.h */,
 				17DCD4E91AA99A8700818722 /* LoginViewController.m */,
 				17D3A6FD1AADC01400612D0E /* SignUpViewController.h */,
@@ -634,7 +629,6 @@
 				17D3A6FF1AADC01400612D0E /* SignUpViewController.m in Sources */,
 				17169B7F1AF22C6D00321300 /* DataViewController.m in Sources */,
 				A8DE94311ACEDA6D00EF1EDC /* Experience.m in Sources */,
-				17CF52841AA5F8F6001C7E65 /* ViewController.m in Sources */,
 				1756E5011AD5F8B8006CA988 /* Day.m in Sources */,
 				176476791AF6D401007657DB /* DataInformationView.m in Sources */,
 				17CF52811AA5F8F6001C7E65 /* AppDelegate.m in Sources */,
