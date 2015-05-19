@@ -16,8 +16,8 @@
 BaseViewController *baseView;
 
 UISwipeGestureRecognizer *leftGesture, *rightGesture;
-int nbDayTime, indexDay;
-float labelWidth, firstMargin;
+int nbDayTime, indexDay, translation;
+float labelWidth, firstMargin, duration;
 
 @implementation ChooseDayViewController
 
@@ -28,9 +28,14 @@ float labelWidth, firstMargin;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
+    duration = 0.5f;
+    translation = 75;
+
     [self.validateButton setBackgroundImage:[baseView imageWithColor:baseView.purpleColor] forState:UIControlStateHighlighted];
     [[self.validateButton layer] setBorderWidth:1.0f];
     [[self.validateButton layer] setBorderColor:baseView.purpleColor.CGColor];
+    [[self.validateButton layer] setCornerRadius:25];
+    [self.validateButton setClipsToBounds:YES];
 
     nbDayTime = 14;
     labelWidth = self.view.bounds.size.width / 4;
@@ -72,6 +77,17 @@ float labelWidth, firstMargin;
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
 
     [self moveScrollView];
+    [self animatedView:self.titleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.informationLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.validateButton Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.dayLabel Duration:0 Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.dayScrollView Duration:0 Delay:0 Alpha:0 Translaton:0];
+
+    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.validateButton Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.dayLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.dayScrollView Duration:duration Delay:duration Alpha:1 Translaton:0];
 
     leftGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
     [leftGesture setDirection:(UISwipeGestureRecognizerDirectionRight)];
@@ -134,9 +150,20 @@ float labelWidth, firstMargin;
 
         }
         
-    } completion:^(BOOL finished){
-    }];
+    } completion:nil];
 
+}
+
+- (void)animatedView:(UIView *)view Duration:(float)duration Delay:(float)delay Alpha:(float)alpha Translaton:(int)translation{
+
+    [UIView animateWithDuration:duration delay:delay options:0 animations:^{
+
+        [view setAlpha:alpha];
+        [view setTransform:CGAffineTransformMakeTranslation(translation, 0)];
+
+    } completion:nil];
+    
+    
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{

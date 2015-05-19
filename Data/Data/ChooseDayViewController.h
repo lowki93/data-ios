@@ -12,6 +12,9 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *dayScrollView;
 @property (weak, nonatomic) IBOutlet UIButton *validateButton;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *informationLabel;
 
 - (IBAction)validateAction:(id)sender;
 
