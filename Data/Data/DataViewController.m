@@ -58,7 +58,7 @@ float distance;
     }
 
     nbDay = (int)[ApiController sharedInstance].nbDay;
-    indexDay = 3;
+    indexDay = nbDay - 2;
     margin = 50;
     firstScale = 0.8;
     secondScale = 0.5;
@@ -217,16 +217,55 @@ float distance;
 
     NSLog(@"update location");
     self.location = [locations lastObject];
+
+    NSLog(@"speed %.1f km/h", self.location.speed * 3.6);
+    [self sendLocalNotification:[NSString stringWithFormat:@"speed %.1f km/h", self.location.speed * 3.6]];
+    NSLog(@"coordinate: lagitude : %f, longitude : %f",self.location.coordinate.latitude, self.location.coordinate.longitude);
+    [self sendLocalNotification:[NSString stringWithFormat:@"coordinate: lagitude : %f, longitude : %f",self.location.coordinate.latitude, self.location.coordinate.longitude]];
+
     [lm setDesiredAccuracy:kCLLocationAccuracyThreeKilometers];
     [lm setDistanceFilter:99999];
 
     //    CLCircularRegion *region = [[CLCircularRegion alloc] initCircularRegionWithCenter:[location coordinate] radius:300 identifier:[[NSUUID UUID] UUIDString]];
+    float speed =  self.location.speed * 3.6;
+    CLCircularRegion *region;
 
-    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:[self.location coordinate]
-                                                                 radius:1000
-                                                             identifier:[[NSUUID UUID] UUIDString]];
+    if (speed < 10) {
+        NSLog(@"1000");
 
-    NSLog(@"coordinate: lagitude : %f, longitude : %f",self.location.coordinate.latitude, self.location.coordinate.longitude);
+        region= [[CLCircularRegion alloc] initWithCenter:[self.location coordinate]
+                                                                     radius:1000
+                                                                 identifier:[[NSUUID UUID] UUIDString]];
+
+    } else if (speed < 50) {
+
+        region = [[CLCircularRegion alloc] initWithCenter:[self.location coordinate]
+                                                                     radius:10000
+                                                                 identifier:[[NSUUID UUID] UUIDString]];
+        NSLog(@"10000");
+
+    } else if (speed < 100) {
+
+        region = [[CLCircularRegion alloc] initWithCenter:[self.location coordinate]
+                                                                     radius:25000
+                                                                 identifier:[[NSUUID UUID] UUIDString]];
+        NSLog(@"25000");
+
+    } else if (speed < 180) {
+
+        NSLog(@"50000");
+        region = [[CLCircularRegion alloc] initWithCenter:[self.location coordinate]
+                                                                     radius:50000
+                                                                 identifier:[[NSUUID UUID] UUIDString]];
+
+    } else {
+
+        NSLog(@"more tha 180");
+        region = [[CLCircularRegion alloc] initWithCenter:[self.location coordinate]
+                                                   radius:800000
+                                               identifier:[[NSUUID UUID] UUIDString]];
+
+    }
 
     NSMutableDictionary *myBestLocation = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *addressLocation = [[NSMutableDictionary alloc] init];
