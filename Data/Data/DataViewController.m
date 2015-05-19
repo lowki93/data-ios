@@ -162,15 +162,13 @@ float distance;
         if ([self.locationManager  respondsToSelector:@selector(requestAlwaysAuthorization)] ) {
 
             [self.locationManager  requestAlwaysAuthorization];
-//            [self.locationManager startUpdatingLocation];
+            [self.locationManager startUpdatingLocation];
 
         }
     }
 
-    /** pedomoter **/
-    if ([CMPedometer isStepCountingAvailable]) {
-//
-    }
+    [self animatedUpScrollView:0 First:YES];
+    [self performSelector:@selector(animatedCloseScrollView) withObject:nil afterDelay:0.5];
 
     /** time synchro : hour **/
     timeSynchro = 1;
@@ -437,64 +435,7 @@ float distance;
     [self.timeLineView setHidden:NO];
     [self animateTimeLine:upScale Alpha:0];
 
-    [UIView animateWithDuration:0.5  delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-
-        int count = 0;
-
-        for (UIView *view in self.contentScrollView.subviews) {
-
-            CGRect frame;
-            frame.origin.x = (self.view.bounds.size.width + margin) * count;
-            frame.origin.y = positionTop;
-            frame.size.height = heigtViewDetail;
-            frame.size.width = self.view.bounds.size.width;
-            view.frame = frame;
-//
-//            for (CAShapeLayer *layer in view.layer.sublayers) {
-//
-//                [self animateLayer:layer Start:[NSNumber numberWithFloat:secondScale] End:@1 Delay:0];
-//
-//            }
-
-            for (UIView *subView in view.subviews) {
-
-                CGRect frame;
-                frame.origin.x = subView.frame.origin.x / secondScale;
-                frame.origin.y = subView.frame.origin.y / secondScale;
-                frame.size.height = subView.frame.size.height / secondScale;
-                frame.size.width = subView.frame.size.width / secondScale;
-                subView.frame = frame;
-
-                if([subView isKindOfClass:[DataView class]]) {
-
-                    for (UIView *subSubView in subView.subviews) {
-
-                        CGRect frame;
-                        frame.origin.x = subSubView.frame.origin.x / secondScale;
-                        frame.origin.y = subSubView.frame.origin.y / secondScale;
-                        frame.size.height = subSubView.frame.size.height / secondScale;
-                        frame.size.width = subSubView.frame.size.width / secondScale;
-                        subSubView.frame = frame;
-
-                    }
-                }
-
-            }
-
-            count++;
-
-        }
-
-        CGRect frame = self.contentScrollView.frame;
-        frame.origin.x = (self.view.bounds.size.width + margin) * indexDay;
-        [self.contentScrollView scrollRectToVisible:frame animated:NO];
-
-    } completion:^(BOOL finished){
-
-        [self.view addGestureRecognizer:upGesture];
-        [self.view addGestureRecognizer:self.informationDataGesture];
-
-    }];
+    [self animatedCloseScrollView];
 
 }
 
@@ -506,94 +447,7 @@ float distance;
     [self.view removeGestureRecognizer:self.informationDataGesture];
     [self.timeLineView setHidden:NO];
 
-    [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-
-        [self animateView:firstScale ScaleView:firstScale];
-
-        CGRect frame = self.contentScrollView.frame;
-        frame.origin.x = (self.view.bounds.size.width + margin) * firstScale * indexDay;
-        [self.contentScrollView scrollRectToVisible:frame animated:NO];
-
-    } completion:^(BOOL finished){
-
-        [self animateTimeLine:downScale Alpha:1];
-
-        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-
-//            [self animateView:secondScale ScaleView:(firstScale * secondScale)];
-            int count = 0;
-            float base = (self.view.bounds.size.width / 2) - (self.view.bounds.size.width * secondScale / 2);
-
-            for (UIView *view in self.contentScrollView.subviews) {
-
-                CGRect frame;
-                frame.origin.x = base + ((((self.view.bounds.size.width + margin) * secondScale)) * count);
-                frame.origin.y = self.view.bounds.size.height * 0.4 ;
-                frame.size.height = heigtViewDetail * secondScale;
-                frame.size.width = self.view.bounds.size.width * secondScale;
-                view.frame = frame;
-
-//                for (CAShapeLayer *layer in view.layer.sublayers) {
-//
-//                    [self animateLayer:layer Start:[NSNumber numberWithFloat:firstScale] End:[NSNumber numberWithFloat:secondScale] Delay:0];
-//
-//                }
-
-//                for (UIView *subView in view.subviews) {
-//
-//                    CGRect frame;
-//                    frame.origin.x = subView.frame.origin.x / firstScale * secondScale;
-//                    frame.origin.y = subView.frame.origin.y / firstScale * secondScale;
-//                    frame.size.height = subView.frame.size.height / firstScale * secondScale;
-//                    frame.size.width = subView.frame.size.width / firstScale * secondScale;
-//                    subView.frame = frame;
-//                    
-//                }
-
-                for (UIView *subView in view.subviews) {
-
-                    CGRect frame;
-                    frame.origin.x = subView.frame.origin.x / firstScale * secondScale;
-                    frame.origin.y = subView.frame.origin.y / firstScale * secondScale;
-                    frame.size.height = subView.frame.size.height / firstScale * secondScale;
-                    frame.size.width = subView.frame.size.width / firstScale * secondScale;
-                    subView.frame = frame;
-
-                    if([subView isKindOfClass:[DataView class]]) {
-
-                        for (UIView *subSubView in subView.subviews) {
-
-                            CGRect frame;
-                            frame.origin.x = subSubView.frame.origin.x / firstScale * secondScale;
-                            frame.origin.y = subSubView.frame.origin.y / firstScale * secondScale;
-                            frame.size.height = subSubView.frame.size.height / firstScale * secondScale;
-                            frame.size.width = subSubView.frame.size.width / firstScale * secondScale;
-                            subSubView.frame = frame;
-
-                        }
-                    }
-
-                }
-
-                count++;
-            }
-
-            CGRect frame = self.contentScrollView.frame;
-            frame.origin.x = (self.view.bounds.size.width + margin) * secondScale * indexDay;
-            [self.contentScrollView scrollRectToVisible:frame animated:NO];
-
-        } completion:^(BOOL finished){
-
-            [self.timeLineView setHidden:NO];
-
-            [self.view addGestureRecognizer:leftGesture];
-            [self.view addGestureRecognizer:rightGesture];
-            [self.view addGestureRecognizer:closeGesture];
-
-        }];
-
-    }];
-    
+    [self animatedUpScrollView:0.5 First:NO];
     
 }
 
@@ -872,6 +726,166 @@ float distance;
         self.timeLineView.transform = CGAffineTransformScale(transform, scale, scale);
 
     } completion:^(BOOL finished){}];
+
+}
+
+- (void)animatedUpScrollView:(float)duration First:(BOOL)boolean {
+
+    [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+
+        [self animateView:firstScale ScaleView:firstScale];
+
+        CGRect frame = self.contentScrollView.frame;
+        frame.origin.x = (self.view.bounds.size.width + margin) * firstScale * indexDay;
+        [self.contentScrollView scrollRectToVisible:frame animated:NO];
+
+    } completion:^(BOOL finished){
+
+        if (!boolean) {
+             [self animateTimeLine:downScale Alpha:1];
+        }
+
+        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+
+//            [self animateView:secondScale ScaleView:(firstScale * secondScale)];
+            int count = 0;
+            float base = (self.view.bounds.size.width / 2) - (self.view.bounds.size.width * secondScale / 2);
+
+            for (UIView *view in self.contentScrollView.subviews) {
+
+                CGRect frame;
+                frame.origin.x = base + ((((self.view.bounds.size.width + margin) * secondScale)) * count);
+                frame.origin.y = self.view.bounds.size.height * 0.4 ;
+                frame.size.height = heigtViewDetail * secondScale;
+                frame.size.width = self.view.bounds.size.width * secondScale;
+                view.frame = frame;
+
+                //                for (CAShapeLayer *layer in view.layer.sublayers) {
+                //
+                //                    [self animateLayer:layer Start:[NSNumber numberWithFloat:firstScale] End:[NSNumber numberWithFloat:secondScale] Delay:0];
+                //
+                //                }
+
+                //                for (UIView *subView in view.subviews) {
+                //
+                //                    CGRect frame;
+                //                    frame.origin.x = subView.frame.origin.x / firstScale * secondScale;
+                //                    frame.origin.y = subView.frame.origin.y / firstScale * secondScale;
+                //                    frame.size.height = subView.frame.size.height / firstScale * secondScale;
+                //                    frame.size.width = subView.frame.size.width / firstScale * secondScale;
+                //                    subView.frame = frame;
+                //
+                //                }
+
+                for (UIView *subView in view.subviews) {
+
+                    CGRect frame;
+                    frame.origin.x = subView.frame.origin.x / firstScale * secondScale;
+                    frame.origin.y = subView.frame.origin.y / firstScale * secondScale;
+                    frame.size.height = subView.frame.size.height / firstScale * secondScale;
+                    frame.size.width = subView.frame.size.width / firstScale * secondScale;
+                    subView.frame = frame;
+
+                    if([subView isKindOfClass:[DataView class]]) {
+
+                        for (UIView *subSubView in subView.subviews) {
+
+                            CGRect frame;
+                            frame.origin.x = subSubView.frame.origin.x / firstScale * secondScale;
+                            frame.origin.y = subSubView.frame.origin.y / firstScale * secondScale;
+                            frame.size.height = subSubView.frame.size.height / firstScale * secondScale;
+                            frame.size.width = subSubView.frame.size.width / firstScale * secondScale;
+                            subSubView.frame = frame;
+
+                        }
+                    }
+
+                }
+
+                count++;
+            }
+            
+            CGRect frame = self.contentScrollView.frame;
+            frame.origin.x = (self.view.bounds.size.width + margin) * secondScale * indexDay;
+            [self.contentScrollView scrollRectToVisible:frame animated:NO];
+            
+        } completion:^(BOOL finished){
+
+            if (!boolean) {
+
+                [self.timeLineView setHidden:NO];
+                [self.view addGestureRecognizer:leftGesture];
+                [self.view addGestureRecognizer:rightGesture];
+                [self.view addGestureRecognizer:closeGesture];
+
+            }
+            
+        }];
+        
+    }];
+
+}
+
+- (void)animatedCloseScrollView {
+
+    [UIView animateWithDuration:0.5  delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+
+        int count = 0;
+
+        for (UIView *view in self.contentScrollView.subviews) {
+
+            CGRect frame;
+            frame.origin.x = (self.view.bounds.size.width + margin) * count;
+            frame.origin.y = positionTop;
+            frame.size.height = heigtViewDetail;
+            frame.size.width = self.view.bounds.size.width;
+            view.frame = frame;
+            //
+            //            for (CAShapeLayer *layer in view.layer.sublayers) {
+            //
+            //                [self animateLayer:layer Start:[NSNumber numberWithFloat:secondScale] End:@1 Delay:0];
+            //
+            //            }
+
+            for (UIView *subView in view.subviews) {
+
+                CGRect frame;
+                frame.origin.x = subView.frame.origin.x / secondScale;
+                frame.origin.y = subView.frame.origin.y / secondScale;
+                frame.size.height = subView.frame.size.height / secondScale;
+                frame.size.width = subView.frame.size.width / secondScale;
+                subView.frame = frame;
+
+                if([subView isKindOfClass:[DataView class]]) {
+
+                    for (UIView *subSubView in subView.subviews) {
+
+                        CGRect frame;
+                        frame.origin.x = subSubView.frame.origin.x / secondScale;
+                        frame.origin.y = subSubView.frame.origin.y / secondScale;
+                        frame.size.height = subSubView.frame.size.height / secondScale;
+                        frame.size.width = subSubView.frame.size.width / secondScale;
+                        subSubView.frame = frame;
+
+                    }
+                }
+
+            }
+
+            count++;
+
+        }
+
+        CGRect frame = self.contentScrollView.frame;
+        frame.origin.x = (self.view.bounds.size.width + margin) * indexDay;
+        [self.contentScrollView scrollRectToVisible:frame animated:NO];
+        
+    } completion:^(BOOL finished){
+        
+        [self.view addGestureRecognizer:upGesture];
+        [self.view addGestureRecognizer:self.informationDataGesture];
+        
+    }];
 
 }
 

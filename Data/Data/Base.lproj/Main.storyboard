@@ -330,8 +330,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6c-Zv-6bt">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </scrollView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-3O-myV" customClass="TimeLineView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-3O-myV" customClass="TimeLineView">
+                                <rect key="frame" x="0.0" y="-20" width="600" height="620"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jib-wF-uB4">
                                 <rect key="frame" x="36" y="550" width="49" height="30"/>
@@ -360,14 +360,14 @@
                                     <action selector="removePlist:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="0bp-Ql-aQQ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Monday 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mF-GS-Snp">
-                                <rect key="frame" x="26" y="40" width="548" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mF-GS-Snp">
+                                <rect key="frame" x="26" y="20" width="548" height="30"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="30"/>
                                 <color key="textColor" red="0.11372549019607843" green="0.11372549019607843" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Day 4 / 14  —  30%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rcd-3J-Pzy">
-                                <rect key="frame" x="36" y="78" width="528" height="13"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day 4 / 14  —  30%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rcd-3J-Pzy">
+                                <rect key="frame" x="36" y="58" width="528" height="13"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="13"/>
                                 <color key="textColor" red="0.61568627450980395" green="0.61568627450980395" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -747,6 +747,7 @@ de l’experience</string>
                         <outlet property="informationLabel" destination="HUa-aO-JIP" id="8VH-xb-Qgh"/>
                         <outlet property="titleLabel" destination="WuR-QS-0Pq" id="UId-2E-58k"/>
                         <outlet property="validateButton" destination="tul-Uz-Zfr" id="CU9-Oc-mL0"/>
+                        <segue destination="QGs-SJ-cRB" kind="custom" identifier="time_data" customClass="CustomSegue" id="Nbz-yN-fpI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drK-Mf-Ijv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -934,5 +935,6 @@ de l’experience</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Ewf-ih-IQW"/>
+        <segue reference="Nbz-yN-fpI"/>
     </inferredMetricsTieBreakers>
 </document>

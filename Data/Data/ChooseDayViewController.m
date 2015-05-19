@@ -180,5 +180,19 @@ float labelWidth, firstMargin, duration;
 
 
 - (IBAction)validateAction:(id)sender {
+
+    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.validateButton Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.dayLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.dayScrollView Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * 2 * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+        [self performSegueWithIdentifier:@"time_data" sender:self];
+        
+    });
+
 }
 @end
