@@ -49,6 +49,7 @@ float duration;
     [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
     
     self.locationManager = [[CLLocationManager alloc] init];
+    self.geocoder = [[CLGeocoder alloc] init];
 
     if ([CLLocationManager locationServicesEnabled] ) {
 
@@ -69,13 +70,49 @@ float duration;
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
 
-    [self.locationManager stopUpdatingLocation];
-    [self displayingSynchro];
     NSLog(@"get location");
-//    CLLocation *loc = locations.lastObject;
+    [self displayingSynchro];
+    CLLocation *location = [locations lastObject];
 
+    NSMutableDictionary *myBestLocation = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *addressLocation = [[NSMutableDictionary alloc] init];
+
+    /** add location and distance **/
+    [myBestLocation setObject:[NSNumber numberWithFloat:location.coordinate.latitude] forKey:@"latitude"];
+    [myBestLocation setObject:[NSNumber numberWithFloat:location.coordinate.longitude] forKey:@"longitude"];
+    [myBestLocation setObject:[NSNumber numberWithFloat:0.] forKey:@"distance"];
+
+    [self.geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && [placemarks count] > 0) {
+            CLPlacemark *placemark = [placemarks lastObject];
+            /** address location **/
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", placemark.subThoroughfare] forKey:@"numbers"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", placemark.thoroughfare] forKey:@"way"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", placemark.postalCode] forKey:@"postalCode"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", placemark.locality] forKey:@"town"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", placemark.administrativeArea] forKey:@"area"];
+            [addressLocation setObject:[NSString stringWithFormat:@"%@", placemark.country] forKey:@"country"];
+            /** add to myBestLocation **/
+            [myBestLocation setObject:addressLocation forKey:@"address"];
+            [self sendLocation:myBestLocation];
+
+        } else {
+
+            [myBestLocation setObject:addressLocation forKey:@"address"];
+            [self sendLocation:myBestLocation];
+
+        }
+    }];
+    [self.locationManager stopUpdatingLocation];
     [self performSelector:@selector(stopTrackerGeoloc) withObject:nil afterDelay:5.0f];
 
+}
+
+- (void)sendLocation:(NSMutableDictionary *)myBestLocation {
+
+    [myBestLocation setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
+    NSLog(@"%@", myBestLocation);
+    
 }
 
 - (void)stopTrackerGeoloc {

@@ -73,7 +73,13 @@ float duration;
 }
 
 - (IBAction)signupClicked:(id)sender {
-
+//    [self hideContent];
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//
+//        [self performSegueWithIdentifier:@"signup_succes" sender:self];
+//
+//    });
     @try {
 
         if([[self.mailTextField text] isEqualToString:@""] || [[self.passwordTextField text] isEqualToString:@""] || [[self.confirmationPasswordTextField text] isEqualToString:@""] || [[self.usernameTextField text] isEqualToString:@""]) {
@@ -94,7 +100,7 @@ float duration;
 
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             NSDictionary *parameters = @{
-                                         @"email": [self.mailTextField text],
+                                         @"email": [[self.mailTextField text] lowercaseString],
                                          @"password": [self.passwordTextField text],
                                          @"username": [self.usernameTextField text]
                                          };
@@ -129,7 +135,6 @@ float duration;
         NSLog(@"Exception: %@", e);
         [baseView alertStatus:@"Sign in Failed." :@"Error!"];
     }
-    
 }
 
 - (IBAction)loginAction:(id)sender {

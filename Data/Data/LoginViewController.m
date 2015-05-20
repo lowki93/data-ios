@@ -89,7 +89,7 @@ float duration;
 
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             NSDictionary *parameters = @{
-                                         @"email": [self.usernameTextField text],
+                                         @"email": [[self.usernameTextField text] lowercaseString],
                                          @"password": [self.passwordTextField text]
                                         };
             [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

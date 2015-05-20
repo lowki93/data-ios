@@ -11,10 +11,12 @@
 
 @interface User : JSONModel
 
-@property(assign, nonatomic) NSString *id;
+@property(assign, nonatomic) NSString *_id;
 @property(assign, nonatomic) NSString *email;
+@property(assign, nonatomic) NSString *username;
 @property(assign, nonatomic) NSString<Optional> *deviceToken;
 @property(assign, nonatomic) NSString *token;
+@property(assign, nonatomic) BOOL isActive;
 @property(assign, nonatomic) Experience<Optional> *currentData;
 
 @end

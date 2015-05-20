@@ -93,19 +93,19 @@
 
 - (NSString *)getUrlUploadImages {
 
-    return [NSString stringWithFormat:@"%@/files/uploads/%@?access_token=%@", self.url, self.user.id, self.user.token];
+    return [NSString stringWithFormat:@"%@/files/uploads/%@?access_token=%@", self.url, self.user._id, self.user.token];
 
 }
 
 - (NSString *)getUrlUploadData {
 
-    return [NSString stringWithFormat:@"%@/data/%@/save?access_token=%@", self.url, self.user.id, self.user.token];
+    return [NSString stringWithFormat:@"%@/data/%@/save?access_token=%@", self.url, self.user._id, self.user.token];
 
 }
 
 - (NSString *)getUrlExperienceCreate {
 
-    return [NSString stringWithFormat:@"%@/experience/%@/create?access_token=%@", self.url, self.user.id, self.user.token];
+    return [NSString stringWithFormat:@"%@/experience/%@/create?access_token=%@", self.url, self.user._id, self.user.token];
 }
 
 - (BOOL)NSStringIsValidEmail:(NSString *)checkString

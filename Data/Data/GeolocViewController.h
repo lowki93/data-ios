@@ -17,6 +17,8 @@
 
 /** location **/
 @property (nonatomic) CLLocationManager *locationManager;
+@property (nonatomic) CLGeocoder *geocoder;
+@property (nonatomic) CLPlacemark *placemark;
 
 /** pedometer **/
 @property (nonatomic, strong) CMPedometer *pedometer;

@@ -21,8 +21,16 @@
     if([[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"] != nil) {
         NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
+
+        NSString *nextController;
+        if ([ApiController sharedInstance].user.isActive == false ) {
+            nextController = @"PairingViewController";
+        } else {
+            nextController = @"DataViewController";
+        }
+
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"DataViewController"];
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:nextController];
         self.window.rootViewController = viewController;
         [self.window makeKeyAndVisible];
     }

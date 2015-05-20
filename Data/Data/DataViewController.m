@@ -227,18 +227,17 @@ float distance;
 /** location method **/
 - (void)locationManager:(CLLocationManager *)lm didUpdateLocations:(NSArray *)locations {
 
+    [self.locationManager stopMonitoringForRegion:nil];
+    [self.locationManager stopUpdatingLocation];
     NSLog(@"update location");
     self.location = [locations lastObject];
 
     NSLog(@"speed %.1f km/h", self.location.speed * 3.6);
     [self sendLocalNotification:[NSString stringWithFormat:@"speed %.1f km/h", self.location.speed * 3.6]];
-    NSLog(@"coordinate: lagitude : %f, longitude : %f",self.location.coordinate.latitude, self.location.coordinate.longitude);
-    [self sendLocalNotification:[NSString stringWithFormat:@"coordinate: lagitude : %f, longitude : %f",self.location.coordinate.latitude, self.location.coordinate.longitude]];
 
     [lm setDesiredAccuracy:kCLLocationAccuracyThreeKilometers];
     [lm setDistanceFilter:99999];
 
-    //    CLCircularRegion *region = [[CLCircularRegion alloc] initCircularRegionWithCenter:[location coordinate] radius:300 identifier:[[NSUUID UUID] UUIDString]];
     float speed =  self.location.speed * 3.6;
     CLCircularRegion *region;
 
@@ -272,7 +271,7 @@ float distance;
 
     } else {
 
-        NSLog(@"more tha 180");
+        NSLog(@"more than 180");
         region = [[CLCircularRegion alloc] initWithCenter:[self.location coordinate]
                                                    radius:800000
                                                identifier:[[NSUUID UUID] UUIDString]];
@@ -312,8 +311,6 @@ float distance;
     }];
 
     [self.locationManager startMonitoringForRegion:(CLRegion *)region];
-    [self.locationManager stopUpdatingLocation];
-
 
 }
 
@@ -343,8 +340,8 @@ float distance;
     NSLog(@"start region");
     [timerLocation invalidate];
     [self sendLocalNotification:@"start region"];
-    // 10min : 600
-    timerLocation = [NSTimer scheduledTimerWithTimeInterval:600.
+    // 10min : 600 // 30min : 1800
+    timerLocation = [NSTimer scheduledTimerWithTimeInterval:1800.
                                                           target:self
                                                         selector:@selector(startLocation)
                                                         userInfo:nil
