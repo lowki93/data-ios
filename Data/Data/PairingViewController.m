@@ -7,10 +7,13 @@
 //
 
 #import "PairingViewController.h"
+#import "BaseViewController.h"
 
 @interface PairingViewController ()
 
 @end
+
+BaseViewController *baseView;
 
 int translation, translationY;
 float duration;
@@ -24,6 +27,18 @@ float duration;
     translation = 20;
     translationY = 75;
     duration = 0.5;
+
+    baseView = [[BaseViewController alloc] init];
+    [baseView initView:self];
+//    [baseView loadLoader:self.loaderImageView View:self.view];
+//    NSArray *extraArgs = [[NSArray alloc] initWithObjects:self.loaderImageView, self.view, nil];
+//    [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage:View:) toTarget:baseView withObject:extraArgs];
+
+    NSString *informationParingString = [self.informationParringLabel text];
+    [self.informationParringLabel setText:[informationParingString uppercaseString]];
+
+    [baseView addLineHeight:1.3 Label:self.waitingLabel];
+    [baseView addLineHeight:1.3 Label:self.informationParringLabel];
 
     /** title animation **/
     [self animatedView:self.titleLabel Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
@@ -47,6 +62,10 @@ float duration;
     [self animatedView:self.informationLabel Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.continueButton Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
 
+    /** loader animation **/
+    [self animatedView:self.loaderImageView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
+    [self animatedView:self.loaderImageView Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
+
     
 }
 
@@ -67,6 +86,9 @@ float duration;
 }
 
 - (IBAction)action:(id)sender {
+
+    /** loader **/
+    [self animatedView:self.loaderImageView Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
     /** title animation **/
     [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
@@ -90,4 +112,35 @@ float duration;
     });
 
 }
+
+//- (void)generateTutorialAnimationImage {
+//
+//    @autoreleasepool {
+//
+//        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+//
+//        for( int index = 0; index < 40; index++ ){
+//
+//            NSString *imageName = [NSString stringWithFormat:@"loader_%i.png", index];
+//            [imageArray addObject:[UIImage imageNamed:imageName]];
+//
+//        };
+//
+//        [self.loaderImageView setAnimationImages: imageArray];
+//        [self.loaderImageView setAnimationDuration: 1.3];
+//        [self.loaderImageView setAnimationRepeatCount:0];
+//
+//        [self performSelectorOnMainThread:@selector(addTutorialAnimationImage) withObject:NULL waitUntilDone:NO];
+//
+//    }
+//    
+//}
+//
+//- (void) addTutorialAnimationImage {
+//    
+//    [self.view addSubview:self.loaderImageView];
+//    [self.loaderImageView startAnimating];
+//    
+//}
+
 @end

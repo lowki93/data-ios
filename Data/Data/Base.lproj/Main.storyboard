@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HVH-gC-8UG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="U74-IU-1BD">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="MaisonNeue-Book.ttf">
-            <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
@@ -364,22 +363,28 @@
                                     <constraint firstAttribute="height" constant="1" id="kEq-iV-Ky8"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for desktop to connect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0c-3p-7VI">
-                                <rect key="frame" x="172" y="391" width="256" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0c-3p-7VI">
+                                <rect key="frame" x="217" y="382" width="167" height="36"/>
+                                <string key="text">Waiting for desktop to connect</string>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="18"/>
-                                <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0b2-LL-5bn">
-                                <rect key="frame" x="189" y="424" width="223" height="45"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0b2-LL-5bn">
+                                <rect key="frame" x="189" y="433" width="223" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="eDM-T6-Jlk"/>
                                 </constraints>
-                                <string key="text">Log in form-experience.com
-with the same account to sync
-your mobile phone with desktop</string>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="15"/>
-                                <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">Log in form-experience.comwith the same account to syncyour mobile phone with desktop</string>
+                                        <attributes>
+                                            <color key="NSColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="15" name="MaisonNeue-Book"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.3"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -397,10 +402,10 @@ your mobile phone with desktop</string>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader" translatesAutoresizingMaskIntoConstraints="NO" id="SaM-aR-YFq">
-                                <rect key="frame" x="200" y="140" width="200" height="200"/>
+                                <rect key="frame" x="225" y="165" width="150" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="Kp4-ta-V3L"/>
-                                    <constraint firstAttribute="width" constant="200" id="oCn-GS-sZ9"/>
+                                    <constraint firstAttribute="height" constant="150" id="Kp4-ta-V3L"/>
+                                    <constraint firstAttribute="width" constant="150" id="oCn-GS-sZ9"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BW5-Im-l9o">
@@ -437,6 +442,7 @@ your mobile phone with desktop</string>
                         <outlet property="informationLabel" destination="Tfe-8l-Tpg" id="1zB-bA-CTG"/>
                         <outlet property="informationParringLabel" destination="0b2-LL-5bn" id="qiq-1O-xaY"/>
                         <outlet property="lineView" destination="EYf-xB-WyT" id="YwB-Qp-xWH"/>
+                        <outlet property="loaderImageView" destination="SaM-aR-YFq" id="OjY-6W-LUR"/>
                         <outlet property="titleLabel" destination="BW5-Im-l9o" id="Ru0-70-kZm"/>
                         <outlet property="waitingLabel" destination="Y0c-3p-7VI" id="IxR-de-L4L"/>
                         <segue destination="uX6-oU-oGn" kind="custom" identifier="parring_success" customClass="CustomSegue" id="CK0-fI-NEL"/>
@@ -841,7 +847,7 @@ de l’experience</string>
     </scenes>
     <resources>
         <image name="background" width="640" height="1136"/>
-        <image name="loader" width="344" height="312"/>
+        <image name="loader" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Ewf-ih-IQW"/>

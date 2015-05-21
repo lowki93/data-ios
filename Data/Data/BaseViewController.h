@@ -24,5 +24,9 @@
 - (UIColor *)colorWithRGB:(float)red :(float)green :(float)blue :(float)alpha;
 - (UIImage *)imageWithColor:(UIColor *)color;
 - (void)alertStatus:(NSString *)msg :(NSString *)title;
+- (void)loadLoader:(UIImageView *)imageView View:(UIView *)view;
+- (void)generateTutorialAnimationImage:(UIImageView *)imageView View:(UIView *)view;
+- (void)addTutorialAnimationImage:(UIImageView *)imageView View:(UIView *)view;
+- (void)addLineHeight:(CGFloat)lineHeight Label:(UILabel *)label;
 
 @end

@@ -78,4 +78,55 @@
 
 }
 
+- (void)loadLoader:(UIImageView *)loaderImageView View:(UIView *)currentView {
+
+    NSLog(@"load loader");
+    [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage:View:) toTarget:self withObject:[NSArray arrayWithObjects:loaderImageView, currentView, nil]];
+
+}
+
+- (void)generateTutorialAnimationImage:(UIImageView *)imageView View:(UIView *)view {
+    NSLog(@"load loader 2");
+    @autoreleasepool {
+
+        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+
+        for( int index = 0; index < 40; index++ ){
+
+            NSString *imageName = [NSString stringWithFormat:@"loader_%i.png", index];
+            [imageArray addObject:[UIImage imageNamed:imageName]];
+
+        };
+
+        [imageView setAnimationImages: imageArray];
+        [imageView setAnimationDuration: 1.3];
+        [imageView setAnimationRepeatCount:0];
+
+        [self performSelectorOnMainThread:@selector(addTutorialAnimationImage:View:) withObject:[NSArray arrayWithObjects:imageView, view, nil] waitUntilDone:NO];
+
+    }
+
+}
+
+- (void)addTutorialAnimationImage:(UIImageView *)imageView View:(UIView *)view {
+
+    [view addSubview:imageView];
+    [imageView startAnimating];
+    
+}
+
+- (void)addLineHeight:(CGFloat)lineHeight Label:(UILabel *)label {
+
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[label text]];
+    NSMutableParagraphStyle *paragrahStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragrahStyle setLineHeightMultiple:lineHeight];
+    [paragrahStyle setAlignment:NSTextAlignmentCenter];
+    [attributedString addAttribute:NSParagraphStyleAttributeName
+                             value:paragrahStyle
+                             range:NSMakeRange(0, [label.text length])];
+
+    [label setAttributedText:attributedString];
+
+}
+
 @end

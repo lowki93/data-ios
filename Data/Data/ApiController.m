@@ -136,10 +136,10 @@
 
     if (![ApiController sharedInstance].user.deviceToken) {
 
-        NSString *urlString = [NSString stringWithFormat:@"%@/user/update/%@/deviceToken?access_token=%@", self.url, self.user.id, self.user.token];
+        NSString *urlString = [NSString stringWithFormat:@"%@/user/update/%@/deviceToken?access_token=%@", self.url, self.user._id, self.user.token];
 
-        NSString *deviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"deviceToken"];
-//        NSString *deviceToken = @"<75fedbaa f43d810d e308bf55 1862c25c d464de93 27b2a763 5aab8b38 0ad1fdc0>";
+//        NSString *deviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"deviceToken"];
+        NSString *deviceToken = @"<75fedbaa f43d810d e308bf55 1862c25c d464de93 27b2a763 5aab8b38 0ad1fdc0>";
 
         NSLog(@"%@", deviceToken);
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
