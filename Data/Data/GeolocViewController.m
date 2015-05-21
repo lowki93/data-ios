@@ -180,51 +180,11 @@ float duration;
         [self.captaTitleLabel setText:@"Photo"];
         [self updateStepLabel];
         [self showSynchroLabel];
-        [self performSelector:@selector(getPhotos) withObject:nil afterDelay:5.];
+        [self performSelector:@selector(getPhotos) withObject:nil afterDelay:duration];
 
     }
 
 
-}
-
-- (void)updateStepLabel {
-
- [self.stepLabel setText:[NSString stringWithFormat:@"Step %i / %i", step, nbStep]];
-
-}
-
-- (void)displayingSynchro {
-
-    [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, translationLoader)];
-    [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, translationLoader)];
-
-    [UIView animateWithDuration:duration delay:0 options:0 animations:^{
-
-        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, 0)];
-        [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
-        [self.loaderImageView setAlpha:1];
-        [self.synchroniseLabel setAlpha:1];
-
-    } completion:nil];
-
-}
-
-- (void)hideingSynchro {
-
-    [UIView animateWithDuration:duration delay:0 options:0 animations:^{
-
-        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
-        [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
-        [self.loaderImageView setAlpha:0];
-        [self.synchroniseLabel setAlpha:0];
-
-    } completion:^(BOOL finished){
-
-        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, 0)];
-        [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
-
-    }];
-    
 }
 
 - (void)getPhotos {
@@ -306,7 +266,7 @@ float duration;
                                                                      options:NSJSONReadingMutableContainers
                                                                        error:&error];
                         [[ApiController sharedInstance] setUserLoad:dictionary[@"user"]];
-                        [self performSelector:@selector(selectDay) withObject:nil afterDelay:3];
+                        [self selectDay];
 
                     } else {
 
@@ -314,22 +274,62 @@ float duration;
                         [self performSelector:@selector(getPhotos) withObject:nil afterDelay:5.];
 
                     }
-
+                    
                     NSFileManager *fm = [NSFileManager defaultManager];
                     [fm removeItemAtPath:[tmpDirURL path] error:&error];
-
+                    
                 }
             }
             
         }];
-
+        
     } failureBlock: ^(NSError *error) {
-
+        
         NSLog(@"no photos for parring");
-        [self performSelector:@selector(selectDay) withObject:nil afterDelay:3];
-//
+        [self selectDay];
+        
     }];
+    
+}
 
+- (void)updateStepLabel {
+
+ [self.stepLabel setText:[NSString stringWithFormat:@"Step %i / %i", step, nbStep]];
+
+}
+
+- (void)displayingSynchro {
+    NSLog(@"display synchro");
+    [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, translationLoader)];
+    [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, translationLoader)];
+
+    [UIView animateWithDuration:duration delay:0 options:0 animations:^{
+
+        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, 0)];
+        [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
+        [self.loaderImageView setAlpha:1];
+        [self.synchroniseLabel setAlpha:1];
+
+    } completion:nil];
+
+}
+
+- (void)hideingSynchro {
+    NSLog(@"hide synchro");
+    [UIView animateWithDuration:duration delay:0 options:0 animations:^{
+
+        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
+        [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
+        [self.loaderImageView setAlpha:0];
+        [self.synchroniseLabel setAlpha:0];
+
+    } completion:^(BOOL finished){
+
+        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, 0)];
+        [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
+
+    }];
+    
 }
 
 - (void)selectDay {

@@ -9,6 +9,7 @@
 #import "ChooseDayViewController.h"
 #import "BaseViewController.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "DataViewController.h"
 
 @interface ChooseDayViewController ()
 
@@ -208,6 +209,7 @@ float labelWidth, firstMargin, duration;
 
         NSDictionary *dictionary = responseObject[@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
+        NSLog(@"%@", [ApiController sharedInstance].user);
 
         [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
         [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
@@ -228,6 +230,15 @@ float labelWidth, firstMargin, duration;
         [self performSelector:@selector(updateDateExperience) withObject:nil afterDelay:5];
         
     }];
+
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"time_data"]) {
+        DataViewController *viewController = [segue destinationViewController];
+        viewController.experience = [ApiController sharedInstance].experience;
+    }
 
 }
 

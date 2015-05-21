@@ -73,68 +73,68 @@ float duration;
 }
 
 - (IBAction)signupClicked:(id)sender {
-    [self hideContent];
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//    [self hideContent];
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//
+//        [self performSegueWithIdentifier:@"signup_succes" sender:self];
+//
+//    });
+    @try {
 
-        [self performSegueWithIdentifier:@"signup_succes" sender:self];
+        if([[self.mailTextField text] isEqualToString:@""] || [[self.passwordTextField text] isEqualToString:@""] || [[self.confirmationPasswordTextField text] isEqualToString:@""] || [[self.usernameTextField text] isEqualToString:@""]) {
+            
+            [baseView alertStatus:@"fill in all fields" :@"Sign in Failed!"];
+            
+        } else if(![[ApiController sharedInstance] NSStringIsValidEmail:[self.mailTextField text]]) {
+            
+            [baseView alertStatus:@"Please enter an email valid" :@"Sign in Failed!"];
 
-    });
-//    @try {
-//
-//        if([[self.mailTextField text] isEqualToString:@""] || [[self.passwordTextField text] isEqualToString:@""] || [[self.confirmationPasswordTextField text] isEqualToString:@""] || [[self.usernameTextField text] isEqualToString:@""]) {
-//            
-//            [baseView alertStatus:@"fill in all fields" :@"Sign in Failed!"];
-//            
-//        } else if(![[ApiController sharedInstance] NSStringIsValidEmail:[self.mailTextField text]]) {
-//            
-//            [baseView alertStatus:@"Please enter an email valid" :@"Sign in Failed!"];
-//
-//        } else if (![self.passwordTextField.text isEqualToString: self.confirmationPasswordTextField.text]) {
-//            
-//            [baseView alertStatus:@"you're 2 passwords are different" :@"Sign up Failed!"];
-//            
-//        } else {
-//            
-//            NSString *urlString = [[ApiController sharedInstance] getUrlSignUp];
-//
-//            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//            NSDictionary *parameters = @{
-//                                         @"email": [[self.mailTextField text] lowercaseString],
-//                                         @"password": [self.passwordTextField text],
-//                                         @"username": [self.usernameTextField text]
-//                                         };
-//            [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//
-//                NSDictionary *dictionary = responseObject[@"user"];
-//                [[ApiController sharedInstance] setUserLoad:dictionary];
-//                [[ApiController sharedInstance] updateToken];
-//                [self hideContent];
-//                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
-//                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//
-//                    [self performSegueWithIdentifier:@"signup_succes" sender:self];
-//                    
-//                });
-//
-//            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//
-//                long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
-//
-//                if(responseCode == 409) {
-//                    [baseView alertStatus:@"Email already used" :@"Sign in Failed!"];
-//                } else {
-//                    [baseView alertStatus:@"Connection Failed" :@"Sign in Failed!"];
-//                }
-//                
-//            }];
-//        }
-//        
-//    }
-//    @catch (NSException * e) {
-//        NSLog(@"Exception: %@", e);
-//        [baseView alertStatus:@"Sign in Failed." :@"Error!"];
-//    }
+        } else if (![self.passwordTextField.text isEqualToString: self.confirmationPasswordTextField.text]) {
+            
+            [baseView alertStatus:@"you're 2 passwords are different" :@"Sign up Failed!"];
+            
+        } else {
+            
+            NSString *urlString = [[ApiController sharedInstance] getUrlSignUp];
+
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            NSDictionary *parameters = @{
+                                         @"email": [[self.mailTextField text] lowercaseString],
+                                         @"password": [self.passwordTextField text],
+                                         @"username": [self.usernameTextField text]
+                                         };
+            [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+                NSDictionary *dictionary = responseObject[@"user"];
+                [[ApiController sharedInstance] setUserLoad:dictionary];
+                [[ApiController sharedInstance] updateToken];
+                [self hideContent];
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+                    [self performSegueWithIdentifier:@"signup_succes" sender:self];
+                    
+                });
+
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+                long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
+
+                if(responseCode == 409) {
+                    [baseView alertStatus:@"Email already used" :@"Sign in Failed!"];
+                } else {
+                    [baseView alertStatus:@"Connection Failed" :@"Sign in Failed!"];
+                }
+                
+            }];
+        }
+        
+    }
+    @catch (NSException * e) {
+        NSLog(@"Exception: %@", e);
+        [baseView alertStatus:@"Sign in Failed." :@"Error!"];
+    }
 }
 
 - (IBAction)loginAction:(id)sender {

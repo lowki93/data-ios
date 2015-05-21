@@ -43,6 +43,8 @@
 @property (nonatomic) UIApplication *app;
 @property (nonatomic) UIBackgroundTaskIdentifier bgTask;
 
+@property (nonatomic, assign) Experience *experience;
+
 @property (weak, nonatomic) IBOutlet UITextView *logTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 

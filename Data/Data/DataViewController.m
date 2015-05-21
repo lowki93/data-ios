@@ -52,6 +52,11 @@ float distance;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
+    if(self.experience) {
+        NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
+        [[ApiController sharedInstance] setUserLoad:dictionary];
+    }
+
     for (UIView *subView in self.contentScrollView.subviews)
     {
         [subView removeFromSuperview];
@@ -70,7 +75,7 @@ float distance;
                                                 options:0];
 
     nbDay = (int)components.day;
-    indexDay = nbDay - 2;
+    indexDay = 0;
     margin = 50;
     firstScale = 0.8;
     secondScale = 0.5;
@@ -118,6 +123,11 @@ float distance;
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         NSDate *startDate = [dateFormatter dateFromString: [ApiController sharedInstance].experience.startDate];
         NSDate *endDate = [startDate dateByAddingTimeInterval:+(1. * i * 86400)];
+
+        if([[[ApiController sharedInstance] getDate] isEqualToString:[NSString stringWithFormat:@"%@", endDate]]) {
+            indexDay = i;
+            NSLog(@"%i", i);
+        }
 
         NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
         NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init] ;
@@ -1121,7 +1131,7 @@ float distance;
 - (void)updateCurrentDay {
 
     NSLog(@"update current day");
-    DataView *dataView = [dataViewArray objectAtIndex:(nbDay - 1)];
+    DataView *dataView = [dataViewArray objectAtIndex:[dictionary[@"currentData"][@"day"] count] - 1];
     [self removePlist];
     Day *currentDay = [[Day alloc] initWithDictionary:dictionary[@"currentData"][@"day"][(int)dataView.tag]
                                                 error:nil];
