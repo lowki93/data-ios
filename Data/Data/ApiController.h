@@ -31,6 +31,7 @@
 - (NSString *)getUrlUploadImages;
 - (NSString *)getUrlUploadData;
 - (NSString *)getUrlExperienceCreate;
+- (NSString *)getUrlParringGeoloc:(NSString *)idString Token:(NSString *)tokenString;
 - (BOOL)NSStringIsValidEmail:(NSString *)checkString;
 - (Data *)GetLastData;
 - (int)getIndexData;

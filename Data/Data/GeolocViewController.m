@@ -8,12 +8,16 @@
 
 #import "GeolocViewController.h"
 #import "BaseViewController.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface GeolocViewController ()
 
 @end
 
 BaseViewController *baseView;
+NSMutableDictionary *pedometerInformation;
+NSDictionary *dictionary;
+NSString *idString, *tokenString;
 
 int step, nbStep, translation, translationLoader;
 float duration;
@@ -43,6 +47,9 @@ float duration;
         nbStep = 3;
 
     }
+
+    idString = [NSString stringWithFormat:@"%@", [ApiController sharedInstance].user._id];
+    tokenString = [NSString stringWithFormat:@"%@", [ApiController sharedInstance].user.token];
 
     [baseView addLineHeight:1.3 Label:self.synchroniseLabel];
 
@@ -112,15 +119,47 @@ float duration;
         }
     }];
     [self.locationManager stopUpdatingLocation];
-    [self performSelector:@selector(stopTrackerGeoloc) withObject:nil afterDelay:5.0f];
 
 }
 
 - (void)sendLocation:(NSMutableDictionary *)myBestLocation {
 
     [myBestLocation setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
-    NSLog(@"%@", myBestLocation);
-    
+
+    [self uploadFirstGeoloc:myBestLocation];
+
+}
+
+- (void)uploadFirstGeoloc:(NSMutableDictionary *)geolocDictionary {
+
+    NSMutableDictionary * dictio = [[NSMutableDictionary alloc]init];
+    [dictio setObject:geolocDictionary forKey:@"geoloc"];
+
+    pedometerInformation = [[NSMutableDictionary alloc]init];
+    [pedometerInformation setObject:[NSNumber numberWithInt:1] forKey:@"stepNumber"];
+    [pedometerInformation setObject:[NSNumber numberWithFloat:1.f] forKey:@"distance"];
+    [pedometerInformation setObject:[NSNumber numberWithFloat:1.f] forKey:@"vitesse"];
+    [dictio setObject:pedometerInformation forKey:@"pedometer"];
+
+    [dictio setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
+    [dictio setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDate]] forKey:@"day"];
+
+    NSString *urlString = [[ApiController sharedInstance] getUrlParringGeoloc:idString Token:tokenString];
+    NSDictionary *dict = [dictio mutableCopy];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager setRequestSerializer: [AFJSONRequestSerializer serializer]];
+    [manager POST:urlString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        dictionary = responseObject[@"user"];
+        [[ApiController sharedInstance] setUserLoad:dictionary];
+        [self performSelector:@selector(stopTrackerGeoloc) withObject:nil afterDelay:5.0f];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+        [self performSelector:@selector(uploadFirstGeoloc:) withObject:[NSArray arrayWithObjects:geolocDictionary, nil] afterDelay:5.0f];
+        
+    }];
+
 }
 
 - (void)stopTrackerGeoloc {

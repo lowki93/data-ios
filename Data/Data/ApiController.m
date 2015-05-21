@@ -108,6 +108,12 @@
     return [NSString stringWithFormat:@"%@/experience/%@/create?access_token=%@", self.url, self.user._id, self.user.token];
 }
 
+- (NSString *)getUrlParringGeoloc:(NSString *)idString Token:(NSString *)tokenString {
+
+    return [NSString stringWithFormat:@"%@/data/%@/first-geoloc?access_token=%@", self.url, idString, tokenString];
+
+}
+
 - (BOOL)NSStringIsValidEmail:(NSString *)checkString
 {
     BOOL stricterFilter = NO;

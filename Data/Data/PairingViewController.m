@@ -32,7 +32,6 @@ float duration;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
-    NSLog(@"%@", [ApiController sharedInstance].experience);
     if ([ApiController sharedInstance].experience == nil) {
 
         [self createExperience];
