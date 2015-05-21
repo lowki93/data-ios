@@ -29,12 +29,14 @@ float duration;
     [baseView initView:self];
 
     translation = 20;
-    duration = 0.5f;
+    duration = 0.55f;
     
-    [self.loginButton setBackgroundImage:[baseView imageWithColor:baseView.purpleColor] forState:UIControlStateHighlighted];
+//    [self.loginButton setBorderColor:[baseView imageWithColor:[baseView colorWithRGB:26 :26 :26 :1]] forState:UIControlStateHighlighted];
     [[self.loginButton layer] setBorderWidth:1.0f];
-    [[self.loginButton layer] setBorderColor:baseView.purpleColor.CGColor];
+    [[self.loginButton layer] setBorderColor:[baseView colorWithRGB:157 :157 :157 :1].CGColor];
     [[self.loginButton layer] setCornerRadius:25];
+    [self.loginButton addTarget:self action:@selector(unhighlightBorder) forControlEvents:UIControlEventTouchUpInside];
+    [self.loginButton addTarget:self action:@selector(highlightBorder) forControlEvents:UIControlEventTouchDown];
     [self.loginButton setClipsToBounds:YES];
 
     /** title animation **/
@@ -72,6 +74,17 @@ float duration;
     [super didReceiveMemoryWarning];
 }
 
+- (void)highlightBorder
+{
+    self.loginButton.layer.borderColor = [[baseView colorWithRGB:26 :26 :26 :1] CGColor];
+}
+
+- (void)unhighlightBorder
+{
+    self.loginButton.layer.borderColor = [[baseView colorWithRGB:157 :157 :157 :1] CGColor];
+
+}
+
 - (IBAction)signinClicked:(id)sender {
     @try {
 
@@ -97,7 +110,16 @@ float duration;
                 NSDictionary *dictionary = responseObject[@"user"];
                 [[ApiController sharedInstance] setUserLoad:dictionary];
                 [[ApiController sharedInstance] updateToken];
-                [self performSegueWithIdentifier:@"login_succes" sender:self];
+
+                if(![ApiController sharedInstance].user.isActive) {
+
+                    [self performSegueWithIdentifier:@"login_pairing" sender:self];
+                    
+                } else {
+
+                    [self performSegueWithIdentifier:@"login_succes" sender:self];
+
+                }
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
