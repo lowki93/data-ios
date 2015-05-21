@@ -77,7 +77,6 @@ float duration;
             [self.locationManager performSelector:@selector(requestAlwaysAuthorization) withObject:nil afterDelay:duration * 2];
 
         }
-        NSLog(@"start location");
         [self.locationManager startUpdatingLocation];
     }
 
@@ -263,7 +262,61 @@ float duration;
 
                 if ([inputPaths count] != 0) {
 
-                    [self performSelector:@selector(selectDay) withObject:nil afterDelay:3];
+                    NSLog(@"parring upload photos");
+                    [SSZipArchive createZipFileAtPath:zippedPath withFilesAtPaths:inputPaths];
+
+                    NSString *urlString = [[ApiController sharedInstance] getUrlUploadImages];
+                    NSString *fileName = [NSString stringWithFormat:@"%@.zip",[ApiController sharedInstance].user.token];
+
+                    NSData *zipData = [[NSData alloc] initWithContentsOfFile:zippedPath];
+                    NSURL *url=[NSURL URLWithString:urlString];
+                    NSString *str = @"zip";
+
+                    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+                    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+                    [request setHTTPShouldHandleCookies:NO];
+                    [request setTimeoutInterval:30];
+                    [request setURL:url];
+                    [request setHTTPMethod:@"POST"];
+
+                    NSString *boundary = [NSString stringWithFormat:@"---------------------------14737809831464368775746641449"];
+                    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+                    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+
+                    NSMutableData *body = [NSMutableData data];
+                    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"currentEventID\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:[@"52344457901000006" dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", str, fileName] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:[@"Content-Type: zip\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:zipData];
+                    [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [request setHTTPBody:body];
+
+                    NSError *error = [[NSError alloc] init];
+                    NSHTTPURLResponse *response = nil;
+                    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+                    if ((long)[response statusCode] == 200) {
+                        error = nil;
+                        NSLog(@"photos are upload");
+                        dictionary = [NSJSONSerialization JSONObjectWithData:urlData
+                                                                     options:NSJSONReadingMutableContainers
+                                                                       error:&error];
+                        [[ApiController sharedInstance] setUserLoad:dictionary[@"user"]];
+                        [self performSelector:@selector(selectDay) withObject:nil afterDelay:3];
+
+                    } else {
+
+                        NSLog(@"error upload photos : %@", error);
+                        [self performSelector:@selector(getPhotos) withObject:nil afterDelay:5.];
+
+                    }
+
+                    NSFileManager *fm = [NSFileManager defaultManager];
+                    [fm removeItemAtPath:[tmpDirURL path] error:&error];
 
                 }
             }
@@ -272,6 +325,7 @@ float duration;
 
     } failureBlock: ^(NSError *error) {
 
+        NSLog(@"no photos for parring");
         [self performSelector:@selector(selectDay) withObject:nil afterDelay:3];
 //
     }];

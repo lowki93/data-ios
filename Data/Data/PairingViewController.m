@@ -138,6 +138,7 @@ float duration;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
         NSLog(@"error create experience : %@", error);
+        [self performSelector:@selector(createExperience) withObject:nil afterDelay:5.];
 
     }];
 
