@@ -159,17 +159,21 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
 - (void)drawData:(int)indexDay {
 
-    Day *currentDay = [ApiController sharedInstance].experience.day[indexDay];
+    if([[ApiController sharedInstance].experience.day count] == 0){
 
-    for (int i = 0; i < [currentDay.data count]; i++) {
+        Day *currentDay = [ApiController sharedInstance].experience.day[indexDay];
 
-        [self generateData:i Day:currentDay];
+        for (int i = 0; i < [currentDay.data count]; i++) {
+
+            [self generateData:i Day:currentDay];
+
+        }
+
+        self.delay = 0.5;
+
+        [self updateAllInformation];
 
     }
-
-    self.delay = 0.5;
-
-    [self updateAllInformation];
 
 }
 

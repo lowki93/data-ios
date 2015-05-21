@@ -15,6 +15,8 @@
 
 @property(assign, nonatomic) NSString *_id;
 @property(assign, nonatomic) NSString<Optional> *title;
+@property(assign, nonatomic) NSString<Optional> *startDate;
+@property(assign, nonatomic) NSString<Optional> *endDate;
 @property(assign, nonatomic) NSString<Optional> *descriptionContent;
 @property(assign, nonatomic) BOOL private;
 @property(assign, nonatomic) NSArray<Day,Optional> *day;

@@ -28,7 +28,7 @@ int size = 20;
     UIColor *titleColor = [baseView colorWithRGB:157 :157 :156 :1];
 
     self.geolocInformationLabel = [[UILabel alloc] init];
-    [self.geolocInformationLabel setText:@"25"];
+    [self.geolocInformationLabel setText:@"0"];
     [self.geolocInformationLabel setTextColor:descriptionColor];
     [self.geolocInformationLabel setFont:descriptionLabelFont];
     [self.geolocInformationLabel sizeToFit];
@@ -52,7 +52,7 @@ int size = 20;
     [self addSubview:geolocLabel];
 
     self.pedometerInformationLabel = [[UILabel alloc] init];
-    [self.pedometerInformationLabel setText:@"2.2 km"];
+    [self.pedometerInformationLabel setText:@"0 km"];
     [self.pedometerInformationLabel setTextColor:descriptionColor];
     [self.pedometerInformationLabel setFont:descriptionLabelFont];
     [self.pedometerInformationLabel sizeToFit];
@@ -76,7 +76,7 @@ int size = 20;
     [self addSubview:pedometerLabel];
 
     self.photoInformationLabel = [[UILabel alloc] init];
-    [self.photoInformationLabel setText:@"10"];
+    [self.photoInformationLabel setText:@"0"];
     [self.photoInformationLabel setFont:descriptionLabelFont];
     [self.photoInformationLabel setTextColor:descriptionColor];
     [self.photoInformationLabel sizeToFit];

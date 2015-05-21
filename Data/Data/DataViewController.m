@@ -57,7 +57,19 @@ float distance;
         [subView removeFromSuperview];
     }
 
-    nbDay = (int)[ApiController sharedInstance].nbDay;
+    /** format date **/
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *startDate = [dateFormatter dateFromString: [ApiController sharedInstance].experience.startDate];
+    NSDate *endDate = [dateFormatter dateFromString: [ApiController sharedInstance].experience.endDate];
+
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
+                                               fromDate:startDate
+                                                 toDate:endDate
+                                                options:0];
+
+    nbDay = (int)components.day;
     indexDay = nbDay - 2;
     margin = 50;
     firstScale = 0.8;
@@ -100,19 +112,19 @@ float distance;
         [dataView drawData:i];
         [dataView setTag:i];
         [view addSubview:dataView];
-        Day *currentDay = [ApiController sharedInstance].experience.day[i];
 
         /** format date **/
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        NSDate *date = [dateFormatter dateFromString: currentDay.date];
+        NSDate *startDate = [dateFormatter dateFromString: [ApiController sharedInstance].experience.startDate];
+        NSDate *endDate = [startDate dateByAddingTimeInterval:+(1. * i * 86400)];
 
         NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
         NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init] ;
         [dayFormatter setDateFormat:@"EEEE dd"];
         [dayFormatter setLocale:usLocale];
 
-        NSString *week = [dayFormatter stringFromDate:date];
+        NSString *week = [dayFormatter stringFromDate:endDate];
         [dateArray addObject:week];
         [dataViewArray addObject:dataView];
 

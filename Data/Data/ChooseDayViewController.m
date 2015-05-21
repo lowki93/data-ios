@@ -8,6 +8,7 @@
 
 #import "ChooseDayViewController.h"
 #import "BaseViewController.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface ChooseDayViewController ()
 
@@ -30,6 +31,8 @@ float labelWidth, firstMargin, duration;
 
     duration = 0.5f;
     translation = 75;
+
+    [baseView addLineHeight:1.3 Label:self.informationLabel];
 
     [self.validateButton setBackgroundImage:[baseView imageWithColor:baseView.purpleColor] forState:UIControlStateHighlighted];
     [[self.validateButton layer] setBorderWidth:1.0f];
@@ -181,18 +184,51 @@ float labelWidth, firstMargin, duration;
 
 - (IBAction)validateAction:(id)sender {
 
-    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
-    [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
-    [self animatedView:self.validateButton Duration:duration Delay:0 Alpha:0 Translaton:0];
-    [self animatedView:self.dayLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
-    [self animatedView:self.dayScrollView Duration:duration Delay:0 Alpha:0 Translaton:0];
-
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * 2 * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-
-        [self performSegueWithIdentifier:@"time_data" sender:self];
-        
-    });
+    [self updateDateExperience];
 
 }
+
+- (void)updateDateExperience {
+
+    NSDate *now = [[NSDate alloc] init];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    NSDate *endDate = [now dateByAddingTimeInterval:+(1. * (indexDay + 1) * 86400)];
+    NSString *endDateString = [dateFormat stringFromDate:endDate];
+    NSLog(@"start at %@, end at %@", [[ApiController sharedInstance] getDate], endDateString);
+
+    NSString *urlString = [[ApiController sharedInstance] getUrlExperienceDate];
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{
+                                 @"startDate": [[ApiController sharedInstance] getDate],
+                                 @"endDate": endDateString
+                                 };
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        NSDictionary *dictionary = responseObject[@"user"];
+        [[ApiController sharedInstance] setUserLoad:dictionary];
+
+        [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
+        [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
+        [self animatedView:self.validateButton Duration:duration Delay:0 Alpha:0 Translaton:0];
+        [self animatedView:self.dayLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
+        [self animatedView:self.dayScrollView Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * 2 * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+            [self performSegueWithIdentifier:@"time_data" sender:self];
+            
+        });
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+        NSLog(@"%@", error);
+        [self performSelector:@selector(updateDateExperience) withObject:nil afterDelay:5];
+        
+    }];
+
+}
+
 @end
