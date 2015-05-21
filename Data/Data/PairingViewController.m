@@ -8,6 +8,7 @@
 
 #import "PairingViewController.h"
 #import "BaseViewController.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface PairingViewController ()
 
@@ -30,6 +31,13 @@ float duration;
 
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
+
+    NSLog(@"%@", [ApiController sharedInstance].experience);
+    if ([ApiController sharedInstance].experience == nil) {
+
+        [self createExperience];
+
+    }
 //    [baseView loadLoader:self.loaderImageView View:self.view];
 //    NSArray *extraArgs = [[NSArray alloc] initWithObjects:self.loaderImageView, self.view, nil];
 //    [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage:View:) toTarget:baseView withObject:extraArgs];
@@ -87,29 +95,52 @@ float duration;
 
 - (IBAction)action:(id)sender {
 
-    /** loader **/
-    [self animatedView:self.loaderImageView Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+    if ([ApiController sharedInstance].experience != nil) {
 
-    /** title animation **/
-    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+        /** loader **/
+        [self animatedView:self.loaderImageView Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
-    /** content animation **/
-    [self animatedView:self.informationParringLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
-    [self animatedView:self.waitingLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+        /** title animation **/
+        [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
-    /** line animation **/
-    [self animatedView:self.lineView Duration:0 Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+        /** content animation **/
+        [self animatedView:self.informationParringLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+        [self animatedView:self.waitingLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
-    /** button bottom animation **/
-    [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
-    [self animatedView:self.continueButton Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+        /** line animation **/
+        [self animatedView:self.lineView Duration:0 Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        /** button bottom animation **/
+        [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+        [self animatedView:self.continueButton Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
-        [self performSegueWithIdentifier:@"parring_success" sender:self];
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+            [self performSegueWithIdentifier:@"parring_success" sender:self];
         
-    });
+        });
+
+    }
+
+}
+
+- (void)createExperience {
+
+    NSString *urlString = [[ApiController sharedInstance] getUrlExperienceCreate];
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        NSDictionary *dictionary = responseObject[@"user"];
+        [[ApiController sharedInstance] setUserLoad:dictionary];
+        NSLog(@"experience created");
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+        NSLog(@"error create experience : %@", error);
+
+    }];
 
 }
 

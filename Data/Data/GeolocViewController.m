@@ -7,10 +7,13 @@
 //
 
 #import "GeolocViewController.h"
+#import "BaseViewController.h"
 
 @interface GeolocViewController ()
 
 @end
+
+BaseViewController *baseView;
 
 int step, nbStep, translation, translationLoader;
 float duration;
@@ -20,6 +23,9 @@ float duration;
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+
+    baseView = [[BaseViewController alloc] init];
+    [baseView initView:self];
 
     translationLoader =  20;
     [self hideingSynchro];
@@ -37,6 +43,8 @@ float duration;
         nbStep = 3;
 
     }
+
+    [baseView addLineHeight:1.3 Label:self.synchroniseLabel];
 
     [self animatedView:self.stepLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
     [self animatedView:self.captaTitleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
@@ -134,6 +142,7 @@ float duration;
         [self.captaTitleLabel setText:@"Photo"];
         [self updateStepLabel];
         [self showSynchroLabel];
+        [self performSelector:@selector(getPhotos) withObject:nil afterDelay:5.];
 
     }
 
@@ -285,7 +294,6 @@ float duration;
     [self animatedView:self.captaTitleLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
     [self animatedView:self.touLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
     [self animatedView:self.learnLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
-    [self performSelector:@selector(getPhotos) withObject:nil afterDelay:5.];
 
 }
 

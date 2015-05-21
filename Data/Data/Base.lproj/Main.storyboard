@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="U74-IU-1BD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HVH-gC-8UG">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -210,8 +210,9 @@
                         <outlet property="signUpButton" destination="21W-v2-eeZ" id="w9p-4B-nbm"/>
                         <outlet property="titleLabel" destination="BtU-BE-aK1" id="YEb-72-Tsb"/>
                         <outlet property="usernameTextField" destination="nAj-7c-BHa" id="pJT-Tq-gwF"/>
-                        <segue destination="QGs-SJ-cRB" kind="show" identifier="login_succes" id="jyz-2R-Df6"/>
+                        <segue destination="QGs-SJ-cRB" kind="custom" identifier="login_succes" customClass="CustomSegue" id="jyz-2R-Df6"/>
                         <segue destination="av7-GA-iJ7" kind="custom" identifier="login_signUp" customClass="CustomSegue" id="RPU-Ly-yyP"/>
+                        <segue destination="U74-IU-1BD" kind="custom" identifier="login_pairing" customClass="CustomSegue" id="9tC-A9-S5v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lo8-a2-Cbl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -510,7 +511,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYi-wO-vJi">
-                                <rect key="frame" x="242" y="410" width="116" height="30"/>
+                                <rect key="frame" x="242" y="385" width="116" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="5xo-Q8-Tt2"/>
                                 </constraints>
@@ -526,10 +527,10 @@ des données</string>
                                 </variation>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader" translatesAutoresizingMaskIntoConstraints="NO" id="CBd-yb-pH3">
-                                <rect key="frame" x="200" y="200" width="200" height="200"/>
+                                <rect key="frame" x="225" y="225" width="150" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="06n-Vb-6D5"/>
-                                    <constraint firstAttribute="height" constant="200" id="jtg-J3-wPW"/>
+                                    <constraint firstAttribute="width" constant="150" id="06n-Vb-6D5"/>
+                                    <constraint firstAttribute="height" constant="150" id="jtg-J3-wPW"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -842,7 +843,7 @@ de l’experience</string>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="327" y="1168"/>
+            <point key="canvasLocation" x="327" y="1136"/>
         </scene>
     </scenes>
     <resources>
@@ -850,7 +851,8 @@ de l’experience</string>
         <image name="loader" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ewf-ih-IQW"/>
+        <segue reference="9tC-A9-S5v"/>
+        <segue reference="vV7-CA-ZTr"/>
         <segue reference="jyz-2R-Df6"/>
     </inferredMetricsTieBreakers>
 </document>
