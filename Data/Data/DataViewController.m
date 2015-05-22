@@ -504,6 +504,7 @@ float durationLabel;
 
                     DataView *dataView = (DataView *)subView;
 
+                    [dataView animatedCaptionImageView:0];
                     [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
 
                         CGAffineTransform transform = dataView.transform;
@@ -632,6 +633,8 @@ float durationLabel;
                 DataView *dataView = (DataView *)subView;
                 dataView.informationViewActive = NO;
 
+                [dataView animatedCaptionImageView:1];
+
                 [dataView.informationView animatedAllLabel:dataView.informationView.duration
                                                Translation:dataView.informationView.translation
                                                      Alpha:0];
@@ -707,6 +710,7 @@ float durationLabel;
 
                 DataView *dataView = (DataView *)subView;
 
+                [dataView animatedCaptionImageView:1];
                 [dataView.allDataView animatedAllLabel:dataView.allDataView.duration
                                            Translation:dataView.allDataView.translation
                                                  Alpha:0];

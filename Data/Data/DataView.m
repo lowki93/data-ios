@@ -277,6 +277,7 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     [button.layer setBorderColor:[UIColor greenColor].CGColor];
     [button.layer setBorderWidth:2.f];
 
+    [self animatedCaptionImageView:0];
     [self.informationView animatedAllLabel:self.informationView.duration Translation:self.informationView.translation Alpha:0];
     [UIView animateWithDuration:self.informationView.duration delay:0 options:0 animations:^{
 
@@ -368,11 +369,22 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
 }
 
-- (void) addTutorialAnimationImage {
+- (void)addTutorialAnimationImage {
 
     [self addSubview:self.captionImageView];
     [self.captionImageView startAnimating];
     
+}
+
+- (void)animatedCaptionImageView:(float)alpha {
+
+    [UIView animateWithDuration:self.informationView.duration delay:0 options:0 animations:^{
+
+        [self.captionImageView setAlpha:alpha];
+
+    } completion:nil];
+
+
 }
 
 @end

@@ -32,5 +32,6 @@
 - (void)scaleInformationView:(UIView *)view;
 - (void)generateDataAfterSynchro:(Day *)currentDay;
 - (void)activeCapta;
+- (void)animatedCaptionImageView:(float)alpha;
 
 @end
