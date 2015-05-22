@@ -33,12 +33,13 @@ float labelWidth, firstMargin, duration;
     duration = 0.5f;
     translation = 75;
 
-    [baseView addLineHeight:1.3 Label:self.informationLabel];
+    [baseView addLineHeight:1.4 Label:self.informationLabel];
 
-    [self.validateButton setBackgroundImage:[baseView imageWithColor:baseView.purpleColor] forState:UIControlStateHighlighted];
     [[self.validateButton layer] setBorderWidth:1.0f];
     [[self.validateButton layer] setBorderColor:baseView.purpleColor.CGColor];
     [[self.validateButton layer] setCornerRadius:25];
+    [self.validateButton addTarget:self action:@selector(unhighlightBorder) forControlEvents:UIControlEventTouchUpInside];
+    [self.validateButton addTarget:self action:@selector(highlightBorder) forControlEvents:UIControlEventTouchDown];
     [self.validateButton setClipsToBounds:YES];
 
     nbDayTime = 14;
@@ -58,7 +59,7 @@ float labelWidth, firstMargin, duration;
         UILabel *label = [[UILabel alloc] init];
         [label setFrame:CGRectMake(firstMargin + (labelWidth * i), 0, labelWidth, self.dayScrollView.bounds.size.height)];
         [label setText:[NSString stringWithFormat:@"%i", i + 1]];
-        [label setFont:[UIFont fontWithName:@"MaisonNeue-Book" size:50]];
+        [label setFont:[UIFont fontWithName:@"MaisonNeue-Book" size:55]];
         [label setTextColor:[baseView colorWithRGB:29 :29 :27 :1]];
         [label setTextAlignment:NSTextAlignmentCenter];
 
@@ -101,6 +102,18 @@ float labelWidth, firstMargin, duration;
     [rightGesture setDirection:(UISwipeGestureRecognizerDirectionLeft)];
     [self.dayScrollView addGestureRecognizer:rightGesture];
 
+}
+
+- (void)highlightBorder {
+
+    [[self.validateButton layer] setBorderColor:[[baseView colorWithRGB:26 :26 :26 :1] CGColor]];
+
+}
+
+- (void)unhighlightBorder {
+
+    [[self.validateButton layer] setBorderColor:[[baseView colorWithRGB:157 :157 :157 :1] CGColor]];
+    
 }
 
 -(void)swipeLeft:(UISwipeGestureRecognizer *)recognizer {
@@ -185,7 +198,7 @@ float labelWidth, firstMargin, duration;
 
 - (IBAction)validateAction:(id)sender {
 
-    [self updateDateExperience];
+//    [self updateDateExperience];
 
 }
 

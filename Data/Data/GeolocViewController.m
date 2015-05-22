@@ -51,7 +51,7 @@ float duration;
     idString = [NSString stringWithFormat:@"%@", [ApiController sharedInstance].user._id];
     tokenString = [NSString stringWithFormat:@"%@", [ApiController sharedInstance].user.token];
 
-    [baseView addLineHeight:1.3 Label:self.synchroniseLabel];
+    [baseView addLineHeight:1.4 Label:self.synchroniseLabel];
 
     [self animatedView:self.stepLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
     [self animatedView:self.captaTitleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
@@ -176,7 +176,16 @@ float duration;
         NSDate *now = [[NSDate alloc] init];
         NSDate *startDate = now;
         NSDate *endDate = [startDate dateByAddingTimeInterval:-(1. * 1 * 3600)];
-        [self performSelector:@selector(queryPedometerDataFromDate:toDate:) withObject:[NSArray arrayWithObjects:endDate, startDate, nil] afterDelay:duration];
+
+        double delayInSeconds = duration;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+            [self queryPedometerDataFromDate:endDate toDate:startDate];
+
+        });
+//        [self performSelector:@selector(queryPedometerDataFromDate:toDate:) withObject:[NSArray arrayWithObjects:endDate, startDate, nil] afterDelay:duration +0.3];
+//        [self queryPedometerDataFromDate:endDate toDate:startDate];
 
     } else {
 
@@ -207,7 +216,8 @@ float duration;
                                                [pedometerInformation setObject:[NSNumber numberWithFloat:distance] forKey:@"distance"];
                                                [pedometerInformation setObject:[NSNumber numberWithFloat:(distance / 1000 / 1)] forKey:@"vitesse"];
 
-                                               [self uploadPodometer];
+                                               [self performSelector:@selector(uploadPodometer) withObject:nil afterDelay:5];
+//                                               [self uploadPodometer];
 
                                            }
                                        });
