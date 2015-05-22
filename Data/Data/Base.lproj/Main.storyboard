@@ -701,33 +701,45 @@ de l’experience</string>
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="40r-y7-YFh">
-                                <rect key="frame" x="20" y="167" width="560" height="25"/>
-                                <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="25"/>
+                                <rect key="frame" x="20" y="165" width="560" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3W3-2S-xpS"/>
+                                </constraints>
+                                <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="23"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="9F6-65-9WX"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="exemple@gmail.com" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lGE-zM-EUe">
-                                <rect key="frame" x="20" y="222" width="560" height="25"/>
-                                <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="25"/>
+                                <rect key="frame" x="20" y="225" width="560" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="SZo-A3-zp5"/>
+                                </constraints>
+                                <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="23"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="VVt-qV-SJm"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pH-Nu-BPu">
-                                <rect key="frame" x="239" y="50" width="122" height="36"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="35"/>
-                                <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="227" y="65" width="147" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Q0n-ZC-B1m"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="42"/>
+                                <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tpq-KI-7sU">
-                                <rect key="frame" x="20" y="277" width="560" height="25"/>
-                                <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="25"/>
+                                <rect key="frame" x="20" y="285" width="560" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="9M6-KL-ppw"/>
+                                </constraints>
+                                <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="23"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="v8v-qR-X43"/>
@@ -767,31 +779,34 @@ de l’experience</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Bz-6C-SQS">
-                                <rect key="frame" x="200" y="407" width="200" height="50"/>
+                                <rect key="frame" x="200" y="425" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="YNL-CR-tvG"/>
                                     <constraint firstAttribute="height" constant="50" id="noj-k7-ktM"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="20"/>
                                 <state key="normal" title="Sign up">
-                                    <color key="titleColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <state key="selected">
                                     <color key="titleShadowColor" red="0.28627450980000002" green="0.35294117650000001" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="signupClicked:" destination="av7-GA-iJ7" eventType="touchUpInside" id="IoI-uO-1SJ"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="repeat password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EP1-VL-BhH">
-                                <rect key="frame" x="20" y="332" width="560" height="25"/>
-                                <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="25"/>
+                                <rect key="frame" x="20" y="345" width="560" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="sq5-h3-ZrH"/>
+                                </constraints>
+                                <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="23"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="6Qa-dz-Lcz"/>
@@ -808,7 +823,7 @@ de l’experience</string>
                             <constraint firstAttribute="trailing" secondItem="40r-y7-YFh" secondAttribute="trailing" constant="20" id="9ED-Dl-zuJ"/>
                             <constraint firstItem="6b4-4e-ANi" firstAttribute="leading" secondItem="lx6-zA-vP2" secondAttribute="trailing" constant="8" id="9MS-lT-Wot"/>
                             <constraint firstItem="sZh-bd-OQf" firstAttribute="top" secondItem="TNr-nx-XX2" secondAttribute="bottom" id="DJ9-xa-0Xf"/>
-                            <constraint firstItem="4pH-Nu-BPu" firstAttribute="top" secondItem="Ees-TN-ckW" secondAttribute="bottom" constant="50" id="DgB-Xo-SB4"/>
+                            <constraint firstItem="4pH-Nu-BPu" firstAttribute="top" secondItem="Ees-TN-ckW" secondAttribute="bottom" constant="65" id="DgB-Xo-SB4"/>
                             <constraint firstItem="EP1-VL-BhH" firstAttribute="top" secondItem="tpq-KI-7sU" secondAttribute="bottom" constant="30" id="Eed-Q4-aJ1"/>
                             <constraint firstAttribute="centerX" secondItem="4Bz-6C-SQS" secondAttribute="centerX" id="Fxj-aA-dDv"/>
                             <constraint firstItem="4Bz-6C-SQS" firstAttribute="top" secondItem="EP1-VL-BhH" secondAttribute="bottom" constant="50" id="GZz-oR-kRG"/>
@@ -866,8 +881,8 @@ de l’experience</string>
         <image name="loader" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9tC-A9-S5v"/>
-        <segue reference="Ewf-ih-IQW"/>
+        <segue reference="vV7-CA-ZTr"/>
+        <segue reference="0kN-7n-njY"/>
         <segue reference="jyz-2R-Df6"/>
     </inferredMetricsTieBreakers>
 </document>

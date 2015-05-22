@@ -31,7 +31,6 @@ float duration;
     translation = 20;
     duration = 0.55f;
     
-//    [self.loginButton setBorderColor:[baseView imageWithColor:[baseView colorWithRGB:26 :26 :26 :1]] forState:UIControlStateHighlighted];
     [[self.loginButton layer] setBorderWidth:1.0f];
     [[self.loginButton layer] setBorderColor:[baseView colorWithRGB:157 :157 :157 :1].CGColor];
     [[self.loginButton layer] setCornerRadius:25];
@@ -74,14 +73,15 @@ float duration;
     [super didReceiveMemoryWarning];
 }
 
-- (void)highlightBorder
-{
-    self.loginButton.layer.borderColor = [[baseView colorWithRGB:26 :26 :26 :1] CGColor];
+- (void)highlightBorder {
+
+    [[self.loginButton layer] setBorderColor:[[baseView colorWithRGB:26 :26 :26 :1] CGColor]];
+
 }
 
-- (void)unhighlightBorder
-{
-    self.loginButton.layer.borderColor = [[baseView colorWithRGB:157 :157 :157 :1] CGColor];
+- (void)unhighlightBorder {
+
+    [[self.loginButton layer] setBorderColor:[[baseView colorWithRGB:157 :157 :157 :1] CGColor]];
 
 }
 

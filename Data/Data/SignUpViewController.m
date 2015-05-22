@@ -30,10 +30,11 @@ float duration;
     translation = 20;
     duration = 0.55f;
 
-    [self.sigupButton setBackgroundImage:[baseView imageWithColor:baseView.purpleColor] forState:UIControlStateHighlighted];
     [[self.sigupButton layer] setBorderWidth:1.0f];
     [[self.sigupButton layer] setBorderColor:baseView.purpleColor.CGColor];
     [[self.sigupButton layer] setCornerRadius:25];
+    [self.sigupButton addTarget:self action:@selector(unhighlightBorder) forControlEvents:UIControlEventTouchUpInside];
+    [self.sigupButton addTarget:self action:@selector(highlightBorder) forControlEvents:UIControlEventTouchDown];
     [self.sigupButton setClipsToBounds:YES];
 
     /** title animation **/
@@ -70,6 +71,18 @@ float duration;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)highlightBorder {
+
+    [[self.sigupButton layer] setBorderColor:[[baseView colorWithRGB:26 :26 :26 :1] CGColor]];
+
+}
+
+- (void)unhighlightBorder {
+
+    [[self.sigupButton layer] setBorderColor:[[baseView colorWithRGB:157 :157 :157 :1] CGColor]];
+    
 }
 
 - (IBAction)signupClicked:(id)sender {
