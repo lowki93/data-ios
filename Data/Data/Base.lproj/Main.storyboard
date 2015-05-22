@@ -21,7 +21,6 @@
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
-            <string>MaisonNeue-Book</string>
         </mutableArray>
         <mutableArray key="MaisonNeue-Light.ttf">
             <string>MaisonNeue-Light</string>
@@ -33,6 +32,7 @@
             <string>MaisonNeue-Light</string>
         </mutableArray>
         <mutableArray key="MaisonNeue-Medium.ttf">
+            <string>MaisonNeue-Medium</string>
             <string>MaisonNeue-Medium</string>
             <string>MaisonNeue-Medium</string>
             <string>MaisonNeue-Medium</string>
@@ -348,7 +348,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="15"/>
                                 <state key="normal" title="Continue without">
-                                    <color key="titleColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -371,16 +371,8 @@
                                     <constraint firstAttribute="height" constant="1" id="kEq-iV-Ky8"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0c-3p-7VI">
-                                <rect key="frame" x="217" y="382" width="167" height="36"/>
-                                <string key="text">Waiting for desktop 
-to connect</string>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="18"/>
-                                <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0b2-LL-5bn">
-                                <rect key="frame" x="189" y="433" width="223" height="59"/>
+                                <rect key="frame" x="189" y="416" width="223" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="eDM-T6-Jlk"/>
                                 </constraints>
@@ -420,9 +412,20 @@ your mobile phone with desktop</string>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BW5-Im-l9o">
-                                <rect key="frame" x="244" y="50" width="113" height="36"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="35"/>
-                                <color key="textColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="232" y="50" width="136" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="VLf-uP-PtB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="42"/>
+                                <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0c-3p-7VI">
+                                <rect key="frame" x="193" y="355" width="214" height="46"/>
+                                <string key="text">Waiting for desktop 
+to connect</string>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="23"/>
+                                <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -434,6 +437,7 @@ your mobile phone with desktop</string>
                             <constraint firstAttribute="centerX" secondItem="0b2-LL-5bn" secondAttribute="centerX" id="Ibk-VJ-n5d"/>
                             <constraint firstAttribute="centerY" secondItem="Y0c-3p-7VI" secondAttribute="centerY" constant="-100" id="Izq-GX-Tdv"/>
                             <constraint firstItem="Apb-vB-NNd" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leadingMargin" id="K1c-CJ-6u6"/>
+                            <constraint firstItem="Y0c-3p-7VI" firstAttribute="top" secondItem="SaM-aR-YFq" secondAttribute="bottom" constant="40" id="Mcw-uO-L87"/>
                             <constraint firstItem="EYf-xB-WyT" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leading" constant="20" id="Q82-P0-DBJ"/>
                             <constraint firstAttribute="centerX" secondItem="uRf-h6-cQf" secondAttribute="centerX" id="XxH-gK-sCx"/>
                             <constraint firstItem="BW5-Im-l9o" firstAttribute="top" secondItem="xGW-t1-n02" secondAttribute="bottom" constant="50" id="cUy-dx-P6s"/>
@@ -446,6 +450,11 @@ your mobile phone with desktop</string>
                             <constraint firstItem="0b2-LL-5bn" firstAttribute="top" secondItem="Y0c-3p-7VI" secondAttribute="bottom" constant="15" id="rLL-go-pfH"/>
                             <constraint firstItem="Tfe-8l-Tpg" firstAttribute="top" secondItem="EYf-xB-WyT" secondAttribute="bottom" constant="20" id="s6n-Xo-cNG"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Izq-GX-Tdv"/>
+                            </mask>
+                        </variation>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -882,7 +891,7 @@ de l’experience</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vV7-CA-ZTr"/>
-        <segue reference="0kN-7n-njY"/>
+        <segue reference="9tC-A9-S5v"/>
         <segue reference="jyz-2R-Df6"/>
     </inferredMetricsTieBreakers>
 </document>

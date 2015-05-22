@@ -39,12 +39,12 @@ float duration;
     }
 //    [baseView loadLoader:self.loaderImageView View:self.view];
 //    NSArray *extraArgs = [[NSArray alloc] initWithObjects:self.loaderImageView, self.view, nil];
-//    [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage:View:) toTarget:baseView withObject:extraArgs];
+    [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage) toTarget:self withObject:nil];
 
     NSString *informationParingString = [self.informationParringLabel text];
     [self.informationParringLabel setText:[informationParingString uppercaseString]];
 
-    [baseView addLineHeight:1.3 Label:self.waitingLabel];
+    [baseView addLineHeight:1.4 Label:self.waitingLabel];
     [baseView addLineHeight:1.3 Label:self.informationParringLabel];
 
     /** title animation **/
@@ -144,34 +144,34 @@ float duration;
 
 }
 
-//- (void)generateTutorialAnimationImage {
-//
-//    @autoreleasepool {
-//
-//        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
-//
-//        for( int index = 0; index < 40; index++ ){
-//
-//            NSString *imageName = [NSString stringWithFormat:@"loader_%i.png", index];
-//            [imageArray addObject:[UIImage imageNamed:imageName]];
-//
-//        };
-//
-//        [self.loaderImageView setAnimationImages: imageArray];
-//        [self.loaderImageView setAnimationDuration: 1.3];
-//        [self.loaderImageView setAnimationRepeatCount:0];
-//
-//        [self performSelectorOnMainThread:@selector(addTutorialAnimationImage) withObject:NULL waitUntilDone:NO];
-//
-//    }
-//    
-//}
-//
-//- (void) addTutorialAnimationImage {
-//    
-//    [self.view addSubview:self.loaderImageView];
-//    [self.loaderImageView startAnimating];
-//    
-//}
+- (void)generateTutorialAnimationImage {
+
+    @autoreleasepool {
+
+        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+
+        for( int index = 0; index < 40; index++ ){
+
+            NSString *imageName = [NSString stringWithFormat:@"loader_%i.png", index];
+            [imageArray addObject:[UIImage imageNamed:imageName]];
+
+        };
+
+        [self.loaderImageView setAnimationImages: imageArray];
+        [self.loaderImageView setAnimationDuration: 1.3];
+        [self.loaderImageView setAnimationRepeatCount:0];
+
+        [self performSelectorOnMainThread:@selector(addTutorialAnimationImage) withObject:NULL waitUntilDone:NO];
+
+    }
+    
+}
+
+- (void) addTutorialAnimationImage {
+    
+    [self.view addSubview:self.loaderImageView];
+    [self.loaderImageView startAnimating];
+    
+}
 
 @end
