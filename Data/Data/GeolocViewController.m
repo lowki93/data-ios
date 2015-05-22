@@ -177,7 +177,6 @@ float duration;
         NSDate *startDate = now;
         NSDate *endDate = [startDate dateByAddingTimeInterval:-(1. * 1 * 3600)];
         [self performSelector:@selector(queryPedometerDataFromDate:toDate:) withObject:[NSArray arrayWithObjects:endDate, startDate, nil] afterDelay:duration];
-//        [self queryPedometerDataFromDate:endDate toDate:startDate];
 
     } else {
 
@@ -252,7 +251,7 @@ float duration;
     // ALAssetsGroupLibrary , ALAssetsGroupSavedPhotos
 
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-
+//        [self displayingSynchro];
         [group setAssetsFilter:[ALAssetsFilter allPhotos]];
 
         NSMutableArray *inputPaths = [NSMutableArray new];
