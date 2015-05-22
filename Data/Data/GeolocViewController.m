@@ -173,6 +173,11 @@ float duration;
         [self.captaTitleLabel setText:@"Pedometer"];
         [self updateStepLabel];
         [self showSynchroLabel];
+        NSDate *now = [[NSDate alloc] init];
+        NSDate *startDate = now;
+        NSDate *endDate = [startDate dateByAddingTimeInterval:-(1. * 1 * 3600)];
+        [self performSelector:@selector(queryPedometerDataFromDate:toDate:) withObject:[NSArray arrayWithObjects:endDate, startDate, nil] afterDelay:duration];
+//        [self queryPedometerDataFromDate:endDate toDate:startDate];
 
     } else {
 
@@ -180,16 +185,68 @@ float duration;
         [self.captaTitleLabel setText:@"Photo"];
         [self updateStepLabel];
         [self showSynchroLabel];
-        [self performSelector:@selector(getPhotos) withObject:nil afterDelay:duration];
+        [self performSelector:@selector(displayingSynchro) withObject:nil afterDelay:duration];
+        [self performSelector:@selector(getPhotos) withObject:nil afterDelay:duration + 0.3];
 
     }
 
 
 }
 
+- (void)queryPedometerDataFromDate:(NSDate *)startDate toDate:(NSDate *)endDate {
+    [self displayingSynchro];
+    [self.pedometer queryPedometerDataFromDate:startDate
+                                        toDate:endDate
+                                   withHandler:^(CMPedometerData *pedometerData, NSError *error) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           if (error) {
+                                               NSLog(@"%@", error);
+                                           } else {
+                                               pedometerInformation = [[NSMutableDictionary alloc]init];
+                                               float distance = [pedometerData.distance floatValue];
+                                               [pedometerInformation setObject:[NSNumber numberWithInt:[pedometerData.numberOfSteps intValue]] forKey:@"stepNumber"];
+                                               [pedometerInformation setObject:[NSNumber numberWithFloat:distance] forKey:@"distance"];
+                                               [pedometerInformation setObject:[NSNumber numberWithFloat:(distance / 1000 / 1)] forKey:@"vitesse"];
+
+                                               [self uploadPodometer];
+
+                                           }
+                                       });
+                                   }];
+}
+
+- (void)uploadPodometer {
+
+    NSMutableDictionary * dictio = [[NSMutableDictionary alloc]init];
+    [dictio setObject:pedometerInformation forKey:@"pedometer"];
+
+    NSString *urlString = [[ApiController sharedInstance] getUrlUploadPodometer];
+    NSDictionary *dict = [dictio mutableCopy];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager setRequestSerializer: [AFJSONRequestSerializer serializer]];
+    [manager POST:urlString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        dictionary = responseObject[@"user"];
+        [[ApiController sharedInstance] setUserLoad:dictionary];
+        [self hideingSynchro];
+        step++;
+        [self hideSynchroLabel];
+        [self.captaTitleLabel setText:@"Photo"];
+        [self updateStepLabel];
+        [self showSynchroLabel];
+        [self performSelector:@selector(displayingSynchro) withObject:nil afterDelay:duration];
+        [self performSelector:@selector(getPhotos) withObject:nil afterDelay:duration + 0.3];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+        [self performSelector:@selector(uploadPodometer) withObject:nil afterDelay:5.0f];
+
+    }];
+
+}
+
 - (void)getPhotos {
     NSLog(@"get photos");
-    [self displayingSynchro];
 
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     // ALAssetsGroupLibrary , ALAssetsGroupSavedPhotos
@@ -334,6 +391,7 @@ float duration;
 
 - (void)selectDay {
 
+    [self hideingSynchro];
     [self animatedView:self.stepLabel Duration:duration Delay:duration Alpha:0 Translaton:-translation];
     [self animatedView:self.captaTitleLabel Duration:duration Delay:duration Alpha:0 Translaton:-translation];
     [self hideingSynchro];

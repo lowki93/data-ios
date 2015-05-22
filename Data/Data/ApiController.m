@@ -119,6 +119,12 @@
     return [NSString stringWithFormat:@"%@/experience/%@/update-date?access_token=%@", self.url, self.user._id, self.user.token];
 }
 
+- (NSString *)getUrlUploadPodometer {
+
+    return [NSString stringWithFormat:@"%@/data/%@/pedometer?access_token=%@", self.url, self.user._id, self.user.token];
+
+}
+
 - (BOOL)NSStringIsValidEmail:(NSString *)checkString
 {
     BOOL stricterFilter = NO;

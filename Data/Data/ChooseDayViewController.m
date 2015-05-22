@@ -196,7 +196,6 @@ float labelWidth, firstMargin, duration;
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     NSDate *endDate = [now dateByAddingTimeInterval:+(1. * (indexDay + 1) * 86400)];
     NSString *endDateString = [dateFormat stringFromDate:endDate];
-    NSLog(@"start at %@, end at %@", [[ApiController sharedInstance] getDate], endDateString);
 
     NSString *urlString = [[ApiController sharedInstance] getUrlExperienceDate];
 
@@ -209,7 +208,6 @@ float labelWidth, firstMargin, duration;
 
         NSDictionary *dictionary = responseObject[@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
-        NSLog(@"%@", [ApiController sharedInstance].user);
 
         [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
         [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
