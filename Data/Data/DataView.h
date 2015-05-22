@@ -18,6 +18,7 @@
 @property (nonatomic) UIView *contentData;
 @property (nonatomic) DataInformationView *informationView;
 @property (nonatomic) DataInformationView *allDataView;
+@property (nonatomic) UIImageView *captionImageView;
 
 @property (nonatomic) bool informationViewActive;
 @property (nonatomic) int nbPhoto;
@@ -30,5 +31,6 @@
 - (void)removeBorderButton;
 - (void)scaleInformationView:(UIView *)view;
 - (void)generateDataAfterSynchro:(Day *)currentDay;
+- (void)activeCapta;
 
 @end

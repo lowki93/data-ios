@@ -17,7 +17,7 @@ DataViewController *dataViewController;
 
 float heightContentView;
 CGPoint centerCircle;
-CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
+CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
 
 - (void)initView:(DataViewController *)viewController {
 
@@ -40,12 +40,18 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
 
     heightContentView = self.bounds.size.height;
     centerCircle = CGPointMake(self.bounds.size.width/2, heightContentView/2);
-//    radiusFirstCicle = (self.bounds.size.width * 0.046875) / 2;
-//    radiusPhotoCicle = (self.bounds.size.width * 0.203125) / 2;
     radiusGeolocCircle = (self.bounds.size.width * 0.484375) / 2;
 //    radiusCaptaCircle = (self.bounds.size.width * 0.6484375) / 2;
 //    radiusPedometerCircle = (self.bounds.size.width * 0.8125) / 2;
     radiusData = (self.bounds.size.width * 0.8125) / 2;
+
+    /** captionImage **/
+    self.captionImageView = [[UIImageView alloc] init];
+    [self.captionImageView setFrame:CGRectMake((self.bounds.size.width / 2) - radiusData,
+                                               (self.bounds.size.height / 2) - radiusData,
+                                               radiusData * 2,
+                                               radiusData * 2 )];
+    [self addSubview:self.captionImageView];
 
     /** label for hours **/
     UIFont *labelFont = [UIFont fontWithName:@"MaisonNeue-Book" size:15];
@@ -331,6 +337,42 @@ CGFloat radiusData, radiusFirstCicle, radiusPhotoCicle, radiusGeolocCircle, radi
     [view setTransform:CGAffineTransformScale(informationViewtransform, 0.1, 0.1)];
     [view setAlpha:0];
 
+}
+
+- (void)activeCapta {
+
+     [NSThread detachNewThreadSelector:@selector(generateCaptionLoaderAnimationImage) toTarget:self withObject:nil];
+
+}
+
+- (void)generateCaptionLoaderAnimationImage {
+
+    @autoreleasepool {
+
+        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+
+        for( int index = 0; index < 79; index++ ){
+
+            NSString *imageName = [NSString stringWithFormat:@"captation_%i.png", index];
+            [imageArray addObject:[UIImage imageNamed:imageName]];
+
+        };
+
+        [self.captionImageView setAnimationImages:imageArray];
+        [self.captionImageView setAnimationDuration:4];
+        [self.captionImageView setAnimationRepeatCount:0];
+
+        [self performSelectorOnMainThread:@selector(addTutorialAnimationImage) withObject:NULL waitUntilDone:NO];
+
+    }
+
+}
+
+- (void) addTutorialAnimationImage {
+
+    [self addSubview:self.captionImageView];
+    [self.captionImageView startAnimating];
+    
 }
 
 @end

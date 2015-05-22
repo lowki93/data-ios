@@ -21,6 +21,7 @@
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
+            <string>MaisonNeue-Book</string>
         </mutableArray>
         <mutableArray key="MaisonNeue-Light.ttf">
             <string>MaisonNeue-Light</string>
@@ -247,6 +248,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-3O-myV" customClass="TimeLineView">
                                 <rect key="frame" x="0.0" y="-20" width="600" height="620"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSw-Oc-nDG">
+                                <rect key="frame" x="280" y="546" width="39" height="29"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="17"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="0.61568627450000002" green="0.61568627450000002" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeTimeLineAction:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="JDf-3U-bcj"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jib-wF-uB4">
                                 <rect key="frame" x="36" y="550" width="49" height="30"/>
                                 <state key="normal" title="Logout">
@@ -256,6 +271,15 @@
                                     <action selector="logoutAction:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="Fnd-eB-M8k"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgj-Xv-zcP">
+                                <rect key="frame" x="509" y="500" width="71" height="30"/>
+                                <state key="normal" title="clean Plist">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="removePlist:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="0bp-Ql-aQQ"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axA-9Z-JyO">
                                 <rect key="frame" x="525" y="550" width="55" height="30"/>
                                 <state key="normal" title="synchro">
@@ -263,15 +287,6 @@
                                 </state>
                                 <connections>
                                     <action selector="lauchSynchro:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="qfy-1W-hKF"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgj-Xv-zcP">
-                                <rect key="frame" x="265" y="550" width="71" height="30"/>
-                                <state key="normal" title="clean Plist">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="removePlist:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="0bp-Ql-aQQ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mF-GS-Snp">
@@ -291,22 +306,24 @@
                         <constraints>
                             <constraint firstItem="8mF-GS-Snp" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" constant="10" id="0FZ-nR-1Cw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8mF-GS-Snp" secondAttribute="trailing" constant="10" id="21w-fj-LmX"/>
+                            <constraint firstAttribute="centerX" secondItem="NSw-Oc-nDG" secondAttribute="centerX" id="6GJ-1m-nSB"/>
                             <constraint firstAttribute="centerX" secondItem="Rcd-3J-Pzy" secondAttribute="centerX" id="7Ha-Ag-Egg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Rcd-3J-Pzy" secondAttribute="trailing" constant="20" id="7OR-ao-Cue"/>
                             <constraint firstAttribute="trailing" secondItem="G6c-Zv-6bt" secondAttribute="trailing" id="7mq-9A-iRV"/>
                             <constraint firstAttribute="centerX" secondItem="8mF-GS-Snp" secondAttribute="centerX" id="BWM-EK-qPU"/>
-                            <constraint firstAttribute="centerX" secondItem="qgj-Xv-zcP" secondAttribute="centerX" id="Ijb-L9-iNj"/>
+                            <constraint firstAttribute="trailing" secondItem="qgj-Xv-zcP" secondAttribute="trailing" constant="20" id="D3Z-Vj-h2v"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="jib-wF-uB4" secondAttribute="bottom" constant="20" id="N2T-R5-VSN"/>
                             <constraint firstItem="jib-wF-uB4" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" constant="20" id="RgW-XU-5ib"/>
                             <constraint firstItem="8mF-GS-Snp" firstAttribute="top" secondItem="4fH-C9-3fe" secondAttribute="bottom" constant="20" id="RnL-B5-5xI"/>
+                            <constraint firstItem="axA-9Z-JyO" firstAttribute="top" secondItem="qgj-Xv-zcP" secondAttribute="bottom" constant="20" id="Ub8-Yu-nLJ"/>
                             <constraint firstItem="ivx-3O-myV" firstAttribute="top" secondItem="4fH-C9-3fe" secondAttribute="bottom" constant="-20" id="V9R-bx-WuY"/>
                             <constraint firstItem="G6c-Zv-6bt" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leading" id="WD9-Td-pRf"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="ivx-3O-myV" secondAttribute="bottom" id="aPG-Ez-3Lk"/>
                             <constraint firstItem="ivx-3O-myV" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leading" id="alC-H2-Mb1"/>
+                            <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="NSw-Oc-nDG" secondAttribute="bottom" constant="25" id="b67-0R-BrO"/>
                             <constraint firstAttribute="trailing" secondItem="ivx-3O-myV" secondAttribute="trailing" id="dSk-Ni-QzP"/>
                             <constraint firstItem="G6c-Zv-6bt" firstAttribute="top" secondItem="5Gq-4e-hfR" secondAttribute="top" id="fKq-nN-iRW"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="G6c-Zv-6bt" secondAttribute="bottom" id="l9r-67-Agd"/>
-                            <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="qgj-Xv-zcP" secondAttribute="bottom" constant="20" id="pBJ-b8-aDk"/>
                             <constraint firstItem="Rcd-3J-Pzy" firstAttribute="top" secondItem="8mF-GS-Snp" secondAttribute="bottom" constant="10" id="tDd-ZH-woc"/>
                             <constraint firstItem="Rcd-3J-Pzy" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" constant="20" id="uHY-g8-Qbt"/>
                             <constraint firstAttribute="trailing" secondItem="axA-9Z-JyO" secondAttribute="trailing" constant="20" id="vFf-CP-Pkn"/>
@@ -316,6 +333,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="backButton" destination="NSw-Oc-nDG" id="iBU-cF-f0X"/>
                         <outlet property="contentScrollView" destination="G6c-Zv-6bt" id="IU4-06-ASa"/>
                         <outlet property="dateLabel" destination="8mF-GS-Snp" id="TTZ-Wf-MOw"/>
                         <outlet property="informationLabel" destination="Rcd-3J-Pzy" id="rb5-2M-By5"/>

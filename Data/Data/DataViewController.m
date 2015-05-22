@@ -22,7 +22,7 @@ NSDictionary *dictionary;
 NSMutableArray *dateArray;
 NSMutableArray *dataViewArray;;
 int nbDay, margin, indexDay = 0, positionTop, heigtViewDetail;
-float firstScale,secondScale, upScale, downScale, transition, translationDate;
+float firstScale,secondScale, upScale, transition, translationDate, transitionBack;
 
 /** synchro **/
 int timeSynchro;
@@ -81,12 +81,12 @@ float durationLabel;
     margin = 50;
     firstScale = 0.8;
     secondScale = 0.5;
-    downScale = 0.7;
     upScale = 1.5;
     positionTop = self.view.bounds.size.height * 0.30;
     heigtViewDetail = self.view.bounds.size.height * 0.70;
     transition = 20;
     translationDate = 20;
+    transitionBack = 50;
 
     durationLabel = 0.4;
 
@@ -127,10 +127,11 @@ float durationLabel;
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         NSDate *startDate = [dateFormatter dateFromString: [ApiController sharedInstance].experience.startDate];
         NSDate *endDate = [startDate dateByAddingTimeInterval:+(1. * i * 86400)];
+        NSString *endDateString = [dateFormatter stringFromDate:endDate];
 
-        if([[[ApiController sharedInstance] getDate] isEqualToString:[NSString stringWithFormat:@"%@", endDate]]) {
+        if([[[ApiController sharedInstance] getDate] isEqualToString:endDateString]) {
             indexDay = i;
-            NSLog(@"%i", i);
+            [dataView activeCapta];
         }
 
         NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
@@ -198,6 +199,7 @@ float durationLabel;
         }
     }
 
+    [self animatedBackButton:0 Translation:transitionBack Alpha:0];
     [self animatedUpScrollView:0 First:YES];
     [self performSelector:@selector(animatedCloseScrollView) withObject:nil afterDelay:0.5];
 
@@ -772,6 +774,17 @@ float durationLabel;
 
 }
 
+- (void)closeTimeLine {
+
+    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+
+        [self.timeLineView setAlpha:1];
+        [self.timeLineView setTransform:CGAffineTransformIdentity];
+
+    } completion:^(BOOL finished){}];
+
+}
+
 - (void)animatedUpScrollView:(float)duration First:(BOOL)boolean {
 
     [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -785,7 +798,10 @@ float durationLabel;
     } completion:^(BOOL finished){
 
         if (!boolean) {
-             [self animateTimeLine:downScale Alpha:1];
+
+            [self closeTimeLine];
+            [self animatedBackButton:0.5 Translation:0 Alpha:1];
+
         }
 
         [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -871,6 +887,7 @@ float durationLabel;
 
 - (void)animatedCloseScrollView {
 
+    [self animatedBackButton:0.5 Translation:transitionBack Alpha:0];
     [UIView animateWithDuration:0.5  delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 
         int count = 0;
@@ -951,6 +968,28 @@ float durationLabel;
 
 }
 
+- (void)animatedBackButton:(float)duration Translation:(int)translation Alpha:(float)alpha {
+
+    [UIView animateWithDuration:duration delay:0 options:0 animations:^{
+
+        [self.backButton setAlpha:alpha];
+        [self.backButton setTransform:CGAffineTransformMakeTranslation(0, translation)];
+
+    } completion:nil];
+
+}
+
+- (IBAction)closeTimeLineAction:(id)sender {
+
+    [self.view removeGestureRecognizer:leftGesture];
+    [self.view removeGestureRecognizer:rightGesture];
+    [self.view removeGestureRecognizer:closeGesture];
+    [self.timeLineView setHidden:NO];
+    [self animateTimeLine:upScale Alpha:0];
+    [self animatedCloseScrollView];
+
+}
+
 /** upload method **/
 - (IBAction)lauchSynchro:(id)sender {
     [self uploadFile];
@@ -974,7 +1013,6 @@ float durationLabel;
             [self updateDate];
             self.pedometer = [[CMPedometer alloc] init];
             [self queryPedometerDataFromDate:endDate toDate:startDate];
-            //        [self updateData];
         } else {
             [self updateData];
         }

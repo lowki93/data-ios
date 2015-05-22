@@ -47,8 +47,10 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *logTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 - (IBAction)logoutAction:(id)sender;
+- (IBAction)closeTimeLineAction:(id)sender;
 - (void)uploadFile;
 
 
