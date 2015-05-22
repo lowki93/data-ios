@@ -29,12 +29,12 @@ float radius, ratioCenter;
 
 - (void)drawRect:(CGRect)rect {
     
-    radius = (self.bounds.size.width /2 ) - 40;
+    radius = (self.bounds.size.width /2 ) - 45;
 
     for (int i = 0; i < self.nbDay; i++) {
         CGFloat theta = ((M_PI * (360.0 / self.nbDay) * i)/ 180) - M_PI_2 + (M_PI_4 * 0 );
         CGPoint startPoint = CGPointMake(cosf(theta) * radius + self.bounds.size.width / 2, sinf(theta) * radius + self.bounds.size.height * ratioCenter);
-        CGPoint endPoint = CGPointMake(cosf(theta) * (radius + 20) + self.bounds.size.width / 2, sinf(theta) * (radius + 20) + self.bounds.size.height * ratioCenter);
+        CGPoint endPoint = CGPointMake(cosf(theta) * (radius + 15) + self.bounds.size.width / 2, sinf(theta) * (radius + 15) + self.bounds.size.height * ratioCenter);
 //        [self drawCircle:newCenter radius:5 endRadius:-M_PI_2 + (M_PI * 2) strokeColor:[UIColor greenColor] fillColor:[UIColor greenColor] withAnimation:NO];
 
         UIBezierPath *path = [[UIBezierPath alloc] init];
@@ -44,7 +44,7 @@ float radius, ratioCenter;
         CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
         [shapeLayer setPath:path.CGPath];
         [shapeLayer setStrokeColor:baseView.blackTimeLineColor.CGColor];
-        [shapeLayer setLineWidth:5.0];
+        [shapeLayer setLineWidth:4.0];
 
         [self.layer addSublayer:shapeLayer];
 

@@ -43,6 +43,8 @@ NSTimer *timerLocation;
 NSDate *startDate, *endDate;
 float distance;
 
+float durationLabel;
+
 @implementation DataViewController
 
 - (void)viewDidLoad {
@@ -85,6 +87,8 @@ float distance;
     heigtViewDetail = self.view.bounds.size.height * 0.70;
     transition = 20;
     translationDate = 20;
+
+    durationLabel = 0.4;
 
     [self.topConstraint setConstant:self.view.bounds.size.height * 0.10];
     dateArray = [[NSMutableArray alloc] init];
@@ -727,7 +731,7 @@ float distance;
 
 - (void)animateDateLabel:(float)translation {
 
-    [UIView animateWithDuration:0.2 delay:0 options:0 animations:^{
+    [UIView animateWithDuration:durationLabel delay:0 options:0 animations:^{
 
         [self.dateLabel setAlpha:0];
         [self.dateLabel setTransform:CGAffineTransformMakeTranslation(translation, 0)];
@@ -741,7 +745,7 @@ float distance;
         [self.dateLabel setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
         [self.informationLabel setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
 
-        [UIView animateWithDuration:0.2 delay:0 options:0 animations:^{
+        [UIView animateWithDuration:durationLabel delay:0 options:0 animations:^{
 
             [self.dateLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
             [self.dateLabel setAlpha:1];

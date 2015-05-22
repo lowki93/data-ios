@@ -58,27 +58,34 @@ float duration;
     [self animatedView:self.touLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
     [self animatedView:self.learnLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
     [self updateStepLabel];
-    [self animatedView:self.stepLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
-    [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
-    [self animatedView:self.touLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
-    [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
-    
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.geocoder = [[CLGeocoder alloc] init];
 
-    if ([CLLocationManager locationServicesEnabled] ) {
+    double delayInSeconds = 0.1;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
-        [self.locationManager  setDelegate: self];
-        [self.locationManager  setDesiredAccuracy: kCLLocationAccuracyThreeKilometers];
-        [self.locationManager  setDistanceFilter: 9999];
+        [self animatedView:self.stepLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+        [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+        [self animatedView:self.touLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+        [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
 
-        if ([self.locationManager  respondsToSelector:@selector(requestAlwaysAuthorization)] ) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.geocoder = [[CLGeocoder alloc] init];
 
-            [self.locationManager performSelector:@selector(requestAlwaysAuthorization) withObject:nil afterDelay:duration * 2];
+        if ([CLLocationManager locationServicesEnabled] ) {
 
+            [self.locationManager  setDelegate: self];
+            [self.locationManager  setDesiredAccuracy: kCLLocationAccuracyThreeKilometers];
+            [self.locationManager  setDistanceFilter: 9999];
+
+            if ([self.locationManager  respondsToSelector:@selector(requestAlwaysAuthorization)] ) {
+
+                [self.locationManager performSelector:@selector(requestAlwaysAuthorization) withObject:nil afterDelay:duration * 2];
+                
+            }
+            [self.locationManager startUpdatingLocation];
         }
-        [self.locationManager startUpdatingLocation];
-    }
+
+    });
 
 }
 

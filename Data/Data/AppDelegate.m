@@ -27,7 +27,6 @@
             nextController = @"PairingViewController";
         } else {
             nextController = @"DataViewController";
-            nextController = @"ChooseDayViewController";
         }
 
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

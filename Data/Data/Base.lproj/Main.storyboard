@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2uX-AE-AY7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HVH-gC-8UG">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -275,14 +275,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mF-GS-Snp">
-                                <rect key="frame" x="26" y="20" width="548" height="30"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="30"/>
-                                <color key="textColor" red="0.11372549019607843" green="0.11372549019607843" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="26" y="20" width="548" height="41"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="41"/>
+                                <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day 4 / 14  —  30%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rcd-3J-Pzy">
-                                <rect key="frame" x="36" y="58" width="528" height="13"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="13"/>
+                                <rect key="frame" x="36" y="71" width="528" height="15"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="15"/>
                                 <color key="textColor" red="0.61568627450980395" green="0.61568627450980395" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -307,7 +307,7 @@
                             <constraint firstItem="G6c-Zv-6bt" firstAttribute="top" secondItem="5Gq-4e-hfR" secondAttribute="top" id="fKq-nN-iRW"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="G6c-Zv-6bt" secondAttribute="bottom" id="l9r-67-Agd"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="qgj-Xv-zcP" secondAttribute="bottom" constant="20" id="pBJ-b8-aDk"/>
-                            <constraint firstItem="Rcd-3J-Pzy" firstAttribute="top" secondItem="8mF-GS-Snp" secondAttribute="bottom" constant="8" id="tDd-ZH-woc"/>
+                            <constraint firstItem="Rcd-3J-Pzy" firstAttribute="top" secondItem="8mF-GS-Snp" secondAttribute="bottom" constant="10" id="tDd-ZH-woc"/>
                             <constraint firstItem="Rcd-3J-Pzy" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" constant="20" id="uHY-g8-Qbt"/>
                             <constraint firstAttribute="trailing" secondItem="axA-9Z-JyO" secondAttribute="trailing" constant="20" id="vFf-CP-Pkn"/>
                             <constraint firstItem="I2C-ly-UKD" firstAttribute="top" secondItem="axA-9Z-JyO" secondAttribute="bottom" constant="20" id="y31-eD-ejX"/>
@@ -875,8 +875,8 @@ de l’experience</string>
         <image name="loader" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vV7-CA-ZTr"/>
-        <segue reference="9tC-A9-S5v"/>
+        <segue reference="Ewf-ih-IQW"/>
         <segue reference="Nbz-yN-fpI"/>
+        <segue reference="9tC-A9-S5v"/>
     </inferredMetricsTieBreakers>
 </document>

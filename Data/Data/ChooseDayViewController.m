@@ -198,7 +198,7 @@ float labelWidth, firstMargin, duration;
 
 - (IBAction)validateAction:(id)sender {
 
-//    [self updateDateExperience];
+    [self updateDateExperience];
 
 }
 
