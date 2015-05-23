@@ -261,7 +261,6 @@ float durationLabel;
     self.location = [locations lastObject];
 
     NSLog(@"speed %.1f km/h", self.location.speed * 3.6);
-    [self sendLocalNotification:[NSString stringWithFormat:@"speed %.1f km/h", self.location.speed * 3.6]];
 
     [lm setDesiredAccuracy:kCLLocationAccuracyThreeKilometers];
     [lm setDistanceFilter:99999];
@@ -279,14 +278,14 @@ float durationLabel;
     } else if (speed < 50) {
 
         region = [[CLCircularRegion alloc] initWithCenter:[self.location coordinate]
-                                                                     radius:10000
+                                                                     radius:16000
                                                                  identifier:[[NSUUID UUID] UUIDString]];
         NSLog(@"10000");
 
     } else if (speed < 100) {
 
         region = [[CLCircularRegion alloc] initWithCenter:[self.location coordinate]
-                                                                     radius:25000
+                                                                     radius:33000
                                                                  identifier:[[NSUUID UUID] UUIDString]];
         NSLog(@"25000");
 
@@ -309,11 +308,28 @@ float durationLabel;
     NSMutableDictionary *myBestLocation = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *addressLocation = [[NSMutableDictionary alloc] init];
 
+    int geolocCount = (int)[[self contenPlist] count];
+    if(!self.lastLocation && (geolocCount != 0)) {
+        NSMutableArray *geolocArray = [self contenPlist];
+        float latitude = [geolocArray[geolocCount -1][@"latitude"] floatValue];
+        float longitude = [geolocArray[geolocCount -1][@"longitude"] floatValue];
+        self.lastLocation = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(latitude, longitude)
+                                                          altitude:0
+                                                horizontalAccuracy:0
+                                                  verticalAccuracy:0
+                                                         timestamp:[NSDate date]];
+    }
+
+    float distance = [self.lastLocation distanceFromLocation:self.location];
     /** add location and distance **/
     [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.latitude] forKey:@"latitude"];
     [myBestLocation setObject:[NSNumber numberWithFloat:self.location.coordinate.longitude] forKey:@"longitude"];
-    [myBestLocation setObject:[NSNumber numberWithFloat:[self.lastLocation distanceFromLocation:self.location]] forKey:@"distance"];
-    NSLog(@"%f", [self.lastLocation distanceFromLocation:self.location]);
+    [myBestLocation setObject:[NSNumber numberWithFloat:distance] forKey:@"distance"];
+
+    NSLog(@"latitude : %f, longitude : %f", self.location.coordinate.latitude, self.location.coordinate.longitude);
+
+    NSString *log = [NSString stringWithFormat:@"%f, %f, %f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude, self.lastLocation.speed, distance];
+    [self sendLocalNotification:log];
 
     [self.geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error == nil && [placemarks count] > 0) {
@@ -1000,13 +1016,13 @@ float durationLabel;
 }
 
 - (void)uploadFile {
-    [self sendLocalNotification:[NSString stringWithFormat:@"receive notification with %d", activeSyncho]];
 
     if (!activeSyncho) {
 
         activeSyncho = YES;
         self.app = [UIApplication sharedApplication];
         self.bgTask = [self.app beginBackgroundTaskWithExpirationHandler:^{
+            [self sendLocalNotification:@"background task stop"];
             [self.app endBackgroundTask:self.bgTask];
         }];
         NSLog(@"%lu", (unsigned long)self.bgTask);
@@ -1027,8 +1043,6 @@ float durationLabel;
 
 - (void)updateData {
 
-    NSLog(@"update");
-    [self sendLocalNotification:@"Update data start"];
     NSMutableDictionary * dictio = [[NSMutableDictionary alloc]init];
     NSMutableArray *geoloArray = [[NSMutableArray alloc] init];
     if( [self contenPlist] != nil) {
@@ -1062,6 +1076,7 @@ float durationLabel;
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
+        NSLog(@"error : %@", error);
         [self sendLocalNotification:[NSString stringWithFormat:@"upload data failed"]];
         [self performSelector:@selector(updateData) withObject:nil afterDelay:120.0f];
 
@@ -1138,8 +1153,6 @@ float durationLabel;
 
                         if ((long)[response statusCode] == 200) {
                             error = nil;
-                            NSLog(@"photos are upload");
-                            [self sendLocalNotification:@"photos are upload"];
                             dictionary = [NSJSONSerialization JSONObjectWithData:urlData
                                                                                      options:NSJSONReadingMutableContainers
                                                                                        error:&error];
@@ -1158,9 +1171,6 @@ float durationLabel;
                         [fm removeItemAtPath:[tmpDirURL path] error:&error];
                         
                     } else {
-
-                        NSLog(@"no photo to update");
-                        [self sendLocalNotification:@"No photo to update"];
                         [self updateCurrentDay];
 
                     }
@@ -1185,7 +1195,7 @@ float durationLabel;
     [self.app endBackgroundTask:self.bgTask];
     self.bgTask = UIBackgroundTaskInvalid;
     activeSyncho = NO;
-    NSLog(@"%lu", (unsigned long)self.bgTask);
+    [self sendLocalNotification:@"upload is done"];
 
 }
 
