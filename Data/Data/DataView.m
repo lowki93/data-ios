@@ -201,10 +201,10 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.photos count]] forKey:@"photo"];
     [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.atmosphere count]] forKey:@"geoloc"];
 
-    float distance;
+    float distance = 0.f;
     for(int i = 0; i < [currentData.atmosphere count]; i ++) {
 
-       distance += [currentData.atmosphere[i][@"distance"] floatValue] / 1000;
+       distance += (float)[currentData.atmosphere[i][@"distance"] floatValue] / 1000;
 
     }
 
