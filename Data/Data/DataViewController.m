@@ -118,7 +118,6 @@ float durationLabel;
         DataView *dataView = [[DataView alloc] init];
         [dataView setFrame:CGRectMake(0, 0, self.view.bounds.size.width, heigtViewDetail)];
         [dataView initView:self];
-        [dataView drawData:i];
         [dataView setTag:i];
         [view addSubview:dataView];
 
@@ -140,6 +139,7 @@ float durationLabel;
         [dayFormatter setLocale:usLocale];
 
         NSString *week = [dayFormatter stringFromDate:endDate];
+        [dataView drawData:i];
         [dateArray addObject:week];
         [dataViewArray addObject:dataView];
 
@@ -255,7 +255,10 @@ float durationLabel;
 /** location method **/
 - (void)locationManager:(CLLocationManager *)lm didUpdateLocations:(NSArray *)locations {
 
-    [self.locationManager stopMonitoringForRegion:nil];
+    for (CLRegion *region in self.locationManager.monitoredRegions) {
+        NSLog(@"remove Region");
+        [self.locationManager stopMonitoringForRegion:region];
+    }
     [self.locationManager stopUpdatingLocation];
     NSLog(@"update location");
     self.location = [locations lastObject];
@@ -393,6 +396,12 @@ float durationLabel;
 
 }
 
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
+
+    NSLog(@"Region error : %@", error);
+
+}
+
 /** notification method **/
 - (void)sendLocalNotification:(NSString *)string {
 
@@ -434,6 +443,7 @@ float durationLabel;
     [self sendLocalNotification:@"stay in same region"];
     [self.locationManager startUpdatingLocation];
     [timerLocation invalidate];
+    timerLocation = nil;
 
 }
 
@@ -1186,7 +1196,6 @@ float durationLabel;
 
 - (void)updateCurrentDay {
 
-    NSLog(@"update current day");
     DataView *dataView = [dataViewArray objectAtIndex:[dictionary[@"currentData"][@"day"] count] - 1];
     [self removePlist];
     Day *currentDay = [[Day alloc] initWithDictionary:dictionary[@"currentData"][@"day"][(int)dataView.tag]
