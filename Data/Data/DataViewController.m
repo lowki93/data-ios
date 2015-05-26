@@ -128,10 +128,10 @@ float durationLabel;
         NSDate *endDate = [startDate dateByAddingTimeInterval:+(1. * i * 86400)];
         NSString *endDateString = [dateFormatter stringFromDate:endDate];
 
-        if([[[ApiController sharedInstance] getDate] isEqualToString:endDateString]) {
-            indexDay = i;
-            [dataView activeCapta];
-        }
+//        if([[[ApiController sharedInstance] getDate] isEqualToString:endDateString]) {
+//            indexDay = i;
+//            [dataView activeCapta];
+//        }
 
         NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
         NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init] ;
@@ -628,7 +628,7 @@ float durationLabel;
             if([subView isKindOfClass:[DataView class]]) {
 
                 for (UIView *subSubView in subView.subviews) {
-                    //                    subView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+
                     CGRect frame;
                     frame.origin.x = subSubView.frame.origin.x * scaleView;
                     frame.origin.y = subSubView.frame.origin.y * scaleView;
@@ -636,6 +636,12 @@ float durationLabel;
                     frame.size.width = subSubView.frame.size.width * scaleView;
                     subSubView.frame = frame;
                     
+                }
+
+                for (CAShapeLayer *layer in subView.layer.sublayers) {
+
+                    [self animateLayer:layer Start:@1 Ends:[NSNumber numberWithFloat:scaleLayer] Delay:0];
+
                 }
             }
 
@@ -849,23 +855,6 @@ float durationLabel;
                 frame.size.width = self.view.bounds.size.width * secondScale;
                 view.frame = frame;
 
-                //                for (CAShapeLayer *layer in view.layer.sublayers) {
-                //
-                //                    [self animateLayer:layer Start:[NSNumber numberWithFloat:firstScale] End:[NSNumber numberWithFloat:secondScale] Delay:0];
-                //
-                //                }
-
-                //                for (UIView *subView in view.subviews) {
-                //
-                //                    CGRect frame;
-                //                    frame.origin.x = subView.frame.origin.x / firstScale * secondScale;
-                //                    frame.origin.y = subView.frame.origin.y / firstScale * secondScale;
-                //                    frame.size.height = subView.frame.size.height / firstScale * secondScale;
-                //                    frame.size.width = subView.frame.size.width / firstScale * secondScale;
-                //                    subView.frame = frame;
-                //
-                //                }
-
                 for (UIView *subView in view.subviews) {
 
                     CGRect frame;
@@ -877,9 +866,10 @@ float durationLabel;
 
                     if([subView isKindOfClass:[DataView class]]) {
 
+                         CGRect frame;
+
                         for (UIView *subSubView in subView.subviews) {
 
-                            CGRect frame;
                             frame.origin.x = subSubView.frame.origin.x / firstScale * secondScale;
                             frame.origin.y = subSubView.frame.origin.y / firstScale * secondScale;
                             frame.size.height = subSubView.frame.size.height / firstScale * secondScale;
@@ -887,6 +877,14 @@ float durationLabel;
                             subSubView.frame = frame;
 
                         }
+
+                        for (CAShapeLayer *layer in subView.layer.sublayers) {
+
+                            [self animateLayer:layer Start:[NSNumber numberWithFloat:firstScale] Ends:[NSNumber numberWithFloat:secondScale] Delay:0];
+
+                        }
+//
+
                     }
 
                 }
@@ -930,12 +928,6 @@ float durationLabel;
             frame.size.height = heigtViewDetail;
             frame.size.width = self.view.bounds.size.width;
             view.frame = frame;
-            //
-            //            for (CAShapeLayer *layer in view.layer.sublayers) {
-            //
-            //                [self animateLayer:layer Start:[NSNumber numberWithFloat:secondScale] End:@1 Delay:0];
-            //
-            //            }
 
             for (UIView *subView in view.subviews) {
 
@@ -948,9 +940,9 @@ float durationLabel;
 
                 if([subView isKindOfClass:[DataView class]]) {
 
+                    CGRect frame;
                     for (UIView *subSubView in subView.subviews) {
 
-                        CGRect frame;
                         frame.origin.x = subSubView.frame.origin.x / secondScale;
                         frame.origin.y = subSubView.frame.origin.y / secondScale;
                         frame.size.height = subSubView.frame.size.height / secondScale;
@@ -958,6 +950,13 @@ float durationLabel;
                         subSubView.frame = frame;
 
                     }
+
+                    for (CAShapeLayer *layer in subView.layer.sublayers) {
+
+                        [self animateLayer:layer Start:[NSNumber numberWithFloat:secondScale] Ends:@1 Delay:0];
+
+                    }
+
                 }
 
             }

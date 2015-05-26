@@ -25,6 +25,7 @@
 @property (nonatomic) int nbGeoloc;
 @property (nonatomic) float distance;
 @property (nonatomic) float delay;
+@property (nonatomic) CAGradientLayer *gradientLayer;
 
 - (void)initView:(UIViewController *)viewController;
 - (void)drawData:(int)indexDay;

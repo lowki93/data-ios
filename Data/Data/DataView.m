@@ -41,8 +41,6 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     heightContentView = self.bounds.size.height;
     centerCircle = CGPointMake(self.bounds.size.width/2, heightContentView/2);
     radiusGeolocCircle = (self.bounds.size.width * 0.484375) / 2;
-//    radiusCaptaCircle = (self.bounds.size.width * 0.6484375) / 2;
-//    radiusPedometerCircle = (self.bounds.size.width * 0.8125) / 2;
     radiusData = (self.bounds.size.width * 0.8125) / 2;
 
     /** captionImage **/
@@ -99,12 +97,27 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
 - (void)createCircle {
 
+//    for (int i = 0; i < 24; i++) {
+//
+//        CGFloat theta = (M_PI * 15 / 180 * i) - M_PI_2;
+//        CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
+//        CGPoint startPoint = CGPointMake(cosf(theta) * radiusData + self.bounds.size.width / 2, sinf(theta) * radiusData + self.bounds.size.height * newCenter.x);
+//        CGPoint endPoint = CGPointMake(cosf(theta) * (radiusData + 15) + self.bounds.size.width / 2, sinf(theta) * (radiusData + 15) + self.bounds.size.height * newCenter.y);
+//        [self drawCircle:newCenter radius:3 startAngle:-M_PI_2 + (M_PI * 2) strokeColor:[UIColor greenColor] fillColor:[UIColor greenColor] dotted:NO];
+//
+//        UIBezierPath *path = [[UIBezierPath alloc] init];
+//        [path moveToPoint:CGPointMake(startPoint.x, startPoint.y)];
+//        [path addLineToPoint:CGPointMake(endPoint.x, endPoint.y)];
+//
+//        CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
+//        [shapeLayer setPath:path.CGPath];
+//        [shapeLayer setStrokeColor:baseView.blackTimeLineColor.CGColor];
+//        [shapeLayer setLineWidth:4.0];
+//
+//        [self.layer addSublayer:shapeLayer];
+//        
+//    }
 
-//    [self drawCircle:centerCircle radius:radiusFirstCicle startAngle:0 strokeColor:baseView.lightBlue fillColor:[UIColor clearColor] dotted:NO];
-//    [self drawCircle:centerCircle radius:radiusPhotoCicle startAngle:20 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
-//    [self drawCircle:centerCircle radius:radiusGeolocCircle startAngle:40 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
-//    [self drawCircle:centerCircle radius:radiusCaptaCircle startAngle:60 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:NO];
-//    [self drawCircle:centerCircle radius:radiusData startAngle:80 strokeColor:baseView.blue fillColor:[UIColor clearColor] dotted:YES];
 }
 
 - (void)drawCircle:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle strokeColor:(UIColor * )strokeColor fillColor:(UIColor * )fillColor dotted:(BOOL)dotted {
