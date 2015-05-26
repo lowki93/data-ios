@@ -20,6 +20,7 @@ UISwipeGestureRecognizer *leftGesture;
 int translation, indexTutorial;
 float duration;
 NSMutableArray *titleArray, *subTitleTutorial;
+CGFloat dataViewHeight;
 
 @implementation TutorialViewController
 
@@ -37,12 +38,18 @@ NSMutableArray *titleArray, *subTitleTutorial;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
-    [self.verticalConstraint setConstant:self.view.bounds.size.height * 0.30];
+    dataViewHeight = self.view.bounds.size.height * 0.30;
+    [self.verticalConstraint setConstant:dataViewHeight];
+    [self.verticalLabelConstraint setConstant:dataViewHeight];
 
     [self.dataView setBackgroundColor:[baseView colorWithRGB:243 :243 :243 :1]];
     [self.dataView initView:self];
 
     [self updateLabel];
+
+    [self.hourLabel setText:@"toto"];
+    [self.view addSubview:self.hourLabel];
+
 
     /** hide **/
     [self animatedView:self.tutorialLabel Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
@@ -75,6 +82,11 @@ NSMutableArray *titleArray, *subTitleTutorial;
 - (void)swipeLeft:(UISwipeGestureRecognizer *)recognizer {
 
     indexTutorial++;
+    if(indexTutorial == 1) {
+
+        [self animatedView:self.hourLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
+    }
+
     [UIView animateWithDuration:duration delay:0 options:0 animations:^{
 
         [self.informationLabel setAlpha:0];

@@ -919,11 +919,18 @@ de l’experience</string>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="toto" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3a-2Q-cBE">
+                                <rect key="frame" x="20" y="8" width="31" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Vec-hv-6pc" firstAttribute="top" secondItem="64m-da-qJj" secondAttribute="bottom" id="15M-Wb-P9v"/>
                             <constraint firstAttribute="trailing" secondItem="64m-da-qJj" secondAttribute="trailing" id="2dh-YX-lcL"/>
+                            <constraint firstItem="U3a-2Q-cBE" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="8" id="7vB-cW-G2l"/>
                             <constraint firstItem="iCU-Bh-0wP" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="10" id="I5F-9H-Tlc"/>
                             <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="20" id="KS6-zg-gVM"/>
                             <constraint firstItem="64m-da-qJj" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="30" id="Q0h-4h-4jw"/>
@@ -931,14 +938,17 @@ de l’experience</string>
                             <constraint firstAttribute="trailing" secondItem="Kxa-XJ-Fjz" secondAttribute="trailing" constant="10" id="go0-uE-0xD"/>
                             <constraint firstItem="64m-da-qJj" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" id="hdz-QX-ExL"/>
                             <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="10" id="jsi-cL-cDR"/>
+                            <constraint firstItem="U3a-2Q-cBE" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="20" id="lHT-Yt-5Vf"/>
                             <constraint firstAttribute="trailing" secondItem="iCU-Bh-0wP" secondAttribute="trailing" constant="10" id="olt-J3-FRl"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="dataView" destination="64m-da-qJj" id="CC2-93-tmG"/>
+                        <outlet property="hourLabel" destination="U3a-2Q-cBE" id="9vc-Ur-kxB"/>
                         <outlet property="informationLabel" destination="iCU-Bh-0wP" id="Dnq-YJ-LLM"/>
                         <outlet property="tutorialLabel" destination="Kxa-XJ-Fjz" id="ZOe-N3-7lJ"/>
                         <outlet property="verticalConstraint" destination="Q0h-4h-4jw" id="ZRb-Sv-9kT"/>
+                        <outlet property="verticalLabelConstraint" destination="7vB-cW-G2l" id="ICa-FI-rQu"/>
                         <segue destination="QGs-SJ-cRB" kind="custom" identifier="tutorial_data" customClass="CustomSegue" id="XsT-MJ-dYz"/>
                     </connections>
                 </viewController>
