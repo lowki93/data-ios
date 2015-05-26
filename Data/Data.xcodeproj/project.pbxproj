@@ -143,6 +143,7 @@
 		1771BF001AF27A8F000D4D89 /* PairingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BEFF1AF27A8F000D4D89 /* PairingViewController.m */; };
 		1771BF031AF2820E000D4D89 /* GeolocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BF021AF2820E000D4D89 /* GeolocViewController.m */; };
 		17AFE6831AF6C15200CDD08F /* DataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AFE6821AF6C15200CDD08F /* DataView.m */; };
+		17BF33F21B147B50009B6190 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BF33F11B147B50009B6190 /* TutorialViewController.m */; };
 		17CF527E1AA5F8F6001C7E65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF527D1AA5F8F6001C7E65 /* main.m */; };
 		17CF52811AA5F8F6001C7E65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF52801AA5F8F6001C7E65 /* AppDelegate.m */; };
 		17CF52871AA5F8F6001C7E65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17CF52851AA5F8F6001C7E65 /* Main.storyboard */; };
@@ -346,6 +347,8 @@
 		1771BF021AF2820E000D4D89 /* GeolocViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeolocViewController.m; sourceTree = "<group>"; };
 		17AFE6811AF6C15200CDD08F /* DataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataView.h; sourceTree = "<group>"; };
 		17AFE6821AF6C15200CDD08F /* DataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataView.m; sourceTree = "<group>"; };
+		17BF33F01B147B50009B6190 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
+		17BF33F11B147B50009B6190 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
 		17CF52781AA5F8F6001C7E65 /* Data.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Data.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17CF527C1AA5F8F6001C7E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17CF527D1AA5F8F6001C7E65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -701,6 +704,8 @@
 				1771BF021AF2820E000D4D89 /* GeolocViewController.m */,
 				173B2FB41AF3E60500A71BA5 /* ChooseDayViewController.h */,
 				173B2FB51AF3E60500A71BA5 /* ChooseDayViewController.m */,
+				17BF33F01B147B50009B6190 /* TutorialViewController.h */,
+				17BF33F11B147B50009B6190 /* TutorialViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -1135,6 +1140,7 @@
 				A8DE94311ACEDA6D00EF1EDC /* Experience.m in Sources */,
 				1756E5011AD5F8B8006CA988 /* Day.m in Sources */,
 				176476791AF6D401007657DB /* DataInformationView.m in Sources */,
+				17BF33F21B147B50009B6190 /* TutorialViewController.m in Sources */,
 				17CF52811AA5F8F6001C7E65 /* AppDelegate.m in Sources */,
 				1771BF001AF27A8F000D4D89 /* PairingViewController.m in Sources */,
 				17AFE6831AF6C15200CDD08F /* DataView.m in Sources */,
