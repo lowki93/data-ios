@@ -17,10 +17,12 @@ BaseViewController *baseView;
 
 UISwipeGestureRecognizer *leftGesture;
 
-int translation, indexTutorial;
+int translation, indexTutorial, dataCount;
 float duration;
 NSMutableArray *titleArray, *subTitleTutorial;
 CGFloat dataViewHeight;
+
+NSDictionary *dictionnary;
 
 @implementation TutorialViewController
 
@@ -40,24 +42,38 @@ CGFloat dataViewHeight;
 
     dataViewHeight = self.view.bounds.size.height * 0.30;
     [self.verticalConstraint setConstant:dataViewHeight];
-    [self.verticalLabelConstraint setConstant:dataViewHeight];
 
     [self.dataView setBackgroundColor:[baseView colorWithRGB:243 :243 :243 :1]];
+    [self.dataView setFrame:CGRectMake(0, dataViewHeight, self.view.bounds.size.width, self.view.bounds.size.height * 0.70)];
     [self.dataView initView:self];
 
     [self updateLabel];
 
     [self.hourLabel setText:@"toto"];
+    [self.verticalLabelConstraint setConstant:(self.view.bounds.size.height * 0.65) - (self.hourLabel.bounds.size.height / 2)];
     [self.view addSubview:self.hourLabel];
 
+    NSString *pathJson = [[NSBundle mainBundle] pathForResource:@"tutorialExperience" ofType:@"json"];
+
+    if([[NSFileManager defaultManager] fileExistsAtPath:pathJson]){
+
+        NSString *jsonString = [[NSString alloc] initWithContentsOfFile:pathJson encoding:NSUTF8StringEncoding error:nil];
+        NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        self.parsedData = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
+
+        dictionnary = self.parsedData[@"day"];
+
+    }
 
     /** hide **/
+    [self animatedView:self.hourLabel Duration:0 Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
     [self animatedView:self.tutorialLabel Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
     [self animatedView:self.informationLabel Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
 
     /** show **/
     [self animatedView:self.tutorialLabel Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.informationLabel Duration:duration Delay:duration+0.1 Alpha:1 TranslationX:0 TranslationY:0];
+    [self animatedView:self.hourLabel Duration:duration Delay:duration * 2 Alpha:1 TranslationX:0 TranslationY:0];
 
     /** gesture **/
     leftGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
@@ -85,6 +101,30 @@ CGFloat dataViewHeight;
     if(indexTutorial == 1) {
 
         [self animatedView:self.hourLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
+
+        for (CAShapeLayer *layer in self.dataView.layer.sublayers) {
+
+            if ([layer isKindOfClass:[CAShapeLayer class]]) {
+
+                CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+                [opacityAnimation setFromValue: [NSNumber numberWithFloat:1]];
+                [opacityAnimation setToValue: [NSNumber numberWithFloat:0]];
+                [opacityAnimation setDuration: duration];
+                [opacityAnimation setFillMode:kCAFillModeForwards];
+                [opacityAnimation setRemovedOnCompletion:NO];
+
+                [layer addAnimation:opacityAnimation forKey:@"opacityAnimation"];
+                
+            }
+
+        }
+        self.tutorialDay = [[Day alloc] initWithDictionary:dictionnary error:nil];
+        dataCount = (int)[self.tutorialDay.data count];
+        for (int i = 0; i < dataCount; i++) {
+            [self.dataView generateData:i Day:self.tutorialDay];
+        }
+        [self.dataView performSelector:@selector(activeCapta) withObject:nil afterDelay:3];
+
     }
 
     [UIView animateWithDuration:duration delay:0 options:0 animations:^{

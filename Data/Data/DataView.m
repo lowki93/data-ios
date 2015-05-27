@@ -63,6 +63,7 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     [self addSubview:self.hoursLabel];
 
     float informationViewWidth = (radiusData - 30) * 2;
+
     /** information by hours **/
     self.informationView = [[DataInformationView alloc] init];
     [self.informationView setFrame:CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
@@ -97,26 +98,26 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
 - (void)createCircle {
 
-//    for (int i = 0; i < 24; i++) {
-//
-//        CGFloat theta = (M_PI * 15 / 180 * i) - M_PI_2;
-//        CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
-//        CGPoint startPoint = CGPointMake(cosf(theta) * radiusData + self.bounds.size.width / 2, sinf(theta) * radiusData + self.bounds.size.height * newCenter.x);
-//        CGPoint endPoint = CGPointMake(cosf(theta) * (radiusData + 15) + self.bounds.size.width / 2, sinf(theta) * (radiusData + 15) + self.bounds.size.height * newCenter.y);
-//        [self drawCircle:newCenter radius:3 startAngle:-M_PI_2 + (M_PI * 2) strokeColor:[UIColor greenColor] fillColor:[UIColor greenColor] dotted:NO];
-//
-//        UIBezierPath *path = [[UIBezierPath alloc] init];
-//        [path moveToPoint:CGPointMake(startPoint.x, startPoint.y)];
-//        [path addLineToPoint:CGPointMake(endPoint.x, endPoint.y)];
-//
-//        CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
-//        [shapeLayer setPath:path.CGPath];
-//        [shapeLayer setStrokeColor:baseView.blackTimeLineColor.CGColor];
-//        [shapeLayer setLineWidth:4.0];
-//
-//        [self.layer addSublayer:shapeLayer];
-//        
-//    }
+    for (int i = 0; i < 24; i++) {
+
+        CGFloat theta = (M_PI * 15 / 180 * i) - M_PI_2;
+        CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
+        CGPoint startPoint = CGPointMake(cosf(theta) * radiusData + self.bounds.size.width / 2, sinf(theta) * radiusData + self.bounds.size.height * newCenter.x);
+        CGPoint endPoint = CGPointMake(cosf(theta) * (radiusData + 15) + self.bounds.size.width / 2, sinf(theta) * (radiusData + 15) + self.bounds.size.height * newCenter.y);
+        [self drawCircle:newCenter radius:3 startAngle:-M_PI_2 + (M_PI * 2) strokeColor:[UIColor greenColor] fillColor:[UIColor greenColor] dotted:NO];
+
+        UIBezierPath *path = [[UIBezierPath alloc] init];
+        [path moveToPoint:CGPointMake(startPoint.x, startPoint.y)];
+        [path addLineToPoint:CGPointMake(endPoint.x, endPoint.y)];
+
+        CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
+        [shapeLayer setPath:path.CGPath];
+        [shapeLayer setStrokeColor:baseView.blackTimeLineColor.CGColor];
+        [shapeLayer setLineWidth:4.0];
+
+        [self.layer addSublayer:shapeLayer];
+        
+    }
 
 }
 
@@ -172,7 +173,7 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     [gradientLayer setColors:colors];
     [gradientLayer setMask:gradientMask];
 
-    [self.layer addSublayer:gradientLayer];
+    [self.layer addSublayer:gradientMask];
 
 }
 
@@ -225,7 +226,7 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
     self.nbPhoto += (int)[currentData.photos count];
     self.nbGeoloc += (int)[currentData.atmosphere count];
-    self.distance += distance   ;
+    self.distance += distance;
 
     [self.arrayData addObject:dataDictionnary];
 
@@ -262,7 +263,6 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
 - (void)generateDataAfterSynchro:(Day *)currentDay {
 
-    NSLog(@"draw");
     [self generateData:(int)([currentDay.data count] - 1) Day:currentDay];
     [self updateAllInformation];
 

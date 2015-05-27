@@ -14,8 +14,8 @@
 
 @property(assign, nonatomic) NSString<Optional> *_id;
 @property(assign, nonatomic) NSString *date;
-@property(assign, nonatomic) NSArray<NSObject> *atmosphere;
-@property(assign, nonatomic) NSDictionary *deplacement;
+@property(assign, nonatomic) NSArray<NSObject, Optional> *atmosphere;
+@property(assign, nonatomic) NSDictionary <Optional> *deplacement;
 @property(assign, nonatomic) NSArray<NSObject, Optional> *photos;
 
 @end

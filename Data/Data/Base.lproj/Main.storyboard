@@ -920,7 +920,7 @@ de l’experience</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="toto" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3a-2Q-cBE">
-                                <rect key="frame" x="20" y="8" width="31" height="21"/>
+                                <rect key="frame" x="50" y="8" width="31" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -938,7 +938,7 @@ de l’experience</string>
                             <constraint firstAttribute="trailing" secondItem="Kxa-XJ-Fjz" secondAttribute="trailing" constant="10" id="go0-uE-0xD"/>
                             <constraint firstItem="64m-da-qJj" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" id="hdz-QX-ExL"/>
                             <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="10" id="jsi-cL-cDR"/>
-                            <constraint firstItem="U3a-2Q-cBE" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="20" id="lHT-Yt-5Vf"/>
+                            <constraint firstItem="U3a-2Q-cBE" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="50" id="lHT-Yt-5Vf"/>
                             <constraint firstAttribute="trailing" secondItem="iCU-Bh-0wP" secondAttribute="trailing" constant="10" id="olt-J3-FRl"/>
                         </constraints>
                     </view>

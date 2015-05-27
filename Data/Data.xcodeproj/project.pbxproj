@@ -144,6 +144,7 @@
 		1771BF031AF2820E000D4D89 /* GeolocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BF021AF2820E000D4D89 /* GeolocViewController.m */; };
 		17AFE6831AF6C15200CDD08F /* DataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AFE6821AF6C15200CDD08F /* DataView.m */; };
 		17BF33F21B147B50009B6190 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BF33F11B147B50009B6190 /* TutorialViewController.m */; };
+		17BF33F41B167D43009B6190 /* tutorialExperience.json in Resources */ = {isa = PBXBuildFile; fileRef = 17BF33F31B167D43009B6190 /* tutorialExperience.json */; };
 		17CF527E1AA5F8F6001C7E65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF527D1AA5F8F6001C7E65 /* main.m */; };
 		17CF52811AA5F8F6001C7E65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF52801AA5F8F6001C7E65 /* AppDelegate.m */; };
 		17CF52871AA5F8F6001C7E65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17CF52851AA5F8F6001C7E65 /* Main.storyboard */; };
@@ -349,6 +350,7 @@
 		17AFE6821AF6C15200CDD08F /* DataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataView.m; sourceTree = "<group>"; };
 		17BF33F01B147B50009B6190 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
 		17BF33F11B147B50009B6190 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
+		17BF33F31B167D43009B6190 /* tutorialExperience.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tutorialExperience.json; sourceTree = "<group>"; };
 		17CF52781AA5F8F6001C7E65 /* Data.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Data.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17CF527C1AA5F8F6001C7E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17CF527D1AA5F8F6001C7E65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -610,6 +612,7 @@
 			children = (
 				177138D21AADFA01002AFEF0 /* ApiController.h */,
 				177138D31AADFA01002AFEF0 /* ApiController.m */,
+				17BF33F31B167D43009B6190 /* tutorialExperience.json */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -947,6 +950,7 @@
 				173F4BD41B0E2B0A000D70DB /* loader_13.png in Resources */,
 				171329881B0F5C1E00A94B5B /* captation_65.png in Resources */,
 				A8DFAF8F1ADBBEC00028502C /* MaisonNeue-Light.ttf in Resources */,
+				17BF33F41B167D43009B6190 /* tutorialExperience.json in Resources */,
 				173F4BD91B0E2B0A000D70DB /* loader_18.png in Resources */,
 				171329521B0F5C1E00A94B5B /* captation_11.png in Resources */,
 				171329931B0F5C1E00A94B5B /* captation_76.png in Resources */,

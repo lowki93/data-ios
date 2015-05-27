@@ -34,5 +34,6 @@
 - (void)generateDataAfterSynchro:(Day *)currentDay;
 - (void)activeCapta;
 - (void)animatedCaptionImageView:(float)alpha;
+- (void)generateData:(int)index Day:(Day *)day;
 
 @end

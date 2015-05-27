@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DataView.h"
+#import "Day.h"
 
 @interface TutorialViewController : UIViewController
 
@@ -18,5 +19,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *tutorialLabel;
 @property (weak, nonatomic) IBOutlet UILabel *informationLabel;
+
+@property (nonatomic) NSMutableDictionary *parsedData;
+@property (retain, nonatomic) Day *tutorialDay;
 
 @end

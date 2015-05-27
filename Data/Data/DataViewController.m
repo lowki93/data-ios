@@ -128,10 +128,10 @@ float durationLabel;
         NSDate *endDate = [startDate dateByAddingTimeInterval:+(1. * i * 86400)];
         NSString *endDateString = [dateFormatter stringFromDate:endDate];
 
-//        if([[[ApiController sharedInstance] getDate] isEqualToString:endDateString]) {
-//            indexDay = i;
-//            [dataView activeCapta];
-//        }
+        if([[[ApiController sharedInstance] getDate] isEqualToString:endDateString]) {
+            indexDay = i;
+            [dataView activeCapta];
+        }
 
         NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
         NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init] ;
