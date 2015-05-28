@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DataView.h"
 #import "Day.h"
+#import "DataView.h"
 
 @interface TutorialViewController : UIViewController
+
+@property (nonatomic) UITapGestureRecognizer *informationDataGesture;
+@property (nonatomic) UITapGestureRecognizer *closeInformationGesture;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalLabelConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *hourLabel;
@@ -20,6 +23,6 @@
 
 @property (nonatomic) NSMutableDictionary *parsedData;
 @property (retain, nonatomic) Day *tutorialDay;
-@property (retain, nonatomic) DataView *dataView;
+//@property (retain, nonatomic) ;
 
 @end

@@ -14,8 +14,10 @@
 @end
 
 BaseViewController *baseView;
+DataView *dataView;
 
 UISwipeGestureRecognizer *leftGesture;
+UITapGestureRecognizer *closeAllInformationDataGesture;
 
 int translation, indexTutorial, dataCount;
 float duration;
@@ -42,11 +44,16 @@ NSDictionary *dictionnary;
 
     dataViewHeight = self.view.bounds.size.height * 0.30;
 
-    self.dataView = [[DataView alloc] init];
-    [self.dataView setBackgroundColor:[baseView colorWithRGB:243 :243 :243 :1]];
-    [self.dataView setFrame:CGRectMake(0, dataViewHeight, self.view.bounds.size.width, self.view.bounds.size.height * 0.70)];
-    [self.dataView initView:self];
-    [self.view addSubview:self.dataView];
+    UIView *contentView = [[UIView alloc] init];
+    [contentView setFrame:CGRectMake(0, dataViewHeight, self.view.bounds.size.width, self.view.bounds.size.height * 0.70)];
+    [contentView setBackgroundColor:[baseView colorWithRGB:243 :243 :243 :1]];
+    [self.view addSubview:contentView];
+
+    dataView = [[DataView alloc] init];
+    [dataView setFrame:CGRectMake(0, 0, contentView.bounds.size.width, contentView.bounds.size.height)];
+    [dataView initView:self];
+    dataView.informationButton = NO;
+    [contentView addSubview:dataView];
 
     [self updateLabel];
 
@@ -81,6 +88,12 @@ NSDictionary *dictionnary;
     [leftGesture setDirection:(UISwipeGestureRecognizerDirectionLeft)];
     [self.view addGestureRecognizer:leftGesture];
 
+    closeAllInformationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeAllInformationData:)];
+
+    self.informationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(informationData:)];
+
+    self.closeInformationGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeInformationData:)];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,7 +116,7 @@ NSDictionary *dictionnary;
 
         [self animatedView:self.hourLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
 
-        for (CAShapeLayer *layer in self.dataView.layer.sublayers) {
+        for (CAShapeLayer *layer in dataView.layer.sublayers) {
 
             if ([layer isKindOfClass:[CAShapeLayer class]]) {
 
@@ -122,9 +135,10 @@ NSDictionary *dictionnary;
         self.tutorialDay = [[Day alloc] initWithDictionary:dictionnary error:nil];
         dataCount = (int)[self.tutorialDay.data count];
         for (int i = 0; i < dataCount; i++) {
-            [self.dataView generateData:i Day:self.tutorialDay];
+            [dataView generateData:i Day:self.tutorialDay];
         }
-        [self.dataView performSelector:@selector(activeCapta) withObject:nil afterDelay:3];
+        [dataView updateAllInformation];
+        [dataView performSelector:@selector(activeCapta) withObject:nil afterDelay:3];
 
     }
 
@@ -152,10 +166,72 @@ NSDictionary *dictionnary;
 
     }];
 
-    if(indexTutorial == 3) {
+    if(indexTutorial == 2) {
+        [dataView removeCapta];
+        [dataView addActionForButton];
 
+    }
+
+    if(indexTutorial == 3) {
+        [dataView removeActionForButton];
+        [self.view addGestureRecognizer:self.informationDataGesture];
         [self.view removeGestureRecognizer:leftGesture];
     }
+
+}
+
+- (void)informationData:(UITapGestureRecognizer *)tapGestureRecognizer {
+
+    [self.view removeGestureRecognizer:self.informationDataGesture];
+
+    [dataView animatedCaptionImageView:0];
+    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+
+        CGAffineTransform transform = dataView.transform;
+        dataView.transform = CGAffineTransformScale(transform, 1.2, 1.2);
+
+    } completion:nil];
+
+    [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
+
+        dataView.allDataView.transform = CGAffineTransformIdentity;
+        dataView.allDataView.alpha = 1;
+
+
+    } completion:^(BOOL finished){
+
+        [dataView.allDataView animatedAllLabel:dataView.allDataView.duration Translation:0 Alpha:1];
+        [self.view addGestureRecognizer:closeAllInformationDataGesture];
+
+    }];
+
+}
+
+- (void)closeInformationData:(UITapGestureRecognizer *)tapGestureRecognizer {
+
+    [self hideInformationData];
+    [self.view removeGestureRecognizer:self.closeInformationGesture];
+    [self.view addGestureRecognizer:self.informationDataGesture];
+    
+}
+
+- (void)closeAllInformationData:(UITapGestureRecognizer *)tapGestureRecognizer {
+
+    [dataView animatedCaptionImageView:1];
+    [dataView.allDataView animatedAllLabel:dataView.allDataView.duration
+                               Translation:dataView.allDataView.translation
+                                     Alpha:0];
+
+    [UIView animateWithDuration:0.5 delay:dataView.allDataView.duration options:0 animations:^{
+
+        dataView.transform = CGAffineTransformIdentity;
+        [dataView scaleInformationView:dataView.allDataView];
+
+    } completion:^(BOOL finished){
+
+        [self.view addGestureRecognizer:self.informationDataGesture];
+
+    }];
 
 }
 
@@ -173,6 +249,35 @@ NSDictionary *dictionnary;
 
     } completion:nil];
     
+}
+
+- (void)hideInformationData {
+
+    dataView.informationViewActive = NO;
+
+    [dataView animatedCaptionImageView:1];
+
+    [dataView.informationView animatedAllLabel:dataView.informationView.duration
+                                   Translation:dataView.informationView.translation
+                                         Alpha:0];
+
+    [UIView animateWithDuration:dataView.informationView.duration
+                          delay:dataView.informationView.duration
+                        options:0 animations:^{
+
+                            [dataView scaleInformationView:dataView.informationView];
+
+
+                        } completion:nil];
+
+    [UIView animateWithDuration:dataView.informationView.duration delay:0 options:0 animations:^{
+
+        [dataView.hoursLabel setAlpha:0];
+
+    } completion:nil];
+
+    [dataView removeBorderButton];
+
 }
 
 @end

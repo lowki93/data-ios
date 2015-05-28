@@ -13,13 +13,13 @@
 @implementation DataView
 
 BaseViewController *baseView;
-DataViewController *dataViewController;
+UIViewController *dataViewController;
 
 float heightContentView;
 CGPoint centerCircle;
 CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
 
-- (void)initView:(DataViewController *)viewController {
+- (void)initView:(UIViewController *)viewController {
 
     for (CALayer *subLayer in self.layer.sublayers)
     {
@@ -30,6 +30,8 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     self.nbGeoloc = 0;
     self.distance = 0;
     self.delay = 1;
+
+    self.informationButton = YES;
 
     self.arrayData = [[NSMutableArray alloc] init];
 
@@ -240,7 +242,10 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTag:index];
-    [button addTarget:self action:@selector(getInfoData:) forControlEvents:UIControlEventTouchUpInside];
+
+    if(self.informationButton) {
+        [button addTarget:self action:@selector(getInfoData:) forControlEvents:UIControlEventTouchUpInside];
+    }
 
     CGFloat theta = (M_PI * 15 / 180 * index) - M_PI_2;
     CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
@@ -282,8 +287,20 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
     }
 
-    [dataViewController.view removeGestureRecognizer:dataViewController.informationDataGesture];
-    [dataViewController.view addGestureRecognizer:dataViewController.closeInformationGesture];
+    if([dataViewController isKindOfClass:[DataViewController class]]) {
+        DataViewController *currentViewController = (DataViewController *)dataViewController;
+        [currentViewController.view removeGestureRecognizer:currentViewController.informationDataGesture];
+        [currentViewController.view addGestureRecognizer:currentViewController.closeInformationGesture];
+    }
+
+
+    if([dataViewController isKindOfClass:[TutorialViewController class]]) {
+        TutorialViewController *currentViewController = (TutorialViewController *)dataViewController;
+        [currentViewController.view removeGestureRecognizer:currentViewController.informationDataGesture];
+        [currentViewController.view addGestureRecognizer:currentViewController.closeInformationGesture];
+    }
+
+
     [self removeBorderButton];
 
     UIButton *button = (UIButton *)sender;
@@ -389,6 +406,20 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     
 }
 
+- (void)removeCapta {
+
+    [UIView animateWithDuration:self.informationView.duration animations:^{
+
+        [self.captionImageView setAlpha:0];
+
+    } completion:^(BOOL finished) {
+
+        [self.captionImageView setHidden:YES];
+
+    }];
+
+}
+
 - (void)animatedCaptionImageView:(float)alpha {
 
     [UIView animateWithDuration:self.informationView.duration delay:0 options:0 animations:^{
@@ -398,6 +429,35 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     } completion:nil];
 
 
+}
+
+
+- (void)addActionForButton {
+
+    for (UIView *subview in [self subviews]) {
+
+        if([subview isKindOfClass:[UIButton class]]) {
+
+            UIButton *button = (UIButton *)subview;
+            [button addTarget:self action:@selector(getInfoData:) forControlEvents:UIControlEventTouchUpInside];
+
+        }
+    }
+
+}
+
+- (void)removeActionForButton {
+
+    for (UIView *subview in [self subviews]) {
+
+        if([subview isKindOfClass:[UIButton class]]) {
+
+            UIButton *button = (UIButton *)subview;
+            [button removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+            
+        }
+    }
+    
 }
 
 @end

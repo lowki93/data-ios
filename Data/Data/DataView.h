@@ -10,6 +10,7 @@
 #import "BaseViewController.h"
 #import "DataInformationView.h"
 #import "DataViewController.h"
+#import "TutorialViewController.h"
 
 @interface DataView : UIView
 
@@ -20,6 +21,7 @@
 @property (nonatomic) DataInformationView *allDataView;
 @property (nonatomic) UIImageView *captionImageView;
 
+@property (nonatomic) bool informationButton;
 @property (nonatomic) bool informationViewActive;
 @property (nonatomic) int nbPhoto;
 @property (nonatomic) int nbGeoloc;
@@ -33,7 +35,11 @@
 - (void)scaleInformationView:(UIView *)view;
 - (void)generateDataAfterSynchro:(Day *)currentDay;
 - (void)activeCapta;
+- (void)removeCapta;
 - (void)animatedCaptionImageView:(float)alpha;
 - (void)generateData:(int)index Day:(Day *)day;
+- (void)addActionForButton;
+- (void)removeActionForButton;
+- (void)updateAllInformation;
 
 @end
