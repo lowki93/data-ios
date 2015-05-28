@@ -15,7 +15,7 @@
 BaseViewController *baseView;
 UIViewController *dataViewController;
 
-float heightContentView;
+float heightContentView, scale;
 CGPoint centerCircle;
 CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
 
@@ -40,6 +40,7 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     baseView = [[BaseViewController alloc] init];
     [baseView initView:baseView];
 
+    scale = 1.5;
     heightContentView = self.bounds.size.height;
     centerCircle = CGPointMake(self.bounds.size.width/2, heightContentView/2);
     radiusGeolocCircle = (self.bounds.size.width * 0.484375) / 2;
@@ -102,24 +103,38 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
     for (int i = 0; i < 24; i++) {
 
-        CGFloat theta = (M_PI * 15 / 180 * i) - M_PI_2;
-        CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
-        CGPoint startPoint = CGPointMake(cosf(theta) * radiusData + self.bounds.size.width / 2, sinf(theta) * radiusData + self.bounds.size.height * newCenter.x);
-        CGPoint endPoint = CGPointMake(cosf(theta) * (radiusData + 15) + self.bounds.size.width / 2, sinf(theta) * (radiusData + 15) + self.bounds.size.height * newCenter.y);
-        [self drawCircle:newCenter radius:3 startAngle:-M_PI_2 + (M_PI * 2) strokeColor:[UIColor greenColor] fillColor:[UIColor greenColor] dotted:NO];
+        [self writeCircle:i];
 
-        UIBezierPath *path = [[UIBezierPath alloc] init];
-        [path moveToPoint:CGPointMake(startPoint.x, startPoint.y)];
-        [path addLineToPoint:CGPointMake(endPoint.x, endPoint.y)];
-
-        CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
-        [shapeLayer setPath:path.CGPath];
-        [shapeLayer setStrokeColor:baseView.blackTimeLineColor.CGColor];
-        [shapeLayer setLineWidth:4.0];
-
-        [self.layer addSublayer:shapeLayer];
-        
     }
+
+}
+
+- (void)writeCircle:(int)index {
+
+    CGFloat theta = (M_PI * 15 / 180 * index) - M_PI_2;
+    CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
+    [self drawCircle:newCenter radius:3 startAngle:-M_PI_2 + (M_PI * 2) strokeColor:[UIColor greenColor] fillColor:[UIColor greenColor] dotted:NO];
+
+    if( index == 10 ) {
+
+//        [self writeSelecteButtonView:10];
+    }
+
+}
+
+- (void)writeSelecteButtonView:(int)index {
+
+
+    CGFloat theta = (M_PI * 15 / 180 * index) - M_PI_2;
+    CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
+
+    int width = 54;
+    self.selectedButtonImageView = [[UIImageView alloc] init];
+    [self.selectedButtonImageView setFrame:CGRectMake(newCenter.x - (width / 2), newCenter.y - (width / 2), width, width)];
+    [self.selectedButtonImageView setAlpha:0];
+    [self addSubview: self.selectedButtonImageView];
+
+    [NSThread detachNewThreadSelector:@selector(generateClickAnimationImage) toTarget:self withObject:nil];
 
 }
 
@@ -161,19 +176,19 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     //    CGPathAddLineToPoint(t, NULL, self.bounds.size.width, self.bounds.size.height);
 
 //    gradientMask.path = aPath.CGPath;
-
-
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    [gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
-    [gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
-    [gradientLayer setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-
-    NSMutableArray *colors = [NSMutableArray array];
-    for (int i = 0; i < 10; i++) {
-        [colors addObject:(id)[[UIColor colorWithHue:(0.1 * i) saturation:1 brightness:.8 alpha:1] CGColor]];
-    }
-    [gradientLayer setColors:colors];
-    [gradientLayer setMask:gradientMask];
+//
+//
+//    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+//    [gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
+//    [gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
+//    [gradientLayer setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+//
+//    NSMutableArray *colors = [NSMutableArray array];
+//    for (int i = 0; i < 10; i++) {
+//        [colors addObject:(id)[[UIColor colorWithHue:(0.1 * i) saturation:1 brightness:.8 alpha:1] CGColor]];
+//    }
+//    [gradientLayer setColors:colors];
+//    [gradientLayer setMask:gradientMask];
 
     [self.layer addSublayer:gradientMask];
 
@@ -274,6 +289,10 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 }
 
 - (IBAction)getInfoData:(id)sender {
+
+    if (self.selectedButtonImageView) {
+        [self removeButtonSelector];
+    }
 
     if (!self.informationViewActive) {
 
@@ -406,6 +425,43 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     
 }
 
+- (void)generateClickAnimationImage {
+
+    @autoreleasepool {
+
+        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+
+        for( int index = 0; index < 38; index++ ){
+
+            NSString *imageName = [NSString stringWithFormat:@"clic_0_%i.png", index];
+            [imageArray addObject:[UIImage imageNamed:imageName]];
+
+        };
+
+        [self.selectedButtonImageView setAnimationImages:imageArray];
+        [self.selectedButtonImageView setAnimationDuration:2];
+        [self.selectedButtonImageView setAnimationRepeatCount:0];
+
+        [self performSelectorOnMainThread:@selector(addClickAnimationImage) withObject:NULL waitUntilDone:NO];
+
+    }
+
+}
+
+- (void)addClickAnimationImage {
+
+    [self addSubview:self.selectedButtonImageView];
+
+    [UIView animateWithDuration:self.informationView.duration  delay:0  options:0 animations:^{
+
+        [self.selectedButtonImageView setAlpha:1];
+
+    } completion:nil];
+    [self.selectedButtonImageView startAnimating];
+    [self performSelector:@selector(removeButtonSelector) withObject:nil afterDelay:3.5];
+    
+}
+
 - (void)removeCapta {
 
     [UIView animateWithDuration:self.informationView.duration animations:^{
@@ -459,5 +515,24 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     }
     
 }
+
+- (void)removeButtonSelector {
+
+    [UIView animateWithDuration:self.informationView.duration  delay:self.informationView.duration-0.2  options:0 animations:^{
+
+        [self.selectedButtonImageView setAlpha:0];
+
+    } completion:^(BOOL finished){
+
+        int width = 100;
+        [self.selectedButtonImageView setFrame:CGRectMake((self.bounds.size.width / 2) - (width / 2),
+                                                     (self.bounds.size.height / 2) - (width / 2),
+                                                     width,
+                                                     width)];
+
+    }];
+
+}
+
 
 @end

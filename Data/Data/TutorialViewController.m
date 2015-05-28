@@ -57,7 +57,7 @@ NSDictionary *dictionnary;
 
     [self updateLabel];
 
-    [self.hourLabel setText:@"toto"];
+    [self.hourLabel setText:@"6:00 PM"];
     [self.verticalLabelConstraint setConstant:(self.view.bounds.size.height * 0.60)];
     [self.view addSubview:self.hourLabel];
 
@@ -169,11 +169,23 @@ NSDictionary *dictionnary;
     if(indexTutorial == 2) {
         [dataView removeCapta];
         [dataView addActionForButton];
+        [dataView writeSelecteButtonView:10];
 
     }
 
     if(indexTutorial == 3) {
+
+        [UIView animateWithDuration:dataView.informationView.duration  delay:dataView.informationView.duration-0.2  options:0 animations:^{
+
+            [dataView.selectedButtonImageView setAlpha:1];
+
+        } completion:^(BOOL finished){
+
+            [dataView performSelector:@selector(removeButtonSelector) withObject:nil afterDelay:3.5];
+            
+        }];
         [dataView removeActionForButton];
+        
         [self.view addGestureRecognizer:self.informationDataGesture];
         [self.view removeGestureRecognizer:leftGesture];
     }
@@ -211,7 +223,6 @@ NSDictionary *dictionnary;
 
     [self hideInformationData];
     [self.view removeGestureRecognizer:self.closeInformationGesture];
-    [self.view addGestureRecognizer:self.informationDataGesture];
     
 }
 
@@ -240,6 +251,7 @@ NSDictionary *dictionnary;
     return YES;
 }
 
+/** animation **/
 - (void)animatedView:(UIView *)view Duration:(float)duration Delay:(float)delay Alpha:(float)alpha TranslationX:(int)translationX TranslationY:(int)translationY{
 
     [UIView animateWithDuration:duration delay:delay options:0 animations:^{

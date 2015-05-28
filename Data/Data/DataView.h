@@ -20,6 +20,7 @@
 @property (nonatomic) DataInformationView *informationView;
 @property (nonatomic) DataInformationView *allDataView;
 @property (nonatomic) UIImageView *captionImageView;
+@property (nonatomic) UIImageView *selectedButtonImageView;
 
 @property (nonatomic) bool informationButton;
 @property (nonatomic) bool informationViewActive;
@@ -28,6 +29,7 @@
 @property (nonatomic) float distance;
 @property (nonatomic) float delay;
 @property (nonatomic) CAGradientLayer *gradientLayer;
+@property (nonatomic) NSTimer *timeSelectedButton;
 
 - (void)initView:(UIViewController *)viewController;
 - (void)drawData:(int)indexDay;
@@ -41,5 +43,7 @@
 - (void)addActionForButton;
 - (void)removeActionForButton;
 - (void)updateAllInformation;
+- (void)writeSelecteButtonView:(int)index;
+- (void)removeButtonSelector;
 
 @end

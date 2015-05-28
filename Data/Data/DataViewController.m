@@ -255,6 +255,14 @@ float durationLabel;
 /** location method **/
 - (void)locationManager:(CLLocationManager *)lm didUpdateLocations:(NSArray *)locations {
 
+    [timerLocation invalidate];
+    timerLocation = nil;
+    timerLocation = [NSTimer scheduledTimerWithTimeInterval:1800.
+                                                     target:self
+                                                   selector:@selector(startLocation)
+                                                   userInfo:nil
+                                                    repeats:NO];
+
     for (CLRegion *region in self.locationManager.monitoredRegions) {
         NSLog(@"remove Region");
         [self.locationManager stopMonitoringForRegion:region];
@@ -331,7 +339,7 @@ float durationLabel;
 
     NSLog(@"latitude : %f, longitude : %f", self.location.coordinate.latitude, self.location.coordinate.longitude);
 
-    NSString *log = [NSString stringWithFormat:@"%f, %f, %f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude, self.lastLocation.speed, distance];
+    NSString *log = [NSString stringWithFormat:@"%f, %f, %f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude, speed, distance];
     [self sendLocalNotification:log];
 
     [self.geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -385,14 +393,14 @@ float durationLabel;
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
 
     NSLog(@"start region");
-    [timerLocation invalidate];
+//    [timerLocation invalidate];
     [self sendLocalNotification:@"start region"];
     // 10min : 600 // 30min : 1800
-    timerLocation = [NSTimer scheduledTimerWithTimeInterval:1800.
-                                                          target:self
-                                                        selector:@selector(startLocation)
-                                                        userInfo:nil
-                                                         repeats:NO];
+//    timerLocation = [NSTimer scheduledTimerWithTimeInterval:1800.
+//                                                          target:self
+//                                                        selector:@selector(startLocation)
+//                                                        userInfo:nil
+//                                                         repeats:NO];
 
 }
 
@@ -638,11 +646,11 @@ float durationLabel;
                     
                 }
 
-                for (CAShapeLayer *layer in subView.layer.sublayers) {
-
-                    [self animateLayer:layer Start:@1 Ends:[NSNumber numberWithFloat:scaleLayer] Delay:0];
-
-                }
+//                for (CAShapeLayer *layer in subView.layer.sublayers) {
+//
+//                    [self animateLayer:layer Start:@1 Ends:[NSNumber numberWithFloat:scaleLayer] Delay:0];
+//
+//                }
             }
 
         }
@@ -878,11 +886,11 @@ float durationLabel;
 
                         }
 
-                        for (CAShapeLayer *layer in subView.layer.sublayers) {
-
-                            [self animateLayer:layer Start:[NSNumber numberWithFloat:firstScale] Ends:[NSNumber numberWithFloat:secondScale] Delay:0];
-
-                        }
+//                        for (CAShapeLayer *layer in subView.layer.sublayers) {
+//
+//                            [self animateLayer:layer Start:[NSNumber numberWithFloat:firstScale] Ends:[NSNumber numberWithFloat:secondScale] Delay:0];
+//
+//                        }
 //
 
                     }
@@ -951,11 +959,11 @@ float durationLabel;
 
                     }
 
-                    for (CAShapeLayer *layer in subView.layer.sublayers) {
-
-                        [self animateLayer:layer Start:[NSNumber numberWithFloat:secondScale] Ends:@1 Delay:0];
-
-                    }
+//                    for (CAShapeLayer *layer in subView.layer.sublayers) {
+//
+//                        [self animateLayer:layer Start:[NSNumber numberWithFloat:secondScale] Ends:@1 Delay:0];
+//
+//                    }
 
                 }
 
