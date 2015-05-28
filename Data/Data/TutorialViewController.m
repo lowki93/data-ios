@@ -41,16 +41,17 @@ NSDictionary *dictionnary;
     [baseView initView:self];
 
     dataViewHeight = self.view.bounds.size.height * 0.30;
-    [self.verticalConstraint setConstant:dataViewHeight];
 
+    self.dataView = [[DataView alloc] init];
     [self.dataView setBackgroundColor:[baseView colorWithRGB:243 :243 :243 :1]];
     [self.dataView setFrame:CGRectMake(0, dataViewHeight, self.view.bounds.size.width, self.view.bounds.size.height * 0.70)];
     [self.dataView initView:self];
+    [self.view addSubview:self.dataView];
 
     [self updateLabel];
 
     [self.hourLabel setText:@"toto"];
-    [self.verticalLabelConstraint setConstant:(self.view.bounds.size.height * 0.65) - (self.hourLabel.bounds.size.height / 2)];
+    [self.verticalLabelConstraint setConstant:(self.view.bounds.size.height * 0.60)];
     [self.view addSubview:self.hourLabel];
 
     NSString *pathJson = [[NSBundle mainBundle] pathForResource:@"tutorialExperience" ofType:@"json"];

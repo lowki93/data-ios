@@ -694,7 +694,7 @@ de l’experience</string>
                         <outlet property="titleLabel" destination="WuR-QS-0Pq" id="UId-2E-58k"/>
                         <outlet property="validateButton" destination="tul-Uz-Zfr" id="CU9-Oc-mL0"/>
                         <segue destination="QGs-SJ-cRB" kind="custom" identifier="time_data" customClass="CustomSegue" id="Nbz-yN-fpI"/>
-                        <segue destination="H9w-1k-qHc" kind="custom" customClass="CustomSegue" id="hlu-9W-lsx"/>
+                        <segue destination="H9w-1k-qHc" kind="custom" identifier="time_tutorial" customClass="CustomSegue" id="hlu-9W-lsx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drK-Mf-Ijv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -903,10 +903,6 @@ de l’experience</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64m-da-qJj" customClass="DataView">
-                                <rect key="frame" x="0.0" y="30" width="600" height="570"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day 4 / 14  —  30%" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCU-Bh-0wP">
                                 <rect key="frame" x="10" y="71" width="580" height="15"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="15"/>
@@ -928,26 +924,22 @@ de l’experience</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Vec-hv-6pc" firstAttribute="top" secondItem="64m-da-qJj" secondAttribute="bottom" id="15M-Wb-P9v"/>
-                            <constraint firstAttribute="trailing" secondItem="64m-da-qJj" secondAttribute="trailing" id="2dh-YX-lcL"/>
                             <constraint firstItem="U3a-2Q-cBE" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="8" id="7vB-cW-G2l"/>
                             <constraint firstItem="iCU-Bh-0wP" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="10" id="I5F-9H-Tlc"/>
                             <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="20" id="KS6-zg-gVM"/>
-                            <constraint firstItem="64m-da-qJj" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="30" id="Q0h-4h-4jw"/>
                             <constraint firstItem="iCU-Bh-0wP" firstAttribute="top" secondItem="Kxa-XJ-Fjz" secondAttribute="bottom" constant="10" id="W5Z-I9-CPc"/>
                             <constraint firstAttribute="trailing" secondItem="Kxa-XJ-Fjz" secondAttribute="trailing" constant="10" id="go0-uE-0xD"/>
-                            <constraint firstItem="64m-da-qJj" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" id="hdz-QX-ExL"/>
                             <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="10" id="jsi-cL-cDR"/>
                             <constraint firstItem="U3a-2Q-cBE" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="50" id="lHT-Yt-5Vf"/>
                             <constraint firstAttribute="trailing" secondItem="iCU-Bh-0wP" secondAttribute="trailing" constant="10" id="olt-J3-FRl"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="dataView" destination="64m-da-qJj" id="CC2-93-tmG"/>
                         <outlet property="hourLabel" destination="U3a-2Q-cBE" id="9vc-Ur-kxB"/>
                         <outlet property="informationLabel" destination="iCU-Bh-0wP" id="Dnq-YJ-LLM"/>
                         <outlet property="tutorialLabel" destination="Kxa-XJ-Fjz" id="ZOe-N3-7lJ"/>
-                        <outlet property="verticalConstraint" destination="Q0h-4h-4jw" id="ZRb-Sv-9kT"/>
                         <outlet property="verticalLabelConstraint" destination="7vB-cW-G2l" id="ICa-FI-rQu"/>
                         <segue destination="QGs-SJ-cRB" kind="custom" identifier="tutorial_data" customClass="CustomSegue" id="XsT-MJ-dYz"/>
                     </connections>
@@ -962,9 +954,9 @@ de l’experience</string>
         <image name="loader" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XsT-MJ-dYz"/>
-        <segue reference="rhG-0D-VZY"/>
+        <segue reference="9tC-A9-S5v"/>
         <segue reference="Ewf-ih-IQW"/>
-        <segue reference="0kN-7n-njY"/>
+        <segue reference="XsT-MJ-dYz"/>
+        <segue reference="hlu-9W-lsx"/>
     </inferredMetricsTieBreakers>
 </document>

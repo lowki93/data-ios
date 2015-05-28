@@ -12,8 +12,6 @@
 
 @interface TutorialViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet DataView *dataView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalLabelConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *hourLabel;
 
@@ -22,5 +20,6 @@
 
 @property (nonatomic) NSMutableDictionary *parsedData;
 @property (retain, nonatomic) Day *tutorialDay;
+@property (retain, nonatomic) DataView *dataView;
 
 @end

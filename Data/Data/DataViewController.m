@@ -21,8 +21,8 @@ NSDictionary *dictionary;
 /** dataView **/
 NSMutableArray *dateArray;
 NSMutableArray *dataViewArray;;
-int nbDay, margin, indexDay = 0, positionTop, heigtViewDetail;
-float firstScale,secondScale, upScale, transition, translationDate, transitionBack;
+int nbDay, margin, indexDay = 0, positionTop;
+float heigtViewDetail, firstScale,secondScale, upScale, transition, translationDate, transitionBack;
 
 /** synchro **/
 int timeSynchro;
