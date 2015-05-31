@@ -602,28 +602,6 @@ float durationLabel;
         frame.size.width = self.view.bounds.size.width * scaleLayer;
         view.frame = frame;
 
-//        for (CAGradientLayer *gradientLayer in view.layer.sublayers) {
-//
-////            CGAffineTransform transform = self.timeLineView.transform;
-//            gradientLayer.transform = CATransform3DMakeScale(scaleLayer, scaleLayer, 1);
-//
-//            for (CAShapeLayer *layer in gradientLayer.sublayers) {
-//                [self animateLayer:layer Start:@1 End:[NSNumber numberWithFloat:scaleLayer] Delay:0];
-//            }
-//
-//        }
-
-//        for (UIView *subView in view.subviews) {
-//
-//            CGRect frame;
-//            frame.origin.x = subView.frame.origin.x * scaleView;
-//            frame.origin.y = subView.frame.origin.y * scaleView;
-//            frame.size.height = subView.frame.size.height * scaleView;
-//            frame.size.width = subView.frame.size.width * scaleView;
-//            subView.frame = frame;
-//
-//        }
-
         for (UIView *subView in view.subviews) {
 
             CGRect frame;
@@ -642,15 +620,13 @@ float durationLabel;
                     frame.origin.y = subSubView.frame.origin.y * scaleView;
                     frame.size.height = subSubView.frame.size.height * scaleView;
                     frame.size.width = subSubView.frame.size.width * scaleView;
+
+                    [self animatedLayerButton:subSubView.frame.size.height EndRadius:frame.size.height Layer:subSubView.layer];
+
                     subSubView.frame = frame;
-                    
+
                 }
 
-//                for (CAShapeLayer *layer in subView.layer.sublayers) {
-//
-//                    [self animateLayer:layer Start:@1 Ends:[NSNumber numberWithFloat:scaleLayer] Delay:0];
-//
-//                }
             }
 
         }
@@ -708,7 +684,7 @@ float durationLabel;
 - (void)animateLayer:(CAShapeLayer *)layer Start:(NSNumber *)start Ends:(NSNumber *)end Delay:(float)delay {
 
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    [animation setFromValue:start]; //layer.transform = CATransform3DMakeScale(.65, .65, 1);
+    [animation setFromValue:start];
     [animation setToValue:end];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [animation setDuration:0.5];
@@ -716,23 +692,6 @@ float durationLabel;
     [animation setFillMode:kCAFillModeForwards];
     [animation setRemovedOnCompletion:NO];
     [layer addAnimation:animation forKey:@"scale"];
-
-////    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
-////
-//////        self.timeLineView.alpha = alpha;
-//////        CGAffineTransform transform = self.timeLineView.transform;
-////        layer.transform = CATransform3DMakeScale([end floatValue], [end floatValue], 1);
-//////        self.timeLineView.transform = CGAffineTransformScale(transform, scale, scale);
-////
-////    } completion:^(BOOL finished){}];
-//
-//    CGRect frame;
-////    layer.frame.
-//    frame.origin.x = layer.frame.origin.x * [end floatValue];
-//    frame.origin.y = layer.frame.origin.y * [end floatValue];
-//    frame.size.height = layer.frame.size.height * [end floatValue];
-//    frame.size.width = layer.frame.size.width * [end floatValue];
-//    layer.frame = frame;
 
 }
 
@@ -882,16 +841,12 @@ float durationLabel;
                             frame.origin.y = subSubView.frame.origin.y / firstScale * secondScale;
                             frame.size.height = subSubView.frame.size.height / firstScale * secondScale;
                             frame.size.width = subSubView.frame.size.width / firstScale * secondScale;
+
+                            [self animatedLayerButton:subSubView.frame.size.height EndRadius:frame.size.height Layer:subSubView.layer];
+
                             subSubView.frame = frame;
 
                         }
-
-//                        for (CAShapeLayer *layer in subView.layer.sublayers) {
-//
-//                            [self animateLayer:layer Start:[NSNumber numberWithFloat:firstScale] Ends:[NSNumber numberWithFloat:secondScale] Delay:0];
-//
-//                        }
-//
 
                     }
 
@@ -955,15 +910,12 @@ float durationLabel;
                         frame.origin.y = subSubView.frame.origin.y / secondScale;
                         frame.size.height = subSubView.frame.size.height / secondScale;
                         frame.size.width = subSubView.frame.size.width / secondScale;
+
+                        [self animatedLayerButton:subSubView.frame.size.height EndRadius:frame.size.height Layer:subSubView.layer];
+
                         subSubView.frame = frame;
 
                     }
-
-//                    for (CAShapeLayer *layer in subView.layer.sublayers) {
-//
-//                        [self animateLayer:layer Start:[NSNumber numberWithFloat:secondScale] Ends:@1 Delay:0];
-//
-//                    }
 
                 }
 
@@ -1016,6 +968,18 @@ float durationLabel;
 
 }
 
+- (void)animatedLayerButton:(float)radius EndRadius:(float)endRadius Layer:(CALayer *)layer {
+
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"cornerRadius"];
+    animation.timingFunction = [CAMediaTimingFunction     functionWithName:kCAMediaTimingFunctionLinear];
+    animation.fromValue = [NSNumber numberWithFloat:radius/2.f];
+    animation.toValue = [NSNumber numberWithFloat:endRadius/2.f];
+    animation.duration = 0.5;
+    [layer setCornerRadius:endRadius/2.f];
+    [layer addAnimation:animation forKey:@"cornerRadius"];
+
+}
+
 - (IBAction)closeTimeLineAction:(id)sender {
 
     [self.view removeGestureRecognizer:leftGesture];
@@ -1026,6 +990,7 @@ float durationLabel;
     [self animatedCloseScrollView];
 
 }
+
 
 /** upload method **/
 - (IBAction)lauchSynchro:(id)sender {
