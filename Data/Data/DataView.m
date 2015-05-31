@@ -101,11 +101,11 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
 - (void)createCircle {
 
-    for (int i = 0; i < 24; i++) {
-
-        [self writeCircle:i];
-
-    }
+//    for (int i = 0; i < 24; i++) {
+//
+//        [self writeCircle:i];
+//
+//    }
 
 }
 
@@ -241,19 +241,34 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
     [dataDictionnary setObject:[NSString stringWithFormat:@"%.2f", distance] forKey:@"distance"];
 
+    int totalData = (int)[currentData.photos count] + (int)[currentData.atmosphere count];
+
+    float radiusButton;
+
+    if (totalData < 1)
+        radiusButton = 5;
+    else if (totalData <= 2)
+        radiusButton = 10;
+    else if (totalData <= 3)
+        radiusButton = 15;
+    else if (totalData <= 4)
+        radiusButton = 20;
+    else if (totalData <= 5)
+        radiusButton = 25;
+    else if (totalData >= 6)
+        radiusButton = 25;
+
     self.nbPhoto += (int)[currentData.photos count];
     self.nbGeoloc += (int)[currentData.atmosphere count];
     self.distance += distance;
 
     [self.arrayData addObject:dataDictionnary];
 
-    [self createButton:index];
+    [self createButton:index Radius:radiusButton];
 
 }
 
-- (void)createButton:(int)index {
-
-    float radiusButton = 20;
+- (void)createButton:(int)index Radius:(float)radius {
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTag:index];
@@ -264,10 +279,10 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
     CGFloat theta = (M_PI * 15 / 180 * index) - M_PI_2;
     CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
-    [button setFrame:CGRectMake(newCenter.x - radiusButton/ 2, newCenter.y - radiusButton / 2, radiusButton, radiusButton)];
+    [button setFrame:CGRectMake(newCenter.x - radius/ 2, newCenter.y - radius / 2, radius, radius)];
     [button setClipsToBounds:YES];
     [button setBackgroundColor:[UIColor redColor]];
-    [button.layer setCornerRadius:radiusButton/2.f];
+    [button.layer setCornerRadius:radius/2.f];
     [button setAlpha:0];
 
     [self addSubview:button];
