@@ -142,6 +142,7 @@
 		177138D41AADFA01002AFEF0 /* ApiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 177138D31AADFA01002AFEF0 /* ApiController.m */; };
 		1771BF001AF27A8F000D4D89 /* PairingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BEFF1AF27A8F000D4D89 /* PairingViewController.m */; };
 		1771BF031AF2820E000D4D89 /* GeolocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BF021AF2820E000D4D89 /* GeolocViewController.m */; };
+		179883191B1B869A002F64EA /* TutorialPullUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 179883181B1B869A002F64EA /* TutorialPullUpView.m */; };
 		17AFE6831AF6C15200CDD08F /* DataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AFE6821AF6C15200CDD08F /* DataView.m */; };
 		17BF33F21B147B50009B6190 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BF33F11B147B50009B6190 /* TutorialViewController.m */; };
 		17BF33F41B167D43009B6190 /* tutorialExperience.json in Resources */ = {isa = PBXBuildFile; fileRef = 17BF33F31B167D43009B6190 /* tutorialExperience.json */; };
@@ -384,6 +385,8 @@
 		1771BEFF1AF27A8F000D4D89 /* PairingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PairingViewController.m; sourceTree = "<group>"; };
 		1771BF011AF2820E000D4D89 /* GeolocViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeolocViewController.h; sourceTree = "<group>"; };
 		1771BF021AF2820E000D4D89 /* GeolocViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeolocViewController.m; sourceTree = "<group>"; };
+		179883171B1B869A002F64EA /* TutorialPullUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialPullUpView.h; sourceTree = "<group>"; };
+		179883181B1B869A002F64EA /* TutorialPullUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialPullUpView.m; sourceTree = "<group>"; };
 		17AFE6811AF6C15200CDD08F /* DataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataView.h; sourceTree = "<group>"; };
 		17AFE6821AF6C15200CDD08F /* DataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataView.m; sourceTree = "<group>"; };
 		17BF33F01B147B50009B6190 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
@@ -680,6 +683,8 @@
 				17AFE6821AF6C15200CDD08F /* DataView.m */,
 				176476771AF6D401007657DB /* DataInformationView.h */,
 				176476781AF6D401007657DB /* DataInformationView.m */,
+				179883171B1B869A002F64EA /* TutorialPullUpView.h */,
+				179883181B1B869A002F64EA /* TutorialPullUpView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1311,6 +1316,7 @@
 				17CF527E1AA5F8F6001C7E65 /* main.m in Sources */,
 				173B2FB61AF3E60500A71BA5 /* ChooseDayViewController.m in Sources */,
 				170135F11B09C98700B10C42 /* CustomSegue.m in Sources */,
+				179883191B1B869A002F64EA /* TutorialPullUpView.m in Sources */,
 				A81789451ABC1D34004319BA /* ioapi.c in Sources */,
 				A81789491ABC1D34004319BA /* SSZipArchive.m in Sources */,
 				1737EFA01ADFF296002E4811 /* TimeLineView.m in Sources */,

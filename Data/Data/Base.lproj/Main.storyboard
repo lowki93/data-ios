@@ -921,12 +921,32 @@ de l’experience</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdd-dj-w7b" customClass="TutorialPullUpView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PULL TO VIEW TIME LINE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZg-2S-bu1">
+                                        <rect key="frame" x="199" y="215" width="203" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.76078431369999999" green="0.74509803919999995" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="MZg-2S-bu1" secondAttribute="centerX" id="Pj0-Vu-Z0E"/>
+                                    <constraint firstAttribute="centerY" secondItem="MZg-2S-bu1" secondAttribute="centerY" constant="75" id="zVf-Ck-O79"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="cdd-dj-w7b" secondAttribute="trailing" id="2OY-zX-7e7"/>
+                            <constraint firstItem="Vec-hv-6pc" firstAttribute="top" secondItem="cdd-dj-w7b" secondAttribute="bottom" id="3Cf-8f-5wT"/>
                             <constraint firstItem="U3a-2Q-cBE" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="8" id="7vB-cW-G2l"/>
+                            <constraint firstItem="cdd-dj-w7b" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" id="9Gb-3V-tEq"/>
                             <constraint firstItem="iCU-Bh-0wP" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="10" id="I5F-9H-Tlc"/>
                             <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="20" id="KS6-zg-gVM"/>
+                            <constraint firstItem="cdd-dj-w7b" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" id="VW1-hS-S99"/>
                             <constraint firstItem="iCU-Bh-0wP" firstAttribute="top" secondItem="Kxa-XJ-Fjz" secondAttribute="bottom" constant="10" id="W5Z-I9-CPc"/>
                             <constraint firstAttribute="trailing" secondItem="Kxa-XJ-Fjz" secondAttribute="trailing" constant="10" id="go0-uE-0xD"/>
                             <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="10" id="jsi-cL-cDR"/>
@@ -940,6 +960,7 @@ de l’experience</string>
                         <outlet property="hourLabel" destination="U3a-2Q-cBE" id="9vc-Ur-kxB"/>
                         <outlet property="informationLabel" destination="iCU-Bh-0wP" id="Dnq-YJ-LLM"/>
                         <outlet property="tutorialLabel" destination="Kxa-XJ-Fjz" id="ZOe-N3-7lJ"/>
+                        <outlet property="tutorialTimeLineView" destination="cdd-dj-w7b" id="KGi-uj-F1v"/>
                         <outlet property="verticalLabelConstraint" destination="7vB-cW-G2l" id="ICa-FI-rQu"/>
                         <segue destination="QGs-SJ-cRB" kind="custom" identifier="tutorial_data" customClass="CustomSegue" id="XsT-MJ-dYz"/>
                     </connections>
