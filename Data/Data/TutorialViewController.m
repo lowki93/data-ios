@@ -36,8 +36,8 @@ NSDictionary *dictionnary;
     duration = 0.5;
     indexTutorial = 0;
 
-    titleArray = [@[@"Hours 1/4", @"Captation 2/4", @"Hours data 3/4", @"Daily data 4/4"] mutableCopy ];
-    subTitleTutorial = [@[@"chaque point correspond\nà une heure de la journée", @"le point centrale t’indique\nque l’application capte des ddonnées", @"TAPE SUR UNE HEURE POUR\nVOIR LES DONNÉES RÉCOLTÉES", @"TAPE SUR UNE HEURE POUR\nVOIR LES DONNÉES RÉCOLTÉES"] mutableCopy ];
+    titleArray = [@[@"Hours 1/4", @"Captation 2/4", @"Hours data 3/4", @"Daily data 4/4", @""] mutableCopy ];
+    subTitleTutorial = [@[@"chaque point correspond\nà une heure de la journée", @"le point centrale t’indique\nque l’application capte des ddonnées", @"TAPE SUR UNE HEURE POUR\nVOIR LES DONNÉES RÉCOLTÉES", @"TAPE SUR UNE HEURE POUR\nVOIR LES DONNÉES RÉCOLTÉES", @""] mutableCopy ];
 
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
@@ -51,8 +51,8 @@ NSDictionary *dictionnary;
 
     dataView = [[DataView alloc] init];
     [dataView setFrame:CGRectMake(0, 0, contentView.bounds.size.width, contentView.bounds.size.height)];
+    dataView.informationButton = FALSE;
     [dataView initView:self];
-    dataView.informationButton = NO;
     [contentView addSubview:dataView];
 
     [self updateLabel];
@@ -72,6 +72,11 @@ NSDictionary *dictionnary;
         dictionnary = self.parsedData[@"day"];
 
     }
+
+    [self.tutorialTimeLineView initView:self];
+    [self.tutorialTimeLineView setAlpha:0];
+//    [self.tutorialTimeLineView startAnimation];
+    [self.view bringSubviewToFront:self.tutorialTimeLineView];
 
     /** hide **/
     [self animatedView:self.hourLabel Duration:0 Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
@@ -187,7 +192,24 @@ NSDictionary *dictionnary;
         [dataView removeActionForButton];
         
         [self.view addGestureRecognizer:self.informationDataGesture];
+    }
+
+    if(indexTutorial == 4) {
         [self.view removeGestureRecognizer:leftGesture];
+        [self animatedView:self.tutorialTimeLineView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
+        [self.tutorialTimeLineView performSelector:@selector(startAnimation) withObject:nil afterDelay:duration * 2];
+
+        [UIView animateWithDuration:duration delay:duration * 8 options:0 animations:^{
+
+            for (UIView *view in self.view.subviews) {
+                [view setAlpha:0];
+            }
+
+        } completion:^(BOOL finished){
+
+            [self performSegueWithIdentifier:@"tutorial_data" sender:self];
+            
+        }];
     }
 
 }

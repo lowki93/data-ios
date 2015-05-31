@@ -15,7 +15,7 @@
 BaseViewController *baseView;
 UIViewController *dataViewController;
 
-float heightContentView, scale;
+float heightContentView, scale, beginTimeLayer;
 CGPoint centerCircle;
 CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
 
@@ -30,8 +30,6 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     self.nbGeoloc = 0;
     self.distance = 0;
     self.delay = 1;
-
-    self.informationButton = YES;
 
     self.arrayData = [[NSMutableArray alloc] init];
 
@@ -101,11 +99,16 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
 - (void)createCircle {
 
-//    for (int i = 0; i < 24; i++) {
-//
-//        [self writeCircle:i];
-//
-//    }
+    if (!self.informationButton) {
+
+        beginTimeLayer = 0;
+        for (int i = 0; i < 24; i++) {
+
+            [self writeCircle:i];
+            
+        }
+
+    }
 
 }
 
@@ -113,12 +116,16 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
     CGFloat theta = (M_PI * 15 / 180 * index) - M_PI_2;
     CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
-    [self drawCircle:newCenter radius:3 startAngle:-M_PI_2 + (M_PI * 2) strokeColor:[UIColor greenColor] fillColor:[UIColor greenColor] dotted:NO];
 
-    if( index == 10 ) {
+    UIColor *color  = [baseView colorWithRGB:37 :37 :112 :1];
+    int radius = 3;
 
-//        [self writeSelecteButtonView:10];
+    if (index == 18) {
+        color = [baseView colorWithRGB:210 :70 :41 :1];
+        radius = 5;
     }
+
+    [self drawCircle:newCenter radius:radius startAngle:-M_PI_2 + (M_PI * 2) strokeColor:color fillColor:color dotted:NO];
 
 }
 
@@ -162,35 +169,19 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
         [gradientMask setLineDashPattern:[NSArray arrayWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],nil]];
 
     }
-//
-//    [self.layer addSublayer:gradientMask];
-
-//    CAShapeLayer *gradientMask = [CAShapeLayer layer];
-//    gradientMask.fillColor = [[UIColor clearColor] CGColor];
-//    gradientMask.strokeColor = [[UIColor blackColor] CGColor];
-//    gradientMask.lineWidth = 4;
-//    gradientMask.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-
-    //    CGMutablePathRef t = CGPathCreateMutable();
-    //    CGPathMoveToPoint(t, NULL, 0, 0);
-    //    CGPathAddLineToPoint(t, NULL, self.bounds.size.width, self.bounds.size.height);
-
-//    gradientMask.path = aPath.CGPath;
-//
-//
-//    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-//    [gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
-//    [gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
-//    [gradientLayer setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-//
-//    NSMutableArray *colors = [NSMutableArray array];
-//    for (int i = 0; i < 10; i++) {
-//        [colors addObject:(id)[[UIColor colorWithHue:(0.1 * i) saturation:1 brightness:.8 alpha:1] CGColor]];
-//    }
-//    [gradientLayer setColors:colors];
-//    [gradientLayer setMask:gradientMask];
 
     [self.layer addSublayer:gradientMask];
+
+    beginTimeLayer += 0.1;
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    [animation setBeginTime: CACurrentMediaTime() + beginTimeLayer];
+    [animation setDuration: 0.5];
+    [animation setFromValue: [NSNumber numberWithFloat:0.0f]];
+    [animation setToValue: [NSNumber numberWithFloat:1.0f]];
+    [animation setRemovedOnCompletion: NO];
+    [animation setFillMode: kCAFillModeBoth];
+    [animation setAdditive: NO];
+    [gradientMask addAnimation:animation forKey:@"opacityIN"];
 
 }
 
@@ -242,7 +233,6 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     [dataDictionnary setObject:[NSString stringWithFormat:@"%.2f", distance] forKey:@"distance"];
 
     int totalData = (int)[currentData.photos count] + (int)[currentData.atmosphere count];
-
     float radiusButton;
 
     if (totalData < 1)
@@ -333,7 +323,6 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
         [currentViewController.view removeGestureRecognizer:currentViewController.informationDataGesture];
         [currentViewController.view addGestureRecognizer:currentViewController.closeInformationGesture];
     }
-
 
     [self removeBorderButton];
 

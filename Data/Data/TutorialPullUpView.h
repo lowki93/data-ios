@@ -10,4 +10,9 @@
 
 @interface TutorialPullUpView : UIView
 
+@property (nonatomic) UILabel *informationLabel;
+
+- (void)initView:(UIViewController *)viewController;
+- (void)startAnimation;
+
 @end

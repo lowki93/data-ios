@@ -54,10 +54,8 @@ float durationLabel;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
-    if(self.experience) {
-        NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
-        [[ApiController sharedInstance] setUserLoad:dictionary];
-    }
+    NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
+    [[ApiController sharedInstance] setUserLoad:dictionary];
 
     for (UIView *subView in self.contentScrollView.subviews)
     {
@@ -117,6 +115,7 @@ float durationLabel;
 
         DataView *dataView = [[DataView alloc] init];
         [dataView setFrame:CGRectMake(0, 0, self.view.bounds.size.width, heigtViewDetail)];
+        dataView.informationButton = YES;
         [dataView initView:self];
         [dataView setTag:i];
         [view addSubview:dataView];
@@ -621,7 +620,9 @@ float durationLabel;
                     frame.size.height = subSubView.frame.size.height * scaleView;
                     frame.size.width = subSubView.frame.size.width * scaleView;
 
-                    [self animatedLayerButton:subSubView.frame.size.height EndRadius:frame.size.height Layer:subSubView.layer];
+                    if([subSubView isKindOfClass:[UIButton class]]) {
+                        [self animatedLayerButton:subSubView.frame.size.height EndRadius:frame.size.height Layer:subSubView.layer];
+                    }
 
                     subSubView.frame = frame;
 
@@ -842,7 +843,9 @@ float durationLabel;
                             frame.size.height = subSubView.frame.size.height / firstScale * secondScale;
                             frame.size.width = subSubView.frame.size.width / firstScale * secondScale;
 
-                            [self animatedLayerButton:subSubView.frame.size.height EndRadius:frame.size.height Layer:subSubView.layer];
+                            if([subSubView isKindOfClass:[UIButton class]]) {
+                                [self animatedLayerButton:subSubView.frame.size.height EndRadius:frame.size.height Layer:subSubView.layer];
+                            }
 
                             subSubView.frame = frame;
 
@@ -911,7 +914,9 @@ float durationLabel;
                         frame.size.height = subSubView.frame.size.height / secondScale;
                         frame.size.width = subSubView.frame.size.width / secondScale;
 
-                        [self animatedLayerButton:subSubView.frame.size.height EndRadius:frame.size.height Layer:subSubView.layer];
+                        if([subSubView isKindOfClass:[UIButton class]]) {
+                            [self animatedLayerButton:subSubView.frame.size.height EndRadius:frame.size.height Layer:subSubView.layer];
+                        }
 
                         subSubView.frame = frame;
 
