@@ -34,7 +34,7 @@ float duration;
     [self setFrame:CGRectMake(0, 0, viewController.view.bounds.size.width, viewController.view.bounds.size.height)];
 
     CGFloat angle = ((M_PI * -M_PI_2 + (M_PI * 2))/ 180);
-    CGPoint center = CGPointMake(viewController.view.bounds.size.width / 2, viewController.view.bounds.size.height / 2);
+    CGPoint center = CGPointMake(viewController.view.bounds.size.width / 2, viewController.view.bounds.size.height / 2 + lineHeight);
 
     UIBezierPath *aPath = [UIBezierPath bezierPathWithArcCenter:center
                                                          radius:30
@@ -56,13 +56,13 @@ float duration;
     lineLayer = [CAShapeLayer layer];
     UIBezierPath *linePath=[UIBezierPath bezierPath];
     [linePath moveToPoint:CGPointMake(self.bounds.size.width / 2,
-                                      self.bounds.size.height / 2)];
+                                      self.bounds.size.height / 2 + lineHeight)];
     [linePath addLineToPoint:CGPointMake(self.bounds.size.width / 2,
-                                         self.bounds.size.height / 2 + lineHeight)];
+                                         self.bounds.size.height / 2)];
     [lineLayer setPath: linePath.CGPath];
     [lineLayer setFillColor: nil];
     [lineLayer setOpacity: 1.0];
-    [lineLayer setLineWidth:3.f];
+    [lineLayer setLineWidth:1.f];
     [lineLayer setStrokeStart:0/100];
     [lineLayer setStrokeEnd:0/100];
     [lineLayer setStrokeColor: grey.CGColor];
@@ -115,7 +115,7 @@ float duration;
     [layer setPosition:[layer position]];
     [animation   setBeginTime: CACurrentMediaTime() + duration * 3];
     [animation setFromValue:[NSValue valueWithCGPoint:[layer position]]];
-    [animation setToValue:[NSValue valueWithCGPoint:CGPointMake(0, lineHeight)]];
+    [animation setToValue:[NSValue valueWithCGPoint:CGPointMake(0, -lineHeight)]];
     animation.fillMode = kCAFillModeForwards;
     [animation setDuration:duration];
     [animation setRemovedOnCompletion:NO];
