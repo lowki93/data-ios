@@ -158,6 +158,7 @@ float duration;
 
         dictionary = responseObject[@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
+        [self sendDataWithSocket:dictionary];
         [self performSelector:@selector(stopTrackerGeoloc) withObject:nil afterDelay:5.0f];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -244,6 +245,7 @@ float duration;
 
         dictionary = responseObject[@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
+        [self sendDataWithSocket:dictionary];
         [self hideingSynchro];
         step++;
         [self hideSynchroLabel];
@@ -339,6 +341,7 @@ float duration;
                                                                      options:NSJSONReadingMutableContainers
                                                                        error:&error];
                         [[ApiController sharedInstance] setUserLoad:dictionary[@"user"]];
+                        [self sendDataWithSocket:dictionary[@"user"]];
                         [self selectDay];
 
                     } else {
@@ -372,7 +375,7 @@ float duration;
 }
 
 - (void)displayingSynchro {
-    NSLog(@"display synchro");
+
     [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, translationLoader)];
     [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, translationLoader)];
 
@@ -388,7 +391,7 @@ float duration;
 }
 
 - (void)hideingSynchro {
-    NSLog(@"hide synchro");
+
     [UIView animateWithDuration:duration delay:0 options:0 animations:^{
 
         [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
@@ -461,6 +464,17 @@ float duration;
     [self animatedView:self.captaTitleLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
     [self animatedView:self.touLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
     [self animatedView:self.learnLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+
+}
+
+- (void)sendDataWithSocket:(NSDictionary *)dictionary {
+
+//    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
+//    NSLog(@"%@",dictionary);
+    NSData* myData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:NULL];
+    NSString *jsonString = [[NSString alloc] initWithData:myData encoding:NSUTF8StringEncoding];
+//    NSString *dataString = [NSString stringWithFormat:@"%@", dictionary];
+    [[ApiController sharedInstance] writeDataSocket:jsonString];
 
 }
 

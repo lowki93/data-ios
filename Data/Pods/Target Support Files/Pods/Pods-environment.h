@@ -60,3 +60,9 @@
 #define COCOAPODS_VERSION_MINOR_PXAlertView 1
 #define COCOAPODS_VERSION_PATCH_PXAlertView 1
 
+// jetfire
+#define COCOAPODS_POD_AVAILABLE_jetfire
+#define COCOAPODS_VERSION_MAJOR_jetfire 0
+#define COCOAPODS_VERSION_MINOR_jetfire 1
+#define COCOAPODS_VERSION_PATCH_jetfire 2
+

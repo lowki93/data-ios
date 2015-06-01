@@ -11,14 +11,17 @@
 #import "User.h"
 #import "Experience.h"
 #import "Data.h"
+#import "JFRWebSocket.h"
 
-@interface ApiController : NSObject
+@interface ApiController : NSObject<JFRWebSocketDelegate>
 
 @property (nonatomic) NSString *url;
 @property (nonatomic) User *user;
 @property (nonatomic) Experience *experience;
 @property (nonatomic) NSMutableArray *location;
 @property (nonatomic) long nbDay;
+
+@property(nonatomic) JFRWebSocket *socket;
 
 + (ApiController *)sharedInstance;
 - (void)loadApi;
@@ -38,5 +41,7 @@
 - (Data *)GetLastData;
 - (int)getIndexData;
 - (void)updateToken;
+- (void)activeSocket;
+- (void)writeDataSocket:(NSString *)string;
 
 @end

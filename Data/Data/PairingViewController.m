@@ -22,6 +22,7 @@ float duration;
 @implementation PairingViewController
 
 - (void)viewDidLoad {
+    NSLog(@"parring view");
 
     [super viewDidLoad];
 
@@ -32,11 +33,16 @@ float duration;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
+    NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
+    [[ApiController sharedInstance] setUserLoad:dictionary];
+
     if ([ApiController sharedInstance].experience == nil) {
 
         [self createExperience];
 
     }
+
+    [[ApiController sharedInstance] activeSocket];
 //    [baseView loadLoader:self.loaderImageView View:self.view];
 //    NSArray *extraArgs = [[NSArray alloc] initWithObjects:self.loaderImageView, self.view, nil];
     [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage) toTarget:self withObject:nil];

@@ -156,7 +156,9 @@
         NSString *urlString = [NSString stringWithFormat:@"%@/user/update/%@/deviceToken?access_token=%@", self.url, self.user._id, self.user.token];
 
         NSString *deviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"deviceToken"];
-//        NSString *deviceToken = @"<75fedbaa f43d810d e308bf55 1862c25c d464de93 27b2a763 5aab8b38 0ad1fdc0>";
+        if([deviceToken length] == 0) {
+            deviceToken = @"<75fedbaa f43d810d e308bf55 1862c25c d464de93 27b2a763 5aab8b38 0ad1fdc0>";
+        }
 
         NSLog(@"%@", deviceToken);
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -175,6 +177,35 @@
 
         }];
     }
+
+}
+
+- (void)activeSocket {
+
+    self.socket = [[JFRWebSocket alloc] initWithURL:[NSURL URLWithString:@"http://data.vm:9090"] protocols:@[@"chat",@"superchat"]];
+    [self.socket setDelegate: self];
+    [self.socket connect];
+
+}
+
+- (void)websocketDidConnect:(JFRWebSocket*)socket {
+    NSLog(@"websocket is connected");
+}
+
+- (void)websocketDidDisconnect:(JFRWebSocket*)socket error:(NSError*)error {
+    NSLog(@"websocket is disconnected: %@",[error localizedDescription]);
+}
+
+-(void)websocket:(JFRWebSocket*)socket didReceiveMessage:(NSString*)string {
+    NSLog(@"got some text: %@",string);
+    dispatch_async(dispatch_get_main_queue(),^{
+        //do some UI work
+    });
+}
+
+- (void)writeDataSocket:(NSString *)string {
+
+    [self.socket writeString:string];
 
 }
 
