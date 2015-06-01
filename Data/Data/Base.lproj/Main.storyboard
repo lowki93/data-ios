@@ -32,6 +32,7 @@
             <string>MaisonNeue-Light</string>
             <string>MaisonNeue-Light</string>
             <string>MaisonNeue-Light</string>
+            <string>MaisonNeue-Light</string>
         </mutableArray>
         <mutableArray key="MaisonNeue-Medium.ttf">
             <string>MaisonNeue-Medium</string>
@@ -904,21 +905,21 @@ de l’experience</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day 4 / 14  —  30%" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCU-Bh-0wP">
-                                <rect key="frame" x="10" y="71" width="580" height="15"/>
+                                <rect key="frame" x="10" y="85" width="580" height="15"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="15"/>
                                 <color key="textColor" red="0.61568627450000002" green="0.61568627450000002" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours 1/4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kxa-XJ-Fjz">
-                                <rect key="frame" x="10" y="20" width="580" height="41"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="41"/>
+                                <rect key="frame" x="10" y="45" width="580" height="30"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="30"/>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3a-2Q-cBE">
-                                <rect key="frame" x="50" y="8" width="37" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="55" y="8" width="34" height="15"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="15"/>
+                                <color key="textColor" red="0.61568627450000002" green="0.61568627450000002" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdd-dj-w7b" customClass="TutorialPullUpView">
@@ -945,12 +946,12 @@ de l’experience</string>
                             <constraint firstItem="U3a-2Q-cBE" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="8" id="7vB-cW-G2l"/>
                             <constraint firstItem="cdd-dj-w7b" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" id="9Gb-3V-tEq"/>
                             <constraint firstItem="iCU-Bh-0wP" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="10" id="I5F-9H-Tlc"/>
-                            <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="20" id="KS6-zg-gVM"/>
+                            <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="45" id="KS6-zg-gVM"/>
                             <constraint firstItem="cdd-dj-w7b" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" id="VW1-hS-S99"/>
                             <constraint firstItem="iCU-Bh-0wP" firstAttribute="top" secondItem="Kxa-XJ-Fjz" secondAttribute="bottom" constant="10" id="W5Z-I9-CPc"/>
                             <constraint firstAttribute="trailing" secondItem="Kxa-XJ-Fjz" secondAttribute="trailing" constant="10" id="go0-uE-0xD"/>
                             <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="10" id="jsi-cL-cDR"/>
-                            <constraint firstItem="U3a-2Q-cBE" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="50" id="lHT-Yt-5Vf"/>
+                            <constraint firstItem="U3a-2Q-cBE" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="55" id="lHT-Yt-5Vf"/>
                             <constraint firstAttribute="trailing" secondItem="iCU-Bh-0wP" secondAttribute="trailing" constant="10" id="olt-J3-FRl"/>
                         </constraints>
                     </view>

@@ -58,7 +58,7 @@ NSDictionary *dictionnary;
     [self updateLabel];
 
     [self.hourLabel setText:@"6:00 PM"];
-    [self.verticalLabelConstraint setConstant:(self.view.bounds.size.height * 0.60)];
+    [self.verticalLabelConstraint setConstant:(self.view.bounds.size.height * 0.61)];
     [self.view addSubview:self.hourLabel];
 
     NSString *pathJson = [[NSBundle mainBundle] pathForResource:@"tutorialExperience" ofType:@"json"];
@@ -107,9 +107,9 @@ NSDictionary *dictionnary;
 
 - (void)updateLabel {
 
-    [self.tutorialLabel setText:[[titleArray objectAtIndex:indexTutorial] uppercaseString]];
+    [self.tutorialLabel setText:[[titleArray objectAtIndex:indexTutorial] capitalizedString]];
     [self.informationLabel setText:[[subTitleTutorial objectAtIndex:indexTutorial] uppercaseString]];
-    [baseView addLineHeight:1.3 Label:self.informationLabel];
+    [baseView addLineHeight:1.5 Label:self.informationLabel];
 
 }
 
