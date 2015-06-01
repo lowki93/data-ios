@@ -27,6 +27,31 @@
     _greyTimeLineColor = [self colorWithRGB:204 :204 :204 :1];
     _blackTimeLineColor = [self colorWithRGB:26 :26 :26 :1];
 
+    UIColor *firstColor, *secondColor, *thirdColor, *fourthColor, *fithColor, *sixthColor;
+    firstColor = [self colorWithRGB:91 :54 :161 :1];
+    secondColor = [self colorWithRGB:95 :57 :164 :1];
+    thirdColor = [self colorWithRGB:142 :78 :199 :1];
+    fourthColor = [self colorWithRGB:204 :107 :243 :1];
+    fithColor = [self colorWithRGB:215 :111 :252 :1];
+    sixthColor = [self colorWithRGB:149 :81 :203 :1];
+    self.colorLittleActivityArray = [@[firstColor, secondColor, thirdColor, fourthColor, fithColor, sixthColor] mutableCopy];
+
+    firstColor = [self colorWithRGB:0 :130 :143 :1];
+    secondColor = [self colorWithRGB:0 :118 :135 :1];
+    thirdColor = [self colorWithRGB:0 :170 :168 :1];
+    fourthColor = [self colorWithRGB:0 :220 :199 :1];
+    fithColor = [self colorWithRGB:0 :233 :208 :1];
+    sixthColor = [self colorWithRGB:0 :176 :172 :1];
+    self.colorInitialColorArray = [@[firstColor, secondColor, thirdColor, fourthColor, fithColor, sixthColor] mutableCopy];
+
+    firstColor = [self colorWithRGB:248 :52 :0 :1];
+    secondColor = [self colorWithRGB:244 :2 :23 :1];
+    thirdColor = [self colorWithRGB:251 :92 :0 :1];
+    fourthColor = [self colorWithRGB:255 :144 :0 :1];
+    fithColor = [self colorWithRGB:255 :134 :0 :1];
+    sixthColor = [self colorWithRGB:251 :87 :0 :1];
+    self.colorMuchActivityArray = [@[firstColor, secondColor, thirdColor, fourthColor, fithColor, sixthColor] mutableCopy];
+
     /** color for navigationBar **/
     UINavigationBar *navigationBar = viewController.navigationController.navigationBar;
     [navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];

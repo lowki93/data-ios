@@ -172,10 +172,10 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
     [self.layer addSublayer:gradientMask];
 
-    beginTimeLayer += 0.1;
+    beginTimeLayer += 0.07;
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     [animation setBeginTime: CACurrentMediaTime() + beginTimeLayer];
-    [animation setDuration: 0.5];
+    [animation setDuration: 0.3];
     [animation setFromValue: [NSNumber numberWithFloat:0.0f]];
     [animation setToValue: [NSNumber numberWithFloat:1.0f]];
     [animation setRemovedOnCompletion: NO];
@@ -271,7 +271,8 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
     [button setFrame:CGRectMake(newCenter.x - radius/ 2, newCenter.y - radius / 2, radius, radius)];
     [button setClipsToBounds:YES];
-    [button setBackgroundColor:[UIColor redColor]];
+
+    [button setBackgroundColor:[baseView.colorMuchActivityArray objectAtIndex:index / 4]];
     [button.layer setCornerRadius:radius/2.f];
     [button setAlpha:0];
 
@@ -283,7 +284,7 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
     } completion:nil];
 
-    self.delay += 0.1;
+    self.delay += 0.07;
 }
 
 - (void)generateDataAfterSynchro:(Day *)currentDay {

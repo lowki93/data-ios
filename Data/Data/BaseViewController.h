@@ -19,6 +19,9 @@
 @property(retain, nonatomic) UIColor *circlegeolocColor;
 @property(retain, nonatomic) UIColor *greyTimeLineColor;
 @property(retain, nonatomic) UIColor *blackTimeLineColor;
+@property(nonatomic) NSMutableArray *colorLittleActivityArray;
+@property(nonatomic) NSMutableArray *colorInitialColorArray;
+@property(nonatomic) NSMutableArray *colorMuchActivityArray;
 
 - (void)initView:(UIViewController *)viewController;
 - (UIColor *)colorWithRGB:(float)red :(float)green :(float)blue :(float)alpha;
