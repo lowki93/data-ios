@@ -17,6 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+
     // Override point for customization after application launch.
     if([[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"] != nil) {
         NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
