@@ -42,10 +42,10 @@ NSDictionary *dictionnary;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
-    dataViewHeight = self.view.bounds.size.height * 0.30;
+    dataViewHeight = self.view.bounds.size.height * 0.33;
 
     UIView *contentView = [[UIView alloc] init];
-    [contentView setFrame:CGRectMake(0, dataViewHeight, self.view.bounds.size.width, self.view.bounds.size.height * 0.70)];
+    [contentView setFrame:CGRectMake(0, dataViewHeight, self.view.bounds.size.width, self.view.bounds.size.height * 0.67)];
     [contentView setBackgroundColor:[baseView colorWithRGB:243 :243 :243 :1]];
     [self.view addSubview:contentView];
 
@@ -58,7 +58,7 @@ NSDictionary *dictionnary;
     [self updateLabel];
 
     [self.hourLabel setText:@"6:00 PM"];
-    [self.verticalLabelConstraint setConstant:(self.view.bounds.size.height * 0.61)];
+    [self.verticalLabelConstraint setConstant:(self.view.bounds.size.height * 0.655)];
     [self.view addSubview:self.hourLabel];
 
     NSString *pathJson = [[NSBundle mainBundle] pathForResource:@"tutorialExperience" ofType:@"json"];

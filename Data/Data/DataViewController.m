@@ -74,21 +74,21 @@ float durationLabel;
                                                  toDate:endDate
                                                 options:0];
 
-    nbDay = (int)components.day;
+    nbDay = (int)components.day + 1;
     indexDay = 0;
     margin = 50;
     firstScale = 0.8;
     secondScale = 0.5;
     upScale = 1.5;
-    positionTop = self.view.bounds.size.height * 0.30;
-    heigtViewDetail = self.view.bounds.size.height * 0.70;
+    positionTop = self.view.bounds.size.height * 0.33;
+    heigtViewDetail = self.view.bounds.size.height * 0.67;
     transition = 20;
     translationDate = 20;
     transitionBack = 50;
 
     durationLabel = 0.4;
 
-    [self.topConstraint setConstant:self.view.bounds.size.height * 0.10];
+//    [self.topConstraint setConstant:self.view.bounds.size.height * 0.10];
     dateArray = [[NSMutableArray alloc] init];
     dataViewArray = [[NSMutableArray alloc] init];
 
