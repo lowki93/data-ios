@@ -18,6 +18,7 @@ UIViewController *dataViewController;
 float heightContentView, scale, beginTimeLayer;
 CGPoint centerCircle;
 CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
+int indexData;
 
 - (void)initView:(UIViewController *)viewController {
 
@@ -38,6 +39,7 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
     baseView = [[BaseViewController alloc] init];
     [baseView initView:baseView];
 
+    indexData = 0;
     scale = 1.5;
     heightContentView = self.bounds.size.height;
     centerCircle = CGPointMake(self.bounds.size.width/2, heightContentView/2);
@@ -191,7 +193,8 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
         Day *currentDay = [ApiController sharedInstance].experience.day[indexDay];
 
-        for (int i = 0; i < [currentDay.data count]; i++) {
+//        for (int i = 0; i < [currentDay.data count]; i++) {
+        for (int i = 0; i < 24; i++) {
 
             [self generateData:i Day:currentDay];
 
@@ -207,53 +210,87 @@ CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle
 
 - (void)generateData:(int)index Day:(Day *)day {
 
-    Data *currentData = day.data[index];
-
+    float radiusButton = 5;
     NSMutableDictionary *dataDictionnary = [[NSMutableDictionary alloc] init];
 
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date = [dateFormatter dateFromString: currentData.date];
+    if (indexData < [day.data count] && day.data[indexData] != [NSNull null]) {
+        Data *currentData = day.data[indexData];
 
-    NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-    [timeFormat setDateFormat:@"h:mm a"];
-    NSString *dateString = [timeFormat stringFromDate:date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *date = [dateFormatter dateFromString: currentData.date];
 
-    [dataDictionnary setObject:[NSString stringWithFormat:@"%@", dateString] forKey:@"date"];
-    [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.photos count]] forKey:@"photo"];
-    [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.atmosphere count]] forKey:@"geoloc"];
+        NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+        [timeFormat setDateFormat:@"h:mm a"];
+        NSString *dateString = [timeFormat stringFromDate:date];
 
-    float distance = 0.f;
-    for(int i = 0; i < [currentData.atmosphere count]; i ++) {
+        NSDateFormatter *hourFormat = [[NSDateFormatter alloc] init];
+        [hourFormat setDateFormat:@"H"];
+        NSString *hourString = [hourFormat stringFromDate:date];
+//        NSLog(@"index : %i : %i hourString, indexData : %i", index, [hourString intValue], indexData);
 
-       distance += (float)[currentData.atmosphere[i][@"distance"] floatValue] / 1000;
+        int hourInt = [hourString intValue];
+        if(hourInt == 0)
+            hourInt = [hourString intValue] + 1;
 
+        int test = hourInt - 1;
+        int test2 = hourInt + 1;
+        if(index == hourInt || index == test || index == test2 ) {
+            indexData++;
+//            NSLog(@"time : %@, hour : %i, index : %i", date, [hourString intValue], index);
+
+            int totalData = 0;
+
+            [dataDictionnary setObject:[NSString stringWithFormat:@"%@", dateString] forKey:@"date"];
+            [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.photos count]] forKey:@"photo"];
+            [dataDictionnary setObject:[NSNumber numberWithInt:(int)[currentData.atmosphere count]] forKey:@"geoloc"];
+
+            float distance = 0.f;
+            for(int i = 0; i < [currentData.atmosphere count]; i ++) {
+
+                distance += (float)[currentData.atmosphere[i][@"distance"] floatValue] / 1000;
+
+            }
+
+            [dataDictionnary setObject:[NSString stringWithFormat:@"%.2f", distance] forKey:@"distance"];
+
+            totalData = (int)[currentData.photos count] + (int)[currentData.atmosphere count];
+            self.nbPhoto += (int)[currentData.photos count];
+            self.nbGeoloc += (int)[currentData.atmosphere count];
+            self.distance += distance;
+
+            if (totalData < 1)
+                radiusButton = 5;
+            else if (totalData <= 2)
+                radiusButton = 10;
+            else if (totalData <= 3)
+                radiusButton = 15;
+            else if (totalData <= 4)
+                radiusButton = 20;
+            else if (totalData <= 5)
+                radiusButton = 25;
+            else if (totalData >= 6)
+                radiusButton = 25;
+
+            [self.arrayData addObject:dataDictionnary];
+
+        } else {
+
+            [dataDictionnary setObject:[NSString stringWithFormat:@"No Date"] forKey:@"date"];
+            [dataDictionnary setObject:[NSNumber numberWithInt:(int)0] forKey:@"photo"];
+            [dataDictionnary setObject:[NSNumber numberWithInt:(int)0] forKey:@"geoloc"];
+            [dataDictionnary setObject:[NSString stringWithFormat:@"0"] forKey:@"distance"];
+        }
+
+    } else {
+
+        [dataDictionnary setObject:[NSString stringWithFormat:@"No Date"] forKey:@"date"];
+        [dataDictionnary setObject:[NSNumber numberWithInt:(int)0] forKey:@"photo"];
+        [dataDictionnary setObject:[NSNumber numberWithInt:(int)0] forKey:@"geoloc"];
+        [dataDictionnary setObject:[NSString stringWithFormat:@"0"] forKey:@"distance"];
     }
 
-    [dataDictionnary setObject:[NSString stringWithFormat:@"%.2f", distance] forKey:@"distance"];
-
-    int totalData = (int)[currentData.photos count] + (int)[currentData.atmosphere count];
-    float radiusButton;
-
-    if (totalData < 1)
-        radiusButton = 5;
-    else if (totalData <= 2)
-        radiusButton = 10;
-    else if (totalData <= 3)
-        radiusButton = 15;
-    else if (totalData <= 4)
-        radiusButton = 20;
-    else if (totalData <= 5)
-        radiusButton = 25;
-    else if (totalData >= 6)
-        radiusButton = 25;
-
-    self.nbPhoto += (int)[currentData.photos count];
-    self.nbGeoloc += (int)[currentData.atmosphere count];
-    self.distance += distance;
-
-    [self.arrayData addObject:dataDictionnary];
-
+    [self.arrayData insertObject:dataDictionnary atIndex:index];
     [self createButton:index Radius:radiusButton];
 
 }
