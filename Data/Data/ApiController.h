@@ -13,7 +13,7 @@
 #import "Data.h"
 #import "JFRWebSocket.h"
 
-@interface ApiController : NSObject<JFRWebSocketDelegate>
+@interface ApiController : NSObject
 
 @property (nonatomic) NSString *url;
 @property (nonatomic) User *user;
@@ -41,7 +41,7 @@
 - (Data *)GetLastData;
 - (int)getIndexData;
 - (void)updateToken;
-- (void)activeSocket;
+- (JFRWebSocket *)activeSocket:(UIViewController *)viewController;
 - (void)writeDataSocket:(NSString *)string;
 
 @end

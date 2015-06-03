@@ -21,6 +21,7 @@ NSString *idString, *tokenString;
 
 int step, nbStep, translation, translationLoader;
 float duration;
+bool firstGeoloc;
 
 @implementation GeolocViewController
 
@@ -31,12 +32,16 @@ float duration;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
+    NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
+    [[ApiController sharedInstance] setUserLoad:dictionary];
+
     translationLoader =  20;
     [self hideingSynchro];
 
     step = 1;
     duration = 0.5f;
     translation = 75;
+    firstGeoloc = true;
 
     if ([CMPedometer isStepCountingAvailable]) {
 
@@ -91,6 +96,9 @@ float duration;
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
 
+    [self.locationManager stopUpdatingLocation];
+    if(firstGeoloc){
+        firstGeoloc = false;
     NSLog(@"get location");
     [self displayingSynchro];
     CLLocation *location = [locations lastObject];
@@ -124,8 +132,8 @@ float duration;
 
         }
     }];
-    [self.locationManager stopUpdatingLocation];
 
+    }
 }
 
 - (void)sendLocation:(NSMutableDictionary *)myBestLocation {
@@ -158,13 +166,20 @@ float duration;
 
         dictionary = responseObject[@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
-        [self sendDataWithSocket:dictionary];
+        NSDictionary *sokectDictionary = @{
+                                           @"activation": @"geolocation",
+                                           @"token": [ApiController sharedInstance].user.token,
+                                           @"data": dictionary[@"currentData"][@"day"][0][@"data"][0][@"atmosphere"]
+                                           };
+//        NSLog(@"geoloc socket : %@", sokectDictionary);
+        [self sendDataWithSocket:sokectDictionary];
+        NSLog(@"first geoloc done");
         [self performSelector:@selector(stopTrackerGeoloc) withObject:nil afterDelay:5.0f];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
         [self performSelector:@selector(uploadFirstGeoloc:) withObject:[NSArray arrayWithObjects:geolocDictionary, nil] afterDelay:5.0f];
-        
+
     }];
 
 }
@@ -192,8 +207,6 @@ float duration;
             [self queryPedometerDataFromDate:endDate toDate:startDate];
 
         });
-//        [self performSelector:@selector(queryPedometerDataFromDate:toDate:) withObject:[NSArray arrayWithObjects:endDate, startDate, nil] afterDelay:duration +0.3];
-//        [self queryPedometerDataFromDate:endDate toDate:startDate];
 
     } else {
 
@@ -225,7 +238,6 @@ float duration;
                                                [pedometerInformation setObject:[NSNumber numberWithFloat:(distance / 1000 / 1)] forKey:@"vitesse"];
 
                                                [self performSelector:@selector(uploadPodometer) withObject:nil afterDelay:5];
-//                                               [self uploadPodometer];
 
                                            }
                                        });
@@ -245,7 +257,14 @@ float duration;
 
         dictionary = responseObject[@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
-        [self sendDataWithSocket:dictionary];
+        [[ApiController sharedInstance] setUserLoad:dictionary];
+        NSDictionary *sokectDictionary = @{
+                                           @"activation": @"pedometer",
+                                           @"token": [ApiController sharedInstance].user.token,
+                                           @"data": pedometerInformation
+                                           };
+//        NSLog(@"pedometer socket : %@", sokectDictionary);
+        [self sendDataWithSocket:sokectDictionary];
         [self hideingSynchro];
         step++;
         [self hideSynchroLabel];
@@ -270,7 +289,7 @@ float duration;
     // ALAssetsGroupLibrary , ALAssetsGroupSavedPhotos
 
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-//        [self displayingSynchro];
+        [self displayingSynchro];
         [group setAssetsFilter:[ALAssetsFilter allPhotos]];
 
         NSMutableArray *inputPaths = [NSMutableArray new];
@@ -341,7 +360,13 @@ float duration;
                                                                      options:NSJSONReadingMutableContainers
                                                                        error:&error];
                         [[ApiController sharedInstance] setUserLoad:dictionary[@"user"]];
-                        [self sendDataWithSocket:dictionary[@"user"]];
+                        NSDictionary *sokectDictionary = @{
+                                                           @"activation": @"photos",
+                                                           @"token": [ApiController sharedInstance].user.token,
+                                                           @"data": dictionary[@"user"][@"currentData"][@"day"][0][@"data"][0][@"photos"]
+                                                           };
+//                        NSLog(@"photo socket : %@", sokectDictionary);
+                        [self sendDataWithSocket:sokectDictionary];
                         [self selectDay];
 
                     } else {
@@ -469,13 +494,15 @@ float duration;
 
 - (void)sendDataWithSocket:(NSDictionary *)dictionary {
 
-//    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
-//    NSLog(@"%@",dictionary);
     NSData* myData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:NULL];
     NSString *jsonString = [[NSString alloc] initWithData:myData encoding:NSUTF8StringEncoding];
-//    NSString *dataString = [NSString stringWithFormat:@"%@", dictionary];
+
     [[ApiController sharedInstance] writeDataSocket:jsonString];
 
+}
+
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    return NO;
 }
 
 @end

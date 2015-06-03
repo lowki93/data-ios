@@ -9,6 +9,7 @@
 #import "PairingViewController.h"
 #import "BaseViewController.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "GeolocViewController.h"
 
 @interface PairingViewController ()
 
@@ -22,7 +23,6 @@ float duration;
 @implementation PairingViewController
 
 - (void)viewDidLoad {
-    NSLog(@"parring view");
 
     [super viewDidLoad];
 
@@ -42,7 +42,7 @@ float duration;
 
     }
 
-    [[ApiController sharedInstance] activeSocket];
+    self.socket = [[ApiController sharedInstance] activeSocket:self];
 //    [baseView loadLoader:self.loaderImageView View:self.view];
 //    NSArray *extraArgs = [[NSArray alloc] initWithObjects:self.loaderImageView, self.view, nil];
     [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage) toTarget:self withObject:nil];
@@ -100,34 +100,7 @@ float duration;
 
 - (IBAction)action:(id)sender {
 
-    if ([ApiController sharedInstance].experience != nil) {
-
-        /** loader **/
-        [self animatedView:self.loaderImageView Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
-
-        /** title animation **/
-        [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
-
-        /** content animation **/
-        [self animatedView:self.informationParringLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
-        [self animatedView:self.waitingLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
-
-        /** line animation **/
-        [self animatedView:self.lineView Duration:0 Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
-
-        /** button bottom animation **/
-        [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
-        [self animatedView:self.continueButton Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
-
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-
-            [self performSegueWithIdentifier:@"parring_success" sender:self];
-        
-        });
-
-    }
-
+    [self pairringIsDone];
 }
 
 - (void)createExperience {
@@ -173,11 +146,58 @@ float duration;
     
 }
 
+- (void)websocket:(JFRWebSocket*)socket didReceiveMessage:(NSString*)string {
+
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+
+    dispatch_async(dispatch_get_main_queue(),^{
+        if(jsonDictionary[@"pairing"]) {
+            [self performSelector:@selector(pairringIsDone) withObject:nil afterDelay:3.f];
+        }
+    });
+}
+
+- (void)pairringIsDone {
+
+    if ([ApiController sharedInstance].experience != nil) {
+        /** loader **/
+        [self animatedView:self.loaderImageView Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+
+        /** title animation **/
+        [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+
+        /** content animation **/
+        [self animatedView:self.informationParringLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+        [self animatedView:self.waitingLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+
+        /** line animation **/
+        [self animatedView:self.lineView Duration:0 Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+
+        /** button bottom animation **/
+        [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+        [self animatedView:self.continueButton Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * 3));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+            [self performSegueWithIdentifier:@"parring_success" sender:self];
+            
+        });
+        
+    }
+
+}
+
 - (void) addTutorialAnimationImage {
     
     [self.view addSubview:self.loaderImageView];
     [self.loaderImageView startAnimating];
     
+}
+
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    return NO;
 }
 
 @end

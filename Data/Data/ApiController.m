@@ -11,6 +11,7 @@
 #import "Day.h"
 #import "Data.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "PairingViewController.h"
 
 @implementation ApiController
 
@@ -180,12 +181,27 @@
 
 }
 
-- (void)activeSocket {
-
+- (JFRWebSocket *)activeSocket:(UIViewController *)viewController {
+    // http://172.18.34.183 //http://data.vm:9090
     self.socket = [[JFRWebSocket alloc] initWithURL:[NSURL URLWithString:@"http://data.vm:9090"] protocols:@[@"chat",@"superchat"]];
-    [self.socket setDelegate: self];
+
+    if([viewController isKindOfClass:[PairingViewController class]]) {
+        PairingViewController *currentViewController = (PairingViewController *)viewController;
+        [self.socket setDelegate: currentViewController];
+    }
     [self.socket connect];
 
+    NSDictionary *dictionary = @{
+                                 @"type": @"mobile",
+                                 @"token": self.user.token
+                                 };
+
+    NSData* myData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:NULL];
+    NSString *jsonString = [[NSString alloc] initWithData:myData encoding:NSUTF8StringEncoding];
+
+    [self writeDataSocket:jsonString];
+
+    return self.socket;
 }
 
 - (void)websocketDidConnect:(JFRWebSocket*)socket {
@@ -194,13 +210,6 @@
 
 - (void)websocketDidDisconnect:(JFRWebSocket*)socket error:(NSError*)error {
     NSLog(@"websocket is disconnected: %@",[error localizedDescription]);
-}
-
--(void)websocket:(JFRWebSocket*)socket didReceiveMessage:(NSString*)string {
-    NSLog(@"got some text: %@",string);
-    dispatch_async(dispatch_get_main_queue(),^{
-        //do some UI work
-    });
 }
 
 - (void)writeDataSocket:(NSString *)string {
