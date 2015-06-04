@@ -198,7 +198,7 @@ bool firstGeoloc;
         [self showSynchroLabel];
         NSDate *now = [[NSDate alloc] init];
         NSDate *startDate = now;
-        NSDate *endDate = [startDate dateByAddingTimeInterval:-(1. * 1 * 3600)];
+        NSDate *endDate = [startDate dateByAddingTimeInterval:-(24 * 1 * 3600)];
 
         double delayInSeconds = duration;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
