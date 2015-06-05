@@ -140,6 +140,7 @@
 		1756E5011AD5F8B8006CA988 /* Day.m in Sources */ = {isa = PBXBuildFile; fileRef = 1756E5001AD5F8B8006CA988 /* Day.m */; };
 		176476791AF6D401007657DB /* DataInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 176476781AF6D401007657DB /* DataInformationView.m */; };
 		176AF5031B21A400000235AF /* LoaderImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 176AF5021B21A400000235AF /* LoaderImageView.m */; };
+		176AF5071B21CAF0000235AF /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 176AF5061B21CAF0000235AF /* CustomButton.m */; };
 		177138D41AADFA01002AFEF0 /* ApiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 177138D31AADFA01002AFEF0 /* ApiController.m */; };
 		1771BF001AF27A8F000D4D89 /* PairingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BEFF1AF27A8F000D4D89 /* PairingViewController.m */; };
 		1771BF031AF2820E000D4D89 /* GeolocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BF021AF2820E000D4D89 /* GeolocViewController.m */; };
@@ -382,6 +383,8 @@
 		176476781AF6D401007657DB /* DataInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInformationView.m; sourceTree = "<group>"; };
 		176AF5011B21A400000235AF /* LoaderImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoaderImageView.h; sourceTree = "<group>"; };
 		176AF5021B21A400000235AF /* LoaderImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderImageView.m; sourceTree = "<group>"; };
+		176AF5051B21CAF0000235AF /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
+		176AF5061B21CAF0000235AF /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		177138D01AADF9B3002AFEF0 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		177138D21AADFA01002AFEF0 /* ApiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiController.h; sourceTree = "<group>"; };
 		177138D31AADFA01002AFEF0 /* ApiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiController.m; sourceTree = "<group>"; };
@@ -713,6 +716,15 @@
 			name = UIImageView;
 			sourceTree = "<group>";
 		};
+		176AF5041B21CAC3000235AF /* UIButton */ = {
+			isa = PBXGroup;
+			children = (
+				176AF5051B21CAF0000235AF /* CustomButton.h */,
+				176AF5061B21CAF0000235AF /* CustomButton.m */,
+			);
+			name = UIButton;
+			sourceTree = "<group>";
+		};
 		177138D11AADF9E1002AFEF0 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -749,6 +761,7 @@
 		17CF527A1AA5F8F6001C7E65 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				176AF5041B21CAC3000235AF /* UIButton */,
 				176AF5001B21A3E0000235AF /* UIImageView */,
 				176AF4FF1B218CF7000235AF /* UIPageControl */,
 				173F4B9D1B0E2AF0000D70DB /* Animation */,
@@ -1345,6 +1358,7 @@
 				170135F11B09C98700B10C42 /* CustomSegue.m in Sources */,
 				179883191B1B869A002F64EA /* TutorialPullUpView.m in Sources */,
 				A81789451ABC1D34004319BA /* ioapi.c in Sources */,
+				176AF5071B21CAF0000235AF /* CustomButton.m in Sources */,
 				17A8C6EC1B20B6BF005E9E8F /* customPageControl.m in Sources */,
 				A81789491ABC1D34004319BA /* SSZipArchive.m in Sources */,
 				1737EFA01ADFF296002E4811 /* TimeLineView.m in Sources */,

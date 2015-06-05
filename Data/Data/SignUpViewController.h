@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomButton.h"
 
 @interface SignUpViewController : UIViewController
 
@@ -14,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *mailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmationPasswordTextField;
-@property (weak, nonatomic) IBOutlet UIButton *sigupButton;
+@property (weak, nonatomic) IBOutlet CustomButton *sigupButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *informationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;

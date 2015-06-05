@@ -36,7 +36,7 @@ NSDictionary *dictionnary;
     duration = 0.5;
     indexTutorial = 0;
 
-    titleArray = [@[@"Hours 1/4", @"Captation 2/4", @"Hours data 3/4", @"Daily data 4/4", @""] mutableCopy ];
+    titleArray = [@[@"Hours", @"Captation", @"Hours data", @"Daily data", @""] mutableCopy ];
     subTitleTutorial = [@[@"chaque point correspond\nà une heure de la journée", @"le point centrale t’indique\nque l’application capte des ddonnées", @"TAPE SUR UNE HEURE POUR\nVOIR LES DONNÉES RÉCOLTÉES", @"TAPE SUR UNE HEURE POUR\nVOIR LES DONNÉES RÉCOLTÉES", @""] mutableCopy ];
 
     baseView = [[BaseViewController alloc] init];

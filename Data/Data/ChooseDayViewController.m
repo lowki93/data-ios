@@ -35,12 +35,7 @@ float labelWidth, firstMargin, duration;
 
     [baseView addLineHeight:1.4 Label:self.informationLabel];
 
-    [[self.validateButton layer] setBorderWidth:1.0f];
-    [[self.validateButton layer] setBorderColor:baseView.purpleColor.CGColor];
-    [[self.validateButton layer] setCornerRadius:25];
-    [self.validateButton addTarget:self action:@selector(unhighlightBorder) forControlEvents:UIControlEventTouchUpInside];
-    [self.validateButton addTarget:self action:@selector(highlightBorder) forControlEvents:UIControlEventTouchDown];
-    [self.validateButton setClipsToBounds:YES];
+    [self.validateButton initButton];
 
     nbDayTime = 14;
     labelWidth = self.view.bounds.size.width / 4;

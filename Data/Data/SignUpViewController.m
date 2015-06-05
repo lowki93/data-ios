@@ -30,12 +30,7 @@ float duration;
     translation = 20;
     duration = 0.55f;
 
-    [[self.sigupButton layer] setBorderWidth:1.0f];
-    [[self.sigupButton layer] setBorderColor:baseView.purpleColor.CGColor];
-    [[self.sigupButton layer] setCornerRadius:25];
-    [self.sigupButton addTarget:self action:@selector(unhighlightBorder) forControlEvents:UIControlEventTouchUpInside];
-    [self.sigupButton addTarget:self action:@selector(highlightBorder) forControlEvents:UIControlEventTouchDown];
-    [self.sigupButton setClipsToBounds:YES];
+    [self.sigupButton initButton];
 
     /** title animation **/
     [self animatedView:self.titleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];

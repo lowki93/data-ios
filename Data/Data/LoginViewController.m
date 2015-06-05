@@ -31,12 +31,7 @@ float duration;
     translation = 20;
     duration = 0.55f;
     
-    [[self.loginButton layer] setBorderWidth:1.0f];
-    [[self.loginButton layer] setBorderColor:[baseView colorWithRGB:157 :157 :157 :1].CGColor];
-    [[self.loginButton layer] setCornerRadius:25];
-    [self.loginButton addTarget:self action:@selector(unhighlightBorder) forControlEvents:UIControlEventTouchUpInside];
-    [self.loginButton addTarget:self action:@selector(highlightBorder) forControlEvents:UIControlEventTouchDown];
-    [self.loginButton setClipsToBounds:YES];
+    [self.loginButton initButton];
 
     /** title animation **/
     [self animatedView:self.titleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
@@ -71,18 +66,6 @@ float duration;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)highlightBorder {
-
-    [[self.loginButton layer] setBorderColor:[[baseView colorWithRGB:26 :26 :26 :1] CGColor]];
-
-}
-
-- (void)unhighlightBorder {
-
-    [[self.loginButton layer] setBorderColor:[[baseView colorWithRGB:157 :157 :157 :1] CGColor]];
-
 }
 
 - (IBAction)signinClicked:(id)sender {

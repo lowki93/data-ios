@@ -72,7 +72,7 @@
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJ9-7X-ThZ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJ9-7X-ThZ" customClass="CustomButton">
                                 <rect key="frame" x="200" y="335" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="7oZ-fU-IEP"/>
@@ -669,7 +669,7 @@ de l’experience</string>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tul-Uz-Zfr">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tul-Uz-Zfr" customClass="CustomButton">
                                 <rect key="frame" x="200" y="460" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="B6M-KM-p90"/>
@@ -816,7 +816,7 @@ de l’experience</string>
                                     <action selector="loginAction:" destination="av7-GA-iJ7" eventType="touchUpInside" id="fbc-Ea-BkJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Bz-6C-SQS">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Bz-6C-SQS" customClass="CustomButton">
                                 <rect key="frame" x="200" y="425" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="YNL-CR-tvG"/>
@@ -998,9 +998,9 @@ de l’experience</string>
         <image name="logo" width="281" height="125"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9tC-A9-S5v"/>
-        <segue reference="Ewf-ih-IQW"/>
-        <segue reference="XsT-MJ-dYz"/>
+        <segue reference="vV7-CA-ZTr"/>
+        <segue reference="0kN-7n-njY"/>
+        <segue reference="Nbz-yN-fpI"/>
         <segue reference="hlu-9W-lsx"/>
     </inferredMetricsTieBreakers>
 </document>
