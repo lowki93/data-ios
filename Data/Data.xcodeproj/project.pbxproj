@@ -143,6 +143,7 @@
 		1771BF001AF27A8F000D4D89 /* PairingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BEFF1AF27A8F000D4D89 /* PairingViewController.m */; };
 		1771BF031AF2820E000D4D89 /* GeolocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BF021AF2820E000D4D89 /* GeolocViewController.m */; };
 		179883191B1B869A002F64EA /* TutorialPullUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 179883181B1B869A002F64EA /* TutorialPullUpView.m */; };
+		17A8C6EC1B20B6BF005E9E8F /* customPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A8C6EB1B20B6BF005E9E8F /* customPageControl.m */; };
 		17AFE6831AF6C15200CDD08F /* DataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AFE6821AF6C15200CDD08F /* DataView.m */; };
 		17BF33F21B147B50009B6190 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BF33F11B147B50009B6190 /* TutorialViewController.m */; };
 		17BF33F41B167D43009B6190 /* tutorialExperience.json in Resources */ = {isa = PBXBuildFile; fileRef = 17BF33F31B167D43009B6190 /* tutorialExperience.json */; };
@@ -387,6 +388,8 @@
 		1771BF021AF2820E000D4D89 /* GeolocViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeolocViewController.m; sourceTree = "<group>"; };
 		179883171B1B869A002F64EA /* TutorialPullUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialPullUpView.h; sourceTree = "<group>"; };
 		179883181B1B869A002F64EA /* TutorialPullUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialPullUpView.m; sourceTree = "<group>"; };
+		17A8C6EA1B20B6BF005E9E8F /* customPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = customPageControl.h; sourceTree = "<group>"; };
+		17A8C6EB1B20B6BF005E9E8F /* customPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = customPageControl.m; sourceTree = "<group>"; };
 		17AFE6811AF6C15200CDD08F /* DataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataView.h; sourceTree = "<group>"; };
 		17AFE6821AF6C15200CDD08F /* DataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataView.m; sourceTree = "<group>"; };
 		17BF33F01B147B50009B6190 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
@@ -689,6 +692,15 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		176AF4FF1B218CF7000235AF /* UIPageControl */ = {
+			isa = PBXGroup;
+			children = (
+				17A8C6EA1B20B6BF005E9E8F /* customPageControl.h */,
+				17A8C6EB1B20B6BF005E9E8F /* customPageControl.m */,
+			);
+			name = UIPageControl;
+			sourceTree = "<group>";
+		};
 		177138D11AADF9E1002AFEF0 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -725,6 +737,7 @@
 		17CF527A1AA5F8F6001C7E65 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				176AF4FF1B218CF7000235AF /* UIPageControl */,
 				173F4B9D1B0E2AF0000D70DB /* Animation */,
 				170135EE1B09C91E00B10C42 /* Segue */,
 				175E664A1AF24D35007CC277 /* View */,
@@ -1318,6 +1331,7 @@
 				170135F11B09C98700B10C42 /* CustomSegue.m in Sources */,
 				179883191B1B869A002F64EA /* TutorialPullUpView.m in Sources */,
 				A81789451ABC1D34004319BA /* ioapi.c in Sources */,
+				17A8C6EC1B20B6BF005E9E8F /* customPageControl.m in Sources */,
 				A81789491ABC1D34004319BA /* SSZipArchive.m in Sources */,
 				1737EFA01ADFF296002E4811 /* TimeLineView.m in Sources */,
 			);

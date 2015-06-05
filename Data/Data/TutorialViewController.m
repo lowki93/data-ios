@@ -73,6 +73,11 @@ NSDictionary *dictionnary;
 
     }
 
+    self.pageControl = [[customPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height * 0.25, self.view.frame.size.width, 37)];
+    [self.pageControl setNumberOfPages:4];
+    [self.pageControl setTransform: CGAffineTransformMakeScale(2, 2)];
+    [self.view addSubview:self.pageControl];
+
     [self.tutorialTimeLineView initView:self];
     [self.tutorialTimeLineView setAlpha:0];
 //    [self.tutorialTimeLineView startAnimation];
@@ -98,7 +103,6 @@ NSDictionary *dictionnary;
     self.informationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(informationData:)];
 
     self.closeInformationGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeInformationData:)];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -112,11 +116,12 @@ NSDictionary *dictionnary;
     [baseView addLineHeight:1.5 Label:self.informationLabel];
 
 }
-
 /** swipe gesture **/
 - (void)swipeLeft:(UISwipeGestureRecognizer *)recognizer {
 
     indexTutorial++;
+    [self.pageControl setCurrentPage:indexTutorial];
+
     if(indexTutorial == 1) {
 
         [self animatedView:self.hourLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translation TranslationY:0];
