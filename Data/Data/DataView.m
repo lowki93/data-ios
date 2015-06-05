@@ -33,6 +33,7 @@ int indexData;
     self.delay = 1;
 
     self.arrayData = [[NSMutableArray alloc] init];
+    self.buttonArray = [[NSMutableArray alloc] init];
 
     dataViewController = viewController;
 
@@ -313,6 +314,7 @@ int indexData;
     [button.layer setCornerRadius:radius/2.f];
     [button setAlpha:0];
 
+    [self.buttonArray addObject:button];
     [self addSubview:button];
 
     [UIView animateWithDuration:0.3 delay:self.delay options:0 animations:^{
@@ -464,6 +466,7 @@ int indexData;
 
     [self addSubview:self.captionImageView];
     [self.captionImageView startAnimating];
+    [self.captionImageView setHidden:NO];
     
 }
 
@@ -574,6 +577,37 @@ int indexData;
 
     }];
 
+}
+
+- (void)hideButton {
+    self.delay = 0;
+    int nbButton = (int)[self.buttonArray count] - 1;
+    for (int i = nbButton; i >= 0; i--) {
+        UIButton *button = [self.buttonArray objectAtIndex:i];
+        [UIView animateWithDuration:0.3 delay:self.delay options:0 animations:^{
+
+            [button setAlpha:0];
+
+        } completion:nil];
+        
+        self.delay += 0.07;
+    }
+    [self performSelector:@selector(createCircle) withObject:nil afterDelay:self.delay];
+}
+
+- (void)showButton {
+    self.delay = 0;
+    int nbButton = (int)[self.buttonArray count];
+    for (int i = 0; i < nbButton; i++) {
+        UIButton *button = [self.buttonArray objectAtIndex:i];
+        [UIView animateWithDuration:0.3 delay:self.delay options:0 animations:^{
+
+            [button setAlpha:1];
+
+        } completion:nil];
+
+        self.delay += 0.07;
+    }
 }
 
 

@@ -447,7 +447,7 @@ your mobile phone with desktop</string>
                                     <action selector="action:" destination="U74-IU-1BD" eventType="touchUpInside" id="aLE-M4-10X"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader" translatesAutoresizingMaskIntoConstraints="NO" id="SaM-aR-YFq">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader" translatesAutoresizingMaskIntoConstraints="NO" id="SaM-aR-YFq" customClass="LoaderImageView">
                                 <rect key="frame" x="225" y="165" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="Kp4-ta-V3L"/>
@@ -580,7 +580,7 @@ des données</string>
                                     </mask>
                                 </variation>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader" translatesAutoresizingMaskIntoConstraints="NO" id="CBd-yb-pH3">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader" translatesAutoresizingMaskIntoConstraints="NO" id="CBd-yb-pH3" customClass="LoaderImageView">
                                 <rect key="frame" x="225" y="200" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="06n-Vb-6D5"/>

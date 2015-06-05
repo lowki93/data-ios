@@ -105,13 +105,11 @@
 
 - (void)loadLoader:(UIImageView *)loaderImageView View:(UIView *)currentView {
 
-    NSLog(@"load loader");
     [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage:View:) toTarget:self withObject:[NSArray arrayWithObjects:loaderImageView, currentView, nil]];
 
 }
 
 - (void)generateTutorialAnimationImage:(UIImageView *)imageView View:(UIView *)view {
-    NSLog(@"load loader 2");
     @autoreleasepool {
 
         NSMutableArray *imageArray = [[NSMutableArray alloc] init];

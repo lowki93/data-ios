@@ -16,7 +16,7 @@
 BaseViewController *baseView;
 DataView *dataView;
 
-UISwipeGestureRecognizer *leftGesture;
+UISwipeGestureRecognizer *leftGesture, *rightGesture;
 UITapGestureRecognizer *closeAllInformationDataGesture;
 
 int translation, indexTutorial, dataCount;
@@ -75,7 +75,7 @@ NSDictionary *dictionnary;
 
     self.pageControl = [[customPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height * 0.25, self.view.frame.size.width, 37)];
     [self.pageControl setNumberOfPages:4];
-    [self.pageControl setTransform: CGAffineTransformMakeScale(2, 2)];
+    [self.pageControl setTransform: CGAffineTransformMakeScale(1.2, 1.2)];
     [self.view addSubview:self.pageControl];
 
     [self.tutorialTimeLineView initView:self];
@@ -96,7 +96,11 @@ NSDictionary *dictionnary;
     /** gesture **/
     leftGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
     [leftGesture setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [self.view addGestureRecognizer:leftGesture];
+
+    rightGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];
+    [rightGesture setDirection:UISwipeGestureRecognizerDirectionRight];
+
+    [self performSelector:@selector(addGesture) withObject:nil afterDelay:2];
 
     closeAllInformationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeAllInformationData:)];
 
@@ -116,9 +120,22 @@ NSDictionary *dictionnary;
     [baseView addLineHeight:1.5 Label:self.informationLabel];
 
 }
+
+- (void)swipeRight:(UISwipeGestureRecognizer *)recognizer {
+    if(indexTutorial > 0) {
+        indexTutorial--;
+        if (indexTutorial == 0) {
+            [dataView hideButton];
+            [dataView.captionImageView setHidden:YES];
+            [self animatedView:self.hourLabel Duration:duration Delay:3 Alpha:1 TranslationX:0 TranslationY:0];
+        }
+    }
+}
+
 /** swipe gesture **/
 - (void)swipeLeft:(UISwipeGestureRecognizer *)recognizer {
 
+    [self removeGesture];
     indexTutorial++;
     [self.pageControl setCurrentPage:indexTutorial];
 
@@ -143,12 +160,17 @@ NSDictionary *dictionnary;
 
         }
         self.tutorialDay = [[Day alloc] initWithDictionary:dictionnary error:nil];
-        dataCount = (int)[self.tutorialDay.data count];
-        for (int i = 0; i < dataCount; i++) {
-            [dataView generateData:i Day:self.tutorialDay];
+        if([dataView.buttonArray count] == 0) {
+            dataCount = (int)[self.tutorialDay.data count];
+            for (int i = 0; i < dataCount; i++) {
+                [dataView generateData:i Day:self.tutorialDay];
+            }
+            [dataView updateAllInformation];
+        } else {
+            [dataView showButton];
         }
-        [dataView updateAllInformation];
         [dataView performSelector:@selector(activeCapta) withObject:nil afterDelay:3];
+        [self performSelector:@selector(addGesture) withObject:nil afterDelay:3];
 
     }
 
@@ -180,6 +202,7 @@ NSDictionary *dictionnary;
         [dataView removeCapta];
         [dataView addActionForButton];
         [dataView writeSelecteButtonView:10];
+        [self addGesture];
 
     }
 
@@ -192,15 +215,15 @@ NSDictionary *dictionnary;
         } completion:^(BOOL finished){
 
             [dataView performSelector:@selector(removeButtonSelector) withObject:nil afterDelay:3.5];
+            [self addGesture];
             
         }];
         [dataView removeActionForButton];
-        
         [self.view addGestureRecognizer:self.informationDataGesture];
     }
 
     if(indexTutorial == 4) {
-        [self.view removeGestureRecognizer:leftGesture];
+        [self removeGesture];
         [self animatedView:self.tutorialTimeLineView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
         [self.tutorialTimeLineView performSelector:@selector(startAnimation) withObject:nil afterDelay:duration * 2];
 
@@ -271,6 +294,16 @@ NSDictionary *dictionnary;
 
     }];
 
+}
+
+- (void)removeGesture {
+    [self.view removeGestureRecognizer:leftGesture];
+    [self.view removeGestureRecognizer:rightGesture];
+}
+
+- (void)addGesture {
+    [self.view addGestureRecognizer:leftGesture];
+    [self.view addGestureRecognizer:rightGesture];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {

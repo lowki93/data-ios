@@ -30,6 +30,7 @@
 @property (nonatomic) float delay;
 @property (nonatomic) CAGradientLayer *gradientLayer;
 @property (nonatomic) NSTimer *timeSelectedButton;
+@property (nonatomic) NSMutableArray *buttonArray;
 
 - (void)initView:(UIViewController *)viewController;
 - (void)drawData:(int)indexDay;
@@ -45,5 +46,7 @@
 - (void)updateAllInformation;
 - (void)writeSelecteButtonView:(int)index;
 - (void)removeButtonSelector;
+- (void)hideButton;
+- (void)showButton;
 
 @end

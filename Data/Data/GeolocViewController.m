@@ -55,6 +55,7 @@ bool firstGeoloc;
 
     idString = [NSString stringWithFormat:@"%@", [ApiController sharedInstance].user._id];
     tokenString = [NSString stringWithFormat:@"%@", [ApiController sharedInstance].user.token];
+    [self.loaderImageView initImageView];
 
     [baseView addLineHeight:1.4 Label:self.synchroniseLabel];
 

@@ -43,9 +43,7 @@ float duration;
     }
 
     self.socket = [[ApiController sharedInstance] activeSocket:self];
-//    [baseView loadLoader:self.loaderImageView View:self.view];
-//    NSArray *extraArgs = [[NSArray alloc] initWithObjects:self.loaderImageView, self.view, nil];
-    [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage) toTarget:self withObject:nil];
+    [self.loaderImageView initImageView];
 
     NSString *informationParingString = [self.informationParringLabel text];
     [self.informationParringLabel setText:[informationParingString uppercaseString]];
@@ -123,29 +121,6 @@ float duration;
 
 }
 
-- (void)generateTutorialAnimationImage {
-
-    @autoreleasepool {
-
-        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
-
-        for( int index = 0; index < 40; index++ ){
-
-            NSString *imageName = [NSString stringWithFormat:@"loader_%i.png", index];
-            [imageArray addObject:[UIImage imageNamed:imageName]];
-
-        };
-
-        [self.loaderImageView setAnimationImages: imageArray];
-        [self.loaderImageView setAnimationDuration: 1.3];
-        [self.loaderImageView setAnimationRepeatCount:0];
-
-        [self performSelectorOnMainThread:@selector(addTutorialAnimationImage) withObject:NULL waitUntilDone:NO];
-
-    }
-    
-}
-
 - (void)websocket:(JFRWebSocket*)socket didReceiveMessage:(NSString*)string {
 
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
@@ -187,13 +162,6 @@ float duration;
         
     }
 
-}
-
-- (void) addTutorialAnimationImage {
-    
-    [self.view addSubview:self.loaderImageView];
-    [self.loaderImageView startAnimating];
-    
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{

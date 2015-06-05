@@ -12,6 +12,7 @@
 @import CoreMotion;
 @import AssetsLibrary;
 #import "SSZipArchive.h"
+#import "LoaderImageView.h"
 
 @interface GeolocViewController : UIViewController <CLLocationManagerDelegate>
 
@@ -23,7 +24,7 @@
 /** pedometer **/
 @property (nonatomic, strong) CMPedometer *pedometer;
 
-@property (weak, nonatomic) IBOutlet UIImageView *loaderImageView;
+@property (weak, nonatomic) IBOutlet LoaderImageView *loaderImageView;
 @property (weak, nonatomic) IBOutlet UILabel *synchroniseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *captaTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stepLabel;

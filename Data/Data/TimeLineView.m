@@ -33,9 +33,10 @@ float radius, ratioCenter;
 
     for (int i = 0; i < self.nbDay; i++) {
         CGFloat theta = ((M_PI * (360.0 / self.nbDay) * i)/ 180) - M_PI_2 + (M_PI_4 * 0 );
-        CGPoint startPoint = CGPointMake(cosf(theta) * radius + self.bounds.size.width / 2, sinf(theta) * radius + self.bounds.size.height * ratioCenter);
-        CGPoint endPoint = CGPointMake(cosf(theta) * (radius + 15) + self.bounds.size.width / 2, sinf(theta) * (radius + 15) + self.bounds.size.height * ratioCenter);
-//        [self drawCircle:newCenter radius:5 endRadius:-M_PI_2 + (M_PI * 2) strokeColor:[UIColor greenColor] fillColor:[UIColor greenColor] withAnimation:NO];
+        CGPoint startPoint = CGPointMake(cosf(theta) * radius + self.bounds.size.width / 2,
+                                         sinf(theta) * radius + self.bounds.size.height * ratioCenter);
+        CGPoint endPoint = CGPointMake(cosf(theta) * (radius + 15) + self.bounds.size.width / 2,
+                                       sinf(theta) * (radius + 15) + self.bounds.size.height * ratioCenter);
 
         UIBezierPath *path = [[UIBezierPath alloc] init];
         [path moveToPoint:CGPointMake(startPoint.x, startPoint.y)];
@@ -51,26 +52,14 @@ float radius, ratioCenter;
     }
 
 
-    [self drawCircle:CGPointMake(self.bounds.size.width / 2, self.bounds.size.height * ratioCenter) radius:radius - 20 endRadius:-M_PI_2 + (M_PI * 2) strokeColor:baseView.greyTimeLineColor fillColor:[UIColor clearColor] withAnimation:YES];
+    [self drawCircle:CGPointMake(self.bounds.size.width / 2, self.bounds.size.height * ratioCenter)
+              radius:radius - 20
+           endRadius:-M_PI_2 + (M_PI * 2)
+         strokeColor:baseView.greyTimeLineColor
+           fillColor:[UIColor clearColor]
+       withAnimation:YES];
 
     [self animatedLayer:endPogressLayer End:(CGFloat)self.indexDay/self.nbDay * 100];
-
-//    for (CAShapeLayer *layer in self.layer.sublayers) {
-//        NSLog(@"layer");
-//        layer.anchorPoint = CGPointMake(.5,.5);
-//        layer.contentsGravity = @"center";
-//
-//        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-//        [animation setFromValue:@1];
-//        [animation setToValue:@1.1];
-//        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-//        [animation setDuration:0.5];
-//        [animation setBeginTime:CACurrentMediaTime()];
-//        [animation setFillMode:kCAFillModeForwards];
-//        [animation setRemovedOnCompletion:NO];
-//        [layer addAnimation:animation forKey:@"scale"];
-//
-//    }
 
 }
 
