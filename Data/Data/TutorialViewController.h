@@ -16,7 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet TutorialPullUpView *tutorialTimeLineView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalLabelConstraint;
-@property (weak, nonatomic) IBOutlet UILabel *hourLabel;;
+@property (weak, nonatomic) IBOutlet UILabel *hourLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tutorialLabel;
 @property (weak, nonatomic) IBOutlet UILabel *informationLabel;
 

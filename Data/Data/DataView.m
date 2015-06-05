@@ -48,7 +48,7 @@ int indexData;
     radiusData = (self.bounds.size.width * 0.8125) / 2;
 
     /** captionImage **/
-    self.captionImageView = [[UIImageView alloc] init];
+    self.captionImageView = [[CaptionImageView alloc] init];
     [self.captionImageView setFrame:CGRectMake((self.bounds.size.width / 2) - radiusData,
                                                (self.bounds.size.height / 2) - radiusData,
                                                radiusData * 2,
@@ -139,12 +139,12 @@ int indexData;
     CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
 
     int width = 54;
-    self.selectedButtonImageView = [[UIImageView alloc] init];
+    self.selectedButtonImageView = [[ClickImageView alloc] init];
     [self.selectedButtonImageView setFrame:CGRectMake(newCenter.x - (width / 2), newCenter.y - (width / 2), width, width)];
     [self.selectedButtonImageView setAlpha:0];
     [self addSubview: self.selectedButtonImageView];
 
-    [NSThread detachNewThreadSelector:@selector(generateClickAnimationImage) toTarget:self withObject:nil];
+    [self.selectedButtonImageView initImageView:self];
 
 }
 
@@ -336,7 +336,7 @@ int indexData;
 - (IBAction)getInfoData:(id)sender {
 
     if (self.selectedButtonImageView) {
-        [self removeButtonSelector];
+        [self.selectedButtonImageView removeButtonSelector];
     }
 
     if (!self.informationViewActive) {
@@ -435,76 +435,8 @@ int indexData;
 
 - (void)activeCapta {
 
-     [NSThread detachNewThreadSelector:@selector(generateCaptionLoaderAnimationImage) toTarget:self withObject:nil];
+    [self.captionImageView initImageView];
 
-}
-
-- (void)generateCaptionLoaderAnimationImage {
-
-    @autoreleasepool {
-
-        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
-
-        for( int index = 0; index < 79; index++ ){
-
-            NSString *imageName = [NSString stringWithFormat:@"captation_%i.png", index];
-            [imageArray addObject:[UIImage imageNamed:imageName]];
-
-        };
-
-        [self.captionImageView setAnimationImages:imageArray];
-        [self.captionImageView setAnimationDuration:4];
-        [self.captionImageView setAnimationRepeatCount:0];
-
-        [self performSelectorOnMainThread:@selector(addTutorialAnimationImage) withObject:NULL waitUntilDone:NO];
-
-    }
-
-}
-
-- (void)addTutorialAnimationImage {
-
-    [self addSubview:self.captionImageView];
-    [self.captionImageView startAnimating];
-    [self.captionImageView setHidden:NO];
-    
-}
-
-- (void)generateClickAnimationImage {
-
-    @autoreleasepool {
-
-        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
-
-        for( int index = 0; index < 38; index++ ){
-
-            NSString *imageName = [NSString stringWithFormat:@"clic_0_%i.png", index];
-            [imageArray addObject:[UIImage imageNamed:imageName]];
-
-        };
-
-        [self.selectedButtonImageView setAnimationImages:imageArray];
-        [self.selectedButtonImageView setAnimationDuration:2];
-        [self.selectedButtonImageView setAnimationRepeatCount:0];
-
-        [self performSelectorOnMainThread:@selector(addClickAnimationImage) withObject:NULL waitUntilDone:NO];
-
-    }
-
-}
-
-- (void)addClickAnimationImage {
-
-    [self addSubview:self.selectedButtonImageView];
-
-    [UIView animateWithDuration:self.informationView.duration  delay:0  options:0 animations:^{
-
-        [self.selectedButtonImageView setAlpha:1];
-
-    } completion:nil];
-    [self.selectedButtonImageView startAnimating];
-    [self performSelector:@selector(removeButtonSelector) withObject:nil afterDelay:3.5];
-    
 }
 
 - (void)removeCapta {
@@ -559,24 +491,6 @@ int indexData;
         }
     }
     
-}
-
-- (void)removeButtonSelector {
-
-    [UIView animateWithDuration:self.informationView.duration  delay:self.informationView.duration-0.2  options:0 animations:^{
-
-        [self.selectedButtonImageView setAlpha:0];
-
-    } completion:^(BOOL finished){
-
-        int width = 100;
-        [self.selectedButtonImageView setFrame:CGRectMake((self.bounds.size.width / 2) - (width / 2),
-                                                     (self.bounds.size.height / 2) - (width / 2),
-                                                     width,
-                                                     width)];
-
-    }];
-
 }
 
 - (void)hideButton {

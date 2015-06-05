@@ -11,6 +11,8 @@
 #import "DataInformationView.h"
 #import "DataViewController.h"
 #import "TutorialViewController.h"
+#import "CaptionImageView.h"
+#import "ClickImageView.h"
 
 @interface DataView : UIView
 
@@ -19,8 +21,8 @@
 @property (nonatomic) UIView *contentData;
 @property (nonatomic) DataInformationView *informationView;
 @property (nonatomic) DataInformationView *allDataView;
-@property (nonatomic) UIImageView *captionImageView;
-@property (nonatomic) UIImageView *selectedButtonImageView;
+@property (nonatomic) CaptionImageView *captionImageView;
+@property (nonatomic) ClickImageView *selectedButtonImageView;
 
 @property (nonatomic) bool informationButton;
 @property (nonatomic) bool informationViewActive;
@@ -45,7 +47,6 @@
 - (void)removeActionForButton;
 - (void)updateAllInformation;
 - (void)writeSelecteButtonView:(int)index;
-- (void)removeButtonSelector;
 - (void)hideButton;
 - (void)showButton;
 

@@ -214,7 +214,7 @@ NSDictionary *dictionnary;
 
         } completion:^(BOOL finished){
 
-            [dataView performSelector:@selector(removeButtonSelector) withObject:nil afterDelay:3.5];
+            [dataView.selectedButtonImageView performSelector:@selector(removeButtonSelector) withObject:nil afterDelay:3.5];
             [self addGesture];
             
         }];

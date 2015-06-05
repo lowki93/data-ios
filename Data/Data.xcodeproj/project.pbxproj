@@ -141,6 +141,8 @@
 		176476791AF6D401007657DB /* DataInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 176476781AF6D401007657DB /* DataInformationView.m */; };
 		176AF5031B21A400000235AF /* LoaderImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 176AF5021B21A400000235AF /* LoaderImageView.m */; };
 		176AF5071B21CAF0000235AF /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 176AF5061B21CAF0000235AF /* CustomButton.m */; };
+		176AF50A1B21CEE7000235AF /* CaptionImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 176AF5091B21CEE7000235AF /* CaptionImageView.m */; };
+		176AF50D1B21D333000235AF /* ClickImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 176AF50C1B21D333000235AF /* ClickImageView.m */; };
 		177138D41AADFA01002AFEF0 /* ApiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 177138D31AADFA01002AFEF0 /* ApiController.m */; };
 		1771BF001AF27A8F000D4D89 /* PairingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BEFF1AF27A8F000D4D89 /* PairingViewController.m */; };
 		1771BF031AF2820E000D4D89 /* GeolocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1771BF021AF2820E000D4D89 /* GeolocViewController.m */; };
@@ -385,6 +387,10 @@
 		176AF5021B21A400000235AF /* LoaderImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderImageView.m; sourceTree = "<group>"; };
 		176AF5051B21CAF0000235AF /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
 		176AF5061B21CAF0000235AF /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
+		176AF5081B21CEE7000235AF /* CaptionImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptionImageView.h; sourceTree = "<group>"; };
+		176AF5091B21CEE7000235AF /* CaptionImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionImageView.m; sourceTree = "<group>"; };
+		176AF50B1B21D333000235AF /* ClickImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickImageView.h; sourceTree = "<group>"; };
+		176AF50C1B21D333000235AF /* ClickImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickImageView.m; sourceTree = "<group>"; };
 		177138D01AADF9B3002AFEF0 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		177138D21AADFA01002AFEF0 /* ApiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiController.h; sourceTree = "<group>"; };
 		177138D31AADFA01002AFEF0 /* ApiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiController.m; sourceTree = "<group>"; };
@@ -712,6 +718,10 @@
 			children = (
 				176AF5011B21A400000235AF /* LoaderImageView.h */,
 				176AF5021B21A400000235AF /* LoaderImageView.m */,
+				176AF5081B21CEE7000235AF /* CaptionImageView.h */,
+				176AF5091B21CEE7000235AF /* CaptionImageView.m */,
+				176AF50B1B21D333000235AF /* ClickImageView.h */,
+				176AF50C1B21D333000235AF /* ClickImageView.m */,
 			);
 			name = UIImageView;
 			sourceTree = "<group>";
@@ -1343,10 +1353,12 @@
 				1771BF031AF2820E000D4D89 /* GeolocViewController.m in Sources */,
 				A89AA8F61ADBEF0F004AC207 /* BaseViewController.m in Sources */,
 				A81789461ABC1D34004319BA /* mztools.c in Sources */,
+				176AF50D1B21D333000235AF /* ClickImageView.m in Sources */,
 				A8DE94341ACEDDCE00EF1EDC /* Data.m in Sources */,
 				17D3A6FF1AADC01400612D0E /* SignUpViewController.m in Sources */,
 				17169B7F1AF22C6D00321300 /* DataViewController.m in Sources */,
 				A8DE94311ACEDA6D00EF1EDC /* Experience.m in Sources */,
+				176AF50A1B21CEE7000235AF /* CaptionImageView.m in Sources */,
 				1756E5011AD5F8B8006CA988 /* Day.m in Sources */,
 				176476791AF6D401007657DB /* DataInformationView.m in Sources */,
 				17BF33F21B147B50009B6190 /* TutorialViewController.m in Sources */,
