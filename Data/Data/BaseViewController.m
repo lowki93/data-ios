@@ -82,24 +82,31 @@
 
 - (void)alertStatus:(NSString *)msg :(NSString *)title
 {
+//    UIAlertView *message = [[UIAlertView alloc] initWithTitle:title
+//                                                      message:msg
+//                                                     delegate:nil
+//                                            cancelButtonTitle:@"OK"
+//                                            otherButtonTitles:nil];
+//
+//    [message show];
     PXAlertView *alert = [PXAlertView showAlertWithTitle:title
                                                  message:msg
-                                             cancelTitle:@"OK"
+                                             cancelTitle:@"Ok"
                                               completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                               }];
 
     /** remove corner radius **/
-    [alert.view.layer.sublayers[1] setBorderWidth:2.f];
-    [alert.view.layer.sublayers[1] setCornerRadius:0];
-    [alert.view.layer.sublayers[1] setBorderColor:self.purpleColor.CGColor];
+//    [alert.view.layer.sublayers[1] setBorderWidth:2.f];
+//    [alert.view.layer.sublayers[1] setCornerRadius:0];
+//    [alert.view.layer.sublayers[1] setBorderColor:self.purpleColor.CGColor];
     [alert setWindowTintColor:[self colorWithRGB:0 :0 :0 :0.5]];
     [alert setBackgroundColor:[self colorWithRGB:255 :255 :255 :1]];
-    [alert setTitleFont:[UIFont fontWithName:@"MaisonNeue-Light" size:15.0f]];
-    [alert setTitleColor:self.purpleColor];
-    [alert setMessageColor:self.grey];
-    [alert setMessageFont:[UIFont fontWithName:@"MaisonNeue-Light" size:15.0f]];
-    [alert setCancelButtonTextColor:self.purpleColor];
-//    [alert setCancelButtonBackgroundColor:[UIColor redColor]];
+    [alert setTitleFont:[UIFont fontWithName:@"MaisonNeue-Medium" size:15.0f]];
+    [alert setTitleColor:[self colorWithRGB:39 :37 :37 :1]];
+    [alert setMessageColor:[self colorWithRGB:166 :168 :170 :1]];
+    [alert setMessageFont:[UIFont fontWithName:@"MaisonNeue-Book" size:15.0f]];
+    [alert setCancelButtonTextColor:[self colorWithRGB:29 :29 :27 :1]];
+    [alert setCancelButtonBackgroundColor:[self colorWithRGB:166 :168 :170 :1]];
 
 }
 

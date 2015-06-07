@@ -929,7 +929,7 @@ de l’experience</string>
                                     <constraint firstAttribute="height" constant="50" id="noj-k7-ktM"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="20"/>
-                                <state key="normal" title="Sign up">
+                                <state key="normal" title="CREATE">
                                     <color key="titleColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -1140,10 +1140,10 @@ de l’experience</string>
         <image name="logo" width="281" height="125"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0kN-7n-njY"/>
+        <segue reference="vV7-CA-ZTr"/>
         <segue reference="t8E-Rs-4gD"/>
-        <segue reference="W96-5B-FU3"/>
-        <segue reference="jyz-2R-Df6"/>
+        <segue reference="0kN-7n-njY"/>
         <segue reference="rhG-0D-VZY"/>
+        <segue reference="jyz-2R-Df6"/>
     </inferredMetricsTieBreakers>
 </document>
