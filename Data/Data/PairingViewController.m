@@ -43,7 +43,6 @@ float duration;
     }
 
     self.socket = [[ApiController sharedInstance] activeSocket:self];
-    [self.loaderImageView initImageView];
 
     NSString *informationParingString = [self.informationParringLabel text];
     [self.informationParringLabel setText:[informationParingString uppercaseString]];

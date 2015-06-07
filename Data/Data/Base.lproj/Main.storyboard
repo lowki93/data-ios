@@ -490,13 +490,16 @@ to reveal</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="iTv-zN-wtx">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRf-h6-cQf">
-                                <rect key="frame" x="240" y="560" width="120" height="20"/>
+                                <rect key="frame" x="229" y="560" width="142" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="LbO-fj-6Nk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="15"/>
-                                <state key="normal" title="Continue without">
+                                <state key="normal" title="CONTINUE WITHOUT">
                                     <color key="titleColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -514,20 +517,20 @@ to reveal</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EYf-xB-WyT">
-                                <rect key="frame" x="20" y="518" width="560" height="1"/>
-                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="100" y="518" width="400" height="1"/>
+                                <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="kEq-iV-Ky8"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0b2-LL-5bn">
-                                <rect key="frame" x="189" y="416" width="223" height="59"/>
+                                <rect key="frame" x="189" y="389" width="223" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="eDM-T6-Jlk"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment>
-                                        <string key="content">Log in form-experience.com
+                                        <string key="content">Log in in-form.io
 with the same account to sync
 your mobile phone with desktop</string>
                                         <attributes>
@@ -553,11 +556,11 @@ your mobile phone with desktop</string>
                                     <action selector="action:" destination="U74-IU-1BD" eventType="touchUpInside" id="aLE-M4-10X"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loader" translatesAutoresizingMaskIntoConstraints="NO" id="SaM-aR-YFq" customClass="LoaderImageView">
-                                <rect key="frame" x="225" y="165" width="150" height="150"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pairring" translatesAutoresizingMaskIntoConstraints="NO" id="SaM-aR-YFq">
+                                <rect key="frame" x="175" y="165" width="250" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="Kp4-ta-V3L"/>
-                                    <constraint firstAttribute="width" constant="150" id="oCn-GS-sZ9"/>
+                                    <constraint firstAttribute="width" constant="250" id="oCn-GS-sZ9"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BW5-Im-l9o">
@@ -569,11 +572,9 @@ your mobile phone with desktop</string>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0c-3p-7VI">
-                                <rect key="frame" x="193" y="355" width="214" height="46"/>
-                                <string key="text">Waiting for desktop 
-to connect</string>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="23"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAITING FOR DESKTOP TO CONNECT" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0c-3p-7VI">
+                                <rect key="frame" x="139" y="355" width="323" height="19"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="19"/>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -581,27 +582,31 @@ to connect</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="SaM-aR-YFq" secondAttribute="centerY" constant="60" id="6hT-cC-Zlr"/>
-                            <constraint firstAttribute="trailing" secondItem="EYf-xB-WyT" secondAttribute="trailing" constant="20" id="Ak6-NV-CNZ"/>
+                            <constraint firstAttribute="trailing" secondItem="EYf-xB-WyT" secondAttribute="trailing" constant="100" id="Ak6-NV-CNZ"/>
                             <constraint firstAttribute="centerX" secondItem="Y0c-3p-7VI" secondAttribute="centerX" id="G9D-pE-Pv7"/>
+                            <constraint firstItem="iTv-zN-wtx" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leading" id="H6c-aT-D2Q"/>
                             <constraint firstAttribute="centerX" secondItem="0b2-LL-5bn" secondAttribute="centerX" id="Ibk-VJ-n5d"/>
-                            <constraint firstAttribute="centerY" secondItem="Y0c-3p-7VI" secondAttribute="centerY" constant="-100" id="Izq-GX-Tdv"/>
                             <constraint firstItem="Apb-vB-NNd" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leadingMargin" id="K1c-CJ-6u6"/>
                             <constraint firstItem="Y0c-3p-7VI" firstAttribute="top" secondItem="SaM-aR-YFq" secondAttribute="bottom" constant="40" id="Mcw-uO-L87"/>
-                            <constraint firstItem="EYf-xB-WyT" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leading" constant="20" id="Q82-P0-DBJ"/>
+                            <constraint firstItem="EYf-xB-WyT" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leading" constant="100" id="Q82-P0-DBJ"/>
                             <constraint firstAttribute="centerX" secondItem="uRf-h6-cQf" secondAttribute="centerX" id="XxH-gK-sCx"/>
+                            <constraint firstItem="SaM-aR-YFq" firstAttribute="top" secondItem="iTv-zN-wtx" secondAttribute="bottom" id="YJF-rk-aex"/>
                             <constraint firstItem="BW5-Im-l9o" firstAttribute="top" secondItem="xGW-t1-n02" secondAttribute="bottom" constant="50" id="cUy-dx-P6s"/>
                             <constraint firstAttribute="centerX" secondItem="Tfe-8l-Tpg" secondAttribute="centerX" id="fWv-uW-LOT"/>
                             <constraint firstAttribute="centerX" secondItem="SaM-aR-YFq" secondAttribute="centerX" id="gOw-pa-GE5"/>
+                            <constraint firstItem="iTv-zN-wtx" firstAttribute="top" secondItem="xGW-t1-n02" secondAttribute="bottom" id="hec-2b-meK"/>
                             <constraint firstItem="uRf-h6-cQf" firstAttribute="top" secondItem="Tfe-8l-Tpg" secondAttribute="bottom" id="kTF-5U-vwB"/>
                             <constraint firstItem="dV9-lH-D7D" firstAttribute="top" secondItem="uRf-h6-cQf" secondAttribute="bottom" constant="20" id="nPq-qq-PrC"/>
                             <constraint firstAttribute="centerX" secondItem="BW5-Im-l9o" secondAttribute="centerX" id="ozA-zK-CYK"/>
                             <constraint firstItem="Apb-vB-NNd" firstAttribute="top" secondItem="xGW-t1-n02" secondAttribute="bottom" id="pKK-f2-qpp"/>
                             <constraint firstItem="0b2-LL-5bn" firstAttribute="top" secondItem="Y0c-3p-7VI" secondAttribute="bottom" constant="15" id="rLL-go-pfH"/>
                             <constraint firstItem="Tfe-8l-Tpg" firstAttribute="top" secondItem="EYf-xB-WyT" secondAttribute="bottom" constant="20" id="s6n-Xo-cNG"/>
+                            <constraint firstItem="dV9-lH-D7D" firstAttribute="top" secondItem="iTv-zN-wtx" secondAttribute="bottom" id="teF-SY-dSg"/>
+                            <constraint firstAttribute="trailing" secondItem="iTv-zN-wtx" secondAttribute="trailing" id="uKI-ac-u1x"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="Izq-GX-Tdv"/>
+                                <exclude reference="YJF-rk-aex"/>
                             </mask>
                         </variation>
                     </view>
@@ -1138,10 +1143,11 @@ de l’experience</string>
         <image name="home_background" width="640" height="1136"/>
         <image name="loader" width="200" height="200"/>
         <image name="logo" width="281" height="125"/>
+        <image name="pairring" width="463" height="189"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vV7-CA-ZTr"/>
-        <segue reference="t8E-Rs-4gD"/>
+        <segue reference="RPU-Ly-yyP"/>
         <segue reference="0kN-7n-njY"/>
         <segue reference="rhG-0D-VZY"/>
         <segue reference="jyz-2R-Df6"/>
