@@ -152,12 +152,7 @@ float duration;
     [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
     [self animatedView:self.signUpButton Duration:duration Delay:0 Alpha:0 Translaton:0];
 
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-
-        [self performSegueWithIdentifier:@"login_signUp" sender:self];
-
-    });
+    [self performSelector:@selector(segueAfterDelay:) withObject:@"login_signUp" afterDelay:duration];
 
 }
 
@@ -175,6 +170,10 @@ float duration;
 
     } completion:nil];
 
+}
+
+- (void)segueAfterDelay:(NSString *)string {
+    [self performSegueWithIdentifier:string sender:self];
 }
 
 @end

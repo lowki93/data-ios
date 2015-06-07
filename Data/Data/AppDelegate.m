@@ -31,6 +31,7 @@
         } else {
             nextController = @"DataViewController";
         }
+        nextController = @"TutorialViewController";
 
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:nextController];
