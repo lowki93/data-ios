@@ -33,6 +33,8 @@ float duration;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
+    [self.groundImageView initImageView];
+
     NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
     [[ApiController sharedInstance] setUserLoad:dictionary];
 
@@ -165,6 +167,16 @@ float duration;
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     return NO;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"parring_success"]) {
+
+        // Get destination view
+        GeolocViewController *vc = [segue destinationViewController];
+        vc.currentGround = self.groundImageView;
+    }
 }
 
 @end

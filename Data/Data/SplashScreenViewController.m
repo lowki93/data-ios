@@ -18,7 +18,7 @@ float duration;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    duration = 4;
+    duration = 3;
      [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage) toTarget:self withObject:nil];
 }
 

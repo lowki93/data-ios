@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JFRWebSocket.h"
+#import "GroundImageView.h"
 
 @interface PairingViewController : UIViewController<JFRWebSocketDelegate>
 
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIView *lineView;
 @property (weak, nonatomic) IBOutlet UIImageView *loaderImageView;
+@property (weak, nonatomic) IBOutlet GroundImageView *groundImageView;
 
 @property(nonatomic) JFRWebSocket *socket;
 

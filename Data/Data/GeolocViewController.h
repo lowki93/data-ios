@@ -13,6 +13,8 @@
 @import AssetsLibrary;
 #import "SSZipArchive.h"
 #import "LoaderImageView.h"
+#import "CustomButton.h"
+#import "GroundImageView.h"
 
 @interface GeolocViewController : UIViewController <CLLocationManagerDelegate>
 
@@ -31,5 +33,15 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *timeScrollView;
 @property (weak, nonatomic) IBOutlet UILabel *learnLabel;
 @property (weak, nonatomic) IBOutlet UIButton *touLabel;
+@property (weak, nonatomic) IBOutlet CustomButton *nextButton;
+@property (weak, nonatomic) IBOutlet UILabel *explainLabel;
+@property (weak, nonatomic) IBOutlet UIView *lineView;
+@property (weak, nonatomic) IBOutlet UIView *titleView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTitleView;
+@property (weak, nonatomic) IBOutlet GroundImageView *groundImageView;
+@property (weak, nonatomic) UIImageView *currentGround;
+
+
+- (IBAction)nextAction:(id)sender;
 
 @end

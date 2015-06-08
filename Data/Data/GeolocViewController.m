@@ -15,13 +15,14 @@
 @end
 
 BaseViewController *baseView;
+NSArray *titleArray, *explainArray;
 NSMutableDictionary *pedometerInformation;
 NSDictionary *dictionary;
 NSString *idString, *tokenString;
 
 int step, nbStep, translation, translationLoader;
 float duration;
-bool firstGeoloc;
+bool firstGeoloc, pedometerIsActive;
 
 @implementation GeolocViewController
 
@@ -38,17 +39,26 @@ bool firstGeoloc;
     translationLoader =  20;
     [self hideingSynchro];
 
+    pedometerIsActive = false,
     step = 1;
     duration = 0.5f;
     translation = 75;
     firstGeoloc = true;
 
+    [self.groundImageView initImageView];
+//    self.groundImageView = self.currentGround;
+
     if ([CMPedometer isStepCountingAvailable]) {
 
+        pedometerIsActive = true;
+        titleArray = [@[@"COEUR", @"GEOLOCATION", @"PEDOMETER", @"PHOTOS", @""] mutableCopy ];
+        explainArray = [@[@"voici le coeur de ton experience\nelle évolura en fonction\nde tes données captée ", @"explain geoloc", @"explain pedometer", @"explain photos ", @""] mutableCopy ];
         nbStep = 4;
 
     } else {
 
+        titleArray = [@[@"COEUR", @"GEOLOCATION", @"PHOTOS", @""] mutableCopy ];
+         explainArray = [@[@"voici le coeur de ton experience\nelle évolura en fonction\nde tes données captée ", @"explain geoloc",@"explain photos ", @""] mutableCopy ];
         nbStep = 3;
 
     }
@@ -59,39 +69,60 @@ bool firstGeoloc;
 
     [baseView addLineHeight:1.4 Label:self.synchroniseLabel];
 
-    [self animatedView:self.stepLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
-    [self animatedView:self.captaTitleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
-    [self animatedView:self.touLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
-    [self animatedView:self.learnLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
-    [self updateStepLabel];
+    NSString *informationParingString2 = [self.learnLabel text];
+    [self.learnLabel setText:[informationParingString2 uppercaseString]];
 
-    double delayInSeconds = 0.1;
+    [baseView addLineHeight:1.4 Label:self.learnLabel];
+
+    [self animatedView:self.captaTitleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.learnLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.lineView Duration:0 Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.titleView Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.nextButton Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.explainLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self updateStepLabel];
+    [self.nextButton initButton];
+
+    double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
-        [self animatedView:self.stepLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
         [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
-        [self animatedView:self.touLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+        [self animatedView:self.titleView Duration:duration Delay:0 Alpha:1 Translaton:0];
+        [self animatedView:self.nextButton Duration:duration Delay:0 Alpha:1 Translaton:0];
+        [self animatedView:self.explainLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
         [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+        [self animatedView:self.lineView Duration:duration Delay:0 Alpha:1 Translaton:0];
 
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.geocoder = [[CLGeocoder alloc] init];
-
-        if ([CLLocationManager locationServicesEnabled] ) {
-
-            [self.locationManager  setDelegate: self];
-            [self.locationManager  setDesiredAccuracy: kCLLocationAccuracyThreeKilometers];
-            [self.locationManager  setDistanceFilter: 9999];
-
-            if ([self.locationManager  respondsToSelector:@selector(requestAlwaysAuthorization)] ) {
-
-                [self.locationManager performSelector:@selector(requestAlwaysAuthorization) withObject:nil afterDelay:duration * 2];
-                
-            }
-            [self.locationManager startUpdatingLocation];
-        }
+        NSDictionary *sokectDictionary = @{
+                                           @"activation": @"heart",
+                                           @"data": @true
+                                           };
+        [self sendDataWithSocket:sokectDictionary];
 
     });
+
+}
+
+- (void)startLocation {
+
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.geocoder = [[CLGeocoder alloc] init];
+
+    if ([CLLocationManager locationServicesEnabled] ) {
+
+        [self.locationManager  setDelegate: self];
+        [self.locationManager  setDesiredAccuracy: kCLLocationAccuracyThreeKilometers];
+        [self.locationManager  setDistanceFilter: 9999];
+
+        if ([self.locationManager  respondsToSelector:@selector(requestAlwaysAuthorization)] ) {
+
+            [self.locationManager performSelector:@selector(requestAlwaysAuthorization) withObject:nil afterDelay:duration * 2];
+
+        }
+        [self.locationManager startUpdatingLocation];
+    }
+
 
 }
 
@@ -172,54 +203,14 @@ bool firstGeoloc;
                                            @"token": [ApiController sharedInstance].user.token,
                                            @"data": dictionary[@"currentData"][@"day"][0][@"data"][0][@"atmosphere"]
                                            };
-//        NSLog(@"geoloc socket : %@", sokectDictionary);
-        [self sendDataWithSocket:sokectDictionary];
         NSLog(@"first geoloc done");
-        [self performSelector:@selector(stopTrackerGeoloc) withObject:nil afterDelay:5.0f];
+        [self performSelector:@selector(sendDataWithSocket:) withObject:sokectDictionary afterDelay:2];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
         [self performSelector:@selector(uploadFirstGeoloc:) withObject:[NSArray arrayWithObjects:geolocDictionary, nil] afterDelay:5.0f];
 
     }];
-
-}
-
-- (void)stopTrackerGeoloc {
-
-    [self hideingSynchro];
-    step++;
-
-    if ([CMPedometer isStepCountingAvailable]) {
-
-        self.pedometer = [[CMPedometer alloc] init];
-        [self hideSynchroLabel];
-        [self.captaTitleLabel setText:@"Pedometer"];
-        [self updateStepLabel];
-        [self showSynchroLabel];
-        NSDate *now = [[NSDate alloc] init];
-        NSDate *startDate = now;
-        NSDate *endDate = [startDate dateByAddingTimeInterval:-(24 * 1 * 3600)];
-
-        double delayInSeconds = duration;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-
-            [self queryPedometerDataFromDate:endDate toDate:startDate];
-
-        });
-
-    } else {
-
-        [self hideSynchroLabel];
-        [self.captaTitleLabel setText:@"Photo"];
-        [self updateStepLabel];
-        [self showSynchroLabel];
-        [self performSelector:@selector(displayingSynchro) withObject:nil afterDelay:duration];
-        [self performSelector:@selector(getPhotos) withObject:nil afterDelay:duration + 0.3];
-
-    }
-
 
 }
 
@@ -264,16 +255,7 @@ bool firstGeoloc;
                                            @"token": [ApiController sharedInstance].user.token,
                                            @"data": pedometerInformation
                                            };
-//        NSLog(@"pedometer socket : %@", sokectDictionary);
-        [self sendDataWithSocket:sokectDictionary];
-        [self hideingSynchro];
-        step++;
-        [self hideSynchroLabel];
-        [self.captaTitleLabel setText:@"Photo"];
-        [self updateStepLabel];
-        [self showSynchroLabel];
-        [self performSelector:@selector(displayingSynchro) withObject:nil afterDelay:duration];
-        [self performSelector:@selector(getPhotos) withObject:nil afterDelay:duration + 0.3];
+         [self performSelector:@selector(sendDataWithSocket:) withObject:sokectDictionary afterDelay:2];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -290,7 +272,7 @@ bool firstGeoloc;
     // ALAssetsGroupLibrary , ALAssetsGroupSavedPhotos
 
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        [self displayingSynchro];
+
         [group setAssetsFilter:[ALAssetsFilter allPhotos]];
 
         NSMutableArray *inputPaths = [NSMutableArray new];
@@ -366,9 +348,8 @@ bool firstGeoloc;
                                                            @"token": [ApiController sharedInstance].user.token,
                                                            @"data": dictionary[@"user"][@"currentData"][@"day"][0][@"data"][0][@"photos"]
                                                            };
-//                        NSLog(@"photo socket : %@", sokectDictionary);
-                        [self sendDataWithSocket:sokectDictionary];
-                        [self selectDay];
+
+                        [self performSelector:@selector(sendDataWithSocket:) withObject:sokectDictionary afterDelay:2];
 
                     } else {
 
@@ -396,7 +377,24 @@ bool firstGeoloc;
 
 - (void)updateStepLabel {
 
- [self.stepLabel setText:[NSString stringWithFormat:@"Step %i / %i", step, nbStep]];
+    [self hideSynchroLabel];
+    [self performSelector:@selector(changeTextLabel) withObject:nil afterDelay:duration];
+    [self showSynchroLabel];
+
+}
+
+- (void)changeTextLabel {
+
+    float widthIs =
+    [[NSString stringWithFormat:@"%i/%i", step, nbStep] boundingRectWithSize:self.captaTitleLabel.frame.size
+                                                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                                                  attributes:@{ NSFontAttributeName:self.captaTitleLabel.font }
+                                                                     context:nil].size.width;
+
+    [self.constraintTitleView setConstant:widthIs + 8];
+    [self.explainLabel setText:[explainArray[step-1] uppercaseString]];
+    [baseView addLineHeight:1.4 Label:self.explainLabel];
+    [self.captaTitleLabel setText:[NSString stringWithFormat:@"%i/%i  %@", step, nbStep, titleArray[step-1]]];
 
 }
 
@@ -436,14 +434,14 @@ bool firstGeoloc;
 
 - (void)selectDay {
 
-    [self hideingSynchro];
-    [self animatedView:self.stepLabel Duration:duration Delay:duration Alpha:0 Translaton:-translation];
-    [self animatedView:self.captaTitleLabel Duration:duration Delay:duration Alpha:0 Translaton:-translation];
-    [self hideingSynchro];
-    [self animatedView:self.touLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
-    [self animatedView:self.learnLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
+    [self animatedView:self.titleView Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.explainLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.nextButton Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.lineView Duration:duration Delay:0 Alpha:0 Translaton:0];
 
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * 2 * NSEC_PER_SEC));
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration - 0.2 * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
         [self performSegueWithIdentifier:@"choose_time" sender:self];
@@ -472,28 +470,36 @@ bool firstGeoloc;
 
 - (void)hideSynchroLabel {
 
-    [self animatedView:self.stepLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
     [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
-    [self animatedView:self.touLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
     [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
-    [self animatedView:self.stepLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
-    [self animatedView:self.captaTitleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
-    [self animatedView:self.touLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
-    [self animatedView:self.learnLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
+    [self animatedView:self.titleView Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.explainLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.nextButton Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.lineView Duration:duration Delay:0 Alpha:0 Translaton:0];
+
+    [self animatedView:self.captaTitleLabel Duration:0 Delay:duration Alpha:0 Translaton:translation];
+    [self animatedView:self.learnLabel Duration:0 Delay:duration Alpha:0 Translaton:translation];
+    [self animatedView:self.titleView Duration:0 Delay:duration Alpha:0 Translaton:translation];
+    [self animatedView:self.explainLabel Duration:0 Delay:duration Alpha:0 Translaton:translation];
+    [self animatedView:self.nextButton Duration:0 Delay:duration Alpha:0 Translaton:translation];
 
 }
 
 - (void)showSynchroLabel {
 
-    [self animatedView:self.stepLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
     [self animatedView:self.captaTitleLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
-    [self animatedView:self.captaTitleLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
-    [self animatedView:self.touLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
-    [self animatedView:self.learnLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.titleView Duration:duration Delay:duration Alpha:1 Translaton:0];
 
 }
 
 - (void)sendDataWithSocket:(NSDictionary *)dictionary {
+
+    [self hideingSynchro];
+    [self performSelector:@selector(hideingSynchro) withObject:nil afterDelay:2];
+    [self animatedView:self.explainLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.lineView Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.nextButton Duration:duration Delay:0 Alpha:1 Translaton:0];
 
     NSData* myData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:NULL];
     NSString *jsonString = [[NSString alloc] initWithData:myData encoding:NSUTF8StringEncoding];
@@ -506,4 +512,50 @@ bool firstGeoloc;
     return NO;
 }
 
+- (IBAction)nextAction:(id)sender {
+
+    step++;
+
+    switch (step) {
+        case 2:
+            [self updateStepLabel];
+            [self performSelector:@selector(startLocation) withObject:nil afterDelay:0.2];
+            break;
+        case 3:
+            [self updateStepLabel];
+            if(pedometerIsActive) {
+                self.pedometer = [[CMPedometer alloc] init];
+                NSDate *now = [[NSDate alloc] init];
+                NSDate *startDate = now;
+                NSDate *endDate = [startDate dateByAddingTimeInterval:-(24 * 1 * 3600)];
+
+                double delayInSeconds = duration;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    
+                    [self queryPedometerDataFromDate:endDate toDate:startDate];
+                    
+                });
+            } else {
+                [self performSelector:@selector(displayingSynchro) withObject:nil afterDelay:duration];
+                [self performSelector:@selector(getPhotos) withObject:nil afterDelay:duration + 0.3];
+            }
+            break;
+        case 4:
+            if(pedometerIsActive) {
+                [self updateStepLabel];
+                [self performSelector:@selector(displayingSynchro) withObject:nil afterDelay:duration];
+                [self performSelector:@selector(getPhotos) withObject:nil afterDelay:duration + 0.3];
+            } else {
+                [self selectDay];
+            }
+            break;
+        case 5:
+            [self selectDay];
+            break;
+        default:
+            break;
+    }
+
+}
 @end

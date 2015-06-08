@@ -82,6 +82,7 @@ int translationX, translationY;
     [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
     [self animatedView:self.signUpButton Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
     [self animatedView:self.loginButton Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
+    [self animatedView:self.backgroundImageView Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
 }
 
 - (void)segueAfterDelay:(NSString *)string {
