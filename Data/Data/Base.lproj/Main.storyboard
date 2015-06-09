@@ -66,7 +66,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_background" translatesAutoresizingMaskIntoConstraints="NO" id="uth-HO-Mgd" customClass="GroundImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.96470588235294119" blue="0.96862745098039216" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="maN-Im-3eU" customClass="CustomButton">
                                 <rect key="frame" x="200" y="450" width="200" height="50"/>
@@ -129,7 +129,7 @@ to reveal</string>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.96862745098039216" blue="0.97254901960784312" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="h5Z-Hq-pJg" firstAttribute="top" secondItem="f8i-4a-bCh" secondAttribute="bottom" constant="30" id="1j8-AD-Xxv"/>
                             <constraint firstItem="uth-HO-Mgd" firstAttribute="top" secondItem="ku6-cp-OqZ" secondAttribute="top" id="FQr-Cg-CEJ"/>

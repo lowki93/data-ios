@@ -35,11 +35,13 @@ int translationX, translationY;
 
     [self.signUpButton initButton];
 
-    [self animatedView:self.backgroundImageView Duration:0 Delay:0 Alpha:0 TranslationX:translationX TranslationY:0];
+    [self animatedView:self.backgroundImageView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
     [self animatedView:self.logoImageView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translationY];
     [self animatedView:self.informationLabel Duration:0 Delay:0 Alpha:0 TranslationX:translationX TranslationY:0];
     [self animatedView:self.loginButton Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translationY];
     [self animatedView:self.signUpButton Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translationY];
+
+    [NSThread detachNewThreadSelector:@selector(generateHomeAnimationImage) toTarget:self withObject:nil];
 
     [self performSelector:@selector(firstAnimation) withObject:nil afterDelay:duration];
 
@@ -53,6 +55,34 @@ int translationX, translationY;
     [self animatedView:self.loginButton Duration:duration Delay:0.3 Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.signUpButton Duration:duration Delay:0.3 Alpha:1 TranslationX:0 TranslationY:0];
 
+}
+
+
+- (void)generateHomeAnimationImage {
+
+    @autoreleasepool {
+
+        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+
+        for( int index = 0; index < 40; index++ ){
+
+            NSString *imageName = [NSString stringWithFormat:@"home_%i_.png", index];
+            [imageArray addObject:[UIImage imageNamed:imageName]];
+
+        };
+
+        [self.backgroundImageView setAnimationImages: imageArray];
+        [self.backgroundImageView setAnimationDuration: 1.3];
+        [self.backgroundImageView setAnimationRepeatCount:0];
+
+        [self performSelectorOnMainThread:@selector(addHomeAnimationImage) withObject:NULL waitUntilDone:NO];
+
+    }
+
+}
+
+- (void) addHomeAnimationImage {
+    [self.backgroundImageView startAnimating];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,11 +123,13 @@ int translationX, translationY;
 }
 
 - (void)segueAfterDelay:(NSString *)string {
+    [self.backgroundImageView initImageView];
     [self.backgroundImageView setContentMode:UIViewContentModeBottom];
+    [self.backgroundImageView stopAnimating];
+    [self.backgroundImageView setAnimationImages:nil];
     [self.backgroundImageView setImage:[UIImage imageNamed:@"background"]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.backgroundImageView setBackgroundColor:[baseView colorWithRGB:242 :247 :248 :1]];
-    [self.backgroundImageView initImageView];
     [self animatedView:self.backgroundImageView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
 
     [self.informationLabel removeFromSuperview];
