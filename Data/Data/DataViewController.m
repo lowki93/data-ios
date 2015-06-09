@@ -262,10 +262,8 @@ float durationLabel;
                                                    userInfo:nil
                                                     repeats:NO];
 
-    for (CLRegion *region in self.locationManager.monitoredRegions) {
-        NSLog(@"remove Region");
-        [self.locationManager stopMonitoringForRegion:region];
-    }
+    [self removeRegion];
+
     [self.locationManager stopUpdatingLocation];
     NSLog(@"update location");
     self.location = [locations lastObject];
@@ -372,6 +370,15 @@ float durationLabel;
 
     [myBestLocation setObject:[NSString stringWithFormat:@"%@", [[ApiController sharedInstance] getDateWithTime]] forKey:@"time"];
     [self writeIntoPlist:myBestLocation];
+
+}
+
+- (void)removeRegion {
+
+    for (CLRegion *region in self.locationManager.monitoredRegions) {
+        NSLog(@"remove Region");
+        [self.locationManager stopMonitoringForRegion:region];
+    }
 
 }
 
@@ -1188,6 +1195,7 @@ float durationLabel;
 /** action button **/
 - (IBAction)logoutAction:(id)sender {
 
+    [self removeRegion];
     NSLog(@"logout");
     [[ApiController sharedInstance] removeUser];
     [self performSegueWithIdentifier:@"logout" sender:self];

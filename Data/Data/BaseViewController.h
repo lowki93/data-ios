@@ -31,6 +31,6 @@
 - (void)generateTutorialAnimationImage:(UIImageView *)imageView View:(UIView *)view;
 - (void)addTutorialAnimationImage:(UIImageView *)imageView View:(UIView *)view;
 - (void)addLineHeight:(CGFloat)lineHeight Label:(UILabel *)label;
-- (void)showModal:(UIViewController *)viewController Identifier:(NSString *)string;
+- (void)showModal:(NSString *)string;
 
 @end

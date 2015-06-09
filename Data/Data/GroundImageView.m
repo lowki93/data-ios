@@ -28,7 +28,7 @@
         };
 
         [self setAnimationImages: imageArray];
-        [self setAnimationDuration: 6];
+        [self setAnimationDuration:5.16];
         [self setAnimationRepeatCount:0];
 
         [self performSelectorOnMainThread:@selector(addGroundAnimationImage) withObject:NULL waitUntilDone:NO];

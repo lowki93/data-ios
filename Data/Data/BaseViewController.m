@@ -159,13 +159,13 @@
 
 }
 
-- (void)showModal:(UIViewController *)viewController Identifier:(NSString *)string {
+- (void)showModal:(NSString *)string {
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController* vc=[storyboard instantiateViewControllerWithIdentifier:string];
-    [vc setModalPresentationStyle:UIModalPresentationOverCurrentContext];
-    [viewController.navigationController setModalPresentationStyle:UIModalPresentationCurrentContext];
-    [viewController presentViewController:vc animated:NO completion:nil];
+    UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:string];
+    UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
+    keyWindow.rootViewController = viewController;
+    [keyWindow makeKeyAndVisible];
 
 }
 

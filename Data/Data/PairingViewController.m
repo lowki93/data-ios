@@ -35,7 +35,7 @@ float duration;
 
     if(self.isSignUp) {
         [self.view setBackgroundColor:[baseView colorWithRGB:0 :0 :0 :0]];
-        [self.groundImageView setAlpha:0];
+        [self.groundImageView removeFromSuperview];
     } else {
         [self.groundImageView initImageView];
     }
@@ -161,26 +161,43 @@ float duration;
         [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
         [self animatedView:self.continueButton Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * 3));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-
-//            [self performSegueWithIdentifier:@"parring_success" sender:self];
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UIViewController* vc=[storyboard instantiateViewControllerWithIdentifier:@"PairingDataViewController"];
-            [vc setModalPresentationStyle:UIModalPresentationOverCurrentContext];
-
-            self.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
-
-            [self presentViewController:vc animated:NO completion:nil];
-
-        });
+        [self performSelector:@selector(excuteSegue) withObject:nil afterDelay:duration];
         
     }
 
 }
 
+- (void)excuteSegue {
+
+    [self.titleLabel removeFromSuperview];
+    [self.waitingLabel removeFromSuperview];
+    [self.informationLabel removeFromSuperview];
+    [self.informationParringLabel removeFromSuperview];
+    [self.continueButton removeFromSuperview];
+    [self.lineView removeFromSuperview];
+    [self.loaderImageView removeFromSuperview];
+//    UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"PairingDataViewController"];
+//    keyWindow.rootViewController = viewController;
+//    [keyWindow makeKeyAndVisible];
+    [self performSegueWithIdentifier:@"parring_success" sender:self];
+//    [baseView showModal:@"PairingDataViewController"];
+    //
+
+}
+
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     return NO;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    if ([[segue identifier] isEqualToString:@"parring_success"]) {
+
+        GeolocViewController *pairingViewController = [segue destinationViewController];
+        pairingViewController.isConnectionPairing = true;
+    }
 }
 
 @end

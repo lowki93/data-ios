@@ -190,9 +190,13 @@ int indexData;
 
 - (void)drawData:(int)indexDay {
 
+    Day *currentDay;
     if(indexDay <= ([[ApiController sharedInstance].experience.day count] - 1)){
 
-        Day *currentDay = [ApiController sharedInstance].experience.day[indexDay];
+        currentDay = [ApiController sharedInstance].experience.day[indexDay];
+    } else {
+        currentDay = nil;
+    }
 
 //        for (int i = 0; i < [currentDay.data count]; i++) {
         for (int i = 0; i < 24; i++) {
@@ -205,7 +209,6 @@ int indexData;
 
         [self updateAllInformation];
 
-    }
 
 }
 

@@ -28,9 +28,9 @@
 
 - (void)loadApi {
     // local
-//    self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
+    self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
     // ip pc test phone
-    self.url = [NSString stringWithFormat:@"http://172.18.33.134:5000/api"];
+//    self.url = [NSString stringWithFormat:@"http://172.18.33.134:5000/api"];
     // prod
 //    self.url = [NSString stringWithFormat:@"http://data-api.kevinbudain.fr/api"];
 

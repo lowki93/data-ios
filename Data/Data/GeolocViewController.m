@@ -376,7 +376,8 @@ bool firstGeoloc, pedometerIsActive;
 
     [self hideSynchroLabel];
     [self performSelector:@selector(changeTextLabel) withObject:nil afterDelay:duration];
-    [self showSynchroLabel];
+//    [self showSynchroLabel];
+    [self performSelector:@selector(showSynchroLabel) withObject:nil afterDelay:duration];
 
 }
 
@@ -438,19 +439,19 @@ bool firstGeoloc, pedometerIsActive;
     [self animatedView:self.nextButton Duration:duration Delay:0 Alpha:0 Translaton:-translation];
     [self animatedView:self.lineView Duration:duration Delay:0 Alpha:0 Translaton:0];
 
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration - 0.2 * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    if(self.isConnectionPairing) {
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration - 0.2 * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
-//        [self performSegueWithIdentifier:@"choose_time" sender:self];
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController* vc=[storyboard instantiateViewControllerWithIdentifier:@"ChooseDayViewController"];
-        [vc setModalPresentationStyle:UIModalPresentationOverCurrentContext];
-
-        self.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
-
-        [self presentViewController:vc animated:NO completion:nil];
-
-    });
+            for(UIView *view in self.view.subviews) {
+                [view removeFromSuperview];
+            }
+            [self performSegueWithIdentifier:@"choose_time" sender:self];
+            
+        });
+    } else {
+        [baseView performSelector:@selector(showModal:) withObject:@"ChooseDayViewController" afterDelay:duration - 2];
+    }
 
 }
 
@@ -475,15 +476,15 @@ bool firstGeoloc, pedometerIsActive;
 - (void)hideSynchroLabel {
 
     [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
-    [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
     [self animatedView:self.titleView Duration:duration Delay:0 Alpha:0 Translaton:-translation];
+    [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
     [self animatedView:self.explainLabel Duration:duration Delay:0 Alpha:0 Translaton:-translation];
     [self animatedView:self.nextButton Duration:duration Delay:0 Alpha:0 Translaton:-translation];
     [self animatedView:self.lineView Duration:duration Delay:0 Alpha:0 Translaton:0];
 
     [self animatedView:self.captaTitleLabel Duration:0 Delay:duration Alpha:0 Translaton:translation];
-    [self animatedView:self.learnLabel Duration:0 Delay:duration Alpha:0 Translaton:translation];
     [self animatedView:self.titleView Duration:0 Delay:duration Alpha:0 Translaton:translation];
+    [self animatedView:self.learnLabel Duration:0 Delay:duration Alpha:0 Translaton:translation];
     [self animatedView:self.explainLabel Duration:0 Delay:duration Alpha:0 Translaton:translation];
     [self animatedView:self.nextButton Duration:0 Delay:duration Alpha:0 Translaton:translation];
 
@@ -491,19 +492,18 @@ bool firstGeoloc, pedometerIsActive;
 
 - (void)showSynchroLabel {
 
-    [self animatedView:self.captaTitleLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
-    [self animatedView:self.titleView Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.titleView Duration:duration Delay:0 Alpha:1 Translaton:0];
 
 }
 
 - (void)sendDataWithSocket:(NSDictionary *)dictionary {
 
     [self hideingSynchro];
-    [self performSelector:@selector(hideingSynchro) withObject:nil afterDelay:2];
-    [self animatedView:self.explainLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
-    [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
-    [self animatedView:self.lineView Duration:duration Delay:0 Alpha:1 Translaton:0];
-    [self animatedView:self.nextButton Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.explainLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.learnLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.lineView Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.nextButton Duration:duration Delay:duration Alpha:1 Translaton:0];
 
     NSData* myData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:NULL];
     NSString *jsonString = [[NSString alloc] initWithData:myData encoding:NSUTF8StringEncoding];
@@ -562,4 +562,5 @@ bool firstGeoloc, pedometerIsActive;
     }
 
 }
+
 @end

@@ -39,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet UIView *titleView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTitleView;
 
+@property (nonatomic) BOOL isConnectionPairing;
+
 - (IBAction)nextAction:(id)sender;
 
 @end

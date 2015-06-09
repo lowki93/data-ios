@@ -110,13 +110,8 @@ float duration;
                 NSDictionary *dictionary = responseObject[@"user"];
                 [[ApiController sharedInstance] setUserLoad:dictionary];
                 [[ApiController sharedInstance] updateToken];
-                [self hideContent];
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){ 
 
-                    [self performSegueWithIdentifier:@"signup_succes" sender:self];
-
-                });
+                [self hideContent:@"signup_succes"];
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -140,17 +135,12 @@ float duration;
 
 - (IBAction)loginAction:(id)sender {
 
-    [self hideContent];
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-
-        [self performSegueWithIdentifier:@"signUp_login" sender:self];
-        
-    });
+//    [self hideContent:@"signUp_login"];
+    [self hideContent:@"LoginViewController"];
 
 }
 
-- (void)hideContent {
+- (void)hideContent:(NSString *)string {
 
     /** title animation **/
     [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
@@ -171,6 +161,22 @@ float duration;
     [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
     [self animatedView:self.loginButton Duration:duration Delay:0 Alpha:0 Translaton:0];
 
+    [self performSelector:@selector(segueAfterDelay:) withObject:string afterDelay:duration];
+
+}
+
+- (void)segueAfterDelay:(NSString *)string {
+    [self.usernameTextField removeFromSuperview];
+    [self.mailTextField removeFromSuperview];
+    [self.passwordTextField removeFromSuperview];
+    [self.confirmationPasswordTextField removeFromSuperview];
+    [self.sigupButton removeFromSuperview];
+    [self.titleLabel removeFromSuperview];
+    [self.informationLabel removeFromSuperview];
+    [self.loginButton removeFromSuperview];
+    [self.lineView removeFromSuperview];
+//    [self performSegueWithIdentifier:string sender:self];
+    [baseView showModal:string];
 }
 
 - (IBAction)backgroundTap:(id)sender {

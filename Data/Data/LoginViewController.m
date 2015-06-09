@@ -32,7 +32,9 @@ float duration;
     duration = 0.55f;
     
     [self.loginButton initButton];
-    
+
+    [self animatedView:self.view Duration:duration Delay:0 Alpha:1 Translaton:0];
+
     /** title animation **/
     [self animatedView:self.titleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
 
@@ -99,15 +101,15 @@ float duration;
                 [[ApiController sharedInstance] updateToken];
                 [self hideContent];
 
-                if(![ApiController sharedInstance].user.isActive) {
+//                if(![ApiController sharedInstance].user.isActive) {
+//                    [self performSelector:@selector(segueAfterDelay:) withObject:@"login_pairing" afterDelay:duration];
+                [self performSelector:@selector(segueAfterDelay:) withObject:@"PairingViewController" afterDelay:duration];
 
-                    [self performSelector:@selector(segueAfterDelay:) withObject:@"login_pairing" afterDelay:duration];
-                    
-                } else {
-
-                    [self performSelector:@selector(segueAfterDelay:) withObject:@"login_succes" afterDelay:duration];
-
-                }
+//                } else {x
+//
+//                    [self performSelector:@selector(segueAfterDelay:) withObject:@"login_succes" afterDelay:duration];
+//
+//                }
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -162,8 +164,8 @@ float duration;
 
     [self hideContent];
 //[self dismissModalViewControllerAnimated:YES];
-    [self performSelector:@selector(segueAfterDelay:) withObject:@"login_signUp" afterDelay:duration];
-//    [self performSelector:@selector(segueAfterDelay:) withObject:@"SignUpViewController" afterDelay:duration];
+//    [self performSelector:@selector(segueAfterDelay:) withObject:@"login_signUp" afterDelay:duration];
+    [self performSelector:@selector(segueAfterDelay:) withObject:@"SignUpViewController" afterDelay:duration];
 
 }
 
@@ -184,16 +186,37 @@ float duration;
 }
 
 - (void)segueAfterDelay:(NSString *)string {
-    [self performSegueWithIdentifier:string sender:self];
-}
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [self.usernameTextField removeFromSuperview];
+    [self.passwordTextField removeFromSuperview];
+    [self.titleLabel removeFromSuperview];
+    [self.forgotPasswordButton removeFromSuperview];
+    [self.loginButton removeFromSuperview];
+    [self.lineView removeFromSuperview];
+    [self.informationLabel removeFromSuperview];
+    [self.signUpButton removeFromSuperview];
+//    [self performSegueWithIdentifier:string sender:self];
+//    [baseView showModal:string];
 
-    if ([[segue identifier] isEqualToString:@"login_pairing"]) {
-
-        PairingViewController *pairingViewController = [segue destinationViewController];
+    if([string  isEqual: @"PairingViewController"]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        PairingViewController *pairingViewController =  [storyboard instantiateViewControllerWithIdentifier:string];
+        UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
         pairingViewController.isSignUp = true;
+        keyWindow.rootViewController = pairingViewController;
+        [keyWindow makeKeyAndVisible];
+    } else {
+        [baseView showModal:string];
     }
 }
+//
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//
+//    if ([[segue identifier] isEqualToString:@"login_pairing"]) {
+//
+//        PairingViewController *pairingViewController = [segue destinationViewController];
+//        pairingViewController.isSignUp = true;
+//    }
+//}
 
 @end
