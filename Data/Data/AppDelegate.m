@@ -25,15 +25,15 @@
         NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
 
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         NSString *nextController;
         if ([ApiController sharedInstance].user.isActive == false ) {
             nextController = @"PairingViewController";
         } else {
             nextController = @"DataViewController";
         }
-        nextController = @"TutorialViewController";
+//        nextController = @"TutorialViewController";
 
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:nextController];
         self.window.rootViewController = viewController;
         [self.window makeKeyAndVisible];

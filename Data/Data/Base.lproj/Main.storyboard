@@ -55,7 +55,7 @@
         <!--Home View Controller-->
         <scene sceneID="fN6-bv-gdP">
             <objects>
-                <viewController storyboardIdentifier="homeViewController" id="LWw-fk-NXN" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeViewController" definesPresentationContext="YES" id="LWw-fk-NXN" customClass="HomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ov4-VT-sMc"/>
                         <viewControllerLayoutGuide type="bottom" id="h5Z-Hq-pJg"/>
@@ -64,9 +64,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_background" translatesAutoresizingMaskIntoConstraints="NO" id="uth-HO-Mgd">
+                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_background" translatesAutoresizingMaskIntoConstraints="NO" id="uth-HO-Mgd" customClass="GroundImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="maN-Im-3eU" customClass="CustomButton">
                                 <rect key="frame" x="200" y="450" width="200" height="50"/>
@@ -153,8 +153,8 @@ to reveal</string>
                         <outlet property="loginButton" destination="f8i-4a-bCh" id="8FY-SJ-m9d"/>
                         <outlet property="logoImageView" destination="IIo-Sz-rAV" id="eXq-AV-pIZ"/>
                         <outlet property="signUpButton" destination="maN-Im-3eU" id="Lc8-Ho-dIO"/>
-                        <segue destination="HVH-gC-8UG" kind="custom" identifier="home_login" customClass="CustomSegue" id="W96-5B-FU3"/>
-                        <segue destination="av7-GA-iJ7" kind="custom" identifier="home_signup" customClass="CustomSegue" id="t8E-Rs-4gD"/>
+                        <segue destination="HVH-gC-8UG" kind="presentation" identifier="home_login" modalPresentationStyle="overCurrentContext" id="W96-5B-FU3"/>
+                        <segue destination="av7-GA-iJ7" kind="presentation" identifier="home_signup" modalPresentationStyle="overCurrentContext" id="t8E-Rs-4gD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUg-MW-grQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -164,7 +164,7 @@ to reveal</string>
         <!--Login View Controller-->
         <scene sceneID="QXU-t6-siN">
             <objects>
-                <viewController id="HVH-gC-8UG" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" modalPresentationStyle="currentContext" id="HVH-gC-8UG" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="E69-xj-ki9"/>
                         <viewControllerLayoutGuide type="bottom" id="38f-VS-w1p"/>
@@ -173,9 +173,6 @@ to reveal</string>
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="amH-7O-LG3">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BtU-BE-aK1">
                                 <rect key="frame" x="247" y="65" width="107" height="50"/>
                                 <constraints>
@@ -285,21 +282,17 @@ to reveal</string>
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="nAj-7c-BHa" firstAttribute="leading" secondItem="9ZL-Q6-4Av" secondAttribute="leading" constant="20" id="03d-2d-ued"/>
-                            <constraint firstItem="38f-VS-w1p" firstAttribute="top" secondItem="amH-7O-LG3" secondAttribute="bottom" id="5b9-G9-JHd"/>
                             <constraint firstItem="21W-v2-eeZ" firstAttribute="leading" secondItem="OE8-ie-q9H" secondAttribute="trailing" constant="8" id="6ML-Oz-PNe"/>
                             <constraint firstItem="OE8-ie-q9H" firstAttribute="top" secondItem="k4V-S9-xwC" secondAttribute="bottom" constant="20" id="73I-Is-oyq"/>
                             <constraint firstAttribute="trailing" secondItem="VH9-Gp-07i" secondAttribute="trailing" constant="20" id="7Hl-EV-PMr"/>
                             <constraint firstAttribute="trailing" secondItem="k4V-S9-xwC" secondAttribute="trailing" constant="100" id="7h4-6d-Mlk"/>
-                            <constraint firstItem="amH-7O-LG3" firstAttribute="leading" secondItem="9ZL-Q6-4Av" secondAttribute="leading" id="8ge-o4-hFO"/>
                             <constraint firstItem="GF2-v9-LwJ" firstAttribute="top" secondItem="pJ9-7X-ThZ" secondAttribute="bottom" constant="20" id="B9I-YW-77A"/>
                             <constraint firstAttribute="centerX" secondItem="BtU-BE-aK1" secondAttribute="centerX" id="BaM-zE-g8r"/>
                             <constraint firstAttribute="centerY" secondItem="nAj-7c-BHa" secondAttribute="centerY" constant="100" id="Bqt-s1-L1a"/>
-                            <constraint firstItem="amH-7O-LG3" firstAttribute="top" secondItem="9ZL-Q6-4Av" secondAttribute="top" id="Pll-gR-OLP"/>
-                            <constraint firstAttribute="trailing" secondItem="amH-7O-LG3" secondAttribute="trailing" id="QXS-ma-7ue"/>
                             <constraint firstItem="38f-VS-w1p" firstAttribute="top" secondItem="OE8-ie-q9H" secondAttribute="bottom" constant="20" id="QoN-MG-RJK"/>
                             <constraint firstItem="BtU-BE-aK1" firstAttribute="top" secondItem="E69-xj-ki9" secondAttribute="bottom" constant="65" id="VUo-6l-kjr"/>
                             <constraint firstAttribute="centerX" secondItem="GF2-v9-LwJ" secondAttribute="centerX" id="WlV-yA-jvG"/>
@@ -329,8 +322,8 @@ to reveal</string>
                         <outlet property="titleLabel" destination="BtU-BE-aK1" id="YEb-72-Tsb"/>
                         <outlet property="usernameTextField" destination="nAj-7c-BHa" id="pJT-Tq-gwF"/>
                         <segue destination="QGs-SJ-cRB" kind="custom" identifier="login_succes" customClass="CustomSegue" id="jyz-2R-Df6"/>
-                        <segue destination="av7-GA-iJ7" kind="custom" identifier="login_signUp" customClass="CustomSegue" id="RPU-Ly-yyP"/>
-                        <segue destination="U74-IU-1BD" kind="custom" identifier="login_pairing" customClass="CustomSegue" id="9tC-A9-S5v"/>
+                        <segue destination="av7-GA-iJ7" kind="presentation" identifier="login_signUp" modalPresentationStyle="overCurrentContext" id="RPU-Ly-yyP"/>
+                        <segue destination="U74-IU-1BD" kind="presentation" identifier="login_pairing" modalPresentationStyle="overFullScreen" id="9tC-A9-S5v"/>
                         <segue destination="H9w-1k-qHc" kind="custom" identifier="login_tutorial" customClass="CustomSegue" id="rhG-0D-VZY"/>
                     </connections>
                 </viewController>
@@ -472,7 +465,7 @@ to reveal</string>
                         <outlet property="synchriButton" destination="axA-9Z-JyO" id="P1S-gd-yok"/>
                         <outlet property="timeLineView" destination="ivx-3O-myV" id="laC-05-wuc"/>
                         <outlet property="topConstraint" destination="RnL-B5-5xI" id="t5a-p0-qrd"/>
-                        <segue destination="HVH-gC-8UG" kind="custom" identifier="logout" customClass="CustomSegue" id="Ewf-ih-IQW"/>
+                        <segue destination="LWw-fk-NXN" kind="custom" identifier="logout" customClass="CustomSegue" id="uM9-3S-LQN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qZ9-4Z-jNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -482,7 +475,7 @@ to reveal</string>
         <!--Pairing View Controller-->
         <scene sceneID="joF-AF-9so">
             <objects>
-                <viewController storyboardIdentifier="PairingViewController" id="U74-IU-1BD" customClass="PairingViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PairingViewController" modalPresentationStyle="currentContext" id="U74-IU-1BD" customClass="PairingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xGW-t1-n02"/>
                         <viewControllerLayoutGuide type="bottom" id="dV9-lH-D7D"/>
@@ -491,8 +484,9 @@ to reveal</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="iTv-zN-wtx" customClass="GroundImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="iTv-zN-wtx" customClass="GroundImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.96862745098039216" blue="0.97254901960784312" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRf-h6-cQf">
                                 <rect key="frame" x="229" y="560" width="142" height="20"/>
@@ -580,7 +574,7 @@ your mobile phone with desktop</string>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="SaM-aR-YFq" secondAttribute="centerY" constant="60" id="6hT-cC-Zlr"/>
                             <constraint firstAttribute="trailing" secondItem="EYf-xB-WyT" secondAttribute="trailing" constant="100" id="Ak6-NV-CNZ"/>
@@ -616,7 +610,7 @@ your mobile phone with desktop</string>
                         <outlet property="loaderImageView" destination="SaM-aR-YFq" id="OjY-6W-LUR"/>
                         <outlet property="titleLabel" destination="BW5-Im-l9o" id="Ru0-70-kZm"/>
                         <outlet property="waitingLabel" destination="Y0c-3p-7VI" id="IxR-de-L4L"/>
-                        <segue destination="uX6-oU-oGn" kind="custom" identifier="parring_success" customClass="CustomSegue" id="CK0-fI-NEL"/>
+                        <segue destination="uX6-oU-oGn" kind="presentation" identifier="parring_success" modalPresentationStyle="overCurrentContext" id="CK0-fI-NEL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Bx-2b-AdO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -626,7 +620,7 @@ your mobile phone with desktop</string>
         <!--Geoloc View Controller-->
         <scene sceneID="ChH-bN-Atd">
             <objects>
-                <viewController id="uX6-oU-oGn" customClass="GeolocViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PairingDataViewController" id="uX6-oU-oGn" customClass="GeolocViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Gqv-VI-agO"/>
                         <viewControllerLayoutGuide type="bottom" id="lIV-gb-H5x"/>
@@ -635,9 +629,6 @@ your mobile phone with desktop</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="VEb-kk-frc" customClass="GroundImageView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/4  COEUR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTs-eG-IFm">
                                 <rect key="frame" x="190" y="65" width="220" height="43"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="42"/>
@@ -649,7 +640,8 @@ your mobile phone with desktop</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="FNF-YD-bjI"/>
                                 </constraints>
-                                <string key="text">We don’t sell your datas, you can choose to delete them from our server at anytime</string>
+                                <string key="text">We don’t sell your datas, you can choose 
+to delete them from our server at anytime</string>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="13"/>
                                 <color key="textColor" red="0.34901960784313724" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -715,23 +707,21 @@ your mobile phone with desktop</string>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cW7-Px-jSl">
                                 <rect key="frame" x="16" y="223" width="568" height="54"/>
-                                <string key="text">voici le coeur de ton experience elle évolura en fonction de tes données captée </string>
+                                <string key="text">voici le coeur de ton experience 
+elle évolura en fonction 
+de tes données captée </string>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="18"/>
                                 <color key="textColor" red="0.34901960784313724" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="cW7-Px-jSl" firstAttribute="leading" secondItem="Zbi-UG-B1g" secondAttribute="leadingMargin" id="54S-T9-i8I"/>
                             <constraint firstAttribute="centerX" secondItem="gK7-18-avS" secondAttribute="centerX" id="DzZ-Nj-ndy"/>
                             <constraint firstItem="rYi-wO-vJi" firstAttribute="top" secondItem="CBd-yb-pH3" secondAttribute="bottom" constant="10" id="ETe-5Y-CSp"/>
-                            <constraint firstAttribute="trailing" secondItem="VEb-kk-frc" secondAttribute="trailing" id="Elh-u1-y6F"/>
                             <constraint firstItem="lIV-gb-H5x" firstAttribute="top" secondItem="tjO-Ri-biX" secondAttribute="bottom" constant="80" id="GQx-oD-3VY"/>
                             <constraint firstAttribute="centerY" secondItem="cW7-Px-jSl" secondAttribute="centerY" constant="50" id="LYh-hq-fLK"/>
-                            <constraint firstItem="lIV-gb-H5x" firstAttribute="top" secondItem="VEb-kk-frc" secondAttribute="bottom" id="NQ4-hb-l88"/>
-                            <constraint firstItem="VEb-kk-frc" firstAttribute="leading" secondItem="Zbi-UG-B1g" secondAttribute="leading" id="UYu-AU-nzW"/>
-                            <constraint firstItem="VEb-kk-frc" firstAttribute="top" secondItem="Gqv-VI-agO" secondAttribute="bottom" id="XRM-uq-Xkv"/>
                             <constraint firstItem="4r6-N6-CqR" firstAttribute="top" secondItem="cW7-Px-jSl" secondAttribute="bottom" constant="80" id="XZd-hE-Xhr"/>
                             <constraint firstAttribute="centerX" secondItem="CBd-yb-pH3" secondAttribute="centerX" id="Zfp-X6-pb6"/>
                             <constraint firstItem="OFe-Zu-adb" firstAttribute="leading" secondItem="DTs-eG-IFm" secondAttribute="leading" constant="73" id="a6X-e8-6TC"/>
@@ -754,14 +744,13 @@ your mobile phone with desktop</string>
                         <outlet property="captaTitleLabel" destination="DTs-eG-IFm" id="1CX-QS-GSf"/>
                         <outlet property="constraintTitleView" destination="a6X-e8-6TC" id="ADJ-KV-XdG"/>
                         <outlet property="explainLabel" destination="cW7-Px-jSl" id="MvC-6f-8QH"/>
-                        <outlet property="groundImageView" destination="VEb-kk-frc" id="c4R-qt-7Z2"/>
                         <outlet property="learnLabel" destination="gK7-18-avS" id="Ia4-44-riQ"/>
                         <outlet property="lineView" destination="tjO-Ri-biX" id="280-Sz-Soe"/>
                         <outlet property="loaderImageView" destination="CBd-yb-pH3" id="gvX-6N-Jv3"/>
                         <outlet property="nextButton" destination="4r6-N6-CqR" id="9m5-uI-aQQ"/>
                         <outlet property="synchroniseLabel" destination="rYi-wO-vJi" id="BS6-dJ-nyS"/>
                         <outlet property="titleView" destination="OFe-Zu-adb" id="XkY-Ip-F1Y"/>
-                        <segue destination="2uX-AE-AY7" kind="custom" identifier="choose_time" customClass="CustomSegue" id="iP6-J7-HbQ"/>
+                        <segue destination="2uX-AE-AY7" kind="presentation" identifier="choose_time" modalPresentationStyle="overCurrentContext" id="iP6-J7-HbQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R2o-DR-HiI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -840,7 +829,7 @@ de l’experience</string>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tul-Uz-Zfr" firstAttribute="top" secondItem="smy-Kx-qZ7" secondAttribute="bottom" constant="10" id="5uQ-gf-pDe"/>
                             <constraint firstAttribute="centerX" secondItem="1du-Pu-DfQ" secondAttribute="centerX" id="6tg-5l-eZA"/>
@@ -874,7 +863,7 @@ de l’experience</string>
         <!--Sign Up View Controller-->
         <scene sceneID="fs8-FH-6ez">
             <objects>
-                <viewController id="av7-GA-iJ7" customClass="SignUpViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpViewController" modalPresentationStyle="currentContext" id="av7-GA-iJ7" customClass="SignUpViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ees-TN-ckW"/>
                         <viewControllerLayoutGuide type="bottom" id="sZh-bd-OQf"/>
@@ -883,9 +872,6 @@ de l’experience</string>
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="TNr-nx-XX2">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="40r-y7-YFh">
                                 <rect key="frame" x="20" y="165" width="560" height="30"/>
                                 <constraints>
@@ -999,24 +985,20 @@ de l’experience</string>
                                 </connections>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="lGE-zM-EUe" firstAttribute="top" secondItem="40r-y7-YFh" secondAttribute="bottom" constant="30" id="1dM-sy-NvR"/>
-                            <constraint firstItem="TNr-nx-XX2" firstAttribute="top" secondItem="cnY-mF-lTW" secondAttribute="top" id="4Qj-OI-BjN"/>
                             <constraint firstItem="lx6-zA-vP2" firstAttribute="centerY" secondItem="6b4-4e-ANi" secondAttribute="centerY" id="7gi-Wy-RwN"/>
                             <constraint firstItem="tpq-KI-7sU" firstAttribute="top" secondItem="lGE-zM-EUe" secondAttribute="bottom" constant="30" id="7xa-cq-yHw"/>
                             <constraint firstAttribute="trailing" secondItem="40r-y7-YFh" secondAttribute="trailing" constant="20" id="9ED-Dl-zuJ"/>
                             <constraint firstItem="6b4-4e-ANi" firstAttribute="leading" secondItem="lx6-zA-vP2" secondAttribute="trailing" constant="8" id="9MS-lT-Wot"/>
-                            <constraint firstItem="sZh-bd-OQf" firstAttribute="top" secondItem="TNr-nx-XX2" secondAttribute="bottom" id="DJ9-xa-0Xf"/>
                             <constraint firstItem="4pH-Nu-BPu" firstAttribute="top" secondItem="Ees-TN-ckW" secondAttribute="bottom" constant="65" id="DgB-Xo-SB4"/>
                             <constraint firstItem="EP1-VL-BhH" firstAttribute="top" secondItem="tpq-KI-7sU" secondAttribute="bottom" constant="30" id="Eed-Q4-aJ1"/>
                             <constraint firstAttribute="centerX" secondItem="4Bz-6C-SQS" secondAttribute="centerX" id="Fxj-aA-dDv"/>
                             <constraint firstItem="4Bz-6C-SQS" firstAttribute="top" secondItem="EP1-VL-BhH" secondAttribute="bottom" constant="50" id="GZz-oR-kRG"/>
                             <constraint firstItem="lGE-zM-EUe" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="Lbd-7b-v22"/>
-                            <constraint firstItem="TNr-nx-XX2" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" id="MRm-bN-C75"/>
                             <constraint firstAttribute="trailing" secondItem="lGE-zM-EUe" secondAttribute="trailing" constant="20" id="Oaf-ma-dkA"/>
-                            <constraint firstAttribute="trailing" secondItem="TNr-nx-XX2" secondAttribute="trailing" id="PvQ-DY-JkS"/>
                             <constraint firstItem="sZh-bd-OQf" firstAttribute="top" secondItem="lx6-zA-vP2" secondAttribute="bottom" constant="20" id="Qcy-4a-cKj"/>
                             <constraint firstItem="tpq-KI-7sU" firstAttribute="leading" secondItem="cnY-mF-lTW" secondAttribute="leading" constant="20" id="Uxv-sn-dMN"/>
                             <constraint firstAttribute="centerY" secondItem="40r-y7-YFh" secondAttribute="centerY" constant="120" id="VcH-xI-v2T"/>
@@ -1048,8 +1030,8 @@ de l’experience</string>
                         <outlet property="sigupButton" destination="4Bz-6C-SQS" id="kmE-LZ-5rr"/>
                         <outlet property="titleLabel" destination="4pH-Nu-BPu" id="3rj-xp-4pG"/>
                         <outlet property="usernameTextField" destination="40r-y7-YFh" id="wyt-c5-KaI"/>
-                        <segue destination="U74-IU-1BD" kind="custom" identifier="signup_succes" customClass="CustomSegue" id="0kN-7n-njY"/>
-                        <segue destination="HVH-gC-8UG" kind="custom" identifier="signUp_login" customClass="CustomSegue" id="vV7-CA-ZTr"/>
+                        <segue destination="U74-IU-1BD" kind="presentation" identifier="signup_succes" modalPresentationStyle="overCurrentContext" id="0kN-7n-njY"/>
+                        <segue destination="HVH-gC-8UG" kind="presentation" identifier="signUp_login" modalPresentationStyle="overCurrentContext" id="vV7-CA-ZTr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xqu-Km-iX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1176,7 +1158,7 @@ de l’experience</string>
         </scene>
     </scenes>
     <resources>
-        <image name="background" width="750" height="1334"/>
+        <image name="background" width="750" height="650"/>
         <image name="home_background" width="640" height="1136"/>
         <image name="loader" width="200" height="200"/>
         <image name="logo" width="281" height="125"/>
@@ -1184,9 +1166,10 @@ de l’experience</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="t8E-Rs-4gD"/>
-        <segue reference="W96-5B-FU3"/>
-        <segue reference="0kN-7n-njY"/>
+        <segue reference="uM9-3S-LQN"/>
         <segue reference="Nbz-yN-fpI"/>
+        <segue reference="0kN-7n-njY"/>
         <segue reference="hlu-9W-lsx"/>
+        <segue reference="W96-5B-FU3"/>
     </inferredMetricsTieBreakers>
 </document>

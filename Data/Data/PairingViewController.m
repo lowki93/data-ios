@@ -33,7 +33,12 @@ float duration;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
-    [self.groundImageView initImageView];
+    if(self.isSignUp) {
+        [self.view setBackgroundColor:[baseView colorWithRGB:0 :0 :0 :0]];
+        [self.groundImageView setAlpha:0];
+    } else {
+        [self.groundImageView initImageView];
+    }
 
     NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
     [[ApiController sharedInstance] setUserLoad:dictionary];
@@ -54,31 +59,33 @@ float duration;
 
     /** title animation **/
     [self animatedView:self.titleLabel Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
-    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
 
     /** content animation **/
     [self animatedView:self.informationParringLabel Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
     [self animatedView:self.waitingLabel Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
 
-    [self animatedView:self.informationParringLabel Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
-    [self animatedView:self.waitingLabel Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
-
     /** line animation **/
     [self animatedView:self.lineView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
-    [self animatedView:self.lineView Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
 
     /** button bottom animation **/
     [self animatedView:self.informationLabel Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
     [self animatedView:self.continueButton Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
 
-    [self animatedView:self.informationLabel Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
-    [self animatedView:self.continueButton Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
-
     /** loader animation **/
     [self animatedView:self.loaderImageView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
-    [self animatedView:self.loaderImageView Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
 
-    
+
+    [self performSelector:@selector(firstAnimation) withObject:nil afterDelay:duration];
+}
+
+- (void)firstAnimation {
+    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
+    [self animatedView:self.informationParringLabel Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
+    [self animatedView:self.waitingLabel Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
+    [self animatedView:self.lineView Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
+    [self animatedView:self.informationLabel Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
+    [self animatedView:self.continueButton Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
+    [self animatedView:self.loaderImageView Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -157,8 +164,15 @@ float duration;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * 3));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
-            [self performSegueWithIdentifier:@"parring_success" sender:self];
-            
+//            [self performSegueWithIdentifier:@"parring_success" sender:self];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UIViewController* vc=[storyboard instantiateViewControllerWithIdentifier:@"PairingDataViewController"];
+            [vc setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+
+            self.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
+
+            [self presentViewController:vc animated:NO completion:nil];
+
         });
         
     }
@@ -167,16 +181,6 @@ float duration;
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     return NO;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"parring_success"]) {
-
-        // Get destination view
-        GeolocViewController *vc = [segue destinationViewController];
-        vc.currentGround = self.groundImageView;
-    }
 }
 
 @end

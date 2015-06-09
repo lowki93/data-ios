@@ -38,9 +38,6 @@
 @property (weak, nonatomic) IBOutlet UIView *lineView;
 @property (weak, nonatomic) IBOutlet UIView *titleView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTitleView;
-@property (weak, nonatomic) IBOutlet GroundImageView *groundImageView;
-@property (weak, nonatomic) UIImageView *currentGround;
-
 
 - (IBAction)nextAction:(id)sender;
 

@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *lineView;
 @property (weak, nonatomic) IBOutlet UIImageView *loaderImageView;
 @property (weak, nonatomic) IBOutlet GroundImageView *groundImageView;
+@property (nonatomic) BOOL isSignUp;
 
 @property(nonatomic) JFRWebSocket *socket;
 

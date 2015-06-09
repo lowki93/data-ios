@@ -159,4 +159,14 @@
 
 }
 
+- (void)showModal:(UIViewController *)viewController Identifier:(NSString *)string {
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController* vc=[storyboard instantiateViewControllerWithIdentifier:string];
+    [vc setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+    [viewController.navigationController setModalPresentationStyle:UIModalPresentationCurrentContext];
+    [viewController presentViewController:vc animated:NO completion:nil];
+
+}
+
 @end

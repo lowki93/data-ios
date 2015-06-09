@@ -41,12 +41,17 @@ int translationX, translationY;
     [self animatedView:self.loginButton Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translationY];
     [self animatedView:self.signUpButton Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translationY];
 
+    [self performSelector:@selector(firstAnimation) withObject:nil afterDelay:duration];
+
+}
+
+- (void)firstAnimation {
+
     [self animatedView:self.backgroundImageView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.logoImageView Duration:duration Delay:0.1 Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.informationLabel Duration:duration Delay:0.2 Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.loginButton Duration:duration Delay:0.3 Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.signUpButton Duration:duration Delay:0.3 Alpha:1 TranslationX:0 TranslationY:0];
-
 
 }
 
@@ -69,12 +74,14 @@ int translationX, translationY;
 
     [self hideContent];
     [self performSelector:@selector(segueAfterDelay:) withObject:@"home_signup" afterDelay:duration];
-
+//    [self performSelector:@selector(segueAfterDelay:) withObject:@"SignUpViewController" afterDelay:duration];
 }
 
 - (IBAction)loginAction:(id)sender {
     [self hideContent];
     [self performSelector:@selector(segueAfterDelay:) withObject:@"home_login" afterDelay:duration];
+//    [self performSelector:@selector(segueAfterDelay:) withObject:@"LoginViewController" afterDelay:duration];
+
 }
 
 - (void)hideContent {
@@ -86,7 +93,15 @@ int translationX, translationY;
 }
 
 - (void)segueAfterDelay:(NSString *)string {
+    [self.backgroundImageView setContentMode:UIViewContentModeBottom];
+    [self.backgroundImageView setImage:[UIImage imageNamed:@"background"]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.backgroundImageView setBackgroundColor:[baseView colorWithRGB:242 :247 :248 :1]];
+    [self.backgroundImageView initImageView];
+    [self animatedView:self.backgroundImageView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
     [self performSegueWithIdentifier:string sender:self];
+//    [baseView showModal:self Identifier:string];
+
 }
 
 @end

@@ -20,11 +20,11 @@
 
         NSMutableArray *imageArray = [[NSMutableArray alloc] init];
 
-        for( int index = 0; index < 150; index++ ){
+        for( int index = 0; index < 107; index++ ){
 
             NSString *imageName = [NSString stringWithFormat:@"ground_%i.png", index];
             [imageArray addObject:[UIImage imageNamed:imageName]];
-
+//            index = index;
         };
 
         [self setAnimationImages: imageArray];

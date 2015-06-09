@@ -45,9 +45,6 @@ bool firstGeoloc, pedometerIsActive;
     translation = 75;
     firstGeoloc = true;
 
-    [self.groundImageView initImageView];
-//    self.groundImageView = self.currentGround;
-
     if ([CMPedometer isStepCountingAvailable]) {
 
         pedometerIsActive = true;
@@ -80,27 +77,27 @@ bool firstGeoloc, pedometerIsActive;
     [self animatedView:self.titleView Duration:0 Delay:0 Alpha:0 Translaton:translation];
     [self animatedView:self.nextButton Duration:0 Delay:0 Alpha:0 Translaton:translation];
     [self animatedView:self.explainLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
-    [self updateStepLabel];
+    [self changeTextLabel];
     [self.nextButton initButton];
 
-    double delayInSeconds = 0.5;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    [self performSelector:@selector(firstAnimation) withObject:nil afterDelay:duration];
+}
 
-        [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
-        [self animatedView:self.titleView Duration:duration Delay:0 Alpha:1 Translaton:0];
-        [self animatedView:self.nextButton Duration:duration Delay:0 Alpha:1 Translaton:0];
-        [self animatedView:self.explainLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
-        [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
-        [self animatedView:self.lineView Duration:duration Delay:0 Alpha:1 Translaton:0];
+- (void)firstAnimation {
 
-        NSDictionary *sokectDictionary = @{
-                                           @"activation": @"heart",
-                                           @"data": @true
-                                           };
-        [self sendDataWithSocket:sokectDictionary];
+    [self animatedView:self.captaTitleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.titleView Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.nextButton Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.explainLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.learnLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.lineView Duration:duration Delay:0 Alpha:1 Translaton:0];
 
-    });
+    NSDictionary *sokectDictionary = @{
+                                       @"activation": @"heart",
+                                       @"data": @true
+                                       };
+    [self performSelector:@selector(sendDataWithSocket:) withObject:sokectDictionary afterDelay:duration];
+//    [self sendDataWithSocket:sokectDictionary];
 
 }
 
@@ -444,7 +441,14 @@ bool firstGeoloc, pedometerIsActive;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration - 0.2 * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
-        [self performSegueWithIdentifier:@"choose_time" sender:self];
+//        [self performSegueWithIdentifier:@"choose_time" sender:self];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController* vc=[storyboard instantiateViewControllerWithIdentifier:@"ChooseDayViewController"];
+        [vc setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+
+        self.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
+
+        [self presentViewController:vc animated:NO completion:nil];
 
     });
 

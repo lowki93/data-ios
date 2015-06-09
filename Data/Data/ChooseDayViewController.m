@@ -83,6 +83,12 @@ float labelWidth, firstMargin, duration;
     [self animatedView:self.dayLabel Duration:0 Delay:0 Alpha:0 Translaton:0];
     [self animatedView:self.dayScrollView Duration:0 Delay:0 Alpha:0 Translaton:0];
 
+    [self performSelector:@selector(firstAnimation) withObject:nil afterDelay:duration];
+
+}
+
+- (void)firstAnimation {
+
     [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
     [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
     [self animatedView:self.validateButton Duration:duration Delay:0 Alpha:1 Translaton:0];
@@ -97,18 +103,6 @@ float labelWidth, firstMargin, duration;
     [rightGesture setDirection:(UISwipeGestureRecognizerDirectionLeft)];
     [self.dayScrollView addGestureRecognizer:rightGesture];
 
-}
-
-- (void)highlightBorder {
-
-    [[self.validateButton layer] setBorderColor:[[baseView colorWithRGB:26 :26 :26 :1] CGColor]];
-
-}
-
-- (void)unhighlightBorder {
-
-    [[self.validateButton layer] setBorderColor:[[baseView colorWithRGB:157 :157 :157 :1] CGColor]];
-    
 }
 
 -(void)swipeLeft:(UISwipeGestureRecognizer *)recognizer {

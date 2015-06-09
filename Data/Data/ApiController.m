@@ -30,9 +30,9 @@
     // local
 //    self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
     // ip pc test phone
-//    self.url = [NSString stringWithFormat:@"http://172.18.34.78:5000/api"];
+    self.url = [NSString stringWithFormat:@"http://172.18.33.134:5000/api"];
     // prod
-    self.url = [NSString stringWithFormat:@"http://data-api.kevinbudain.fr/api"];
+//    self.url = [NSString stringWithFormat:@"http://data-api.kevinbudain.fr/api"];
 
     self.location = [[NSMutableArray alloc]init];
 }
@@ -183,7 +183,7 @@
 
 - (JFRWebSocket *)activeSocket:(UIViewController *)viewController {
     // http://172.18.34.183 //http://data.vm:9090
-    self.socket = [[JFRWebSocket alloc] initWithURL:[NSURL URLWithString:@"http://data.vm:9090"] protocols:@[@"chat",@"superchat"]];
+    self.socket = [[JFRWebSocket alloc] initWithURL:[NSURL URLWithString:@"http://172.18.33.134:9090"] protocols:@[@"chat",@"superchat"]];
 
     if([viewController isKindOfClass:[PairingViewController class]]) {
         PairingViewController *currentViewController = (PairingViewController *)viewController;

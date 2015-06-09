@@ -7,7 +7,7 @@
 //
 
 #import "SignUpViewController.h"
-
+#import "PairingViewController.h"
 #import "AFHTTPRequestOperationManager.h"
 
 @interface SignUpViewController ()
@@ -34,7 +34,6 @@ float duration;
 
     /** title animation **/
     [self animatedView:self.titleLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
-    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
 
     /** textField animation **/
     [self animatedView:self.usernameTextField Duration:0 Delay:0 Alpha:0 Translaton:translation];
@@ -42,25 +41,17 @@ float duration;
     [self animatedView:self.passwordTextField Duration:0 Delay:0 Alpha:0 Translaton:translation];
     [self animatedView:self.confirmationPasswordTextField Duration:0 Delay:0 Alpha:0 Translaton:translation];
 
-    [self animatedView:self.usernameTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
-    [self animatedView:self.mailTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
-    [self animatedView:self.passwordTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
-    [self animatedView:self.confirmationPasswordTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
-
     /** button animation **/
     [self animatedView:self.sigupButton Duration:0 Delay:0 Alpha:0 Translaton:translation];
-    [self animatedView:self.sigupButton Duration:duration Delay:duration Alpha:1 Translaton:0];
 
     /** line animation **/
     [self animatedView:self.lineView Duration:0 Delay:0 Alpha:0 Translaton:0];
-    [self animatedView:self.lineView Duration:duration Delay:duration Alpha:1 Translaton:0];
 
     /** button bottom animation **/
     [self animatedView:self.informationLabel Duration:0 Delay:0 Alpha:0 Translaton:translation];
     [self animatedView:self.loginButton Duration:0 Delay:0 Alpha:0 Translaton:translation];
 
-    [self animatedView:self.informationLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
-    [self animatedView:self.loginButton Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self performSelector:@selector(firstAnimation) withObject:nil afterDelay:duration];
 
 }
 
@@ -68,16 +59,18 @@ float duration;
     [super didReceiveMemoryWarning];
 }
 
-- (void)highlightBorder {
+- (void)firstAnimation {
 
-    [[self.sigupButton layer] setBorderColor:[[baseView colorWithRGB:26 :26 :26 :1] CGColor]];
+    [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:1 Translaton:0];
+    [self animatedView:self.usernameTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.mailTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.passwordTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.confirmationPasswordTextField Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.sigupButton Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.lineView Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.informationLabel Duration:duration Delay:duration Alpha:1 Translaton:0];
+    [self animatedView:self.loginButton Duration:duration Delay:duration Alpha:1 Translaton:0];
 
-}
-
-- (void)unhighlightBorder {
-
-    [[self.sigupButton layer] setBorderColor:[[baseView colorWithRGB:157 :157 :157 :1] CGColor]];
-    
 }
 
 - (IBAction)signupClicked:(id)sender {
@@ -119,10 +112,10 @@ float duration;
                 [[ApiController sharedInstance] updateToken];
                 [self hideContent];
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){ 
 
                     [self performSegueWithIdentifier:@"signup_succes" sender:self];
-                    
+
                 });
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -200,5 +193,15 @@ float duration;
     
     
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    if ([[segue identifier] isEqualToString:@"signup_succes"]) {
+
+        PairingViewController *pairingViewController = [segue destinationViewController];
+        pairingViewController.isSignUp = true;
+    }
+}
+
 
 @end
