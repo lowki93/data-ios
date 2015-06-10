@@ -101,15 +101,15 @@ float duration;
                 [[ApiController sharedInstance] updateToken];
                 [self hideContent];
 
-//                if(![ApiController sharedInstance].user.isActive) {
-//                    [self performSelector:@selector(segueAfterDelay:) withObject:@"login_pairing" afterDelay:duration];
-                [self performSelector:@selector(segueAfterDelay:) withObject:@"PairingViewController" afterDelay:duration];
+                if(![ApiController sharedInstance].user.isActive) {
 
-//                } else {x
-//
-//                    [self performSelector:@selector(segueAfterDelay:) withObject:@"login_succes" afterDelay:duration];
-//
-//                }
+                    [self performSelector:@selector(segueAfterDelay:) withObject:@"PairingViewController" afterDelay:duration];
+
+                } else {
+
+                    [self performSelector:@selector(segueAfterDelay:) withObject:@"DataViewController" afterDelay:duration];
+
+                }
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -163,8 +163,6 @@ float duration;
 - (IBAction)signUpAction:(id)sender {
 
     [self hideContent];
-//[self dismissModalViewControllerAnimated:YES];
-//    [self performSelector:@selector(segueAfterDelay:) withObject:@"login_signUp" afterDelay:duration];
     [self performSelector:@selector(segueAfterDelay:) withObject:@"SignUpViewController" afterDelay:duration];
 
 }
@@ -195,28 +193,11 @@ float duration;
     [self.lineView removeFromSuperview];
     [self.informationLabel removeFromSuperview];
     [self.signUpButton removeFromSuperview];
-//    [self performSegueWithIdentifier:string sender:self];
-//    [baseView showModal:string];
-
-    if([string  isEqual: @"PairingViewController"]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        PairingViewController *pairingViewController =  [storyboard instantiateViewControllerWithIdentifier:string];
-        UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
-        pairingViewController.isSignUp = true;
-        keyWindow.rootViewController = pairingViewController;
-        [keyWindow makeKeyAndVisible];
+    if ([string  isEqual: @"SignUpViewController"]) {
+        [baseView showModal:string RemoveWindow:false];
     } else {
-        [baseView showModal:string];
+        [baseView showModal:string RemoveWindow:true];
     }
 }
-//
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//
-//    if ([[segue identifier] isEqualToString:@"login_pairing"]) {
-//
-//        PairingViewController *pairingViewController = [segue destinationViewController];
-//        pairingViewController.isSignUp = true;
-//    }
-//}
 
 @end

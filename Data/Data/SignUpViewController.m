@@ -111,7 +111,7 @@ float duration;
                 [[ApiController sharedInstance] setUserLoad:dictionary];
                 [[ApiController sharedInstance] updateToken];
 
-                [self hideContent:@"signup_succes"];
+                [self hideContent:@"pairingViewController"];
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -175,8 +175,7 @@ float duration;
     [self.informationLabel removeFromSuperview];
     [self.loginButton removeFromSuperview];
     [self.lineView removeFromSuperview];
-//    [self performSegueWithIdentifier:string sender:self];
-    [baseView showModal:string];
+    [baseView showModal:string RemoveWindow:false];
 }
 
 - (IBAction)backgroundTap:(id)sender {
@@ -199,15 +198,5 @@ float duration;
     
     
 }
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
-    if ([[segue identifier] isEqualToString:@"signup_succes"]) {
-
-        PairingViewController *pairingViewController = [segue destinationViewController];
-        pairingViewController.isSignUp = true;
-    }
-}
-
 
 @end
