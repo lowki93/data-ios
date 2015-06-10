@@ -111,7 +111,7 @@ float duration;
                 [[ApiController sharedInstance] setUserLoad:dictionary];
                 [[ApiController sharedInstance] updateToken];
 
-                [self hideContent:@"pairingViewController"];
+                [self hideContent:@"PairingViewController"];
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 

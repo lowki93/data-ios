@@ -534,13 +534,18 @@ bool firstGeoloc, pedometerIsActive;
 
                 });
             } else {
-                [self performSelector:@selector(displayingSynchro) withObject:nil afterDelay:duration];
-                [self performSelector:@selector(getPhotos) withObject:nil afterDelay:duration + 0.3];
+                [self performSelector:@selector(startLocation) withObject:nil afterDelay:0.2];
             }
             break;
         case 3:
             [self updateStepLabel];
-            [self performSelector:@selector(startLocation) withObject:nil afterDelay:0.2];
+             if(pedometerIsActive) {
+                 [self performSelector:@selector(startLocation) withObject:nil afterDelay:0.2];
+             } else {
+                 [self performSelector:@selector(displayingSynchro) withObject:nil afterDelay:duration];
+                 [self performSelector:@selector(getPhotos) withObject:nil afterDelay:duration + 0.3];
+             }
+
             break;
         case 4:
             if(pedometerIsActive) {
