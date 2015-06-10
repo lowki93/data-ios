@@ -48,8 +48,8 @@ bool firstGeoloc, pedometerIsActive;
     if ([CMPedometer isStepCountingAvailable]) {
 
         pedometerIsActive = true;
-        titleArray = [@[@"COEUR", @"GEOLOCATION", @"PEDOMETER", @"PHOTOS", @""] mutableCopy ];
-        explainArray = [@[@"voici le coeur de ton experience\nelle évolura en fonction\nde tes données captée ", @"explain geoloc", @"explain pedometer", @"explain photos ", @""] mutableCopy ];
+        titleArray = [@[@"COEUR", @"PEDOMETER", @"GEOLOCATION", @"PHOTOS", @""] mutableCopy ];
+        explainArray = [@[@"voici le coeur de ton experience\nelle évolura en fonction\nde tes données captée ", @"explain pedometer", @"geoloc ", @"explain photos ", @""] mutableCopy ];
         nbStep = 4;
 
     } else {
@@ -439,19 +439,16 @@ bool firstGeoloc, pedometerIsActive;
     [self animatedView:self.nextButton Duration:duration Delay:0 Alpha:0 Translaton:-translation];
     [self animatedView:self.lineView Duration:duration Delay:0 Alpha:0 Translaton:0];
 
-    if(self.isConnectionPairing) {
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration - 0.2 * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    [self performSelector:@selector(excuteSegue) withObject:nil afterDelay:duration];
 
-            for(UIView *view in self.view.subviews) {
-                [view removeFromSuperview];
-            }
-            [self performSegueWithIdentifier:@"choose_time" sender:self];
-            
-        });
-    } else {
-        [baseView performSelector:@selector(showModal:) withObject:@"ChooseDayViewController" afterDelay:duration - 2];
+}
+
+- (void)excuteSegue {
+
+    for(UIView *view in self.view.subviews) {
+        [view removeFromSuperview];
     }
+    [self performSegueWithIdentifier:@"choose_time" sender:self];
 
 }
 
@@ -523,10 +520,6 @@ bool firstGeoloc, pedometerIsActive;
     switch (step) {
         case 2:
             [self updateStepLabel];
-            [self performSelector:@selector(startLocation) withObject:nil afterDelay:0.2];
-            break;
-        case 3:
-            [self updateStepLabel];
             if(pedometerIsActive) {
                 self.pedometer = [[CMPedometer alloc] init];
                 NSDate *now = [[NSDate alloc] init];
@@ -536,14 +529,18 @@ bool firstGeoloc, pedometerIsActive;
                 double delayInSeconds = duration;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    
+
                     [self queryPedometerDataFromDate:endDate toDate:startDate];
-                    
+
                 });
             } else {
                 [self performSelector:@selector(displayingSynchro) withObject:nil afterDelay:duration];
                 [self performSelector:@selector(getPhotos) withObject:nil afterDelay:duration + 0.3];
             }
+            break;
+        case 3:
+            [self updateStepLabel];
+            [self performSelector:@selector(startLocation) withObject:nil afterDelay:0.2];
             break;
         case 4:
             if(pedometerIsActive) {
