@@ -35,13 +35,13 @@ int translationX, translationY;
 
     [self.signUpButton initButton];
 
-    [self animatedView:self.backgroundImageView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
+    [self.playerView initPlayer:@"home" View:self.view];
+
     [self animatedView:self.logoImageView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translationY];
     [self animatedView:self.informationLabel Duration:0 Delay:0 Alpha:0 TranslationX:translationX TranslationY:0];
     [self animatedView:self.loginButton Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translationY];
     [self animatedView:self.signUpButton Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translationY];
-
-    [NSThread detachNewThreadSelector:@selector(generateHomeAnimationImage) toTarget:self withObject:nil];
+    [self animatedView:self.playerView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
 
     [self performSelector:@selector(firstAnimation) withObject:nil afterDelay:duration];
 
@@ -49,40 +49,12 @@ int translationX, translationY;
 
 - (void)firstAnimation {
 
-    [self animatedView:self.backgroundImageView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.logoImageView Duration:duration Delay:0.1 Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.informationLabel Duration:duration Delay:0.2 Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.loginButton Duration:duration Delay:0.3 Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.signUpButton Duration:duration Delay:0.3 Alpha:1 TranslationX:0 TranslationY:0];
+    [self animatedView:self.playerView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
 
-}
-
-
-- (void)generateHomeAnimationImage {
-
-    @autoreleasepool {
-
-        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
-
-        for( int index = 0; index < 40; index++ ){
-
-            NSString *imageName = [NSString stringWithFormat:@"home_%i_.png", index];
-            [imageArray addObject:[UIImage imageNamed:imageName]];
-
-        };
-
-        [self.backgroundImageView setAnimationImages: imageArray];
-        [self.backgroundImageView setAnimationDuration: 1.3];
-        [self.backgroundImageView setAnimationRepeatCount:0];
-
-        [self performSelectorOnMainThread:@selector(addHomeAnimationImage) withObject:NULL waitUntilDone:NO];
-
-    }
-
-}
-
-- (void) addHomeAnimationImage {
-    [self.backgroundImageView startAnimating];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,13 +75,11 @@ int translationX, translationY;
 - (IBAction)signupAction:(id)sender {
 
     [self hideContent];
-//    [self performSelector:@selector(segueAfterDelay:) withObject:@"home_signup" afterDelay:duration];
     [self performSelector:@selector(segueAfterDelay:) withObject:@"SignUpViewController" afterDelay:duration];
 }
 
 - (IBAction)loginAction:(id)sender {
     [self hideContent];
-//    [self performSelector:@selector(segueAfterDelay:) withObject:@"home_login" afterDelay:duration];
     [self performSelector:@selector(segueAfterDelay:) withObject:@"LoginViewController" afterDelay:duration];
 
 }
@@ -119,26 +89,16 @@ int translationX, translationY;
     [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
     [self animatedView:self.signUpButton Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
     [self animatedView:self.loginButton Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
-    [self animatedView:self.backgroundImageView Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
 }
 
 - (void)segueAfterDelay:(NSString *)string {
-    [self.backgroundImageView initImageView];
-    [self.backgroundImageView setContentMode:UIViewContentModeBottom];
-    [self.backgroundImageView stopAnimating];
-    [self.backgroundImageView setAnimationImages:nil];
-    [self.backgroundImageView setImage:[UIImage imageNamed:@"background"]];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self.backgroundImageView setBackgroundColor:[baseView colorWithRGB:242 :247 :248 :1]];
-    [self animatedView:self.backgroundImageView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
 
     [self.informationLabel removeFromSuperview];
     [self.signUpButton removeFromSuperview];
     [self.loginButton removeFromSuperview];
     [self.logoImageView removeFromSuperview];
 
-//    [self performSegueWithIdentifier:string sender:self];
-    [baseView showModal:string];
+    [baseView showModal:string RemoveWindow:false];
 
 }
 

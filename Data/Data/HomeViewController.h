@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomButton.h"
-#import "GroundImageView.h"
+#import "PlayerView.h"
 
 @interface HomeViewController : UIViewController
 
@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet CustomButton *signUpButton;
 @property (weak, nonatomic) IBOutlet CustomButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
-@property (weak, nonatomic) IBOutlet GroundImageView *backgroundImageView;
+@property (weak, nonatomic) IBOutlet PlayerView *playerView;
 
 - (IBAction)signupAction:(id)sender;
 - (IBAction)loginAction:(id)sender;
