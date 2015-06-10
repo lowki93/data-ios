@@ -193,23 +193,23 @@ float labelWidth, firstMargin, duration;
 
 - (void)updateDateExperience {
 
-//    NSDate *now = [[NSDate alloc] init];
-//    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-//    [dateFormat setDateFormat:@"yyyy-MM-dd"];
-//    NSDate *endDate = [now dateByAddingTimeInterval:+(1. * (indexDay + 1) * 86400)];
-//    NSString *endDateString = [dateFormat stringFromDate:endDate];
-//
-//    NSString *urlString = [[ApiController sharedInstance] getUrlExperienceDate];
-//
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    NSDictionary *parameters = @{
-//                                 @"startDate": [[ApiController sharedInstance] getDate],
-//                                 @"endDate": endDateString
-//                                 };
-//    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDate *now = [[NSDate alloc] init];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    NSDate *endDate = [now dateByAddingTimeInterval:+(1. * (indexDay + 1) * 86400)];
+    NSString *endDateString = [dateFormat stringFromDate:endDate];
 
-//        NSDictionary *dictionary = responseObject[@"user"];
-//        [[ApiController sharedInstance] setUserLoad:dictionary];
+    NSString *urlString = [[ApiController sharedInstance] getUrlExperienceDate];
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{
+                                 @"startDate": [[ApiController sharedInstance] getDate],
+                                 @"endDate": endDateString
+                                 };
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        NSDictionary *dictionary = responseObject[@"user"];
+        [[ApiController sharedInstance] setUserLoad:dictionary];
 
         [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
         [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
@@ -217,31 +217,24 @@ float labelWidth, firstMargin, duration;
         [self animatedView:self.dayLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
         [self animatedView:self.dayScrollView Duration:duration Delay:0 Alpha:0 Translaton:0];
 
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * 2 * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self performSelector:@selector(goToTutorialView) withObject:nil afterDelay:duration * 2];
 
-            for(UIView *view in self.view.subviews) {
-                [view removeFromSuperview];
-            }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"TutorialViewController"];
-            UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
+        NSLog(@"%@", error);
+        [self performSelector:@selector(updateDateExperience) withObject:nil afterDelay:5];
+        
+    }];
 
-            for(UIView *view in keyWindow.subviews) 
-            {
-                [view removeFromSuperview];
-            }
-            keyWindow.rootViewController = viewController;
-            [keyWindow makeKeyAndVisible];
-        });
-//
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//
-//        NSLog(@"%@", error);
-//        [self performSelector:@selector(updateDateExperience) withObject:nil afterDelay:5];
-//        
-//    }];
+}
+
+- (void)goToTutorialView {
+
+    for(UIView *view in self.view.subviews) {
+        [view removeFromSuperview];
+    }
+
+    [baseView showModal:@"TutorialViewController" RemoveWindow:true];
 
 }
 
