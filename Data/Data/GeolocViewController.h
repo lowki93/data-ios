@@ -14,7 +14,6 @@
 #import "SSZipArchive.h"
 #import "LoaderImageView.h"
 #import "CustomButton.h"
-#import "GroundImageView.h"
 
 @interface GeolocViewController : UIViewController <CLLocationManagerDelegate>
 
