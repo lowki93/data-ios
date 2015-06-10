@@ -33,12 +33,7 @@ float duration;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
-    if(self.isSignUp) {
-        [self.view setBackgroundColor:[baseView colorWithRGB:0 :0 :0 :0]];
-        [self.groundImageView removeFromSuperview];
-    } else {
-        [self.groundImageView initImageView];
-    }
+    [self.playerView initPlayer:@"ground" View:self.view];
 
     NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
     [[ApiController sharedInstance] setUserLoad:dictionary];
@@ -73,6 +68,7 @@ float duration;
 
     /** loader animation **/
     [self animatedView:self.loaderImageView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
+    [self animatedView:self.playerView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
 
 
     [self performSelector:@selector(firstAnimation) withObject:nil afterDelay:duration];
@@ -86,11 +82,13 @@ float duration;
     [self animatedView:self.informationLabel Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.continueButton Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.loaderImageView Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
+    [self animatedView:self.playerView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
+
+    [self performSelector:@selector(pairringIsDone) withObject:nil afterDelay:3.f];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)animatedView:(UIView *)view Duration:(float)duration Delay:(float)delay Alpha:(float)alpha TranslationX:(int)translationX TranslationY:(int)translationY{
@@ -102,11 +100,6 @@ float duration;
 
     } completion:nil];
 
-}
-
-- (IBAction)action:(id)sender {
-
-    [self pairringIsDone];
 }
 
 - (void)createExperience {
@@ -176,28 +169,14 @@ float duration;
     [self.continueButton removeFromSuperview];
     [self.lineView removeFromSuperview];
     [self.loaderImageView removeFromSuperview];
-//    UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"PairingDataViewController"];
-//    keyWindow.rootViewController = viewController;
-//    [keyWindow makeKeyAndVisible];
+
     [self performSegueWithIdentifier:@"parring_success" sender:self];
-//    [baseView showModal:@"PairingDataViewController"];
-    //
+
 
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     return NO;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
-    if ([[segue identifier] isEqualToString:@"parring_success"]) {
-
-        GeolocViewController *pairingViewController = [segue destinationViewController];
-        pairingViewController.isConnectionPairing = true;
-    }
 }
 
 @end
