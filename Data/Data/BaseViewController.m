@@ -159,13 +159,47 @@
 
 }
 
-- (void)showModal:(NSString *)string {
+- (void)showModal:(NSString *)string RemoveWindow:(BOOL)remove {
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:string];
     UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
-    keyWindow.rootViewController = viewController;
-    [keyWindow makeKeyAndVisible];
+    [keyWindow setBackgroundColor:[self colorWithRGB:240 :247 :247 :1]];
+    if(remove) {
+        for(UIView *view in keyWindow.subviews)
+        {
+//            if(![view isKindOfClass:[UIView class]]) {
+
+            [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+
+                [view setAlpha:0];
+
+            } completion:^(BOOL finished){
+
+                [view removeFromSuperview];
+
+            }];
+//            } else {
+//                [view setBackgroundColor:[self colorWithRGB:240 :247 :247 :1]];
+//            }
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self addViewToWindow:keyWindow ViewController:viewController];
+                
+            });
+
+
+        }
+    } else {
+        [self addViewToWindow:keyWindow ViewController:viewController];
+    }
+
+}
+
+- (void)addViewToWindow:(UIWindow *)window ViewController:(UIViewController *)viewController {
+
+    window.rootViewController = viewController;
+    [window makeKeyAndVisible];
 
 }
 

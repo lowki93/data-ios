@@ -7,10 +7,13 @@
 //
 
 #import "SplashScreenViewController.h"
+#import "BaseViewController.h"
 
 @interface SplashScreenViewController ()
 
 @end
+
+BaseViewController *baseView;
 
 float duration;
 
@@ -18,43 +21,37 @@ float duration;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    duration = 3;
-     [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage) toTarget:self withObject:nil];
+    baseView = [[BaseViewController alloc] init];
+    [baseView initView:self];
+
+    duration = 4;
+    [UIView animateWithDuration:1 delay:0 options:0 animations:^{
+
+        [self.playerView setAlpha:1];
+
+    } completion:nil];
+
+    [self.playerView initPlayer:@"splash_screen" View:self.view];
+    [self performSelector:@selector(goToHome) withObject:nil afterDelay:duration];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (void)generateTutorialAnimationImage {
-
-    @autoreleasepool {
-
-        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
-
-        for( int index = 0; index < 92; index++ ){
-
-            NSString *imageName = [NSString stringWithFormat:@"splashscreen_%iX2.png", index];
-            [imageArray addObject:[UIImage imageNamed:imageName]];
-
-        };
-
-        [self.splashScreenImageView setAnimationImages: imageArray];
-        [self.splashScreenImageView setAnimationDuration: duration];
-        [self.splashScreenImageView setAnimationRepeatCount:1];
-
-        [self performSelectorOnMainThread:@selector(addTutorialAnimationImage) withObject:NULL waitUntilDone:NO];
-    }
-
-}
-
-- (void) addTutorialAnimationImage {
-    [self.splashScreenImageView startAnimating];
-    [self performSelector:@selector(goToHome) withObject:nil afterDelay:duration + 0.5];
-}
 
 - (void)goToHome {
-    [self performSegueWithIdentifier:@"splash_home" sender:self];
+    [self.view setBackgroundColor:[baseView colorWithRGB:240 :247 :247 :1]];
+    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+
+        [self.playerView setAlpha:0];
+
+    } completion:^(BOOL finished){
+
+        [self.playerView removeFromSuperview];
+        [self performSegueWithIdentifier:@"splash_home" sender:self];
+
+    }];
 }
 
 

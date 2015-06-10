@@ -7,25 +7,28 @@
 //
 
 #import "AppDelegate.h"
-#import "User.h"
+#import "BaseViewController.h"
 
 @interface AppDelegate ()
 
 @end
+
+BaseViewController *baseView;
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    baseView = [[BaseViewController alloc] init];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
     // Override point for customization after application launch.
     if([[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"] != nil) {
+
         NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
         [[ApiController sharedInstance] setUserLoad:dictionary];
 
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         NSString *nextController;
         if ([ApiController sharedInstance].user.isActive == false ) {
             nextController = @"PairingViewController";
@@ -33,10 +36,8 @@
             nextController = @"DataViewController";
         }
 //        nextController = @"TutorialViewController";
+        [baseView showModal:nextController RemoveWindow:false];
 
-        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:nextController];
-        self.window.rootViewController = viewController;
-        [self.window makeKeyAndVisible];
     }
 
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {

@@ -64,10 +64,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_background" translatesAutoresizingMaskIntoConstraints="NO" id="uth-HO-Mgd" customClass="GroundImageView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tvv-C4-9r9" customClass="PlayerView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.94901960784313721" green="0.96470588235294119" blue="0.96862745098039216" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="maN-Im-3eU" customClass="CustomButton">
                                 <rect key="frame" x="200" y="450" width="200" height="50"/>
                                 <constraints>
@@ -129,18 +129,18 @@ to reveal</string>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.94901960784313721" green="0.96862745098039216" blue="0.97254901960784312" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.94117647058823528" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="h5Z-Hq-pJg" firstAttribute="top" secondItem="f8i-4a-bCh" secondAttribute="bottom" constant="30" id="1j8-AD-Xxv"/>
-                            <constraint firstItem="uth-HO-Mgd" firstAttribute="top" secondItem="ku6-cp-OqZ" secondAttribute="top" id="FQr-Cg-CEJ"/>
                             <constraint firstItem="f8i-4a-bCh" firstAttribute="top" secondItem="maN-Im-3eU" secondAttribute="bottom" constant="20" id="GM7-tQ-Zho"/>
-                            <constraint firstItem="h5Z-Hq-pJg" firstAttribute="top" secondItem="uth-HO-Mgd" secondAttribute="bottom" id="IeB-H8-Yyq"/>
-                            <constraint firstItem="uth-HO-Mgd" firstAttribute="leading" secondItem="ku6-cp-OqZ" secondAttribute="leading" id="O10-v5-ZJt"/>
-                            <constraint firstAttribute="trailing" secondItem="uth-HO-Mgd" secondAttribute="trailing" id="Vf2-7C-25e"/>
+                            <constraint firstAttribute="trailing" secondItem="tvv-C4-9r9" secondAttribute="trailing" id="Sus-KJ-acB"/>
                             <constraint firstItem="bMi-bY-Hst" firstAttribute="top" secondItem="IIo-Sz-rAV" secondAttribute="bottom" constant="100" id="WbL-P9-Zkp"/>
                             <constraint firstItem="IIo-Sz-rAV" firstAttribute="leading" secondItem="ku6-cp-OqZ" secondAttribute="leadingMargin" id="g8y-8O-B9Z"/>
                             <constraint firstItem="IIo-Sz-rAV" firstAttribute="top" secondItem="ov4-VT-sMc" secondAttribute="top" constant="15" id="gts-AY-VqV"/>
                             <constraint firstAttribute="centerX" secondItem="f8i-4a-bCh" secondAttribute="centerX" id="hTY-iU-PXe"/>
+                            <constraint firstItem="tvv-C4-9r9" firstAttribute="top" secondItem="ov4-VT-sMc" secondAttribute="bottom" id="hb9-AX-SOE"/>
+                            <constraint firstItem="h5Z-Hq-pJg" firstAttribute="top" secondItem="tvv-C4-9r9" secondAttribute="bottom" id="kJr-xp-cAy"/>
+                            <constraint firstItem="tvv-C4-9r9" firstAttribute="leading" secondItem="ku6-cp-OqZ" secondAttribute="leading" id="lm9-fS-x2u"/>
                             <constraint firstAttribute="centerX" secondItem="maN-Im-3eU" secondAttribute="centerX" id="ow0-7o-afC"/>
                             <constraint firstItem="IIo-Sz-rAV" firstAttribute="leading" secondItem="bMi-bY-Hst" secondAttribute="leading" id="qCT-BU-ub7"/>
                         </constraints>
@@ -148,10 +148,10 @@ to reveal</string>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="backgroundImageView" destination="uth-HO-Mgd" id="21e-qr-wGh"/>
                         <outlet property="informationLabel" destination="bMi-bY-Hst" id="UXa-YM-zCi"/>
                         <outlet property="loginButton" destination="f8i-4a-bCh" id="8FY-SJ-m9d"/>
                         <outlet property="logoImageView" destination="IIo-Sz-rAV" id="eXq-AV-pIZ"/>
+                        <outlet property="playerView" destination="tvv-C4-9r9" id="sPW-YF-R7X"/>
                         <outlet property="signUpButton" destination="maN-Im-3eU" id="Lc8-Ho-dIO"/>
                         <segue destination="HVH-gC-8UG" kind="presentation" identifier="home_login" modalPresentationStyle="overCurrentContext" id="W96-5B-FU3"/>
                         <segue destination="av7-GA-iJ7" kind="presentation" identifier="home_signup" modalPresentationStyle="overCurrentContext" id="t8E-Rs-4gD"/>
@@ -323,7 +323,7 @@ to reveal</string>
                         <outlet property="usernameTextField" destination="nAj-7c-BHa" id="pJT-Tq-gwF"/>
                         <segue destination="QGs-SJ-cRB" kind="custom" identifier="login_succes" customClass="CustomSegue" id="jyz-2R-Df6"/>
                         <segue destination="av7-GA-iJ7" kind="presentation" identifier="login_signUp" modalPresentationStyle="overCurrentContext" id="RPU-Ly-yyP"/>
-                        <segue destination="U74-IU-1BD" kind="presentation" identifier="login_pairing" modalPresentationStyle="overFullScreen" id="9tC-A9-S5v"/>
+                        <segue destination="U74-IU-1BD" kind="custom" identifier="login_pairing" customClass="CustomSegue" id="9tC-A9-S5v"/>
                         <segue destination="H9w-1k-qHc" kind="custom" identifier="login_tutorial" customClass="CustomSegue" id="rhG-0D-VZY"/>
                     </connections>
                 </viewController>
@@ -484,10 +484,10 @@ to reveal</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="iTv-zN-wtx" customClass="GroundImageView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgw-d8-mxe" customClass="PlayerView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.94901960784313721" green="0.96862745098039216" blue="0.97254901960784312" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRf-h6-cQf">
                                 <rect key="frame" x="229" y="560" width="142" height="20"/>
                                 <constraints>
@@ -542,15 +542,6 @@ your mobile phone with desktop</string>
                                     </mask>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Apb-vB-NNd">
-                                <rect key="frame" x="16" y="0.0" width="46" height="30"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="action:" destination="U74-IU-1BD" eventType="touchUpInside" id="aLE-M4-10X"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pairring" translatesAutoresizingMaskIntoConstraints="NO" id="SaM-aR-YFq">
                                 <rect key="frame" x="175" y="165" width="250" height="150"/>
                                 <constraints>
@@ -574,40 +565,38 @@ your mobile phone with desktop</string>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.94117647058823528" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="SaM-aR-YFq" secondAttribute="centerY" constant="60" id="6hT-cC-Zlr"/>
                             <constraint firstAttribute="trailing" secondItem="EYf-xB-WyT" secondAttribute="trailing" constant="100" id="Ak6-NV-CNZ"/>
                             <constraint firstAttribute="centerX" secondItem="Y0c-3p-7VI" secondAttribute="centerX" id="G9D-pE-Pv7"/>
-                            <constraint firstItem="iTv-zN-wtx" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leading" id="H6c-aT-D2Q"/>
                             <constraint firstAttribute="centerX" secondItem="0b2-LL-5bn" secondAttribute="centerX" id="Ibk-VJ-n5d"/>
-                            <constraint firstItem="Apb-vB-NNd" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leadingMargin" id="K1c-CJ-6u6"/>
+                            <constraint firstItem="sgw-d8-mxe" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leading" id="JMH-q4-aJC"/>
                             <constraint firstItem="Y0c-3p-7VI" firstAttribute="top" secondItem="SaM-aR-YFq" secondAttribute="bottom" constant="40" id="Mcw-uO-L87"/>
                             <constraint firstItem="EYf-xB-WyT" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leading" constant="100" id="Q82-P0-DBJ"/>
                             <constraint firstItem="dV9-lH-D7D" firstAttribute="top" secondItem="EYf-xB-WyT" secondAttribute="bottom" constant="80" id="TXf-Jy-gBD"/>
+                            <constraint firstItem="dV9-lH-D7D" firstAttribute="top" secondItem="sgw-d8-mxe" secondAttribute="bottom" id="UTw-gA-9fN"/>
                             <constraint firstAttribute="centerX" secondItem="uRf-h6-cQf" secondAttribute="centerX" id="XxH-gK-sCx"/>
+                            <constraint firstAttribute="trailing" secondItem="sgw-d8-mxe" secondAttribute="trailing" id="Xyv-eT-xXk"/>
+                            <constraint firstItem="sgw-d8-mxe" firstAttribute="top" secondItem="xGW-t1-n02" secondAttribute="bottom" id="afn-gm-VtD"/>
                             <constraint firstItem="BW5-Im-l9o" firstAttribute="top" secondItem="xGW-t1-n02" secondAttribute="bottom" constant="50" id="cUy-dx-P6s"/>
                             <constraint firstAttribute="centerX" secondItem="Tfe-8l-Tpg" secondAttribute="centerX" id="fWv-uW-LOT"/>
                             <constraint firstAttribute="centerX" secondItem="SaM-aR-YFq" secondAttribute="centerX" id="gOw-pa-GE5"/>
-                            <constraint firstItem="iTv-zN-wtx" firstAttribute="top" secondItem="xGW-t1-n02" secondAttribute="bottom" id="hec-2b-meK"/>
                             <constraint firstItem="uRf-h6-cQf" firstAttribute="top" secondItem="Tfe-8l-Tpg" secondAttribute="bottom" id="kTF-5U-vwB"/>
                             <constraint firstItem="dV9-lH-D7D" firstAttribute="top" secondItem="uRf-h6-cQf" secondAttribute="bottom" constant="20" id="nPq-qq-PrC"/>
                             <constraint firstAttribute="centerX" secondItem="BW5-Im-l9o" secondAttribute="centerX" id="ozA-zK-CYK"/>
-                            <constraint firstItem="Apb-vB-NNd" firstAttribute="top" secondItem="xGW-t1-n02" secondAttribute="bottom" id="pKK-f2-qpp"/>
                             <constraint firstItem="0b2-LL-5bn" firstAttribute="top" secondItem="Y0c-3p-7VI" secondAttribute="bottom" constant="15" id="rLL-go-pfH"/>
-                            <constraint firstItem="dV9-lH-D7D" firstAttribute="top" secondItem="iTv-zN-wtx" secondAttribute="bottom" id="teF-SY-dSg"/>
-                            <constraint firstAttribute="trailing" secondItem="iTv-zN-wtx" secondAttribute="trailing" id="uKI-ac-u1x"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="continueButton" destination="uRf-h6-cQf" id="Xle-wu-oW5"/>
-                        <outlet property="groundImageView" destination="iTv-zN-wtx" id="vgo-XQ-BLl"/>
                         <outlet property="informationLabel" destination="Tfe-8l-Tpg" id="1zB-bA-CTG"/>
                         <outlet property="informationParringLabel" destination="0b2-LL-5bn" id="qiq-1O-xaY"/>
                         <outlet property="lineView" destination="EYf-xB-WyT" id="YwB-Qp-xWH"/>
                         <outlet property="loaderImageView" destination="SaM-aR-YFq" id="OjY-6W-LUR"/>
+                        <outlet property="playerView" destination="sgw-d8-mxe" id="0hR-Ro-7hv"/>
                         <outlet property="titleLabel" destination="BW5-Im-l9o" id="Ru0-70-kZm"/>
                         <outlet property="waitingLabel" destination="Y0c-3p-7VI" id="IxR-de-L4L"/>
                         <segue destination="uX6-oU-oGn" kind="presentation" identifier="parring_success" modalPresentationStyle="overCurrentContext" id="CK0-fI-NEL"/>
@@ -1055,22 +1044,23 @@ de l’experience</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q0x-IA-RpW">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9N-2a-XaF" customClass="PlayerView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
+                                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="1Zu-BW-cNi" firstAttribute="top" secondItem="Q0x-IA-RpW" secondAttribute="bottom" id="KuA-zu-ULg"/>
-                            <constraint firstItem="Q0x-IA-RpW" firstAttribute="leading" secondItem="rMc-du-8jR" secondAttribute="leading" id="M1F-uS-DET"/>
-                            <constraint firstItem="Q0x-IA-RpW" firstAttribute="top" secondItem="g7n-mU-7BW" secondAttribute="bottom" id="QPY-nz-Aum"/>
-                            <constraint firstAttribute="trailing" secondItem="Q0x-IA-RpW" secondAttribute="trailing" id="nqM-y4-UBe"/>
+                            <constraint firstItem="1Zu-BW-cNi" firstAttribute="top" secondItem="m9N-2a-XaF" secondAttribute="bottom" id="FpN-v6-qAM"/>
+                            <constraint firstItem="m9N-2a-XaF" firstAttribute="top" secondItem="g7n-mU-7BW" secondAttribute="bottom" id="IQa-Iv-ZcV"/>
+                            <constraint firstAttribute="trailing" secondItem="m9N-2a-XaF" secondAttribute="trailing" id="KXQ-Z3-rUN"/>
+                            <constraint firstItem="m9N-2a-XaF" firstAttribute="leading" secondItem="rMc-du-8jR" secondAttribute="leading" id="fOT-IA-IBV"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="splashScreenImageView" destination="Q0x-IA-RpW" id="A9R-6b-fIq"/>
+                        <outlet property="playerView" destination="m9N-2a-XaF" id="4ZM-sE-kSZ"/>
                         <segue destination="LWw-fk-NXN" kind="custom" identifier="splash_home" customClass="CustomSegue" id="i0l-JW-pna"/>
                     </connections>
                 </viewController>
@@ -1158,18 +1148,16 @@ de l’experience</string>
         </scene>
     </scenes>
     <resources>
-        <image name="background" width="750" height="650"/>
-        <image name="home_background" width="640" height="1136"/>
         <image name="loader" width="200" height="200"/>
         <image name="logo" width="281" height="125"/>
         <image name="pairring" width="463" height="189"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="t8E-Rs-4gD"/>
-        <segue reference="i0l-JW-pna"/>
+        <segue reference="RPU-Ly-yyP"/>
         <segue reference="W96-5B-FU3"/>
-        <segue reference="0kN-7n-njY"/>
-        <segue reference="hlu-9W-lsx"/>
-        <segue reference="Nbz-yN-fpI"/>
+        <segue reference="uM9-3S-LQN"/>
+        <segue reference="jyz-2R-Df6"/>
+        <segue reference="9tC-A9-S5v"/>
+        <segue reference="rhG-0D-VZY"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlayerView.h"
 
 @interface SplashScreenViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UIImageView *splashScreenImageView;
+@property (weak, nonatomic) IBOutlet PlayerView *playerView;
 
 @end
