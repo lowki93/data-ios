@@ -37,15 +37,15 @@ NSDictionary *dictionnary;
     indexTutorial = 0;
 
     titleArray = [@[@"Hours", @"Captation", @"Hours data", @"Daily data", @""] mutableCopy ];
-    subTitleTutorial = [@[@"chaque point correspond\nà une heure de la journée", @"le point centrale t’indique\nque l’application capte des ddonnées", @"TAPE SUR UNE HEURE POUR\nVOIR LES DONNÉES RÉCOLTÉES", @"TAPE SUR UNE HEURE POUR\nVOIR LES DONNÉES RÉCOLTÉES", @""] mutableCopy ];
+    subTitleTutorial = [@[@"Each point corresponds\nto an hour of the day", @"The central point indicates that\nthe application is capturing data", @"Tap a circle to know the\ndetails of the data captured", @"Tap the centre to know the details\nof the data captured in one day", @""] mutableCopy ];
 
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
-    dataViewHeight = self.view.bounds.size.height * 0.33;
+    dataViewHeight = self.view.bounds.size.height * 0.35;
 
     UIView *contentView = [[UIView alloc] init];
-    [contentView setFrame:CGRectMake(0, dataViewHeight, self.view.bounds.size.width, self.view.bounds.size.height * 0.67)];
+    [contentView setFrame:CGRectMake(0, dataViewHeight, self.view.bounds.size.width, self.view.bounds.size.height * 0.65)];
     [contentView setBackgroundColor:[baseView colorWithRGB:243 :243 :243 :1]];
     [self.view addSubview:contentView];
 
@@ -58,7 +58,7 @@ NSDictionary *dictionnary;
     [self updateLabel];
 
     [self.hourLabel setText:@"6:00 PM"];
-    [self.verticalLabelConstraint setConstant:(self.view.bounds.size.height * 0.655)];
+    [self.verticalLabelConstraint setConstant:(self.view.bounds.size.height * 0.665)];
     [self.view addSubview:self.hourLabel];
 
     NSString *pathJson = [[NSBundle mainBundle] pathForResource:@"tutorialExperience" ofType:@"json"];
@@ -73,7 +73,7 @@ NSDictionary *dictionnary;
 
     }
 
-    self.pageControl = [[customPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height * 0.25, self.view.frame.size.width, 37)];
+    self.pageControl = [[customPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height * 0.28, self.view.frame.size.width, 37)];
     [self.pageControl setNumberOfPages:4];
     [self.pageControl setTransform: CGAffineTransformMakeScale(1.2, 1.2)];
     [self.view addSubview:self.pageControl];
@@ -115,7 +115,7 @@ NSDictionary *dictionnary;
 
 - (void)updateLabel {
 
-    [self.tutorialLabel setText:[[titleArray objectAtIndex:indexTutorial] capitalizedString]];
+    [self.tutorialLabel setText:[[titleArray objectAtIndex:indexTutorial] uppercaseString]];
     [self.informationLabel setText:[[subTitleTutorial objectAtIndex:indexTutorial] uppercaseString]];
     [baseView addLineHeight:1.5 Label:self.informationLabel];
 

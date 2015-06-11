@@ -320,7 +320,7 @@ int indexData;
     [self.buttonArray addObject:button];
     [self addSubview:button];
 
-    [UIView animateWithDuration:0.3 delay:self.delay options:0 animations:^{
+    [UIView animateWithDuration:0.2 delay:self.delay options:0 animations:^{
 
         [button setAlpha:1];
 

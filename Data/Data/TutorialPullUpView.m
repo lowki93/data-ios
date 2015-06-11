@@ -21,7 +21,7 @@ float duration;
 - (void)initView:(UIViewController *)viewController {
 
     translation = 20;
-    duration = 0.4;
+    duration = 0.6;
     lineHeight = 200;
 
     for(UIView *view in self.subviews) {
@@ -37,22 +37,23 @@ float duration;
     CGPoint center = CGPointMake(viewController.view.bounds.size.width / 2, viewController.view.bounds.size.height / 2 + lineHeight);
 
     UIBezierPath *aPath = [UIBezierPath bezierPathWithArcCenter:center
-                                                         radius:30
+                                                         radius:25
                                                      startAngle:angle
                                                        endAngle:2 * M_PI + angle
                                                       clockwise:YES];
 
-    UIColor *grey = [baseView colorWithRGB:204 :204 :204 :1];
+    UIColor *greyCircle = [baseView colorWithRGB:204 :204 :204 :1];
     roundLayer = [[CAShapeLayer alloc] init];
     [roundLayer setPath:aPath.CGPath];
-    [roundLayer setStrokeColor:grey.CGColor];
+    [roundLayer setStrokeColor:greyCircle.CGColor];
     [roundLayer setFillColor:[UIColor clearColor].CGColor];
-    [roundLayer setLineWidth:3.f];
+    [roundLayer setLineWidth:2.f];
     [roundLayer setOpacity:0];
     [roundLayer setStrokeStart:0/100];
     [roundLayer setStrokeEnd:100/100];
     [self.layer addSublayer:roundLayer];
 
+    UIColor *greyLine = [baseView colorWithRGB:226 :226 :226 :1];
     lineLayer = [CAShapeLayer layer];
     UIBezierPath *linePath=[UIBezierPath bezierPath];
     [linePath moveToPoint:CGPointMake(self.bounds.size.width / 2,
@@ -62,10 +63,10 @@ float duration;
     [lineLayer setPath: linePath.CGPath];
     [lineLayer setFillColor: nil];
     [lineLayer setOpacity: 1.0];
-    [lineLayer setLineWidth:1.f];
+    [lineLayer setLineWidth:3.f];
     [lineLayer setStrokeStart:0/100];
     [lineLayer setStrokeEnd:0/100];
-    [lineLayer setStrokeColor: grey.CGColor];
+    [lineLayer setStrokeColor: greyLine.CGColor];
     [self.layer addSublayer:lineLayer];
 
     [self setBackgroundColor:[baseView colorWithRGB:255 :255 :255 :0.8]];

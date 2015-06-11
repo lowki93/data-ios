@@ -25,9 +25,9 @@
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
+            <string>MaisonNeue-Book</string>
         </mutableArray>
         <mutableArray key="MaisonNeue-Light.ttf">
-            <string>MaisonNeue-Light</string>
             <string>MaisonNeue-Light</string>
             <string>MaisonNeue-Light</string>
             <string>MaisonNeue-Light</string>
@@ -1117,12 +1117,12 @@ OF THE EXPERIENCE</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day 4 / 14  —  30%" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCU-Bh-0wP">
-                                <rect key="frame" x="10" y="110" width="580" height="15"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="15"/>
+                                <rect key="frame" x="10" y="115" width="580" height="16"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="16"/>
                                 <color key="textColor" red="0.61568627450000002" green="0.61568627450000002" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours 1/4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kxa-XJ-Fjz">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kxa-XJ-Fjz">
                                 <rect key="frame" x="10" y="70" width="580" height="30"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="30"/>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
@@ -1137,9 +1137,9 @@ OF THE EXPERIENCE</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdd-dj-w7b" customClass="TutorialPullUpView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PULL TO VIEW TIME LINE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZg-2S-bu1">
-                                        <rect key="frame" x="205" y="217" width="191" height="17"/>
-                                        <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="PULL TO VIEW TIMELINE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZg-2S-bu1">
+                                        <rect key="frame" x="212" y="218" width="177" height="16"/>
+                                        <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="16"/>
                                         <color key="textColor" red="0.61568627450000002" green="0.61568627450000002" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1160,7 +1160,7 @@ OF THE EXPERIENCE</string>
                             <constraint firstItem="iCU-Bh-0wP" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="10" id="I5F-9H-Tlc"/>
                             <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="top" secondItem="gbt-X7-BAF" secondAttribute="bottom" constant="70" id="KS6-zg-gVM"/>
                             <constraint firstItem="cdd-dj-w7b" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" id="VW1-hS-S99"/>
-                            <constraint firstItem="iCU-Bh-0wP" firstAttribute="top" secondItem="Kxa-XJ-Fjz" secondAttribute="bottom" constant="10" id="W5Z-I9-CPc"/>
+                            <constraint firstItem="iCU-Bh-0wP" firstAttribute="top" secondItem="Kxa-XJ-Fjz" secondAttribute="bottom" constant="15" id="W5Z-I9-CPc"/>
                             <constraint firstAttribute="trailing" secondItem="Kxa-XJ-Fjz" secondAttribute="trailing" constant="10" id="go0-uE-0xD"/>
                             <constraint firstItem="Kxa-XJ-Fjz" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="10" id="jsi-cL-cDR"/>
                             <constraint firstItem="U3a-2Q-cBE" firstAttribute="leading" secondItem="nMd-bo-T2e" secondAttribute="leading" constant="55" id="lHT-Yt-5Vf"/>
@@ -1192,7 +1192,7 @@ OF THE EXPERIENCE</string>
         <segue reference="0kN-7n-njY"/>
         <segue reference="RPU-Ly-yyP"/>
         <segue reference="vV7-CA-ZTr"/>
-        <segue reference="Nbz-yN-fpI"/>
+        <segue reference="XsT-MJ-dYz"/>
         <segue reference="uM9-3S-LQN"/>
     </inferredMetricsTieBreakers>
 </document>
