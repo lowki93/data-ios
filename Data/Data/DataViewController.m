@@ -145,7 +145,7 @@ float durationLabel;
         [self.contentScrollView addSubview:view];
     }
 
-    [self.dateLabel setText:[dateArray objectAtIndex:indexDay]];
+    [self.dateLabel setText:[[dateArray objectAtIndex:indexDay] uppercaseString]];
     [self updateInformationLabel];
     [self animatedView:self.dateLabel Duration:0 Delay:0 Alpha:0 Translaton:translationDate];
     [self animatedView:self.informationLabel Duration:0 Delay:0 Alpha:0 Translaton:translationDate];
@@ -200,7 +200,6 @@ float durationLabel;
 
     [self animatedBackButton:0 Translation:transitionBack Alpha:0];
     [self animatedUpScrollView:0 First:YES];
-    [self performSelector:@selector(animatedCloseScrollView) withObject:nil afterDelay:0.5];
 
     [self animatedView:self.dateLabel Duration:0.5 Delay:0 Alpha:1 Translaton:0];
     [self animatedView:self.informationLabel Duration:0.5 Delay:0.2 Alpha:1 Translaton:0];
@@ -744,23 +743,25 @@ float durationLabel;
 
 - (void)animateDateLabel:(float)translation {
 
+    [self.dateLabel setTransform: CGAffineTransformScale(CGAffineTransformMakeTranslation(0, 0), 0.8, 0.8)];
+
     [UIView animateWithDuration:durationLabel delay:0 options:0 animations:^{
 
         [self.dateLabel setAlpha:0];
-        [self.dateLabel setTransform:CGAffineTransformMakeTranslation(translation, 0)];
+        [self.dateLabel setTransform: CGAffineTransformScale(CGAffineTransformMakeTranslation(translation, 0), 0.8, 0.8)];
         [self.informationLabel setAlpha:0];
         [self.informationLabel setTransform:CGAffineTransformMakeTranslation(translation, 0)];
 
     } completion:^(BOOL finished){
 
-        [self.dateLabel setText:[dateArray objectAtIndex:indexDay]];
+        [self.dateLabel setText:[[dateArray objectAtIndex:indexDay] uppercaseString]];
         [self updateInformationLabel];
-        [self.dateLabel setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
+        [self.dateLabel setTransform:CGAffineTransformScale(CGAffineTransformMakeTranslation(-translation, 0), 0.8, 0.8)];
         [self.informationLabel setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
 
         [UIView animateWithDuration:durationLabel delay:0 options:0 animations:^{
 
-            [self.dateLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
+            [self.dateLabel setTransform: CGAffineTransformScale(CGAffineTransformMakeTranslation(0, 0), 0.8, 0.8)];
             [self.dateLabel setAlpha:1];
             [self.informationLabel setAlpha:1];
             [self.informationLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
@@ -868,7 +869,13 @@ float durationLabel;
             CGRect frame = self.contentScrollView.frame;
             frame.origin.x = (self.view.bounds.size.width + margin) * secondScale * indexDay;
             [self.contentScrollView scrollRectToVisible:frame animated:NO];
-            
+
+            /** test **/
+            if(!boolean) {
+                CGAffineTransform transform = self.timeLineView.transform;
+                self.dateLabel.transform = CGAffineTransformScale(transform, 0.8, 0.8);
+            }
+
         } completion:^(BOOL finished){
 
             if (!boolean) {
@@ -878,6 +885,8 @@ float durationLabel;
                 [self.view addGestureRecognizer:rightGesture];
                 [self.view addGestureRecognizer:closeGesture];
 
+            } else {
+                [self animatedCloseScrollView];
             }
             
         }];
@@ -890,6 +899,9 @@ float durationLabel;
 
     [self animatedBackButton:0.5 Translation:transitionBack Alpha:0];
     [UIView animateWithDuration:0.5  delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+
+        /** test **/
+        [self.dateLabel setTransform:CGAffineTransformIdentity];
 
         int count = 0;
 
@@ -965,7 +977,7 @@ float durationLabel;
 - (void)updateInformationLabel {
 
     float percent = (float) (indexDay + 1) / nbDay * 100;
-    [self.informationLabel setText:[NSString stringWithFormat:@"Day %i / %i - %.f%%", (indexDay + 1), nbDay, percent ]];
+    [self.informationLabel setText:[[NSString stringWithFormat:@"Day %i / %i - %.f%%", (indexDay + 1), nbDay, percent ] uppercaseString]];
 
 }
 
