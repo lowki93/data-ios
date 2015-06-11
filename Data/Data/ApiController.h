@@ -16,6 +16,7 @@
 @interface ApiController : NSObject
 
 @property (nonatomic) NSString *url;
+@property (nonatomic) NSString *socketUrl;
 @property (nonatomic) User *user;
 @property (nonatomic) Experience *experience;
 @property (nonatomic) NSMutableArray *location;
