@@ -110,12 +110,6 @@
 
 }
 
-- (void)loadLoader:(UIImageView *)loaderImageView View:(UIView *)currentView {
-
-    [NSThread detachNewThreadSelector:@selector(generateTutorialAnimationImage:View:) toTarget:self withObject:[NSArray arrayWithObjects:loaderImageView, currentView, nil]];
-
-}
-
 - (void)addLineHeight:(CGFloat)lineHeight Label:(UILabel *)label {
 
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[label text]];
