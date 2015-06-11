@@ -439,6 +439,12 @@ bool firstGeoloc, pedometerIsActive;
     [self animatedView:self.nextButton Duration:duration Delay:0 Alpha:0 Translaton:-translation];
     [self animatedView:self.lineView Duration:duration Delay:0 Alpha:0 Translaton:0];
 
+    NSDictionary *sokectDictionary = @{
+                                       @"activation": @"next",
+                                       @"token": [ApiController sharedInstance].user.token,
+                                       };
+    [self sendDataWithSocket:sokectDictionary];
+
     [self performSelector:@selector(excuteSegue) withObject:nil afterDelay:duration];
 
 }

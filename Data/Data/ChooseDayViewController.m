@@ -217,6 +217,13 @@ float labelWidth, firstMargin, duration;
         [self animatedView:self.dayLabel Duration:duration Delay:0 Alpha:0 Translaton:0];
         [self animatedView:self.dayScrollView Duration:duration Delay:0 Alpha:0 Translaton:0];
 
+        NSDictionary *sokectDictionary = @{
+                                           @"activation": @"end",
+                                           @"token": [ApiController sharedInstance].user.token,
+                                            @"data": dictionary[@"currentData"]
+                                           };
+        [self sendDataWithSocket:sokectDictionary];
+
         [self performSelector:@selector(goToTutorialView) withObject:nil afterDelay:duration * 2];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -236,6 +243,16 @@ float labelWidth, firstMargin, duration;
 
     [baseView showModal:@"TutorialViewController" RemoveWindow:true];
 
+}
+
+- (void)sendDataWithSocket:(NSDictionary *)dictionary {
+
+
+    NSData* myData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:NULL];
+    NSString *jsonString = [[NSString alloc] initWithData:myData encoding:NSUTF8StringEncoding];
+
+    [[ApiController sharedInstance] writeDataSocket:jsonString];
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
