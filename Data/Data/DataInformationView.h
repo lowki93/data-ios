@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "BaseViewController.h"
 
 @interface DataInformationView : UIView
@@ -17,7 +18,7 @@
 @property (nonatomic) int translation;
 @property (nonatomic) float duration;
 
-- (void)init:(float)size;
+- (void)init:(CGRect)frame;
 - (void)animatedAllLabel:(float)duration Translation:(int)translation Alpha:(int)alpha;
 
 @end

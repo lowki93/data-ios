@@ -66,34 +66,31 @@ int indexData;
     [self.hoursLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:self.hoursLabel];
 
-    float informationViewWidth = (radiusData - 30) * 2;
+    float informationViewWidth = (radiusData - 20) * 2;
 
     /** information by hours **/
     self.informationView = [[DataInformationView alloc] init];
-    [self.informationView setFrame:CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
-                               (self.bounds.size.height / 2) - (informationViewWidth / 2),
-                               informationViewWidth,
-                               informationViewWidth)];
-    [self.informationView.layer setCornerRadius:informationViewWidth/2.];
-    [self.informationView.layer setMasksToBounds:YES];
-    [self.informationView setBackgroundColor:[UIColor whiteColor]];
-    [self.informationView init:informationViewWidth];
+    CGRect informationFrame = CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
+                                         (self.bounds.size.height / 2) - (informationViewWidth / 2),
+                                         informationViewWidth,
+                                         informationViewWidth);
+    [self.informationView init:informationFrame];
     self.informationViewActive = NO;
     [self scaleInformationView:self.informationView];
+    [self.informationView setBackgroundColor:[UIColor clearColor]];
     [self addSubview:self.informationView];
 
     /** information by Day **/
     self.allDataView = [[DataInformationView alloc] init];
     informationViewWidth = informationViewWidth + 10;
-    [self.allDataView setFrame:CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
-                                              (self.bounds.size.height / 2) - (informationViewWidth / 2),
-                                              informationViewWidth,
-                                              informationViewWidth)];
-    [self.allDataView.layer setCornerRadius:informationViewWidth/2.];
-    [self.allDataView setBackgroundColor:[UIColor whiteColor]];
-    [self.allDataView init:informationViewWidth];
-    [self.allDataView.layer setMasksToBounds:YES];
+    CGRect allDataFrame = CGRectMake((self.bounds.size.width / 2) - (informationViewWidth / 2),
+                                     (self.bounds.size.height / 2) - (informationViewWidth / 2),
+                                     informationViewWidth,
+                                     informationViewWidth);
+    [self.allDataView init:allDataFrame];
     [self scaleInformationView:self.allDataView];
+    [self.allDataView setBackgroundColor:[UIColor clearColor]];
+
     [self addSubview:self.allDataView];
 
     [self createCircle];
