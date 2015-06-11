@@ -10,4 +10,10 @@
 
 @interface LoaderView : UIView
 
+@property (nonatomic, strong) CAShapeLayer *firstCircle;
+@property (nonatomic, strong) CAShapeLayer *secondCircle;
+
+- (void)initView:(CGRect)frame ViewController:(UIViewController *)viewController;
+
+
 @end
