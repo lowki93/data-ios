@@ -431,13 +431,13 @@ to reveal</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mF-GS-Snp">
-                                <rect key="frame" x="26" y="100" width="548" height="41"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="41"/>
+                                <rect key="frame" x="26" y="115" width="548" height="36"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="36"/>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day 4 / 14  —  30%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rcd-3J-Pzy">
-                                <rect key="frame" x="36" y="151" width="528" height="15"/>
+                                <rect key="frame" x="36" y="161" width="528" height="15"/>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="15"/>
                                 <color key="textColor" red="0.61568627450980395" green="0.61568627450980395" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -474,7 +474,7 @@ to reveal</string>
                             <constraint firstItem="gwK-Xm-Miy" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" id="OAA-Wk-CzX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rqj-pQ-8Cb" secondAttribute="trailing" constant="4" id="QzK-aY-hOI"/>
                             <constraint firstItem="jib-wF-uB4" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leadingMargin" constant="20" id="RgW-XU-5ib"/>
-                            <constraint firstItem="8mF-GS-Snp" firstAttribute="top" secondItem="4fH-C9-3fe" secondAttribute="bottom" constant="100" id="RnL-B5-5xI"/>
+                            <constraint firstItem="8mF-GS-Snp" firstAttribute="top" secondItem="4fH-C9-3fe" secondAttribute="bottom" constant="115" id="RnL-B5-5xI"/>
                             <constraint firstItem="axA-9Z-JyO" firstAttribute="top" secondItem="qgj-Xv-zcP" secondAttribute="bottom" constant="20" id="Ub8-Yu-nLJ"/>
                             <constraint firstItem="ivx-3O-myV" firstAttribute="top" secondItem="4fH-C9-3fe" secondAttribute="bottom" constant="-20" id="V9R-bx-WuY"/>
                             <constraint firstItem="G6c-Zv-6bt" firstAttribute="leading" secondItem="5Gq-4e-hfR" secondAttribute="leading" id="WD9-Td-pRf"/>
@@ -1137,8 +1137,8 @@ OF THE EXPERIENCE</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdd-dj-w7b" customClass="TutorialPullUpView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="PULL TO VIEW TIMELINE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZg-2S-bu1">
-                                        <rect key="frame" x="212" y="218" width="177" height="16"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PULL TO VIEW TIMELINE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZg-2S-bu1">
+                                        <rect key="frame" x="212" y="217" width="177" height="16"/>
                                         <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="16"/>
                                         <color key="textColor" red="0.61568627450000002" green="0.61568627450000002" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
