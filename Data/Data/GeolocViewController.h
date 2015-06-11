@@ -13,7 +13,6 @@
 @import AssetsLibrary;
 #import "SSZipArchive.h"
 #import "LoaderView.h"
-#import "LoaderImageView.h"
 #import "CustomButton.h"
 
 @interface GeolocViewController : UIViewController <CLLocationManagerDelegate>

@@ -7,12 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LoaderView.h"
-#import "LoaderImageView.h"
 
 @interface TestViewController : UIViewController
-
-@property (weak, nonatomic) IBOutlet LoaderView *loaderView;
-@property (weak, nonatomic) IBOutlet LoaderImageView *loaderImageView;
 
 @end

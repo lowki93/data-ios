@@ -16,9 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self.loaderView initView:self.loaderView.bounds ViewController:self];
-    [self.loaderImageView initImageView];
     
 }
 

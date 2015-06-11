@@ -181,24 +181,14 @@ to reveal</string>
                                     <constraint firstAttribute="width" constant="150" id="lsh-OT-hkl"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mkF-8j-Apt" customClass="LoaderImageView">
-                                <rect key="frame" x="225" y="225" width="150" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="9Fw-Yd-1RK"/>
-                                    <constraint firstAttribute="height" constant="150" id="hNr-ss-OeD"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="da4-30-zhf" firstAttribute="top" secondItem="Zg7-jf-THw" secondAttribute="topMargin" id="Kex-V3-o3w"/>
                             <constraint firstAttribute="centerX" secondItem="da4-30-zhf" secondAttribute="centerX" id="Xky-9f-UNg"/>
-                            <constraint firstAttribute="centerX" secondItem="mkF-8j-Apt" secondAttribute="centerX" id="i4C-na-gv9"/>
-                            <constraint firstAttribute="centerY" secondItem="mkF-8j-Apt" secondAttribute="centerY" id="jy1-RD-NzK"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="loaderImageView" destination="mkF-8j-Apt" id="Pn0-ue-g00"/>
                         <outlet property="loaderView" destination="da4-30-zhf" id="QXb-US-gVt"/>
                     </connections>
                 </viewController>
