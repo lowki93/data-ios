@@ -37,7 +37,6 @@ float firstCircleDuration;
     [self.firstCircle setStrokeColor:[basView colorWithRGB:25 :25 :25 :1].CGColor];
     [self.firstCircle setFillColor:[UIColor clearColor].CGColor];
     [self.firstCircle setLineWidth:1.5f];
-    [self.firstCircle setStrokeStart:0/100];
     [self.layer addSublayer:self.firstCircle];
 
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
@@ -61,12 +60,13 @@ float firstCircleDuration;
     [self.secondCircle setStrokeColor:[basView colorWithRGB:204 :204 :204 :1].CGColor];
     [self.secondCircle setFillColor:[UIColor clearColor].CGColor];
     [self.secondCircle setLineWidth:6.f];
-    [self.secondCircle setStrokeStart:0/100];
     [self.layer addSublayer:self.secondCircle];
 
     CABasicAnimation *spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
     [spinAnimation setByValue: [NSNumber numberWithFloat:2.0f * M_PI]];
     [spinAnimation setDuration: 1.3];
+    [spinAnimation setRemovedOnCompletion:NO];
+    [spinAnimation setFillMode:kCAFillModeForwards];
     [spinAnimation setRepeatCount: INFINITY];
     [self.secondCircle addAnimation:spinAnimation forKey:@"indeterminateAnimation"];
 
