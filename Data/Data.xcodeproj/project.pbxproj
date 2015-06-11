@@ -89,6 +89,8 @@
 		171329951B0F5C1E00A94B5B /* captation_78.png in Resources */ = {isa = PBXBuildFile; fileRef = 171328F01B0F5C1E00A94B5B /* captation_78.png */; };
 		171329961B0F5C1E00A94B5B /* captation_79.png in Resources */ = {isa = PBXBuildFile; fileRef = 171328F11B0F5C1E00A94B5B /* captation_79.png */; };
 		17169B7F1AF22C6D00321300 /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17169B7E1AF22C6D00321300 /* DataViewController.m */; };
+		171712041B290565005F8B71 /* LoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 171712031B290565005F8B71 /* LoaderView.m */; };
+		171712081B29060C005F8B71 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 171712071B29060C005F8B71 /* TestViewController.m */; };
 		1737EFA01ADFF296002E4811 /* TimeLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1737EF9F1ADFF296002E4811 /* TimeLineView.m */; };
 		173B2FB61AF3E60500A71BA5 /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 173B2FB51AF3E60500A71BA5 /* ChooseDayViewController.m */; };
 		173F4BC71B0E2B0A000D70DB /* loader_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 173F4B9F1B0E2B0A000D70DB /* loader_0.png */; };
@@ -336,6 +338,10 @@
 		171328F11B0F5C1E00A94B5B /* captation_79.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = captation_79.png; sourceTree = "<group>"; };
 		17169B7D1AF22C6D00321300 /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataViewController.h; sourceTree = "<group>"; };
 		17169B7E1AF22C6D00321300 /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
+		171712021B290565005F8B71 /* LoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoaderView.h; sourceTree = "<group>"; };
+		171712031B290565005F8B71 /* LoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderView.m; sourceTree = "<group>"; };
+		171712061B29060C005F8B71 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		171712071B29060C005F8B71 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		1737EF9E1ADFF296002E4811 /* TimeLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineView.h; sourceTree = "<group>"; };
 		1737EF9F1ADFF296002E4811 /* TimeLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLineView.m; sourceTree = "<group>"; };
 		173B2FB41AF3E60500A71BA5 /* ChooseDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseDayViewController.h; sourceTree = "<group>"; };
@@ -650,6 +656,15 @@
 			name = Captation;
 			sourceTree = "<group>";
 		};
+		171712051B2905F6005F8B71 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				171712061B29060C005F8B71 /* TestViewController.h */,
+				171712071B29060C005F8B71 /* TestViewController.m */,
+			);
+			name = Test;
+			sourceTree = "<group>";
+		};
 		173F4B9D1B0E2AF0000D70DB /* Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -723,6 +738,8 @@
 				179883181B1B869A002F64EA /* TutorialPullUpView.m */,
 				17A77E501B284A6B001FE7AC /* PlayerView.h */,
 				17A77E511B284A6B001FE7AC /* PlayerView.m */,
+				171712021B290565005F8B71 /* LoaderView.h */,
+				171712031B290565005F8B71 /* LoaderView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -794,6 +811,7 @@
 		17CF527A1AA5F8F6001C7E65 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				171712051B2905F6005F8B71 /* Test */,
 				176AF5041B21CAC3000235AF /* UIButton */,
 				176AF5001B21A3E0000235AF /* UIImageView */,
 				176AF4FF1B218CF7000235AF /* UIPageControl */,
@@ -1384,6 +1402,7 @@
 				A81789481ABC1D34004319BA /* zip.c in Sources */,
 				1771BF031AF2820E000D4D89 /* GeolocViewController.m in Sources */,
 				A89AA8F61ADBEF0F004AC207 /* BaseViewController.m in Sources */,
+				171712081B29060C005F8B71 /* TestViewController.m in Sources */,
 				A81789461ABC1D34004319BA /* mztools.c in Sources */,
 				176AF50D1B21D333000235AF /* ClickImageView.m in Sources */,
 				A8DE94341ACEDDCE00EF1EDC /* Data.m in Sources */,
@@ -1400,6 +1419,7 @@
 				17CF527E1AA5F8F6001C7E65 /* main.m in Sources */,
 				173B2FB61AF3E60500A71BA5 /* ChooseDayViewController.m in Sources */,
 				170135F11B09C98700B10C42 /* CustomSegue.m in Sources */,
+				171712041B290565005F8B71 /* LoaderView.m in Sources */,
 				179883191B1B869A002F64EA /* TutorialPullUpView.m in Sources */,
 				A81789451ABC1D34004319BA /* ioapi.c in Sources */,
 				17A77E521B284A6B001FE7AC /* PlayerView.m in Sources */,

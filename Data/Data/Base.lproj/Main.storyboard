@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vLy-Ti-Leh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BK3-Uz-bBX">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -160,6 +160,51 @@ to reveal</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUg-MW-grQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-425" y="366"/>
+        </scene>
+        <!--Test View Controller-->
+        <scene sceneID="WCu-LY-oNL">
+            <objects>
+                <viewController id="BK3-Uz-bBX" customClass="TestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hJF-6M-BK6"/>
+                        <viewControllerLayoutGuide type="bottom" id="HGP-Ds-YdY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zg7-jf-THw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="da4-30-zhf" customClass="LoaderView">
+                                <rect key="frame" x="225" y="0.0" width="150" height="150"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Esv-zZ-sFf"/>
+                                    <constraint firstAttribute="width" constant="150" id="lsh-OT-hkl"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mkF-8j-Apt" customClass="LoaderImageView">
+                                <rect key="frame" x="225" y="225" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="9Fw-Yd-1RK"/>
+                                    <constraint firstAttribute="height" constant="150" id="hNr-ss-OeD"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="da4-30-zhf" firstAttribute="top" secondItem="Zg7-jf-THw" secondAttribute="topMargin" id="Kex-V3-o3w"/>
+                            <constraint firstAttribute="centerX" secondItem="da4-30-zhf" secondAttribute="centerX" id="Xky-9f-UNg"/>
+                            <constraint firstAttribute="centerX" secondItem="mkF-8j-Apt" secondAttribute="centerX" id="i4C-na-gv9"/>
+                            <constraint firstAttribute="centerY" secondItem="mkF-8j-Apt" secondAttribute="centerY" id="jy1-RD-NzK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="loaderImageView" destination="mkF-8j-Apt" id="Pn0-ue-g00"/>
+                        <outlet property="loaderView" destination="da4-30-zhf" id="QXb-US-gVt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9PH-4A-IPL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1261" y="1111"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="QXU-t6-siN">
