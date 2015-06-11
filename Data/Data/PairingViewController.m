@@ -50,7 +50,7 @@ float duration;
     [self.informationParringLabel setText:[informationParingString uppercaseString]];
 
     [baseView addLineHeight:1.4 Label:self.waitingLabel];
-    [baseView addLineHeight:1.3 Label:self.informationParringLabel];
+    [baseView addLineHeight:1.7 Label:self.informationParringLabel];
 
     /** title animation **/
     [self animatedView:self.titleLabel Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];

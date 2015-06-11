@@ -54,7 +54,7 @@ float labelWidth, firstMargin, duration;
         UILabel *label = [[UILabel alloc] init];
         [label setFrame:CGRectMake(firstMargin + (labelWidth * i), 0, labelWidth, self.dayScrollView.bounds.size.height)];
         [label setText:[NSString stringWithFormat:@"%i", i + 1]];
-        [label setFont:[UIFont fontWithName:@"MaisonNeue-Book" size:55]];
+        [label setFont:[UIFont fontWithName:@"MaisonNeue-Book" size:62]];
         [label setTextColor:[baseView colorWithRGB:29 :29 :27 :1]];
         [label setTextAlignment:NSTextAlignmentCenter];
 

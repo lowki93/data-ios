@@ -68,7 +68,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="maN-Im-3eU" customClass="CustomButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="maN-Im-3eU" customClass="CustomButton">
                                 <rect key="frame" x="200" y="450" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="MhH-do-JQp"/>
@@ -90,23 +90,23 @@
                                     <action selector="signupAction:" destination="LWw-fk-NXN" eventType="touchUpInside" id="bsu-UY-xOx"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="IIo-Sz-rAV">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="IIo-Sz-rAV">
                                 <rect key="frame" x="16" y="15" width="82" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="82" id="76j-c2-AY2"/>
                                     <constraint firstAttribute="height" constant="36" id="L0w-cc-PrG"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMi-bY-Hst">
-                                <rect key="frame" x="16" y="151" width="239" height="106"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMi-bY-Hst">
+                                <rect key="frame" x="21" y="151" width="215" height="106"/>
                                 <string key="text">Your daily life
-has something
+has so much
 to reveal</string>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="35"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8i-4a-bCh" customClass="CustomButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8i-4a-bCh" customClass="CustomButton">
                                 <rect key="frame" x="200" y="520" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="56g-Un-K1R"/>
@@ -142,7 +142,7 @@ to reveal</string>
                             <constraint firstItem="h5Z-Hq-pJg" firstAttribute="top" secondItem="tvv-C4-9r9" secondAttribute="bottom" id="kJr-xp-cAy"/>
                             <constraint firstItem="tvv-C4-9r9" firstAttribute="leading" secondItem="ku6-cp-OqZ" secondAttribute="leading" id="lm9-fS-x2u"/>
                             <constraint firstAttribute="centerX" secondItem="maN-Im-3eU" secondAttribute="centerX" id="ow0-7o-afC"/>
-                            <constraint firstItem="IIo-Sz-rAV" firstAttribute="leading" secondItem="bMi-bY-Hst" secondAttribute="leading" id="qCT-BU-ub7"/>
+                            <constraint firstItem="IIo-Sz-rAV" firstAttribute="leading" secondItem="bMi-bY-Hst" secondAttribute="leading" constant="-5" id="qCT-BU-ub7"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -240,12 +240,12 @@ to reveal</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21W-v2-eeZ">
-                                <rect key="frame" x="352" y="559" width="54" height="20"/>
+                                <rect key="frame" x="352" y="560" width="57" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="iI3-1n-tLj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="15"/>
-                                <state key="normal" title="Sign Up">
+                                <state key="normal" title="SIGN UP">
                                     <color key="titleColor" red="0.10980392156862745" green="0.12549019607843137" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -654,8 +654,8 @@ your mobile phone with desktop</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/4  COEUR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTs-eG-IFm">
-                                <rect key="frame" x="190" y="65" width="220" height="43"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="42"/>
+                                <rect key="frame" x="206" y="65" width="189" height="36"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="36"/>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -664,7 +664,7 @@ your mobile phone with desktop</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="FNF-YD-bjI"/>
                                 </constraints>
-                                <string key="text">We don’t sell your datas, you can choose 
+                                <string key="text">We don’t sell your data, you can choose 
 to delete them from our server at anytime</string>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="13"/>
                                 <color key="textColor" red="0.34901960784313724" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
@@ -710,7 +710,7 @@ to delete them from our server at anytime</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SYNC DATA IN PROGRESS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYi-wO-vJi">
-                                <rect key="frame" x="195" y="360" width="210" height="18"/>
+                                <rect key="frame" x="195" y="410" width="210" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="5xo-Q8-Tt2"/>
                                 </constraints>
@@ -724,7 +724,7 @@ to delete them from our server at anytime</string>
                                 </variation>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OFe-Zu-adb">
-                                <rect key="frame" x="263" y="68" width="3" height="32"/>
+                                <rect key="frame" x="279" y="68" width="3" height="26"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="3" id="lho-Db-6RP"/>
@@ -749,10 +749,10 @@ de tes données captée </string>
                             <constraint firstAttribute="centerY" secondItem="cW7-Px-jSl" secondAttribute="centerY" constant="50" id="LYh-hq-fLK"/>
                             <constraint firstItem="4r6-N6-CqR" firstAttribute="top" secondItem="cW7-Px-jSl" secondAttribute="bottom" constant="80" id="XZd-hE-Xhr"/>
                             <constraint firstItem="OFe-Zu-adb" firstAttribute="leading" secondItem="DTs-eG-IFm" secondAttribute="leading" constant="73" id="a6X-e8-6TC"/>
-                            <constraint firstItem="rYi-wO-vJi" firstAttribute="top" secondItem="gxX-Ua-Vf8" secondAttribute="bottom" constant="10" id="cde-w0-rUi"/>
+                            <constraint firstItem="rYi-wO-vJi" firstAttribute="top" secondItem="gxX-Ua-Vf8" secondAttribute="bottom" constant="60" id="cde-w0-rUi"/>
                             <constraint firstAttribute="trailing" secondItem="tjO-Ri-biX" secondAttribute="trailing" constant="100" id="dwW-ws-ykm"/>
                             <constraint firstItem="OFe-Zu-adb" firstAttribute="top" secondItem="DTs-eG-IFm" secondAttribute="top" constant="3" id="eyl-fP-bOl"/>
-                            <constraint firstItem="OFe-Zu-adb" firstAttribute="bottom" secondItem="DTs-eG-IFm" secondAttribute="bottom" constant="-8" id="gKD-PN-TPS"/>
+                            <constraint firstItem="OFe-Zu-adb" firstAttribute="bottom" secondItem="DTs-eG-IFm" secondAttribute="bottom" constant="-7" id="gKD-PN-TPS"/>
                             <constraint firstItem="tjO-Ri-biX" firstAttribute="leading" secondItem="Zbi-UG-B1g" secondAttribute="leading" constant="100" id="oAy-T3-m6h"/>
                             <constraint firstAttribute="centerX" secondItem="rYi-wO-vJi" secondAttribute="centerX" id="pVX-Mj-wNs"/>
                             <constraint firstItem="lIV-gb-H5x" firstAttribute="top" secondItem="gK7-18-avS" secondAttribute="bottom" constant="20" id="qBf-p5-N8n"/>
@@ -800,22 +800,22 @@ de tes données captée </string>
                                     <constraint firstAttribute="height" constant="300" id="DR7-Ot-Rg5"/>
                                 </constraints>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WuR-QS-0Pq">
-                                <rect key="frame" x="253" y="65" width="95" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WuR-QS-0Pq">
+                                <rect key="frame" x="259" y="65" width="83" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="VVJ-2F-vek"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="42"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="36"/>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUa-aO-JIP">
-                                <rect key="frame" x="212" y="135" width="176" height="36"/>
+                                <rect key="frame" x="203" y="135" width="195" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="RTM-jQ-4h9"/>
                                 </constraints>
-                                <string key="text">Sélectionne la durée 
-de l’experience</string>
+                                <string key="text">SELECT THE DURATION 
+OF THE EXPERIENCE</string>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="18"/>
                                 <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -825,9 +825,9 @@ de l’experience</string>
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1du-Pu-DfQ">
-                                <rect key="frame" x="278" y="341" width="44" height="19"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1du-Pu-DfQ">
+                                <rect key="frame" x="277" y="339" width="47" height="22"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="22"/>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -838,7 +838,7 @@ de l’experience</string>
                                     <constraint firstAttribute="height" constant="50" id="GpV-gh-JXz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="20"/>
-                                <state key="normal" title="Valider">
+                                <state key="normal" title="VALIDATE">
                                     <color key="titleColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -897,7 +897,7 @@ de l’experience</string>
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.0" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="40r-y7-YFh">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="40r-y7-YFh">
                                 <rect key="frame" x="20" y="165" width="560" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="3W3-2S-xpS"/>
@@ -909,7 +909,7 @@ de l’experience</string>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="9F6-65-9WX"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.0" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="exemple@gmail.com" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lGE-zM-EUe">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="exemple@gmail.com" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lGE-zM-EUe">
                                 <rect key="frame" x="20" y="225" width="560" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="SZo-A3-zp5"/>
@@ -921,7 +921,7 @@ de l’experience</string>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="VVt-qV-SJm"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pH-Nu-BPu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pH-Nu-BPu">
                                 <rect key="frame" x="227" y="65" width="147" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Q0n-ZC-B1m"/>
@@ -930,7 +930,7 @@ de l’experience</string>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.0" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tpq-KI-7sU">
+                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tpq-KI-7sU">
                                 <rect key="frame" x="20" y="285" width="560" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="9M6-KL-ppw"/>
@@ -942,7 +942,7 @@ de l’experience</string>
                                     <outlet property="delegate" destination="av7-GA-iJ7" id="v8v-qR-X43"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account ?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lx6-zA-vP2">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account ?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lx6-zA-vP2">
                                 <rect key="frame" x="170" y="559" width="181" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="UMB-iF-O6z"/>
@@ -951,20 +951,20 @@ de l’experience</string>
                                 <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1j-F6-cVy">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1j-F6-cVy">
                                 <rect key="frame" x="100" y="538" width="400" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="KdJ-oN-6WV"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6b4-4e-ANi">
-                                <rect key="frame" x="359" y="560" width="39" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6b4-4e-ANi">
+                                <rect key="frame" x="359" y="560" width="43" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="PhM-k4-2Nk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="15"/>
-                                <state key="normal" title="Login">
+                                <state key="normal" title="LOGIN">
                                     <color key="titleColor" red="0.10980392160000001" green="0.12549019610000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -975,7 +975,7 @@ de l’experience</string>
                                     <action selector="loginAction:" destination="av7-GA-iJ7" eventType="touchUpInside" id="fbc-Ea-BkJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Bz-6C-SQS" customClass="CustomButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Bz-6C-SQS" customClass="CustomButton">
                                 <rect key="frame" x="200" y="425" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="YNL-CR-tvG"/>
@@ -997,7 +997,7 @@ de l’experience</string>
                                     <action selector="signupClicked:" destination="av7-GA-iJ7" eventType="touchUpInside" id="IoI-uO-1SJ"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.0" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="repeat password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EP1-VL-BhH">
+                            <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="repeat password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EP1-VL-BhH">
                                 <rect key="frame" x="20" y="345" width="560" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="sq5-h3-ZrH"/>
@@ -1188,11 +1188,11 @@ de l’experience</string>
         <image name="pairring" width="463" height="189"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="hlu-9W-lsx"/>
+        <segue reference="0kN-7n-njY"/>
         <segue reference="RPU-Ly-yyP"/>
-        <segue reference="W96-5B-FU3"/>
+        <segue reference="vV7-CA-ZTr"/>
+        <segue reference="Nbz-yN-fpI"/>
         <segue reference="uM9-3S-LQN"/>
-        <segue reference="jyz-2R-Df6"/>
-        <segue reference="9tC-A9-S5v"/>
-        <segue reference="rhG-0D-VZY"/>
     </inferredMetricsTieBreakers>
 </document>
