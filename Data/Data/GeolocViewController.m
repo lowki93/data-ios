@@ -62,7 +62,7 @@ bool firstGeoloc, pedometerIsActive;
 
     idString = [NSString stringWithFormat:@"%@", [ApiController sharedInstance].user._id];
     tokenString = [NSString stringWithFormat:@"%@", [ApiController sharedInstance].user.token];
-    [self.loaderImageView initImageView];
+    [self.loaderView initView:self.loaderView.bounds ViewController:self];
 
     [baseView addLineHeight:1.4 Label:self.synchroniseLabel];
 
@@ -398,14 +398,14 @@ bool firstGeoloc, pedometerIsActive;
 
 - (void)displayingSynchro {
 
-    [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, translationLoader)];
+    [self.loaderView setTransform:CGAffineTransformMakeTranslation(0, translationLoader)];
     [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, translationLoader)];
 
     [UIView animateWithDuration:duration delay:0 options:0 animations:^{
 
-        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, 0)];
+        [self.loaderView setTransform:CGAffineTransformMakeTranslation(0, 0)];
         [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
-        [self.loaderImageView setAlpha:1];
+        [self.loaderView setAlpha:1];
         [self.synchroniseLabel setAlpha:1];
 
     } completion:nil];
@@ -416,14 +416,14 @@ bool firstGeoloc, pedometerIsActive;
 
     [UIView animateWithDuration:duration delay:0 options:0 animations:^{
 
-        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
+        [self.loaderView setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
         [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(-translation, 0)];
-        [self.loaderImageView setAlpha:0];
+        [self.loaderView setAlpha:0];
         [self.synchroniseLabel setAlpha:0];
 
     } completion:^(BOOL finished){
 
-        [self.loaderImageView setTransform:CGAffineTransformMakeTranslation(0, 0)];
+        [self.loaderView setTransform:CGAffineTransformMakeTranslation(0, 0)];
         [self.synchroniseLabel setTransform:CGAffineTransformMakeTranslation(0, 0)];
 
     }];

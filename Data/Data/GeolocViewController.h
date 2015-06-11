@@ -12,6 +12,7 @@
 @import CoreMotion;
 @import AssetsLibrary;
 #import "SSZipArchive.h"
+#import "LoaderView.h"
 #import "LoaderImageView.h"
 #import "CustomButton.h"
 
@@ -25,7 +26,7 @@
 /** pedometer **/
 @property (nonatomic, strong) CMPedometer *pedometer;
 
-@property (weak, nonatomic) IBOutlet LoaderImageView *loaderImageView;
+@property (weak, nonatomic) IBOutlet LoaderView *loaderView;
 @property (weak, nonatomic) IBOutlet UILabel *synchroniseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *captaTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stepLabel;
