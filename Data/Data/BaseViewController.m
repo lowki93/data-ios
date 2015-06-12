@@ -168,4 +168,20 @@
 
 }
 
+- (void)animatedView:(UIView *)view
+            Duration:(float)duration
+               Delay:(float)delay
+               Alpha:(float)alpha
+        TranslationX:(int)translationX
+        TranslationY:(int)translationY {
+
+    [UIView animateWithDuration:duration delay:delay options:0 animations:^{
+
+        [view setAlpha:alpha];
+        [view setTransform:CGAffineTransformMakeTranslation(translationX, translationY)];
+
+    } completion:nil];
+    
+}
+
 @end

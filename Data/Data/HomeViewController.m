@@ -7,15 +7,15 @@
 //
 
 #import "HomeViewController.h"
-#import "BaseViewController.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface HomeViewController ()
 
 @end
 
 BaseViewController *baseView;
+
 float duration;
-int translationX, translationY;
 
 @implementation HomeViewController
 
@@ -23,37 +23,20 @@ int translationX, translationY;
 
     [super viewDidLoad];
 
-    duration = 0.5;
-    translationX = 50;
-    translationY = 20;
-
     baseView = [[BaseViewController alloc] init];
-    [baseView initView:self];
 
-    [baseView addLineHeight:1.4 Label:self.informationLabel];
-    [self.informationLabel setTextAlignment:NSTextAlignmentLeft];
+    duration = 0.8;
 
-    [self.signUpButton initButton];
+    [self.loginView setHidden:YES];
+    [self.signUpView setHidden:YES];
 
     [self.playerView initPlayer:@"home" View:self.view];
+    [self.homeView initView:self];
+    [self.signUpView initView:self];
+    [self.loginView initView:self];
 
-    [self animatedView:self.logoImageView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translationY];
-    [self animatedView:self.informationLabel Duration:0 Delay:0 Alpha:0 TranslationX:translationX TranslationY:0];
-    [self animatedView:self.loginButton Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translationY];
-    [self animatedView:self.signUpButton Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translationY];
-    [self animatedView:self.playerView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
-
-    [self performSelector:@selector(firstAnimation) withObject:nil afterDelay:duration];
-
-}
-
-- (void)firstAnimation {
-
-    [self animatedView:self.logoImageView Duration:duration Delay:0.1 Alpha:1 TranslationX:0 TranslationY:0];
-    [self animatedView:self.informationLabel Duration:duration Delay:0.2 Alpha:1 TranslationX:0 TranslationY:0];
-    [self animatedView:self.loginButton Duration:duration Delay:0.3 Alpha:1 TranslationX:0 TranslationY:0];
-    [self animatedView:self.signUpButton Duration:duration Delay:0.3 Alpha:1 TranslationX:0 TranslationY:0];
-    [self animatedView:self.playerView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
+    [baseView animatedView:self.playerView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
+    [baseView animatedView:self.playerView Duration:0.5 Delay:0.5 Alpha:1 TranslationX:0 TranslationY:0];
 
 }
 
@@ -61,45 +44,174 @@ int translationX, translationY;
     [super didReceiveMemoryWarning];
 }
 
-- (void)animatedView:(UIView *)view Duration:(float)duration Delay:(float)delay Alpha:(float)alpha TranslationX:(int)translationX TranslationY:(int)translationY{
+- (IBAction)homeLoginAction:(id)sender {
 
-    [UIView animateWithDuration:duration delay:delay options:0 animations:^{
+    [self.loginView performSelector:@selector(showContent) withObject:nil afterDelay:duration];
+    [self.loginView setHidden:NO];
 
-        [view setAlpha:alpha];
-        [view setTransform:CGAffineTransformMakeTranslation(translationX, translationY)];
+}
 
-    } completion:nil];
+- (IBAction)homeSignUpAction:(id)sender {
+
+    [self.signUpView performSelector:@selector(showContent) withObject:nil afterDelay:duration];
+    [self.signUpView setHidden:NO];
+
+}
+
+- (IBAction)loginSignUpAction:(id)sender {
+
+    [self.signUpView setHidden:NO];
+    [self.signUpView performSelector:@selector(showContent) withObject:nil afterDelay:duration];
+
+}
+
+- (IBAction)loginConnectActiopn:(id)sender {
+
+    @try {
+
+        if([[self.loginView.usernameTextField text] isEqualToString:@""] || [[self.loginView.passwordTextField text] isEqualToString:@""] ) {
+
+            [baseView alertStatus:@"Please enter Email and Password" :@"Sign in Failed!"];
+
+        } else if(![[ApiController sharedInstance] NSStringIsValidEmail:[self.loginView.usernameTextField text]]) {
+
+            [baseView alertStatus:@"Please enter an email valid" :@"Sign in Failed!"];
+
+        } else {
+
+            NSString *urlString = [[ApiController sharedInstance] getUrlSignIn];
+
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            NSDictionary *parameters = @{
+                                         @"email": [[self.loginView.usernameTextField text] lowercaseString],
+                                         @"password": [self.loginView.passwordTextField text]
+                                         };
+            [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+                NSDictionary *dictionary = responseObject[@"user"];
+                [[ApiController sharedInstance] setUserLoad:dictionary];
+                [[ApiController sharedInstance] updateToken];
+                [self.loginView hideContent];
+
+                [baseView animatedView:self.playerView Duration:0.5 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
+
+                if(![ApiController sharedInstance].user.isActive) {
+
+                    [self performSelector:@selector(executeSegue:) withObject:@"home_pairing" afterDelay:duration];
+
+                } else {
+
+                    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+
+                        [self.view setBackgroundColor:[UIColor whiteColor]];
+
+                    } completion:nil];
+
+                    [self performSelector:@selector(executeSegue:) withObject:@"home_data" afterDelay:duration];
+
+                }
+
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+                NSLog(@"%@", error);
+
+                long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
+
+                if(responseCode == 409 || responseCode == 404) {
+                    [baseView alertStatus:@"Bad credential" :@"Sign in Failed!"];
+                } else {
+                    [baseView alertStatus:@"Connection Failed" :@"Sign in Failed!"];
+                }
+
+            }];
+
+        }
+
+    }
+    @catch (NSException * e) {
+        NSLog(@"Exception: %@", e);
+        [baseView alertStatus:@"Sign in Failed." :@"Error!"];
+    }
+
+}
+
+- (IBAction)signUpLoginAction:(id)sender {
+
+    [self.loginView setHidden:NO];
+    [self.loginView performSelector:@selector(showContent) withObject:nil afterDelay:duration];
+
+}
+
+- (IBAction)signUpSignAction:(id)sender {
+
+    @try {
+
+        if([[self.signUpView.mailTextField text] isEqualToString:@""] || [[self.signUpView.passwordTextField text] isEqualToString:@""] || [[self.signUpView.confirmationPasswordTextField text] isEqualToString:@""] || [[self.signUpView.usernameTextField text] isEqualToString:@""]) {
+
+            [baseView alertStatus:@"fill in all fields" :@"Sign in Failed!"];
+
+        } else if(![[ApiController sharedInstance] NSStringIsValidEmail:[self.signUpView.mailTextField text]]) {
+
+            [baseView alertStatus:@"Please enter an email valid" :@"Sign in Failed!"];
+
+        } else if (![self.signUpView.passwordTextField.text isEqualToString: self.signUpView.confirmationPasswordTextField.text]) {
+
+            [baseView alertStatus:@"you're 2 passwords are different" :@"Sign up Failed!"];
+
+        } else {
+
+            NSString *urlString = [[ApiController sharedInstance] getUrlSignUp];
+
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            NSDictionary *parameters = @{
+                                         @"email": [[self.signUpView.mailTextField text] lowercaseString],
+                                         @"password": [self.signUpView.passwordTextField text],
+                                         @"username": [self.signUpView.usernameTextField text]
+                                         };
+            [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+                NSDictionary *dictionary = responseObject[@"user"];
+                [[ApiController sharedInstance] setUserLoad:dictionary];
+                [[ApiController sharedInstance] updateToken];
+
+                NSLog(@"user create");
+                [self.signUpView hideContent];
+                [baseView animatedView:self.playerView Duration:0.5 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
+                [self performSelector:@selector(executeSegue:) withObject:@"home_pairing" afterDelay:duration];
+
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+                long responseCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
+
+                if(responseCode == 409) {
+                    [baseView alertStatus:@"Email already used" :@"Sign in Failed!"];
+                } else {
+                    [baseView alertStatus:@"Connection Failed" :@"Sign in Failed!"];
+                }
+                
+            }];
+        }
+        
+    }
+    @catch (NSException * e) {
+        NSLog(@"Exception: %@", e);
+        [baseView alertStatus:@"Sign in Failed." :@"Error!"];
+    }
     
 }
 
-- (IBAction)signupAction:(id)sender {
-
-    [self hideContent];
-    [self performSelector:@selector(segueAfterDelay:) withObject:@"SignUpViewController" afterDelay:duration];
+- (void)executeSegue:(NSString *)string {
+    
+    [self performSegueWithIdentifier:string sender:self];
+    
 }
 
-- (IBAction)loginAction:(id)sender {
-    [self hideContent];
-    [self performSelector:@selector(segueAfterDelay:) withObject:@"LoginViewController" afterDelay:duration];
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    return YES;
+    
 }
 
-- (void)hideContent {
-    [self animatedView:self.logoImageView Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
-    [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
-    [self animatedView:self.signUpButton Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
-    [self animatedView:self.loginButton Duration:duration Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
-}
-
-- (void)segueAfterDelay:(NSString *)string {
-
-    [self.informationLabel removeFromSuperview];
-    [self.signUpButton removeFromSuperview];
-    [self.loginButton removeFromSuperview];
-    [self.logoImageView removeFromSuperview];
-
-    [baseView showModal:string RemoveWindow:false];
-
-}
 
 @end

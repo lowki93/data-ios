@@ -90,8 +90,10 @@
 		171329961B0F5C1E00A94B5B /* captation_79.png in Resources */ = {isa = PBXBuildFile; fileRef = 171328F11B0F5C1E00A94B5B /* captation_79.png */; };
 		17169B7F1AF22C6D00321300 /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17169B7E1AF22C6D00321300 /* DataViewController.m */; };
 		171712041B290565005F8B71 /* LoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 171712031B290565005F8B71 /* LoaderView.m */; };
-		171712081B29060C005F8B71 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 171712071B29060C005F8B71 /* TestViewController.m */; };
 		1737EFA01ADFF296002E4811 /* TimeLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1737EF9F1ADFF296002E4811 /* TimeLineView.m */; };
+		1738927C1B2A38A10063DCA3 /* HomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1738927B1B2A38A10063DCA3 /* HomeView.m */; };
+		173892801B2A46080063DCA3 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1738927F1B2A46080063DCA3 /* LoginView.m */; };
+		173892841B2A4E570063DCA3 /* SignUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 173892831B2A4E570063DCA3 /* SignUpView.m */; };
 		173B2FB61AF3E60500A71BA5 /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 173B2FB51AF3E60500A71BA5 /* ChooseDayViewController.m */; };
 		174598DA1AEF85A6002606CD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174598D91AEF85A6002606CD /* AudioToolbox.framework */; };
 		174598DC1AEF85AF002606CD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174598DB1AEF85AF002606CD /* CFNetwork.framework */; };
@@ -299,10 +301,14 @@
 		17169B7E1AF22C6D00321300 /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
 		171712021B290565005F8B71 /* LoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoaderView.h; sourceTree = "<group>"; };
 		171712031B290565005F8B71 /* LoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderView.m; sourceTree = "<group>"; };
-		171712061B29060C005F8B71 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		171712071B29060C005F8B71 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		1737EF9E1ADFF296002E4811 /* TimeLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineView.h; sourceTree = "<group>"; };
 		1737EF9F1ADFF296002E4811 /* TimeLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLineView.m; sourceTree = "<group>"; };
+		1738927A1B2A38A10063DCA3 /* HomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeView.h; sourceTree = "<group>"; };
+		1738927B1B2A38A10063DCA3 /* HomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeView.m; sourceTree = "<group>"; };
+		1738927E1B2A46080063DCA3 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
+		1738927F1B2A46080063DCA3 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
+		173892821B2A4E570063DCA3 /* SignUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpView.h; sourceTree = "<group>"; };
+		173892831B2A4E570063DCA3 /* SignUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpView.m; sourceTree = "<group>"; };
 		173B2FB41AF3E60500A71BA5 /* ChooseDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseDayViewController.h; sourceTree = "<group>"; };
 		173B2FB51AF3E60500A71BA5 /* ChooseDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseDayViewController.m; sourceTree = "<group>"; };
 		174598D91AEF85A6002606CD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -576,10 +582,35 @@
 		171712051B2905F6005F8B71 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				171712061B29060C005F8B71 /* TestViewController.h */,
-				171712071B29060C005F8B71 /* TestViewController.m */,
 			);
 			name = Test;
+			sourceTree = "<group>";
+		};
+		173892791B2A34700063DCA3 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				1738927A1B2A38A10063DCA3 /* HomeView.h */,
+				1738927B1B2A38A10063DCA3 /* HomeView.m */,
+			);
+			name = HomeView;
+			sourceTree = "<group>";
+		};
+		1738927D1B2A45F80063DCA3 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				1738927E1B2A46080063DCA3 /* LoginView.h */,
+				1738927F1B2A46080063DCA3 /* LoginView.m */,
+			);
+			name = LoginView;
+			sourceTree = "<group>";
+		};
+		173892811B2A4E440063DCA3 /* SignUpView */ = {
+			isa = PBXGroup;
+			children = (
+				173892821B2A4E570063DCA3 /* SignUpView.h */,
+				173892831B2A4E570063DCA3 /* SignUpView.m */,
+			);
+			name = SignUpView;
 			sourceTree = "<group>";
 		};
 		173F4B9D1B0E2AF0000D70DB /* Animation */ = {
@@ -594,9 +625,30 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
+		175B5D971B2AEFBA0007D4C2 /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				176AF50E1B21E5E3000235AF /* HomeViewController.h */,
+				176AF50F1B21E5E3000235AF /* HomeViewController.m */,
+			);
+			name = HomeViewController;
+			sourceTree = "<group>";
+		};
+		175B5D981B2AF24C0007D4C2 /* SplashScreen */ = {
+			isa = PBXGroup;
+			children = (
+				176AF5CA1B232B55000235AF /* SplashScreenViewController.h */,
+				176AF5CB1B232B55000235AF /* SplashScreenViewController.m */,
+			);
+			name = SplashScreen;
+			sourceTree = "<group>";
+		};
 		175E664A1AF24D35007CC277 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				173892811B2A4E440063DCA3 /* SignUpView */,
+				1738927D1B2A45F80063DCA3 /* LoginView */,
+				173892791B2A34700063DCA3 /* HomeView */,
 				1737EF9E1ADFF296002E4811 /* TimeLineView.h */,
 				1737EF9F1ADFF296002E4811 /* TimeLineView.m */,
 				17AFE6811AF6C15200CDD08F /* DataView.h */,
@@ -732,8 +784,10 @@
 		17DCD4EB1AA99EF100818722 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				17DCD4E81AA99A8700818722 /* LoginViewController.h */,
+				175B5D981B2AF24C0007D4C2 /* SplashScreen */,
+				175B5D971B2AEFBA0007D4C2 /* HomeViewController */,
 				17DCD4E91AA99A8700818722 /* LoginViewController.m */,
+				17DCD4E81AA99A8700818722 /* LoginViewController.h */,
 				17D3A6FD1AADC01400612D0E /* SignUpViewController.h */,
 				17D3A6FE1AADC01400612D0E /* SignUpViewController.m */,
 				A89AA8F41ADBEF0F004AC207 /* BaseViewController.h */,
@@ -748,10 +802,6 @@
 				173B2FB51AF3E60500A71BA5 /* ChooseDayViewController.m */,
 				17BF33F01B147B50009B6190 /* TutorialViewController.h */,
 				17BF33F11B147B50009B6190 /* TutorialViewController.m */,
-				176AF50E1B21E5E3000235AF /* HomeViewController.h */,
-				176AF50F1B21E5E3000235AF /* HomeViewController.m */,
-				176AF5CA1B232B55000235AF /* SplashScreenViewController.h */,
-				176AF5CB1B232B55000235AF /* SplashScreenViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -1228,7 +1278,6 @@
 				A81789481ABC1D34004319BA /* zip.c in Sources */,
 				1771BF031AF2820E000D4D89 /* GeolocViewController.m in Sources */,
 				A89AA8F61ADBEF0F004AC207 /* BaseViewController.m in Sources */,
-				171712081B29060C005F8B71 /* TestViewController.m in Sources */,
 				A81789461ABC1D34004319BA /* mztools.c in Sources */,
 				176AF50D1B21D333000235AF /* ClickImageView.m in Sources */,
 				A8DE94341ACEDDCE00EF1EDC /* Data.m in Sources */,
@@ -1237,6 +1286,7 @@
 				A8DE94311ACEDA6D00EF1EDC /* Experience.m in Sources */,
 				176AF50A1B21CEE7000235AF /* CaptionImageView.m in Sources */,
 				1756E5011AD5F8B8006CA988 /* Day.m in Sources */,
+				1738927C1B2A38A10063DCA3 /* HomeView.m in Sources */,
 				176476791AF6D401007657DB /* DataInformationView.m in Sources */,
 				17BF33F21B147B50009B6190 /* TutorialViewController.m in Sources */,
 				17CF52811AA5F8F6001C7E65 /* AppDelegate.m in Sources */,
@@ -1246,9 +1296,11 @@
 				173B2FB61AF3E60500A71BA5 /* ChooseDayViewController.m in Sources */,
 				170135F11B09C98700B10C42 /* CustomSegue.m in Sources */,
 				171712041B290565005F8B71 /* LoaderView.m in Sources */,
+				173892841B2A4E570063DCA3 /* SignUpView.m in Sources */,
 				179883191B1B869A002F64EA /* TutorialPullUpView.m in Sources */,
 				A81789451ABC1D34004319BA /* ioapi.c in Sources */,
 				17A77E521B284A6B001FE7AC /* PlayerView.m in Sources */,
+				173892801B2A46080063DCA3 /* LoginView.m in Sources */,
 				176AF5071B21CAF0000235AF /* CustomButton.m in Sources */,
 				17A8C6EC1B20B6BF005E9E8F /* customPageControl.m in Sources */,
 				176AF5101B21E5E3000235AF /* HomeViewController.m in Sources */,

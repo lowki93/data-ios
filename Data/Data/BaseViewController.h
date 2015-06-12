@@ -29,5 +29,11 @@
 - (void)alertStatus:(NSString *)msg :(NSString *)title;
 - (void)addLineHeight:(CGFloat)lineHeight Label:(UILabel *)label;
 - (void)showModal:(NSString *)string RemoveWindow:(BOOL)remove;
+- (void)animatedView:(UIView *)view
+            Duration:(float)duration
+               Delay:(float)delay
+               Alpha:(float)alpha
+        TranslationX:(int)translationX
+        TranslationY:(int)translationY;
 
 @end

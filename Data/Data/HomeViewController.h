@@ -7,18 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CustomButton.h"
 #import "PlayerView.h"
+#import "HomeView.h"
+#import "LoginView.h"
+#import "SignUpView.h"
 
-@interface HomeViewController : UIViewController
+@interface HomeViewController : UIViewController <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *informationLabel;
-@property (weak, nonatomic) IBOutlet CustomButton *signUpButton;
-@property (weak, nonatomic) IBOutlet CustomButton *loginButton;
-@property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
 @property (weak, nonatomic) IBOutlet PlayerView *playerView;
+@property (weak, nonatomic) IBOutlet HomeView *homeView;
+@property (weak, nonatomic) IBOutlet LoginView *loginView;
+@property (weak, nonatomic) IBOutlet SignUpView *signUpView;
 
-- (IBAction)signupAction:(id)sender;
-- (IBAction)loginAction:(id)sender;
+
+- (IBAction)homeLoginAction:(id)sender;
+- (IBAction)homeSignUpAction:(id)sender;
+- (IBAction)loginSignUpAction:(id)sender;
+- (IBAction)loginConnectActiopn:(id)sender;
+- (IBAction)signUpLoginAction:(id)sender;
+- (IBAction)signUpSignAction:(id)sender;
 
 @end
