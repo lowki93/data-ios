@@ -376,7 +376,6 @@ bool firstGeoloc, pedometerIsActive;
 
     [self hideSynchroLabel];
     [self performSelector:@selector(changeTextLabel) withObject:nil afterDelay:duration];
-//    [self showSynchroLabel];
     [self performSelector:@selector(showSynchroLabel) withObject:nil afterDelay:duration];
 
 }
@@ -389,10 +388,10 @@ bool firstGeoloc, pedometerIsActive;
                                                                   attributes:@{ NSFontAttributeName:self.captaTitleLabel.font }
                                                                      context:nil].size.width;
 
-    [self.constraintTitleView setConstant:widthIs + 8];
+    [self.constraintTitleView setConstant:widthIs + 16];
     [self.explainLabel setText:[explainArray[step-1] uppercaseString]];
     [baseView addLineHeight:1.4 Label:self.explainLabel];
-    [self.captaTitleLabel setText:[NSString stringWithFormat:@"%i/%i  %@", step, nbStep, titleArray[step-1]]];
+    [self.captaTitleLabel setText:[NSString stringWithFormat:@"%i/%i    %@", step, nbStep, titleArray[step-1]]];
 
 }
 
