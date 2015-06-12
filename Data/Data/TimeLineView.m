@@ -15,12 +15,14 @@ BaseViewController *baseView;
 
 CGFloat endPogressLayer = 0;
 float radius, ratioCenter;
+int nbFeature;
 
 - (void)initTimeLine:(int)nbDay indexDay:(int)indexDay {
 
-    self.nbDay = nbDay;
+    self.nbDay = nbDay - 1;
     self.indexDay = indexDay;
     ratioCenter = 0.575;
+    nbFeature = 3;
 
     baseView = [[BaseViewController alloc] init];
     [baseView initView:baseView];
@@ -32,7 +34,8 @@ float radius, ratioCenter;
     radius = (self.bounds.size.width /2 ) - 45;
 
     for (int i = 0; i < self.nbDay; i++) {
-        CGFloat theta = ((M_PI * (360.0 / self.nbDay) * i)/ 180) - M_PI_2 + (M_PI_4 * 0 );
+
+        CGFloat theta = ((M_PI * (360.0 / self.nbDay) * i)/ 180) - M_PI_2;
         CGPoint startPoint = CGPointMake(cosf(theta) * radius + self.bounds.size.width / 2,
                                          sinf(theta) * radius + self.bounds.size.height * ratioCenter);
         CGPoint endPoint = CGPointMake(cosf(theta) * (radius + 15) + self.bounds.size.width / 2,
@@ -45,12 +48,32 @@ float radius, ratioCenter;
         CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
         [shapeLayer setPath:path.CGPath];
         [shapeLayer setStrokeColor:baseView.blackTimeLineColor.CGColor];
+
         [shapeLayer setLineWidth:4.0];
 
         [self.layer addSublayer:shapeLayer];
 
-    }
+        for (int j = 1; j <= nbFeature; j++) {
 
+            CGFloat theta2 = theta + (((M_PI * (360.0 / self.nbDay)/ 180) / (nbFeature + 1)) * j);
+            CGPoint startPoint2 = CGPointMake(cosf(theta2) * radius + self.bounds.size.width / 2,
+                                              sinf(theta2) * radius + self.bounds.size.height * ratioCenter);
+            CGPoint endPoint2 = CGPointMake(cosf(theta2) * (radius + 5) + self.bounds.size.width / 2,
+                                            sinf(theta2) * (radius + 5) + self.bounds.size.height * ratioCenter);
+
+            UIBezierPath *path2 = [[UIBezierPath alloc] init];
+            [path2 moveToPoint:CGPointMake(startPoint2.x, startPoint2.y)];
+            [path2 addLineToPoint:CGPointMake(endPoint2.x, endPoint2.y)];
+
+            CAShapeLayer *shapeLayer2 = [[CAShapeLayer alloc] init];
+            [shapeLayer2 setPath:path2.CGPath];
+            [shapeLayer2 setStrokeColor:[UIColor grayColor].CGColor];
+            [shapeLayer2 setLineWidth:2.0];
+
+            [self.layer addSublayer:shapeLayer2];
+        }
+
+    }
 
     [self drawCircle:CGPointMake(self.bounds.size.width / 2, self.bounds.size.height * ratioCenter)
               radius:radius - 20
