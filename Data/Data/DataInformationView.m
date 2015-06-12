@@ -12,6 +12,7 @@
 
 BaseViewController *baseView;
 int size = 20;
+float margin = 10;
 
 - (void)init:(CGRect)frame {
 
@@ -57,7 +58,7 @@ int size = 20;
     [self.geolocInformationLabel setFont:descriptionLabelFont];
     [self.geolocInformationLabel sizeToFit];
     [self.geolocInformationLabel setFrame:CGRectMake(0,
-                                                     self.bounds.size.height / 6,
+                                                     self.bounds.size.height / 6 + margin,
                                                      self.bounds.size.width,
                                                      20)];
     [self.geolocInformationLabel setTextAlignment:NSTextAlignmentCenter];
@@ -69,7 +70,7 @@ int size = 20;
     [geolocLabel setTextColor:titleColor];
     [geolocLabel sizeToFit];
     [geolocLabel setFrame:CGRectMake(0,
-                                     self.bounds.size.height / 4,
+                                     self.bounds.size.height / 4 + margin,
                                      self.bounds.size.width,
                                      geolocLabel.bounds.size.height)];
     [geolocLabel setTextAlignment:NSTextAlignmentCenter];
@@ -81,7 +82,7 @@ int size = 20;
     [self.pedometerInformationLabel setFont:descriptionLabelFont];
     [self.pedometerInformationLabel sizeToFit];
     [self.pedometerInformationLabel setFrame:CGRectMake(0,
-                                                        self.bounds.size.height / 2 - self.pedometerInformationLabel.bounds.size.height,
+                                                        self.bounds.size.height / 2 - self.pedometerInformationLabel.bounds.size.height + margin,
                                                         self.bounds.size.width,
                                                         20)];
     [self.pedometerInformationLabel setTextAlignment:NSTextAlignmentCenter];
@@ -93,7 +94,7 @@ int size = 20;
     [pedometerLabel setTextColor:titleColor];
     [pedometerLabel sizeToFit];
     [pedometerLabel setFrame:CGRectMake(0,
-                                        self.bounds.size.height / 2,
+                                        self.bounds.size.height / 2 + margin,
                                         self.bounds.size.width,
                                         20)];
     [pedometerLabel setTextAlignment:NSTextAlignmentCenter];
@@ -105,7 +106,7 @@ int size = 20;
     [self.photoInformationLabel setTextColor:descriptionColor];
     [self.photoInformationLabel sizeToFit];
     [self.photoInformationLabel setFrame:CGRectMake(0,
-                                                    self.bounds.size.height / 6 * 4,
+                                                    self.bounds.size.height / 6 * 4 + margin,
                                                     self.bounds.size.width,
                                                     20)];
     [self.photoInformationLabel setTextAlignment:NSTextAlignmentCenter];
@@ -117,7 +118,7 @@ int size = 20;
     [photoLabel setTextColor:titleColor];
     [photoLabel sizeToFit];
     [photoLabel setFrame:CGRectMake(0,
-                                    self.bounds.size.height / 6 * 4 + 20,
+                                    self.bounds.size.height / 6 * 4 + 20 + margin,
                                     self.bounds.size.width,
                                     20)];
     [photoLabel setTextAlignment:NSTextAlignmentCenter];
@@ -129,19 +130,29 @@ int size = 20;
 
 - (void)animatedAllLabel:(float)duration Translation:(int)translation Alpha:(int)alpha {
 
-    for (UIView *view in self.subviews) {
+    float delay = 0;
+    NSArray *viewsArray;
+    if(translation > 1) {
+
+        viewsArray = [[self.subviews reverseObjectEnumerator] allObjects];
+    } else {
+        viewsArray = self.subviews;
+    }
+
+    for (UIView *view in viewsArray) {
 
         if([view isKindOfClass:[UILabel class]]) {
 
             UILabel *label = (UILabel *)view;
 
-            [UIView animateWithDuration:duration delay:0 options:0 animations:^{
+            [UIView animateWithDuration:duration delay:delay options:0 animations:^{
 
                 label.transform = CGAffineTransformMakeTranslation(0, translation);
                 label.alpha = alpha;
 
             } completion:nil];
-            
+
+            delay += 0.05;
 
         }
 

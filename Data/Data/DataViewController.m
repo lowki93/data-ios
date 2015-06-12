@@ -533,43 +533,29 @@ float durationLabel;
 
     [self.view removeGestureRecognizer:self.informationDataGesture];
 
-        int count = 0;
+    DataView *dataView = dataViewArray[indexDay];
 
-        for (UIView *view in self.contentScrollView.subviews) {
+    [dataView animatedCaptionImageView:0];
+    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
 
-            for (UIView *subView in view.subviews) {
+        CGAffineTransform transform = dataView.transform;
+        dataView.transform = CGAffineTransformScale(transform, 1.2, 1.2);
 
-                if([subView isKindOfClass:[DataView class]]) {
+    } completion:nil];
 
-                    DataView *dataView = (DataView *)subView;
+    [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
 
-                    [dataView animatedCaptionImageView:0];
-                    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
-
-                        CGAffineTransform transform = dataView.transform;
-                        dataView.transform = CGAffineTransformScale(transform, 1.2, 1.2);
-
-                    } completion:nil];
-
-                    [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
-
-                        dataView.allDataView.transform = CGAffineTransformIdentity;
-                        dataView.allDataView.alpha = 1;
+        dataView.allDataView.transform = CGAffineTransformIdentity;
+        dataView.allDataView.alpha = 1;
 
 
-                    } completion:^(BOOL finished){
+    } completion:^(BOOL finished){
 
-                        [dataView.allDataView animatedAllLabel:dataView.allDataView.duration Translation:0 Alpha:1];
-                        [self.view addGestureRecognizer:closeAllInformationDataGesture];
+        [dataView.allDataView animatedAllLabel:dataView.allDataView.duration Translation:0 Alpha:1];
+        [dataView removeActionForButton];
+        [self.view addGestureRecognizer:closeAllInformationDataGesture];
 
-                    }];
-
-                }
-            }
-            
-            count++;
-            
-        }
+    }];
 
 }
 
@@ -645,46 +631,31 @@ float durationLabel;
 
 - (void)hideInformationData {
 
-    int count = 0;
+    DataView *dataView = dataViewArray[indexDay];
+    dataView.informationViewActive = NO;
 
-    for (UIView *view in self.contentScrollView.subviews) {
+    [dataView animatedCaptionImageView:1];
 
-        for (UIView *subView in view.subviews) {
+    [dataView.informationView animatedAllLabel:dataView.informationView.duration
+                                   Translation:dataView.informationView.translation
+                                         Alpha:0];
 
-            if([subView isKindOfClass:[DataView class]]) {
+    [UIView animateWithDuration:dataView.informationView.duration
+                          delay:dataView.informationView.duration
+                        options:0 animations:^{
 
-                DataView *dataView = (DataView *)subView;
-                dataView.informationViewActive = NO;
-
-                [dataView animatedCaptionImageView:1];
-
-                [dataView.informationView animatedAllLabel:dataView.informationView.duration
-                                               Translation:dataView.informationView.translation
-                                                     Alpha:0];
-
-                [UIView animateWithDuration:dataView.informationView.duration
-                                      delay:dataView.informationView.duration
-                                    options:0 animations:^{
-
-                    [dataView scaleInformationView:dataView.informationView];
+                            [dataView scaleInformationView:dataView.informationView];
 
 
-                } completion:nil];
+                        } completion:nil];
 
-                [UIView animateWithDuration:dataView.informationView.duration delay:0 options:0 animations:^{
+    [UIView animateWithDuration:dataView.informationView.duration delay:0 options:0 animations:^{
 
-                    [dataView.hoursLabel setAlpha:0];
-                    
-                } completion:nil];
+        [dataView.hoursLabel setAlpha:0];
 
-                [dataView removeBorderButton];
+    } completion:nil];
 
-            }
-
-        }
-        
-        count++;
-    }
+    [dataView removeBorderButton];
 
 }
 
@@ -705,39 +676,24 @@ float durationLabel;
 - (void)animationCloseAllData {
 
     [self.view removeGestureRecognizer:closeAllInformationDataGesture];
+    DataView *dataView = dataViewArray[indexDay];
 
-    int count = 0;
+    [dataView animatedCaptionImageView:1];
+    [dataView.allDataView animatedAllLabel:dataView.allDataView.duration
+                               Translation:dataView.allDataView.translation
+                                     Alpha:0];
 
-    for (UIView *view in self.contentScrollView.subviews) {
+    [UIView animateWithDuration:0.5 delay:dataView.allDataView.duration options:0 animations:^{
 
-        for (UIView *subView in view.subviews) {
+        dataView.transform = CGAffineTransformIdentity;
+        [dataView scaleInformationView:dataView.allDataView];
 
-            if([subView isKindOfClass:[DataView class]]) {
+    } completion:^(BOOL finished){
 
-                DataView *dataView = (DataView *)subView;
+        [self.view addGestureRecognizer:self.informationDataGesture];
+        [dataView addActionForButton];
 
-                [dataView animatedCaptionImageView:1];
-                [dataView.allDataView animatedAllLabel:dataView.allDataView.duration
-                                           Translation:dataView.allDataView.translation
-                                                 Alpha:0];
-
-                [UIView animateWithDuration:0.5 delay:dataView.allDataView.duration options:0 animations:^{
-
-                    dataView.transform = CGAffineTransformIdentity;
-                    [dataView scaleInformationView:dataView.allDataView];
-
-                } completion:^(BOOL finished){
-
-                    [self.view addGestureRecognizer:self.informationDataGesture];
-                    
-                }];
-
-            }
-        }
-        
-        count++;
-        
-    }
+    }];
 
 }
 
@@ -798,6 +754,11 @@ float durationLabel;
 }
 
 - (void)animatedUpScrollView:(float)duration First:(BOOL)boolean {
+
+    for (int i = 0 ; i < [dataViewArray count]; i++) {
+        UIView *view = dataViewArray[0];
+        [view setHidden:NO];
+    }
 
     [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 
@@ -957,6 +918,13 @@ float durationLabel;
         
         [self.view addGestureRecognizer:upGesture];
         [self.view addGestureRecognizer:self.informationDataGesture];
+        for (int i = 0 ; i < [dataViewArray count]; i++) {
+
+            if(i != indexDay) {
+                UIView *view = dataViewArray[i];
+                [view setHidden:YES];
+            }
+        }
         
     }];
 
