@@ -66,7 +66,7 @@ int indexData;
     [self.hoursLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:self.hoursLabel];
 
-    float informationViewWidth = (radiusData - 20) * 2;
+    float informationViewWidth = (radiusData - 5) * 2;
 
     /** information by hours **/
     self.informationView = [[DataInformationView alloc] init];

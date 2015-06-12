@@ -36,7 +36,7 @@ int size = 20;
     CIImage *imageToBlur = [CIImage imageWithCGImage:viewImage.CGImage];
     CIFilter *gaussianBlurFilter = [CIFilter filterWithName: @"CIGaussianBlur"];
     [gaussianBlurFilter setValue:imageToBlur forKey: @"inputImage"];
-    [gaussianBlurFilter setValue:[NSNumber numberWithFloat: 10] forKey: @"inputRadius"];
+    [gaussianBlurFilter setValue:[NSNumber numberWithFloat: 8] forKey: @"inputRadius"];
     CIImage *resultImage = [gaussianBlurFilter valueForKey: @"outputImage"];
     UIImage *endImage = [[UIImage alloc] initWithCIImage:resultImage];
 
