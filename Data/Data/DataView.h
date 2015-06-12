@@ -11,7 +11,8 @@
 #import "DataInformationView.h"
 #import "DataViewController.h"
 #import "TutorialViewController.h"
-#import "CaptionImageView.h"
+#import "CaptationImageView.h"
+
 #import "ClickImageView.h"
 
 @interface DataView : UIView
@@ -21,7 +22,7 @@
 @property (nonatomic) UIView *contentData;
 @property (nonatomic) DataInformationView *informationView;
 @property (nonatomic) DataInformationView *allDataView;
-@property (nonatomic) CaptionImageView *captionImageView;
+@property (nonatomic) CaptationImageView *captationImageView;
 @property (nonatomic) ClickImageView *selectedButtonImageView;
 
 @property (nonatomic) bool informationButton;

@@ -48,12 +48,9 @@ int indexData;
     radiusData = (self.bounds.size.width * 0.8125) / 2;
 
     /** captionImage **/
-    self.captionImageView = [[CaptionImageView alloc] init];
-    [self.captionImageView setFrame:CGRectMake((self.bounds.size.width / 2) - radiusData,
-                                               (self.bounds.size.height / 2) - radiusData,
-                                               radiusData * 2,
-                                               radiusData * 2 )];
-    [self addSubview:self.captionImageView];
+    self.captationImageView = [[CaptationImageView alloc] init];
+    [self.captationImageView setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+    [self addSubview:self.captationImageView];
 
     /** label for hours **/
     UIFont *labelFont = [UIFont fontWithName:@"MaisonNeue-Book" size:15];
@@ -435,7 +432,7 @@ int indexData;
 
 - (void)activeCapta {
 
-    [self.captionImageView initImageView];
+    [self.captationImageView initImageView:self.captationImageView.bounds];
 
 }
 
@@ -443,11 +440,11 @@ int indexData;
 
     [UIView animateWithDuration:self.informationView.duration animations:^{
 
-        [self.captionImageView setAlpha:0];
+        [self.captationImageView setAlpha:0];
 
     } completion:^(BOOL finished) {
 
-        [self.captionImageView setHidden:YES];
+        [self.captationImageView setHidden:YES];
 
     }];
 
@@ -457,7 +454,7 @@ int indexData;
 
     [UIView animateWithDuration:self.informationView.duration delay:0 options:0 animations:^{
 
-        [self.captionImageView setAlpha:alpha];
+        [self.captationImageView setAlpha:alpha];
 
     } completion:nil];
 

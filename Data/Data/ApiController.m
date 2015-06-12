@@ -29,12 +29,12 @@
 - (void)loadApi {
 
     // local
-//    self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
-//    self.socketUrl = [NSString stringWithFormat:@"http://data.vm:9090"];
+    self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
+    self.socketUrl = [NSString stringWithFormat:@"http://data.vm:9090"];
 
     // mac gobelins
-    self.url = [NSString stringWithFormat:@"http://172.18.33.134:5000/api"];
-    self.socketUrl = [NSString stringWithFormat:@"http://172.18.33.134:9090"];
+//    self.url = [NSString stringWithFormat:@"http://172.18.33.134:5000/api"];
+//    self.socketUrl = [NSString stringWithFormat:@"http://172.18.33.134:9090"];
 
     // prod
 //    self.url = [NSString stringWithFormat:@"http://data-api.kevinbudain.fr/api"];

@@ -110,7 +110,7 @@ float durationLabel;
     for (int i = 0; i < nbDay; i++) {
 
         UIView *view = [[UIView alloc] init];
-        [view setBackgroundColor:[baseView colorWithRGB:243 :243 :243 :1]];
+        [view setBackgroundColor:[baseView colorWithRGB:235 :242 :246 :1]];
         [view setFrame:CGRectMake((self.view.bounds.size.width + margin) * i, positionTop, self.view.bounds.size.width ,heigtViewDetail )];
 
         DataView *dataView = [[DataView alloc] init];

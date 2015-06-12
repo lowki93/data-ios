@@ -186,7 +186,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qZ9-4Z-jNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2973" y="-601"/>
+            <point key="canvasLocation" x="514" y="-561"/>
         </scene>
         <!--Pairing View Controller-->
         <scene sceneID="joF-AF-9so">
@@ -461,7 +461,7 @@ de tes données captée </string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R2o-DR-HiI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2058" y="387"/>
+            <point key="canvasLocation" x="514" y="355"/>
         </scene>
         <!--Choose Day View Controller-->
         <scene sceneID="no1-PA-RES">
@@ -564,7 +564,25 @@ OF THE EXPERIENCE</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drK-Mf-Ijv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2830" y="387"/>
+            <point key="canvasLocation" x="1398" y="355"/>
+        </scene>
+        <!--Test View Controller-->
+        <scene sceneID="UPo-p3-M3A">
+            <objects>
+                <viewController id="Fqu-17-5it" customClass="TestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gt2-7d-mDP"/>
+                        <viewControllerLayoutGuide type="bottom" id="H6B-eM-4oK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d8P-TO-F9L">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tj0-kF-lkD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1261" y="-370"/>
         </scene>
         <!--Splash Screen View Controller-->
         <scene sceneID="Amd-5b-hy6">
@@ -678,7 +696,7 @@ OF THE EXPERIENCE</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVN-wl-Wxu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1317" y="1784"/>
+            <point key="canvasLocation" x="445" y="1351"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="ndv-cv-33f">
@@ -1137,7 +1155,7 @@ to reveal</string>
         <image name="pairring" width="463" height="189"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XsT-MJ-dYz"/>
+        <segue reference="Nbz-yN-fpI"/>
         <segue reference="yqd-rd-h2F"/>
     </inferredMetricsTieBreakers>
 </document>

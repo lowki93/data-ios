@@ -35,7 +35,7 @@ BaseViewController *baseView;
         } else {
             nextController = @"DataViewController";
         }
-//        nextController = @"TutorialViewController";
+        nextController = @"TutorialViewController";
         [baseView showModal:nextController RemoveWindow:false];
 
     }

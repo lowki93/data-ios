@@ -46,7 +46,7 @@ NSDictionary *dictionnary;
 
     UIView *contentView = [[UIView alloc] init];
     [contentView setFrame:CGRectMake(0, dataViewHeight, self.view.bounds.size.width, self.view.bounds.size.height * 0.65)];
-    [contentView setBackgroundColor:[baseView colorWithRGB:243 :243 :243 :1]];
+    [contentView setBackgroundColor:[baseView colorWithRGB:235 :242 :246 :1]];
     [self.view addSubview:contentView];
 
     dataView = [[DataView alloc] init];
@@ -126,7 +126,7 @@ NSDictionary *dictionnary;
         indexTutorial--;
         if (indexTutorial == 0) {
             [dataView hideButton];
-            [dataView.captionImageView setHidden:YES];
+            [dataView.captationImageView setHidden:YES];
             [self animatedView:self.hourLabel Duration:duration Delay:3 Alpha:1 TranslationX:0 TranslationY:0];
         }
     }
