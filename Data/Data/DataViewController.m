@@ -486,6 +486,7 @@ float durationLabel;
         [self.contentScrollView scrollRectToVisible:frame animated:YES];
         [self.timeLineView animatedTimeLine:indexDay];
         [self animateDateLabel:transition];
+        [self changeOpacityScrollView];
 
     }
 }
@@ -500,6 +501,7 @@ float durationLabel;
         [self.contentScrollView scrollRectToVisible:frame animated:YES];
         [self.timeLineView animatedTimeLine:indexDay];
         [self animateDateLabel:-transition];
+        [self changeOpacityScrollView];
 
     }
 
@@ -755,11 +757,6 @@ float durationLabel;
 
 - (void)animatedUpScrollView:(float)duration First:(BOOL)boolean {
 
-    for (int i = 0 ; i < [dataViewArray count]; i++) {
-        UIView *view = dataViewArray[0];
-        [view setHidden:NO];
-    }
-
     [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 
         [self animateView:firstScale ScaleView:firstScale];
@@ -782,9 +779,11 @@ float durationLabel;
 //            [self animateView:secondScale ScaleView:(firstScale * secondScale)];
             int count = 0;
             float base = (self.view.bounds.size.width / 2) - (self.view.bounds.size.width * secondScale / 2);
+            [self changeOpacityScrollView];
 
             for (UIView *view in self.contentScrollView.subviews) {
 
+                [view setHidden:NO];
                 CGRect frame;
                 frame.origin.x = base + ((((self.view.bounds.size.width + margin) * secondScale)) * count);
                 frame.origin.y = self.view.bounds.size.height * 0.4 ;
@@ -863,6 +862,7 @@ float durationLabel;
 
         /** test **/
         [self.dateLabel setTransform:CGAffineTransformIdentity];
+        [self changeOpacityScrollView];
 
         int count = 0;
 
@@ -918,15 +918,39 @@ float durationLabel;
         
         [self.view addGestureRecognizer:upGesture];
         [self.view addGestureRecognizer:self.informationDataGesture];
-        for (int i = 0 ; i < [dataViewArray count]; i++) {
-
-            if(i != indexDay) {
-                UIView *view = dataViewArray[i];
-                [view setHidden:YES];
-            }
-        }
+        [self hideNotVisibleView];
         
     }];
+
+}
+
+- (void)hideNotVisibleView {
+
+    int count = 0;
+    for (UIView *view in self.contentScrollView.subviews) {
+        if(count != indexDay) {
+            [view setHidden:YES];
+        }
+        count++;
+    }
+
+}
+
+- (void)changeOpacityScrollView {
+
+    int count = 0;
+
+    for (UIView *view in self.contentScrollView.subviews) {
+
+
+        if (count != indexDay) {
+            [baseView animatedView:view Duration:0.5 Delay:0 Alpha:0.35 TranslationX:0 TranslationY:0];
+        } else {
+            [baseView animatedView:view Duration:0.5 Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
+        }
+        count++;
+        
+    }
 
 }
 
