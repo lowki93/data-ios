@@ -26,6 +26,9 @@
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
             <string>MaisonNeue-Book</string>
+            <string>MaisonNeue-Book</string>
+            <string>MaisonNeue-Book</string>
+            <string>MaisonNeue-Book</string>
         </mutableArray>
         <mutableArray key="MaisonNeue-Light.ttf">
             <string>MaisonNeue-Light</string>
@@ -40,9 +43,6 @@
             <string>MaisonNeue-Light</string>
         </mutableArray>
         <mutableArray key="MaisonNeue-Medium.ttf">
-            <string>MaisonNeue-Medium</string>
-            <string>MaisonNeue-Medium</string>
-            <string>MaisonNeue-Medium</string>
             <string>MaisonNeue-Medium</string>
             <string>MaisonNeue-Medium</string>
             <string>MaisonNeue-Medium</string>
@@ -270,7 +270,7 @@ your mobile phone with desktop</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="VLf-uP-PtB"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="42"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="42"/>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -336,7 +336,7 @@ your mobile phone with desktop</string>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/4    COEUR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTs-eG-IFm">
                                 <rect key="frame" x="203" y="65" width="195" height="34"/>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="34"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="34"/>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -486,7 +486,7 @@ de tes données captée </string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="VVJ-2F-vek"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MaisonNeue-Medium" family="Maison Neue" pointSize="36"/>
+                                <fontDescription key="fontDescription" name="MaisonNeue-Book" family="Maison Neue" pointSize="36"/>
                                 <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
