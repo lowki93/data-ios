@@ -33,7 +33,7 @@ float duration;
     baseView = [[BaseViewController alloc] init];
     [baseView initView:self];
 
-    [self.playerView initPlayer:@"ground" View:self.view];
+    [self.playerView initPlayer:@"ground_prez" View:self.view];
 
     NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
     [[ApiController sharedInstance] setUserLoad:dictionary];
