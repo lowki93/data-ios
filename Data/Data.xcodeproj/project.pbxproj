@@ -23,6 +23,7 @@
 		174598E41AEF85E3002606CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174598E31AEF85E3002606CD /* Security.framework */; };
 		174C8CDD1B2DCD5900A0384F /* ProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 174C8CDC1B2DCD5900A0384F /* ProfileView.m */; };
 		174C8CE11B2DDD9600A0384F /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 174C8CE01B2DDD9600A0384F /* LineView.m */; };
+		174C8CE51B2E0BA100A0384F /* CreditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 174C8CE41B2E0BA100A0384F /* CreditView.m */; };
 		1756E5011AD5F8B8006CA988 /* Day.m in Sources */ = {isa = PBXBuildFile; fileRef = 1756E5001AD5F8B8006CA988 /* Day.m */; };
 		175B5D9C1B2B036D0007D4C2 /* CaptationImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 175B5D9B1B2B036D0007D4C2 /* CaptationImageView.m */; };
 		175B5DA01B2B03C40007D4C2 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 175B5D9F1B2B03C40007D4C2 /* TestViewController.m */; };
@@ -125,6 +126,8 @@
 		174C8CDC1B2DCD5900A0384F /* ProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileView.m; sourceTree = "<group>"; };
 		174C8CDF1B2DDD9600A0384F /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
 		174C8CE01B2DDD9600A0384F /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
+		174C8CE31B2E0BA100A0384F /* CreditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditView.h; sourceTree = "<group>"; };
+		174C8CE41B2E0BA100A0384F /* CreditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditView.m; sourceTree = "<group>"; };
 		1756E4FF1AD5F8B8006CA988 /* Day.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Day.h; sourceTree = "<group>"; };
 		1756E5001AD5F8B8006CA988 /* Day.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Day.m; sourceTree = "<group>"; };
 		175B5D9A1B2B036D0007D4C2 /* CaptationImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptationImageView.h; sourceTree = "<group>"; };
@@ -323,6 +326,15 @@
 			name = LineView;
 			sourceTree = "<group>";
 		};
+		174C8CE21B2E0B8800A0384F /* CreditView */ = {
+			isa = PBXGroup;
+			children = (
+				174C8CE31B2E0BA100A0384F /* CreditView.h */,
+				174C8CE41B2E0BA100A0384F /* CreditView.m */,
+			);
+			name = CreditView;
+			sourceTree = "<group>";
+		};
 		175B5D971B2AEFBA0007D4C2 /* HomeViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -516,6 +528,7 @@
 		175E664A1AF24D35007CC277 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				174C8CE21B2E0B8800A0384F /* CreditView */,
 				174C8CDE1B2DDD8B00A0384F /* LineView */,
 				174C8CDA1B2DCD4200A0384F /* ProfileView */,
 				175C3DC71B2C569400547E75 /* ClickView */,
@@ -966,6 +979,7 @@
 				17169B7F1AF22C6D00321300 /* DataViewController.m in Sources */,
 				A8DE94311ACEDA6D00EF1EDC /* Experience.m in Sources */,
 				1756E5011AD5F8B8006CA988 /* Day.m in Sources */,
+				174C8CE51B2E0BA100A0384F /* CreditView.m in Sources */,
 				1738927C1B2A38A10063DCA3 /* HomeView.m in Sources */,
 				176476791AF6D401007657DB /* DataInformationView.m in Sources */,
 				174C8CDD1B2DCD5900A0384F /* ProfileView.m in Sources */,

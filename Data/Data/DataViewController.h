@@ -16,6 +16,7 @@
 @import CoreMotion;
 @import AssetsLibrary;
 #import "ProfileView.h"
+#import "CreditView.h"
 
 @interface DataViewController : UIViewController <CLLocationManagerDelegate>
 
@@ -27,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *informationLabel;
 @property (weak, nonatomic) IBOutlet ProfileView *profileView;
+@property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
+@property (weak, nonatomic) IBOutlet CreditView *creditView;
 
 /** location **/
 @property (nonatomic) CLLocationManager *locationManager;
@@ -52,11 +55,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 - (IBAction)showProfile:(id)sender;
+- (IBAction)hideLogo:(id)sender;
 
 - (IBAction)logoutAction:(id)sender;
 - (IBAction)closeTimeLineAction:(id)sender;
 - (void)uploadFile;
-
 
 - (IBAction)removePlist:(id)sender;
 - (IBAction)lauchSynchro:(id)sender;

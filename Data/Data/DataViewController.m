@@ -63,6 +63,7 @@ float durationLabel;
     }
 
     [self.profileView initView:self];
+    [self.creditView initView:self];
 
     /** format date **/
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -174,6 +175,11 @@ float durationLabel;
 
     self.informationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(informationData:)];
     [self.view addGestureRecognizer:self.informationDataGesture];
+
+    UITapGestureRecognizer *logoTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showCredit:)];
+    [logoTapGesture setNumberOfTapsRequired:1];
+    [self.logoImageView addGestureRecognizer:logoTapGesture];
+    [self.logoImageView setUserInteractionEnabled:YES];
 
     closeAllInformationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeAllInformationData:)];
 
@@ -1202,6 +1208,20 @@ float durationLabel;
 - (IBAction)showProfile:(id)sender {
 
     [self.profileView showContent];
+    [baseView animatedView:self.logoImageView Duration:0.5 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
+
+}
+
+- (void)showCredit:(UITapGestureRecognizer *)tapGestureRecognizer {
+
+    [self.creditView showContent];
+    [baseView animatedView:self.logoImageView Duration:0.5 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
+
+}
+
+- (IBAction)hideLogo:(id)sender {
+
+    [baseView animatedView:self.logoImageView Duration:0.5 Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
 
 }
 
