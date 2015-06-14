@@ -15,6 +15,7 @@
 #import "SSZipArchive.h"
 @import CoreMotion;
 @import AssetsLibrary;
+#import "ProfileView.h"
 
 @interface DataViewController : UIViewController <CLLocationManagerDelegate>
 
@@ -25,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet TimeLineView *timeLineView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *informationLabel;
+@property (weak, nonatomic) IBOutlet ProfileView *profileView;
 
 /** location **/
 @property (nonatomic) CLLocationManager *locationManager;
@@ -48,6 +50,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *logTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+
+- (IBAction)showProfile:(id)sender;
 
 - (IBAction)logoutAction:(id)sender;
 - (IBAction)closeTimeLineAction:(id)sender;

@@ -21,6 +21,8 @@
 		174598E01AEF85CF002606CD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174598DF1AEF85CF002606CD /* MobileCoreServices.framework */; };
 		174598E21AEF85DC002606CD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174598E11AEF85DC002606CD /* QuartzCore.framework */; };
 		174598E41AEF85E3002606CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174598E31AEF85E3002606CD /* Security.framework */; };
+		174C8CDD1B2DCD5900A0384F /* ProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 174C8CDC1B2DCD5900A0384F /* ProfileView.m */; };
+		174C8CE11B2DDD9600A0384F /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 174C8CE01B2DDD9600A0384F /* LineView.m */; };
 		1756E5011AD5F8B8006CA988 /* Day.m in Sources */ = {isa = PBXBuildFile; fileRef = 1756E5001AD5F8B8006CA988 /* Day.m */; };
 		175B5D9C1B2B036D0007D4C2 /* CaptationImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 175B5D9B1B2B036D0007D4C2 /* CaptationImageView.m */; };
 		175B5DA01B2B03C40007D4C2 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 175B5D9F1B2B03C40007D4C2 /* TestViewController.m */; };
@@ -119,6 +121,10 @@
 		174598DF1AEF85CF002606CD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		174598E11AEF85DC002606CD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		174598E31AEF85E3002606CD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		174C8CDB1B2DCD5900A0384F /* ProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileView.h; sourceTree = "<group>"; };
+		174C8CDC1B2DCD5900A0384F /* ProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileView.m; sourceTree = "<group>"; };
+		174C8CDF1B2DDD9600A0384F /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
+		174C8CE01B2DDD9600A0384F /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
 		1756E4FF1AD5F8B8006CA988 /* Day.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Day.h; sourceTree = "<group>"; };
 		1756E5001AD5F8B8006CA988 /* Day.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Day.m; sourceTree = "<group>"; };
 		175B5D9A1B2B036D0007D4C2 /* CaptationImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptationImageView.h; sourceTree = "<group>"; };
@@ -297,6 +303,24 @@
 				175C3DCC1B2DAD8100547E75 /* Video */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		174C8CDA1B2DCD4200A0384F /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				174C8CDB1B2DCD5900A0384F /* ProfileView.h */,
+				174C8CDC1B2DCD5900A0384F /* ProfileView.m */,
+			);
+			name = ProfileView;
+			sourceTree = "<group>";
+		};
+		174C8CDE1B2DDD8B00A0384F /* LineView */ = {
+			isa = PBXGroup;
+			children = (
+				174C8CDF1B2DDD9600A0384F /* LineView.h */,
+				174C8CE01B2DDD9600A0384F /* LineView.m */,
+			);
+			name = LineView;
 			sourceTree = "<group>";
 		};
 		175B5D971B2AEFBA0007D4C2 /* HomeViewController */ = {
@@ -492,6 +516,8 @@
 		175E664A1AF24D35007CC277 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				174C8CDE1B2DDD8B00A0384F /* LineView */,
+				174C8CDA1B2DCD4200A0384F /* ProfileView */,
 				175C3DC71B2C569400547E75 /* ClickView */,
 				175B5DA61B2B20F90007D4C2 /* LoaderView */,
 				175B5DA51B2B20EC0007D4C2 /* PlayerView */,
@@ -934,6 +960,7 @@
 				175B5DA01B2B03C40007D4C2 /* TestViewController.m in Sources */,
 				A89AA8F61ADBEF0F004AC207 /* BaseViewController.m in Sources */,
 				A81789461ABC1D34004319BA /* mztools.c in Sources */,
+				174C8CE11B2DDD9600A0384F /* LineView.m in Sources */,
 				A8DE94341ACEDDCE00EF1EDC /* Data.m in Sources */,
 				175C3DCA1B2C56EB00547E75 /* ClickView.m in Sources */,
 				17169B7F1AF22C6D00321300 /* DataViewController.m in Sources */,
@@ -941,6 +968,7 @@
 				1756E5011AD5F8B8006CA988 /* Day.m in Sources */,
 				1738927C1B2A38A10063DCA3 /* HomeView.m in Sources */,
 				176476791AF6D401007657DB /* DataInformationView.m in Sources */,
+				174C8CDD1B2DCD5900A0384F /* ProfileView.m in Sources */,
 				17BF33F21B147B50009B6190 /* TutorialViewController.m in Sources */,
 				17CF52811AA5F8F6001C7E65 /* AppDelegate.m in Sources */,
 				175B5D9C1B2B036D0007D4C2 /* CaptationImageView.m in Sources */,

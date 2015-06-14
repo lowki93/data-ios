@@ -62,6 +62,8 @@ float durationLabel;
         [subView removeFromSuperview];
     }
 
+    [self.profileView initView:self];
+
     /** format date **/
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -1197,12 +1199,27 @@ float durationLabel;
 }
 
 /** action button **/
+- (IBAction)showProfile:(id)sender {
+
+    [self.profileView showContent];
+
+}
+
 - (IBAction)logoutAction:(id)sender {
 
     [self removeRegion];
     NSLog(@"logout");
     [[ApiController sharedInstance] removeUser];
-    [self performSegueWithIdentifier:@"logout" sender:self];
+    [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+
+        [self.view setBackgroundColor:[baseView colorWithRGB:240 :247 :247 :1]];
+        for(UIView *view in self.view.subviews) {
+            [baseView animatedView:view Duration:0.5 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
+        }
+
+    } completion:^(bool finished) {
+        [self performSegueWithIdentifier:@"logout" sender:self];
+    }];
 
 }
 
