@@ -12,8 +12,7 @@
 #import "DataViewController.h"
 #import "TutorialViewController.h"
 #import "CaptationImageView.h"
-
-#import "ClickImageView.h"
+#import "ClickView.h"
 
 @interface DataView : UIView
 
@@ -23,7 +22,7 @@
 @property (nonatomic) DataInformationView *informationView;
 @property (nonatomic) DataInformationView *allDataView;
 @property (nonatomic) CaptationImageView *captationImageView;
-@property (nonatomic) ClickImageView *selectedButtonImageView;
+@property (nonatomic) ClickView *selectedButtonView;
 
 @property (nonatomic) bool informationButton;
 @property (nonatomic) bool informationViewActive;

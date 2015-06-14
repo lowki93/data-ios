@@ -132,13 +132,10 @@ int indexData;
     CGFloat theta = (M_PI * 15 / 180 * index) - M_PI_2;
     CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
 
-    int width = 54;
-    self.selectedButtonImageView = [[ClickImageView alloc] init];
-    [self.selectedButtonImageView setFrame:CGRectMake(newCenter.x - (width / 2), newCenter.y - (width / 2), width, width)];
-    [self.selectedButtonImageView setAlpha:0];
-    [self addSubview: self.selectedButtonImageView];
-
-    [self.selectedButtonImageView initImageView:self];
+    int width = 60;
+    self.selectedButtonView = [[ClickView alloc] init];
+    [self addSubview: self.selectedButtonView];
+    [self.selectedButtonView initView:CGRectMake(newCenter.x - (width / 2), newCenter.y - (width / 2), width, width)];
 
 }
 
@@ -332,9 +329,9 @@ int indexData;
 
 - (IBAction)getInfoData:(id)sender {
 
-    if (self.selectedButtonImageView) {
-        [self.selectedButtonImageView removeButtonSelector];
-    }
+//    if (self.selectedButtonView) {
+//        [self.selectedButtonView removeButtonSelector:self];
+//    }
 
     if (!self.informationViewActive) {
 

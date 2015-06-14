@@ -203,18 +203,18 @@ NSDictionary *dictionnary;
         [dataView addActionForButton];
         [dataView writeSelecteButtonView:10];
         [self addGesture];
-
+        [dataView.selectedButtonView performSelector:@selector(removeButtonSelector:) withObject:dataView afterDelay:3.5];
     }
 
     if(indexTutorial == 3) {
 
         [UIView animateWithDuration:dataView.informationView.duration  delay:dataView.informationView.duration-0.2  options:0 animations:^{
 
-            [dataView.selectedButtonImageView setAlpha:1];
+            [dataView.selectedButtonView setAlpha:1];
 
         } completion:^(BOOL finished){
 
-            [dataView.selectedButtonImageView performSelector:@selector(removeButtonSelector) withObject:nil afterDelay:3.5];
+            [dataView.selectedButtonView performSelector:@selector(removeButtonSelector:) withObject:dataView afterDelay:3.5];
             [self addGesture];
             
         }];
