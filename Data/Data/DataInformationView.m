@@ -27,7 +27,7 @@ float margin = 10;
     [self.layer setMasksToBounds:YES];
     [self setBackgroundColor:[UIColor whiteColor]];
 
-//    [self addGausianBlur];
+    [self addGausianBlur];
 
     UIFont *descriptionLabelFont = [UIFont fontWithName:@"MaisonNeue-Book" size:20];
     UIColor *descriptionColor = [baseView colorWithRGB:39 :37 :37 :1];
