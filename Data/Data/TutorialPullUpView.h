@@ -11,6 +11,8 @@
 @interface TutorialPullUpView : UIView
 
 @property (nonatomic) UILabel *informationLabel;
+@property (nonatomic) CAShapeLayer *roundLayer;
+@property (nonatomic) CAShapeLayer *lineLayer;
 
 - (void)initView:(UIViewController *)viewController;
 - (void)startAnimation;

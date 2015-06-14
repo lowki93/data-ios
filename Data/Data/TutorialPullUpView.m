@@ -13,8 +13,6 @@
 
 BaseViewController *baseView;
 
-CAShapeLayer *lineLayer, *roundLayer;
-
 int translation, lineHeight;
 float duration;
 
@@ -43,31 +41,31 @@ float duration;
                                                       clockwise:YES];
 
     UIColor *greyCircle = [baseView colorWithRGB:204 :204 :204 :1];
-    roundLayer = [[CAShapeLayer alloc] init];
-    [roundLayer setPath:aPath.CGPath];
-    [roundLayer setStrokeColor:greyCircle.CGColor];
-    [roundLayer setFillColor:[UIColor clearColor].CGColor];
-    [roundLayer setLineWidth:2.f];
-    [roundLayer setOpacity:0];
-    [roundLayer setStrokeStart:0/100];
-    [roundLayer setStrokeEnd:100/100];
-    [self.layer addSublayer:roundLayer];
+    self.roundLayer = [[CAShapeLayer alloc] init];
+    [self.roundLayer setPath:aPath.CGPath];
+    [self.roundLayer setStrokeColor:greyCircle.CGColor];
+    [self.roundLayer setFillColor:[UIColor clearColor].CGColor];
+    [self.roundLayer setLineWidth:2.f];
+    [self.roundLayer setOpacity:0];
+    [self.roundLayer setStrokeStart:0/100];
+    [self.roundLayer setStrokeEnd:100/100];
+    [self.layer addSublayer:self.roundLayer];
 
     UIColor *greyLine = [baseView colorWithRGB:226 :226 :226 :1];
-    lineLayer = [CAShapeLayer layer];
+    self.lineLayer = [CAShapeLayer layer];
     UIBezierPath *linePath=[UIBezierPath bezierPath];
     [linePath moveToPoint:CGPointMake(self.bounds.size.width / 2,
                                       self.bounds.size.height / 2 + lineHeight)];
     [linePath addLineToPoint:CGPointMake(self.bounds.size.width / 2,
                                          self.bounds.size.height / 2)];
-    [lineLayer setPath: linePath.CGPath];
-    [lineLayer setFillColor: nil];
-    [lineLayer setOpacity: 1.0];
-    [lineLayer setLineWidth:3.f];
-    [lineLayer setStrokeStart:0/100];
-    [lineLayer setStrokeEnd:0/100];
-    [lineLayer setStrokeColor: greyLine.CGColor];
-    [self.layer addSublayer:lineLayer];
+    [self.lineLayer setPath: linePath.CGPath];
+    [self.lineLayer setFillColor: nil];
+    [self.lineLayer setOpacity: 1.0];
+    [self.lineLayer setLineWidth:3.f];
+    [self.lineLayer setStrokeStart:0/100];
+    [self.lineLayer setStrokeEnd:0/100];
+    [self.lineLayer setStrokeColor: greyLine.CGColor];
+    [self.layer addSublayer:self.lineLayer];
 
     [self setBackgroundColor:[baseView colorWithRGB:255 :255 :255 :0.8]];
 
@@ -85,7 +83,7 @@ float duration;
     [animateStrokeDown setDuration:duration];
     [animateStrokeDown setFillMode:kCAFillModeForwards];
     [animateStrokeDown setRemovedOnCompletion:NO];
-    [lineLayer addAnimation:animateStrokeDown forKey:@"strokeEnd"];
+    [self.lineLayer addAnimation:animateStrokeDown forKey:@"strokeEnd"];
     [CATransaction commit];
 
 }
@@ -94,9 +92,9 @@ float duration;
 
     [self animatedView:self.informationLabel Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
 
-    [self animatedOpacityLayer:roundLayer Begin:0 End:1 Delay:2];
+    [self animatedOpacityLayer:self.roundLayer Begin:0 End:1 Delay:2];
 
-    [self moveLayer:roundLayer];
+    [self moveLayer:self.roundLayer];
     [self animatedHeightLineLayer];
 
     [self performSelector:@selector(stopAnimation) withObject:nil afterDelay:duration * 4.5];
@@ -105,22 +103,20 @@ float duration;
 
 - (void)stopAnimation {
 
-    [self animatedOpacityLayer:roundLayer Begin:1 End:0 Delay:0];
-    [self animatedOpacityLayer:lineLayer Begin:1 End:0 Delay:0];
+    [self animatedOpacityLayer:self.roundLayer Begin:1 End:0 Delay:0];
+    [self animatedOpacityLayer:self.lineLayer Begin:1 End:0 Delay:0];
 
 }
 
 - (void)moveLayer:(CALayer *)layer {
 
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-    [layer setPosition:[layer position]];
-    [animation   setBeginTime: CACurrentMediaTime() + duration * 3];
+    [animation setBeginTime: CACurrentMediaTime() + duration * 3];
     [animation setFromValue:[NSValue valueWithCGPoint:[layer position]]];
     [animation setToValue:[NSValue valueWithCGPoint:CGPointMake(0, -lineHeight)]];
-    animation.fillMode = kCAFillModeForwards;
+    [animation setFillMode: kCAFillModeForwards];
     [animation setDuration:duration];
     [animation setRemovedOnCompletion:NO];
-    [animation setDelegate:self];
     [layer addAnimation:animation forKey:@"position"];
 
 }
