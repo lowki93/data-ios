@@ -27,24 +27,7 @@ float margin = 10;
     [self.layer setMasksToBounds:YES];
     [self setBackgroundColor:[UIColor whiteColor]];
 
-    /** flou gaussie **/
-    UIGraphicsBeginImageContext(self.bounds.size);
-    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    //Blur the UIImage with a CIFilter
-    CIImage *imageToBlur = [CIImage imageWithCGImage:viewImage.CGImage];
-    CIFilter *gaussianBlurFilter = [CIFilter filterWithName: @"CIGaussianBlur"];
-    [gaussianBlurFilter setValue:imageToBlur forKey: @"inputImage"];
-    [gaussianBlurFilter setValue:[NSNumber numberWithFloat: 8] forKey: @"inputRadius"];
-    CIImage *resultImage = [gaussianBlurFilter valueForKey: @"outputImage"];
-    UIImage *endImage = [[UIImage alloc] initWithCIImage:resultImage];
-
-    //Place the UIImage in a UIImageView
-    UIImageView *newView = [[UIImageView alloc] initWithFrame:self.bounds];
-    newView.image = endImage;
-    [self addSubview:newView];
+//    [self addGausianBlur];
 
     UIFont *descriptionLabelFont = [UIFont fontWithName:@"MaisonNeue-Book" size:20];
     UIColor *descriptionColor = [baseView colorWithRGB:39 :37 :37 :1];
@@ -157,6 +140,29 @@ float margin = 10;
         }
 
     }
+
+}
+
+- (void)addGausianBlur {
+
+    /** flou gaussie **/
+    UIGraphicsBeginImageContext(self.bounds.size);
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    //Blur the UIImage with a CIFilter
+    CIImage *imageToBlur = [CIImage imageWithCGImage:viewImage.CGImage];
+    CIFilter *gaussianBlurFilter = [CIFilter filterWithName: @"CIGaussianBlur"];
+    [gaussianBlurFilter setValue:imageToBlur forKey: @"inputImage"];
+    [gaussianBlurFilter setValue:[NSNumber numberWithFloat: 8] forKey: @"inputRadius"];
+    CIImage *resultImage = [gaussianBlurFilter valueForKey: @"outputImage"];
+    UIImage *endImage = [[UIImage alloc] initWithCIImage:resultImage];
+
+    //Place the UIImage in a UIImageView
+    UIImageView *newView = [[UIImageView alloc] initWithFrame:self.bounds];
+    newView.image = endImage;
+    [self addSubview:newView];
 
 }
 
