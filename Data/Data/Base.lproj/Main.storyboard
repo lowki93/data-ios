@@ -412,12 +412,16 @@
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="AdP-d1-LPy">
+                                        <rect key="frame" x="391" y="430" width="25" height="14"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.95000000000000007" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="FLG-VN-sam" firstAttribute="top" secondItem="7A0-Mq-M5X" secondAttribute="bottom" constant="10" id="16U-Q9-tqz"/>
                                     <constraint firstAttribute="centerX" secondItem="FLG-VN-sam" secondAttribute="centerX" id="2ED-nd-WsU"/>
                                     <constraint firstItem="uCl-UE-kuH" firstAttribute="leading" secondItem="9RT-cf-acg" secondAttribute="leading" id="89Z-Kp-3lu"/>
+                                    <constraint firstItem="AdP-d1-LPy" firstAttribute="leading" secondItem="9RT-cf-acg" secondAttribute="trailing" constant="5" id="8OU-7Q-foQ"/>
                                     <constraint firstAttribute="centerX" secondItem="Seu-dz-C6b" secondAttribute="centerX" id="DRe-45-Wre"/>
                                     <constraint firstItem="0M4-sH-Zhb" firstAttribute="top" secondItem="Seu-dz-C6b" secondAttribute="bottom" constant="30" id="KHP-E2-CMh"/>
                                     <constraint firstAttribute="bottom" secondItem="lwW-72-Blb" secondAttribute="bottom" constant="40" id="Ms7-mQ-ipW"/>
@@ -428,6 +432,7 @@
                                     <constraint firstAttribute="centerX" secondItem="9RT-cf-acg" secondAttribute="centerX" id="id4-Re-CdM"/>
                                     <constraint firstAttribute="centerX" secondItem="0M4-sH-Zhb" secondAttribute="centerX" id="jml-8h-rpG"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="FLG-VN-sam" secondAttribute="trailing" id="jyJ-8L-Cph"/>
+                                    <constraint firstItem="AdP-d1-LPy" firstAttribute="centerY" secondItem="9RT-cf-acg" secondAttribute="centerY" constant="-0.5" id="mLU-zB-ddE"/>
                                     <constraint firstItem="Seu-dz-C6b" firstAttribute="top" secondItem="P7j-yf-lxJ" secondAttribute="top" constant="30" id="olv-ju-CTz"/>
                                     <constraint firstAttribute="centerX" secondItem="lwW-72-Blb" secondAttribute="centerX" id="pzW-i8-GfM"/>
                                     <constraint firstAttribute="centerX" secondItem="7A0-Mq-M5X" secondAttribute="centerX" id="qsZ-q5-uF5"/>
@@ -1460,6 +1465,7 @@ to reveal</string>
         </scene>
     </scenes>
     <resources>
+        <image name="arrow" width="25" height="14"/>
         <image name="close" width="133" height="133"/>
         <image name="logo" width="281" height="125"/>
         <image name="pairring" width="463" height="189"/>
