@@ -45,17 +45,21 @@ bool firstGeoloc, pedometerIsActive;
     translation = 75;
     firstGeoloc = true;
 
+    NSString *explainPhotos = @"During the experience the application will capture your photos, the number and the emotions of which will allow your sculpture to evolve.";
+    NSString *explainPedometer = @"The application will capture your movements; the speed and duration of which will make your sculpture evolve.";
+    NSString *explainGeolocation = @"The application will capture your geolocations; the time spent and frequency of which will allow your sculpture to evolve.";
+
     if ([CMPedometer isStepCountingAvailable]) {
 
         pedometerIsActive = true;
-        titleArray = [@[@"COEUR", @"PEDOMETER", @"GEOLOCATION", @"PHOTOS", @""] mutableCopy ];
-        explainArray = [@[@"voici le coeur de ton experience\nelle évolura en fonction\nde tes données captée ", @"explain pedometer", @"geoloc ", @"explain photos ", @""] mutableCopy ];
+        titleArray = [@[@"HEART", @"PEDOMETER", @"GEOLOCATION", @"PHOTOS", @""] mutableCopy ];
+        explainArray = [@[@"voici le coeur de ton experience\nelle évolura en fonction\nde tes données captée ", explainPedometer, explainGeolocation,explainPhotos, @""] mutableCopy ];
         nbStep = 4;
 
     } else {
 
-        titleArray = [@[@"COEUR", @"GEOLOCATION", @"PHOTOS", @""] mutableCopy ];
-         explainArray = [@[@"voici le coeur de ton experience\nelle évolura en fonction\nde tes données captée ", @"explain geoloc",@"explain photos ", @""] mutableCopy ];
+        titleArray = [@[@"HEART", @"GEOLOCATION", @"PHOTOS", @""] mutableCopy ];
+         explainArray = [@[@"voici le coeur de ton experience\nelle évolura en fonction\nde tes données captée ", explainGeolocation,explainPhotos, @""] mutableCopy ];
         nbStep = 3;
 
     }

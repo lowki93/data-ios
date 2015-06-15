@@ -14,10 +14,8 @@
 @property (weak, nonatomic) IBOutlet CustomButton *tutorialButton;
 @property (weak, nonatomic) IBOutlet UILabel *creditsLabel;
 
-- (void)initView:(UIViewController *)dataViewController;
+- (void)initView:(UIViewController *)dataViewController HideContent:(BOOL)hide;
 - (void)hideContent;
 - (void)showContent;
-
-- (IBAction)hideProfile:(id)sender;
 
 @end

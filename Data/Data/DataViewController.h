@@ -20,6 +20,8 @@
 
 @interface DataViewController : UIViewController <CLLocationManagerDelegate>
 
+@property (nonatomic) bool fromCreditTutorial;
+
 @property (nonatomic) UITapGestureRecognizer *closeInformationGesture;
 @property (nonatomic) UITapGestureRecognizer *informationDataGesture;
 
@@ -56,6 +58,7 @@
 
 - (IBAction)showProfile:(id)sender;
 - (IBAction)hideLogo:(id)sender;
+- (IBAction)goToTutorial:(id)sender;
 
 - (IBAction)logoutAction:(id)sender;
 - (IBAction)closeTimeLineAction:(id)sender;

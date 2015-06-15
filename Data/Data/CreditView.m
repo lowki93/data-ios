@@ -17,7 +17,7 @@ int translationY;
 
 @implementation CreditView
 
-- (void)initView:(UIViewController *)dataViewController {
+- (void)initView:(UIViewController *)dataViewController HideContent:(BOOL)hide{
 
     duration = 0.5;
     translationY = 20;
@@ -25,7 +25,9 @@ int translationY;
     dataViewController = dataViewController;
     [self.tutorialButton initButton];
 
-    [self firstHideContent];
+    if (hide) {
+        [self firstHideContent];
+    }
 
 }
 

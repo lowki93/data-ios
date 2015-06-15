@@ -283,7 +283,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.95000000000000007" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailingMargin" secondItem="Dut-Ar-RSM" secondAttribute="trailing" id="18v-iR-4GN"/>
                                     <constraint firstItem="JqA-c3-KXy" firstAttribute="top" secondItem="Dut-Ar-RSM" secondAttribute="bottom" constant="40" id="2hl-Nl-yxT"/>
@@ -370,6 +370,9 @@
                                             <color key="titleColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="goToTutorial:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="fLk-b8-4T7"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Seu-dz-C6b">
                                         <rect key="frame" x="287" y="30" width="25" height="25"/>
@@ -407,7 +410,11 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLG-VN-sam">
                                         <rect key="frame" x="8" y="225" width="584" height="150"/>
-                                        <string key="text">Sedeu tortor semper, vestibulum massa ut, lobortis diam</string>
+                                        <string key="text">Sed
+eu tortor 
+semper, 
+vestibulum massa 
+ut, lobortis diam</string>
                                         <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="30"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -496,11 +503,12 @@
                         <outlet property="timeLineView" destination="ivx-3O-myV" id="laC-05-wuc"/>
                         <outlet property="topConstraint" destination="RnL-B5-5xI" id="t5a-p0-qrd"/>
                         <segue destination="I98-0N-dKq" kind="custom" identifier="logout" customClass="CustomSegue" id="zaX-Cn-QyO"/>
+                        <segue destination="H9w-1k-qHc" kind="custom" identifier="data_tutorial" customClass="CustomSegue" id="KMF-cC-CCT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qZ9-4Z-jNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="503" y="-559"/>
+            <point key="canvasLocation" x="1971" y="-495"/>
         </scene>
         <!--Pairing View Controller-->
         <scene sceneID="joF-AF-9so">
@@ -775,7 +783,7 @@ de tes données captée </string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R2o-DR-HiI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="514" y="355"/>
+            <point key="canvasLocation" x="362" y="1351"/>
         </scene>
         <!--Choose Day View Controller-->
         <scene sceneID="no1-PA-RES">
@@ -878,7 +886,7 @@ OF THE EXPERIENCE</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drK-Mf-Ijv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1320" y="355"/>
+            <point key="canvasLocation" x="1116" y="1351"/>
         </scene>
         <!--Test View Controller-->
         <scene sceneID="UPo-p3-M3A">
@@ -1010,7 +1018,7 @@ OF THE EXPERIENCE</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVN-wl-Wxu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="445" y="1351"/>
+            <point key="canvasLocation" x="1116" y="366"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="ndv-cv-33f">
@@ -1447,6 +1455,7 @@ to reveal</string>
                         <outlet property="signUpView" destination="cnY-mF-lTW" id="Wlc-L9-QPt"/>
                         <segue destination="U74-IU-1BD" kind="custom" identifier="home_pairing" customClass="CustomSegue" id="FzX-YS-ZDR"/>
                         <segue destination="QGs-SJ-cRB" kind="custom" identifier="home_data" customClass="CustomSegue" id="6yO-LR-vGk"/>
+                        <segue destination="H9w-1k-qHc" kind="custom" identifier="home_tutorial" customClass="CustomSegue" id="hG2-nZ-q33"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yS1-Ki-0zc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1472,6 +1481,7 @@ to reveal</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="zaX-Cn-QyO"/>
-        <segue reference="6yO-LR-vGk"/>
+        <segue reference="XsT-MJ-dYz"/>
+        <segue reference="KMF-cC-CCT"/>
     </inferredMetricsTieBreakers>
 </document>

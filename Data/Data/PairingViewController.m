@@ -83,8 +83,6 @@ float duration;
     [self animatedView:self.continueButton Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.loaderImageView Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.playerView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
-
-    [self performSelector:@selector(pairringIsDone) withObject:nil afterDelay:3.f];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -24,6 +24,7 @@
 
 @property (nonatomic) UITapGestureRecognizer *informationDataGesture;
 @property (nonatomic) UITapGestureRecognizer *closeInformationGesture;
+@property (nonatomic) bool fromCreditView;
 
 @property (nonatomic) NSMutableDictionary *parsedData;
 @property (retain, nonatomic) Day *tutorialDay;

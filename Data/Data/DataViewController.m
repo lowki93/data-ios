@@ -9,6 +9,7 @@
 #import "DataViewController.h"
 #import "AFURLSessionManager.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "TutorialViewController.h"
 
 @interface DataViewController ()
 
@@ -63,7 +64,15 @@ float durationLabel;
     }
 
     [self.profileView initView:self];
-    [self.creditView initView:self];
+    if (self.fromCreditTutorial) {
+
+        [self.creditView initView:self HideContent:NO];
+
+    } else {
+
+        [self.creditView initView:self HideContent:YES];
+
+    }
 
     /** format date **/
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -1225,6 +1234,18 @@ float durationLabel;
 
 }
 
+- (IBAction)goToTutorial:(id)sender {
+
+    for (UIView *view in self.view.subviews) {
+
+        [baseView animatedView:view Duration:0.5 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
+
+    }
+
+    [self performSelector:@selector(executeSegue:) withObject:@"data_tutorial" afterDelay:0.4];
+
+}
+
 - (IBAction)logoutAction:(id)sender {
 
     [self removeRegion];
@@ -1241,6 +1262,22 @@ float durationLabel;
         [self performSegueWithIdentifier:@"logout" sender:self];
     }];
 
+}
+
+- (void)executeSegue:(NSString *)string {
+
+    [self performSegueWithIdentifier:string sender:self];
+
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+
+
+        if ([[segue identifier] isEqualToString:@"data_tutorial"]) {
+
+            TutorialViewController *vc = [segue destinationViewController];
+            vc.fromCreditView = YES;
+        }
 }
 
 @end

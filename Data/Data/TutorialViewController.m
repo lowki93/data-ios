@@ -8,6 +8,7 @@
 
 #import "TutorialViewController.h"
 #import "BaseViewController.h"
+#import "DataViewController.h"
 
 @interface TutorialViewController ()
 
@@ -107,6 +108,7 @@ NSDictionary *dictionnary;
     self.informationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(informationData:)];
 
     self.closeInformationGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeInformationData:)];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -350,6 +352,19 @@ NSDictionary *dictionnary;
 
     [dataView removeBorderButton];
 
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+
+    if (self.fromCreditView) {
+
+        if ([[segue identifier] isEqualToString:@"tutorial_data"]) {
+            NSLog(@"toto");
+            DataViewController *vc = [segue destinationViewController];
+            vc.fromCreditTutorial = YES;
+        }
+    }
 }
 
 @end
