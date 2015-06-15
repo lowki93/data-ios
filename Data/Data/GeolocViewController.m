@@ -46,8 +46,8 @@ bool firstGeoloc, pedometerIsActive;
     firstGeoloc = true;
 
     NSString *explainPhotos = @"During the experience the application will capture your photos, the number and the emotions of which will allow your sculpture to evolve.";
-    NSString *explainPedometer = @"The application will capture your movements; the speed and duration of which will make your sculpture evolve.";
-    NSString *explainGeolocation = @"The application will capture your geolocations; the time spent and frequency of which will allow your sculpture to evolve.";
+    NSString *explainPedometer = @"The application will capture your movements, the speed and duration of which will make your sculpture evolve.";
+    NSString *explainGeolocation = @"The application will capture your geolocations, the time spent and frequency of which will allow your sculpture to evolve.";
 
     if ([CMPedometer isStepCountingAvailable]) {
 
@@ -249,7 +249,6 @@ bool firstGeoloc, pedometerIsActive;
     [manager POST:urlString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         dictionary = responseObject[@"user"];
-        [[ApiController sharedInstance] setUserLoad:dictionary];
         [[ApiController sharedInstance] setUserLoad:dictionary];
         NSDictionary *sokectDictionary = @{
                                            @"activation": @"pedometer",

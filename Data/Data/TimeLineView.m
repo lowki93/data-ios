@@ -67,7 +67,7 @@ int nbFeature;
 
             CAShapeLayer *shapeLayer2 = [[CAShapeLayer alloc] init];
             [shapeLayer2 setPath:path2.CGPath];
-            [shapeLayer2 setStrokeColor:[baseView colorWithRGB:241 :241 :241 :1].CGColor];
+            [shapeLayer2 setStrokeColor:[baseView colorWithRGB:228 :228 :228 :1].CGColor];
             [shapeLayer2 setLineWidth:2.0];
 
             [self.layer addSublayer:shapeLayer2];
