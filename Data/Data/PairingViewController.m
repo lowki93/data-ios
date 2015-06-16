@@ -34,6 +34,7 @@ float duration;
     [baseView initView:self];
 
     [self.playerView initPlayer:@"ground_prez" View:self.view];
+    [self.pairingImageContentView initView:self.pairingImageContentView.bounds];
 
     NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"user"];
     [[ApiController sharedInstance] setUserLoad:dictionary];
@@ -67,7 +68,7 @@ float duration;
     [self animatedView:self.continueButton Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
 
     /** loader animation **/
-    [self animatedView:self.loaderImageView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
+    [self animatedView:self.pairingImageContentView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:translation];
     [self animatedView:self.playerView Duration:0 Delay:0 Alpha:0 TranslationX:0 TranslationY:0];
 
 
@@ -81,7 +82,7 @@ float duration;
     [self animatedView:self.lineView Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.informationLabel Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.continueButton Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
-    [self animatedView:self.loaderImageView Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
+    [self animatedView:self.pairingImageContentView Duration:duration Delay:duration Alpha:1 TranslationX:0 TranslationY:0];
     [self animatedView:self.playerView Duration:duration Delay:0 Alpha:1 TranslationX:0 TranslationY:0];
 }
 
@@ -136,7 +137,7 @@ float duration;
 
     if ([ApiController sharedInstance].experience != nil) {
         /** loader **/
-        [self animatedView:self.loaderImageView Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
+        [self animatedView:self.pairingImageContentView Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
 
         /** title animation **/
         [self animatedView:self.titleLabel Duration:duration Delay:0 Alpha:0 TranslationX:-translationY TranslationY:0];
@@ -166,7 +167,7 @@ float duration;
     [self.informationParringLabel removeFromSuperview];
     [self.continueButton removeFromSuperview];
     [self.lineView removeFromSuperview];
-    [self.loaderImageView removeFromSuperview];
+    [self.pairingImageContentView removeFromSuperview];
 
     [self performSegueWithIdentifier:@"parring_success" sender:self];
 

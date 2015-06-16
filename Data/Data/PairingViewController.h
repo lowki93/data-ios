@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "JFRWebSocket.h"
 #import "PlayerView.h"
+#import "PairingImageContentView.h"
 
 @interface PairingViewController : UIViewController<JFRWebSocketDelegate>
 
@@ -18,7 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *informationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIView *lineView;
-@property (weak, nonatomic) IBOutlet UIImageView *loaderImageView;
+@property (weak, nonatomic) IBOutlet PairingImageContentView *pairingImageContentView;
+
 @property (weak, nonatomic) IBOutlet PlayerView *playerView;
 
 @property(nonatomic) JFRWebSocket *socket;

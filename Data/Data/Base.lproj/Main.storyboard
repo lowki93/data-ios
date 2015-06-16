@@ -549,6 +549,14 @@ ut, lobortis diam</string>
                                 <color key="textColor" red="0.65098039220000004" green="0.6588235294" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cI-2d-5Md" customClass="PairingImageContentView">
+                                <rect key="frame" x="175" y="165" width="250" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="BTO-pb-v2i"/>
+                                    <constraint firstAttribute="height" constant="150" id="qhL-53-YUn"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EYf-xB-WyT">
                                 <rect key="frame" x="100" y="519" width="400" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -580,13 +588,6 @@ your mobile phone with desktop</string>
                                     </mask>
                                 </variation>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pairring" translatesAutoresizingMaskIntoConstraints="NO" id="SaM-aR-YFq">
-                                <rect key="frame" x="175" y="165" width="250" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="Kp4-ta-V3L"/>
-                                    <constraint firstAttribute="width" constant="250" id="oCn-GS-sZ9"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BW5-Im-l9o">
                                 <rect key="frame" x="232" y="50" width="136" height="50"/>
                                 <constraints>
@@ -605,12 +606,11 @@ your mobile phone with desktop</string>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647058823528" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="SaM-aR-YFq" secondAttribute="centerY" constant="60" id="6hT-cC-Zlr"/>
+                            <constraint firstAttribute="centerY" secondItem="6cI-2d-5Md" secondAttribute="centerY" constant="60" id="8K9-Ax-54z"/>
                             <constraint firstAttribute="trailing" secondItem="EYf-xB-WyT" secondAttribute="trailing" constant="100" id="Ak6-NV-CNZ"/>
                             <constraint firstAttribute="centerX" secondItem="Y0c-3p-7VI" secondAttribute="centerX" id="G9D-pE-Pv7"/>
                             <constraint firstAttribute="centerX" secondItem="0b2-LL-5bn" secondAttribute="centerX" id="Ibk-VJ-n5d"/>
                             <constraint firstItem="sgw-d8-mxe" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leading" id="JMH-q4-aJC"/>
-                            <constraint firstItem="Y0c-3p-7VI" firstAttribute="top" secondItem="SaM-aR-YFq" secondAttribute="bottom" constant="40" id="Mcw-uO-L87"/>
                             <constraint firstItem="EYf-xB-WyT" firstAttribute="leading" secondItem="YqI-kq-OFq" secondAttribute="leading" constant="100" id="Q82-P0-DBJ"/>
                             <constraint firstItem="dV9-lH-D7D" firstAttribute="top" secondItem="EYf-xB-WyT" secondAttribute="bottom" constant="80" id="TXf-Jy-gBD"/>
                             <constraint firstItem="dV9-lH-D7D" firstAttribute="top" secondItem="sgw-d8-mxe" secondAttribute="bottom" id="UTw-gA-9fN"/>
@@ -619,11 +619,12 @@ your mobile phone with desktop</string>
                             <constraint firstItem="sgw-d8-mxe" firstAttribute="top" secondItem="xGW-t1-n02" secondAttribute="bottom" id="afn-gm-VtD"/>
                             <constraint firstItem="BW5-Im-l9o" firstAttribute="top" secondItem="xGW-t1-n02" secondAttribute="bottom" constant="50" id="cUy-dx-P6s"/>
                             <constraint firstAttribute="centerX" secondItem="Tfe-8l-Tpg" secondAttribute="centerX" id="fWv-uW-LOT"/>
-                            <constraint firstAttribute="centerX" secondItem="SaM-aR-YFq" secondAttribute="centerX" id="gOw-pa-GE5"/>
+                            <constraint firstItem="Y0c-3p-7VI" firstAttribute="top" secondItem="6cI-2d-5Md" secondAttribute="bottom" constant="40" id="jhs-RX-4jx"/>
                             <constraint firstItem="uRf-h6-cQf" firstAttribute="top" secondItem="Tfe-8l-Tpg" secondAttribute="bottom" id="kTF-5U-vwB"/>
                             <constraint firstItem="dV9-lH-D7D" firstAttribute="top" secondItem="uRf-h6-cQf" secondAttribute="bottom" constant="20" id="nPq-qq-PrC"/>
                             <constraint firstAttribute="centerX" secondItem="BW5-Im-l9o" secondAttribute="centerX" id="ozA-zK-CYK"/>
                             <constraint firstItem="0b2-LL-5bn" firstAttribute="top" secondItem="Y0c-3p-7VI" secondAttribute="bottom" constant="15" id="rLL-go-pfH"/>
+                            <constraint firstAttribute="centerX" secondItem="6cI-2d-5Md" secondAttribute="centerX" id="sUV-5c-h0Q"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -633,7 +634,7 @@ your mobile phone with desktop</string>
                         <outlet property="informationLabel" destination="Tfe-8l-Tpg" id="1zB-bA-CTG"/>
                         <outlet property="informationParringLabel" destination="0b2-LL-5bn" id="qiq-1O-xaY"/>
                         <outlet property="lineView" destination="EYf-xB-WyT" id="YwB-Qp-xWH"/>
-                        <outlet property="loaderImageView" destination="SaM-aR-YFq" id="OjY-6W-LUR"/>
+                        <outlet property="pairingImageContentView" destination="6cI-2d-5Md" id="gv8-ge-w9H"/>
                         <outlet property="playerView" destination="sgw-d8-mxe" id="0hR-Ro-7hv"/>
                         <outlet property="titleLabel" destination="BW5-Im-l9o" id="Ru0-70-kZm"/>
                         <outlet property="waitingLabel" destination="Y0c-3p-7VI" id="IxR-de-L4L"/>
@@ -899,7 +900,7 @@ OF THE EXPERIENCE</string>
                     <view key="view" contentMode="scaleToFill" id="d8P-TO-F9L">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tj0-kF-lkD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1477,7 +1478,6 @@ to reveal</string>
         <image name="arrow" width="25" height="14"/>
         <image name="close" width="133" height="133"/>
         <image name="logo" width="281" height="125"/>
-        <image name="pairring" width="463" height="189"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="zaX-Cn-QyO"/>
