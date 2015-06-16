@@ -183,7 +183,7 @@ float durationLabel;
     closeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
 
     self.informationDataGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(informationData:)];
-    [self.view addGestureRecognizer:self.informationDataGesture];
+    [self.contentScrollView addGestureRecognizer:self.informationDataGesture];
 
     UITapGestureRecognizer *logoTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showCredit:)];
     [logoTapGesture setNumberOfTapsRequired:1];
@@ -528,7 +528,7 @@ float durationLabel;
 
     [self.view removeGestureRecognizer:leftGesture];
     [self.view removeGestureRecognizer:rightGesture];
-    [self.view removeGestureRecognizer:closeGesture];
+    [self.contentScrollView removeGestureRecognizer:closeGesture];
     [self.timeLineView setHidden:NO];
     [self animateTimeLine:upScale Alpha:0];
 
@@ -541,7 +541,7 @@ float durationLabel;
     [self hideInformationData];
     [self animationCloseAllData];
     [self.view removeGestureRecognizer:upGesture];
-    [self.view removeGestureRecognizer:self.informationDataGesture];
+    [self.contentScrollView removeGestureRecognizer:self.informationDataGesture];
     [self.timeLineView setHidden:NO];
 
     [self animatedUpScrollView:0.5 First:NO];
@@ -550,7 +550,7 @@ float durationLabel;
 
 - (void)informationData:(UITapGestureRecognizer *)tapGestureRecognizer {
 
-    [self.view removeGestureRecognizer:self.informationDataGesture];
+    [self.contentScrollView removeGestureRecognizer:self.informationDataGesture];
 
     DataView *dataView = dataViewArray[indexDay];
 
@@ -572,7 +572,7 @@ float durationLabel;
 
         [dataView.allDataView animatedAllLabel:dataView.allDataView.duration Translation:0 Alpha:1];
         [dataView removeActionForButton];
-        [self.view addGestureRecognizer:closeAllInformationDataGesture];
+        [self.contentScrollView addGestureRecognizer:closeAllInformationDataGesture];
 
     }];
 
@@ -588,7 +588,7 @@ float durationLabel;
 
     [self hideInformationData];
     [self.view removeGestureRecognizer:self.closeInformationGesture];
-    [self.view addGestureRecognizer:self.informationDataGesture];
+    [self.contentScrollView addGestureRecognizer:self.informationDataGesture];
 
 }
 
@@ -694,7 +694,7 @@ float durationLabel;
 
 - (void)animationCloseAllData {
 
-    [self.view removeGestureRecognizer:closeAllInformationDataGesture];
+    [self.contentScrollView removeGestureRecognizer:closeAllInformationDataGesture];
     DataView *dataView = dataViewArray[indexDay];
 
     [dataView animatedCaptionImageView:1];
@@ -709,7 +709,7 @@ float durationLabel;
 
     } completion:^(BOOL finished){
 
-        [self.view addGestureRecognizer:self.informationDataGesture];
+        [self.contentScrollView addGestureRecognizer:self.informationDataGesture];
         [dataView addActionForButton];
 
     }];
@@ -860,7 +860,7 @@ float durationLabel;
                 [self.timeLineView setHidden:NO];
                 [self.view addGestureRecognizer:leftGesture];
                 [self.view addGestureRecognizer:rightGesture];
-                [self.view addGestureRecognizer:closeGesture];
+                [self.contentScrollView addGestureRecognizer:closeGesture];
 
             } else {
                 [self animatedCloseScrollView];
@@ -934,7 +934,7 @@ float durationLabel;
     } completion:^(BOOL finished){
         
         [self.view addGestureRecognizer:upGesture];
-        [self.view addGestureRecognizer:self.informationDataGesture];
+        [self.contentScrollView addGestureRecognizer:self.informationDataGesture];
         [self hideNotVisibleView];
         
     }];
@@ -1017,7 +1017,7 @@ float durationLabel;
 
     [self.view removeGestureRecognizer:leftGesture];
     [self.view removeGestureRecognizer:rightGesture];
-    [self.view removeGestureRecognizer:closeGesture];
+    [self.contentScrollView removeGestureRecognizer:closeGesture];
     [self.timeLineView setHidden:NO];
     [self animateTimeLine:upScale Alpha:0];
     [self animatedCloseScrollView];
