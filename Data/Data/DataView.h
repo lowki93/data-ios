@@ -49,5 +49,6 @@
 - (void)writeSelecteButtonView:(int)index;
 - (void)hideButton;
 - (void)showButton;
+- (void)createCenterButton;
 
 @end

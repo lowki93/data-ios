@@ -167,6 +167,7 @@ NSDictionary *dictionnary;
             for (int i = 0; i < dataCount; i++) {
                 [dataView generateData:i Day:self.tutorialDay];
             }
+            [dataView createCenterButton];
             [dataView updateAllInformation];
         } else {
             [dataView showButton];
@@ -203,7 +204,7 @@ NSDictionary *dictionnary;
     if(indexTutorial == 2) {
         [dataView removeCapta];
         [dataView addActionForButton];
-        [dataView writeSelecteButtonView:10];
+        [dataView writeSelecteButtonView:19];
         [self addGesture];
         [dataView.selectedButtonView performSelector:@selector(removeButtonSelector:) withObject:dataView afterDelay:3.5];
     }
@@ -360,7 +361,6 @@ NSDictionary *dictionnary;
     if (self.fromCreditView) {
 
         if ([[segue identifier] isEqualToString:@"tutorial_data"]) {
-            NSLog(@"toto");
             DataViewController *vc = [segue destinationViewController];
             vc.fromCreditTutorial = YES;
         }

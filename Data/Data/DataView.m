@@ -19,6 +19,7 @@ float heightContentView, scale, beginTimeLayer;
 CGPoint centerCircle;
 CGFloat radiusData, radiusGeolocCircle, radiusCaptaCircle, radiusPedometerCircle;
 int indexData;
+NSArray *colorArray;
 
 - (void)initView:(UIViewController *)viewController {
 
@@ -37,6 +38,14 @@ int indexData;
 
     dataViewController = viewController;
 
+    if(!self.informationButton) {
+        colorArray = baseView.colorTutorialArray;
+    } else {
+        colorArray = baseView.colorMuchActivityArray;
+    }
+
+
+
     baseView = [[BaseViewController alloc] init];
     [baseView initView:baseView];
 
@@ -51,6 +60,7 @@ int indexData;
     self.captationImageView = [[CaptationImageView alloc] init];
     [self.captationImageView setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
     [self addSubview:self.captationImageView];
+    [self sendSubviewToBack:self.captationImageView];
 
     /** label for hours **/
     UIFont *labelFont = [UIFont fontWithName:@"MaisonNeue-Book" size:15];
@@ -87,7 +97,6 @@ int indexData;
     [self.allDataView init:allDataFrame];
     [self scaleInformationView:self.allDataView];
     [self.allDataView setBackgroundColor:[UIColor clearColor]];
-
     [self addSubview:self.allDataView];
 
     [self createCircle];
@@ -105,6 +114,10 @@ int indexData;
             
         }
 
+    } else {
+
+        [self createCenterButton];
+
     }
 
 }
@@ -114,7 +127,7 @@ int indexData;
     CGFloat theta = (M_PI * 15 / 180 * index) - M_PI_2;
     CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
 
-    UIColor *color  = [baseView colorWithRGB:37 :37 :112 :1];
+    UIColor *color  = [baseView.colorTutorialArray objectAtIndex:index / 4];
     int radius = 3;
 
     if (index == 18) {
@@ -132,9 +145,10 @@ int indexData;
     CGFloat theta = (M_PI * 15 / 180 * index) - M_PI_2;
     CGPoint newCenter = CGPointMake(self.bounds.size.width / 2 + cosf(theta) * radiusData, sinf(theta) * radiusData + self.bounds.size.height/2);
 
-    int width = 60;
+    int width = 70;
     self.selectedButtonView = [[ClickView alloc] init];
     [self addSubview: self.selectedButtonView];
+    [self sendSubviewToBack:self.selectedButtonView];
     [self.selectedButtonView initView:CGRectMake(newCenter.x - (width / 2), newCenter.y - (width / 2), width, width)];
 
 }
@@ -182,23 +196,24 @@ int indexData;
 - (void)drawData:(int)indexDay {
 
     Day *currentDay;
-    if(indexDay <= ([[ApiController sharedInstance].experience.day count] - 1)){
+    if(indexDay <= ([[ApiController sharedInstance].experience.day count] - 1)) {
 
         currentDay = [ApiController sharedInstance].experience.day[indexDay];
+
     } else {
+
         currentDay = nil;
     }
 
-//        for (int i = 0; i < [currentDay.data count]; i++) {
-        for (int i = 0; i < 24; i++) {
+    for (int i = 0; i < 24; i++) {
 
-            [self generateData:i Day:currentDay];
+        [self generateData:i Day:currentDay];
 
-        }
+    }
 
-        self.delay = 0.5;
+    self.delay = 0.5;
 
-        [self updateAllInformation];
+    [self updateAllInformation];
 
 
 }
@@ -304,7 +319,7 @@ int indexData;
     [button setFrame:CGRectMake(newCenter.x - radius/ 2, newCenter.y - radius / 2, radius, radius)];
     [button setClipsToBounds:YES];
 
-    [button setBackgroundColor:[baseView.colorMuchActivityArray objectAtIndex:index / 4]];
+    [button setBackgroundColor:[colorArray objectAtIndex:index / 4]];
     [button.layer setCornerRadius:radius/2.f];
     [button setAlpha:0];
 
@@ -361,8 +376,8 @@ int indexData;
     [self removeBorderButton];
 
     UIButton *button = (UIButton *)sender;
-    [button.layer setBorderColor:[UIColor greenColor].CGColor];
-    [button.layer setBorderWidth:2.f];
+    [button.layer setBorderColor:[baseView colorWithRGB:208 :209 :211 :1].CGColor];
+    [button.layer setBorderWidth:5.f];
 
     [self animatedCaptionImageView:0];
     [self.informationView animatedAllLabel:self.informationView.duration Translation:self.informationView.translation Alpha:0];
@@ -458,6 +473,28 @@ int indexData;
 
 }
 
+- (void)createCenterButton {
+
+    int radius = 15;
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGPoint newCenter = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+    [button setFrame:CGRectMake(newCenter.x - radius/ 2, newCenter.y - radius / 2, radius, radius)];
+    [button setClipsToBounds:YES];
+
+    [button setBackgroundColor:[colorArray objectAtIndex:0]];
+    [button.layer setCornerRadius:radius/2.f];
+    [button setAlpha:0];
+
+    [self addSubview:button];
+    [self sendSubviewToBack:button];
+
+    [UIView animateWithDuration:0.2 delay:1 options:0 animations:^{
+
+        [button setAlpha:1];
+
+    } completion:nil];
+
+}
 
 - (void)addActionForButton {
 

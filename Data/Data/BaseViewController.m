@@ -52,6 +52,14 @@
     sixthColor = [self colorWithRGB:251 :87 :0 :1];
     self.colorMuchActivityArray = [@[firstColor, secondColor, thirdColor, fourthColor, fithColor, sixthColor] mutableCopy];
 
+    firstColor = [self colorWithRGB:84 :56 :220 :1];
+    secondColor = [self colorWithRGB:53 :125 :237 :1];
+    thirdColor = [self colorWithRGB:54 :217 :234 :1];
+    fourthColor = [self colorWithRGB:185 :216 :234 :1];
+    fithColor = [self colorWithRGB:175 :171 :239 :1];
+    sixthColor = [self colorWithRGB:111 :103 :211 :1];
+    self.colorTutorialArray = [@[firstColor, secondColor, thirdColor, fourthColor, fithColor, sixthColor] mutableCopy];
+
     /** color for navigationBar **/
     UINavigationBar *navigationBar = viewController.navigationController.navigationBar;
     [navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
