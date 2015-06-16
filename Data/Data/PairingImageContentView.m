@@ -1,45 +1,48 @@
 //
-//  PairingImageView.m
+//  PairingImageContentView.m
 //  Data
 //
-//  Created by kevin Budain on 15/06/2015.
+//  Created by kevin Budain on 16/06/2015.
 //  Copyright (c) 2015 kevin Budain. All rights reserved.
 //
 
-#import "PairingImageView.h"
+#import "PairingImageContentView.h"
 
 BaseViewController *baseView;
 float duration,delay;
 
-@implementation PairingImageView
+@implementation PairingImageContentView
 
-- (void)initImageView:(CGRect)frame {
+- (void)initView:(CGRect)frame {
 
     [self setFrame:frame];
+    [self setBackgroundColor:[baseView colorWithRGB:255 :255 :255 :0]];
 
     duration = 0.5;
     delay = 0.5;
 
     UIColor *littleCircleColor = [baseView colorWithRGB:25 :25 :25 :1];
     UIColor *phoneCircleColor = [baseView colorWithRGB:204 :204 :204 :1];
-    float radiusLittleCircle = 1.5;
-    float radiusPhoneCircle = 27;
+    float radiusLittleCircle = self.bounds.size.width / 166.67;
+    float radiusPhoneCircle = self.bounds.size.width / 9.26;
+    float lineWidthLittleCircle = self.bounds.size.width / (self.bounds.size.width * 2);
+    float lineWidthPhoneCircle = self.bounds.size.width / 83.33;
 
     CGFloat angle = ((M_PI * -M_PI_2 + (M_PI * 2))/ 180);
     CGPoint circle1 = CGPointMake(frame.size.width * 0.37, (frame.size.height / 2) - (radiusLittleCircle / 2) );
 
     UIBezierPath *circle1Path = [UIBezierPath bezierPathWithArcCenter:circle1
-                                                         radius:radiusLittleCircle
-                                                     startAngle:angle
-                                                       endAngle:2 * M_PI + angle
-                                                      clockwise:YES];
+                                                               radius:radiusLittleCircle
+                                                           startAngle:angle
+                                                             endAngle:2 * M_PI + angle
+                                                            clockwise:YES];
 
     self.littleCircle1 = [[CAShapeLayer alloc] init];
     [self.littleCircle1 setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
     [self.littleCircle1 setPath:circle1Path.CGPath];
     [self.littleCircle1 setStrokeColor:littleCircleColor.CGColor];
     [self.littleCircle1 setFillColor:littleCircleColor.CGColor];
-    [self.littleCircle1 setLineWidth: .5];
+    [self.littleCircle1 setLineWidth: lineWidthLittleCircle];
     [self.littleCircle1 setStrokeStart:0/100];
     [self.littleCircle1 setStrokeEnd:100/100];
     [self.littleCircle1 setOpacity:0];
@@ -57,7 +60,7 @@ float duration,delay;
     [self.littleCircle2 setPath:circle2Path.CGPath];
     [self.littleCircle2 setStrokeColor:littleCircleColor.CGColor];
     [self.littleCircle2 setFillColor:littleCircleColor.CGColor];
-    [self.littleCircle2 setLineWidth: .5];
+    [self.littleCircle2 setLineWidth: lineWidthLittleCircle];
     [self.littleCircle2 setStrokeStart:0/100];
     [self.littleCircle2 setStrokeEnd:100/100];
     [self.littleCircle2 setOpacity:0];
@@ -75,7 +78,7 @@ float duration,delay;
     [self.littleCircle3 setPath:circle3Path.CGPath];
     [self.littleCircle3 setStrokeColor:littleCircleColor.CGColor];
     [self.littleCircle3 setFillColor:littleCircleColor.CGColor];
-    [self.littleCircle3 setLineWidth: .5];
+    [self.littleCircle3 setLineWidth: lineWidthLittleCircle];
     [self.littleCircle3 setStrokeStart:0/100];
     [self.littleCircle3 setStrokeEnd:100/100];
     [self.littleCircle3 setOpacity:0];
@@ -84,10 +87,10 @@ float duration,delay;
     CGPoint phoneCircle1 = CGPointMake(radiusPhoneCircle, radiusPhoneCircle);
 
     UIBezierPath *phoneCircle1Path = [UIBezierPath bezierPathWithArcCenter:phoneCircle1
-                                                               radius:radiusPhoneCircle
-                                                           startAngle:angle
-                                                             endAngle:2 * M_PI + angle
-                                                            clockwise:YES];
+                                                                    radius:radiusPhoneCircle
+                                                                startAngle:angle
+                                                                  endAngle:2 * M_PI + angle
+                                                                 clockwise:YES];
 
     self.phoneCircle1 = [[CAShapeLayer alloc] init];
     [self.phoneCircle1 setFrame:CGRectMake((frame.size.width * 0.19) - radiusPhoneCircle,
@@ -97,7 +100,7 @@ float duration,delay;
     [self.phoneCircle1 setPath:phoneCircle1Path.CGPath];
     [self.phoneCircle1 setStrokeColor:phoneCircleColor.CGColor];
     [self.phoneCircle1 setFillColor:[UIColor clearColor].CGColor];
-    [self.phoneCircle1 setLineWidth: 3];
+    [self.phoneCircle1 setLineWidth: lineWidthPhoneCircle];
     [self.phoneCircle1 setStrokeStart:0/100];
     [self.phoneCircle1 setStrokeEnd:100/100];
     [self.layer addSublayer:self.phoneCircle1];
@@ -116,7 +119,7 @@ float duration,delay;
     [self.phoneCircle2 setPath:phoneCircle2Path.CGPath];
     [self.phoneCircle2 setStrokeColor:phoneCircleColor.CGColor];
     [self.phoneCircle2 setFillColor:[UIColor clearColor].CGColor];
-    [self.phoneCircle2 setLineWidth: 3];
+    [self.phoneCircle2 setLineWidth: lineWidthPhoneCircle];
     [self.phoneCircle2 setStrokeStart:0/100];
     [self.phoneCircle2 setStrokeEnd:100/100];
     [self.layer addSublayer:self.phoneCircle2];
@@ -135,7 +138,7 @@ float duration,delay;
     [self.phoneCircle3 setPath:phoneCircle3Path.CGPath];
     [self.phoneCircle3 setStrokeColor:phoneCircleColor.CGColor];
     [self.phoneCircle3 setFillColor:[UIColor clearColor].CGColor];
-    [self.phoneCircle3 setLineWidth: 3];
+    [self.phoneCircle3 setLineWidth: lineWidthPhoneCircle];
     [self.phoneCircle3 setStrokeStart:0/100];
     [self.phoneCircle3 setStrokeEnd:100/100];
     [self.layer addSublayer:self.phoneCircle3];
@@ -150,6 +153,11 @@ float duration,delay;
 
     [self firstOpacityLittleCircle];
 
+    UIImageView *imageView = [[UIImageView alloc] init];
+    [imageView setFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+    [imageView setImage:[UIImage imageNamed:@"pairingAnimation"]];
+    [imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [self addSubview:imageView];
 
 }
 
@@ -200,8 +208,8 @@ float duration,delay;
     [self animateOpacityLayer:self.littleCircle2 Duration:duration Delay:delay BeginAlpha:1 EndAlpha:0 Name:@"removeSecondOpaticy"];
     [self animateOpacityLayer:self.littleCircle1 Duration:duration Delay:delay * 2 BeginAlpha:1 EndAlpha:0 Name:@"removeSecondOpaticy"];
 
-     [self performSelector:@selector(removeAllAnimations) withObject:nil afterDelay:delay * 4];
-    
+    [self performSelector:@selector(removeAllAnimations) withObject:nil afterDelay:delay * 4];
+
 }
 
 - (void)animateOpacityLayer:(CALayer *)layer Duration:(float)duration Delay:(float)delay BeginAlpha:(float)firstAlpha EndAlpha:(float)secondAlpha Name:(NSString *)animationName {
@@ -230,12 +238,12 @@ float duration,delay;
 }
 
 - (void)removeAllAnimations {
-
+    
     [self.littleCircle1 removeAllAnimations];
     [self.littleCircle2 removeAllAnimations];
     [self.littleCircle3 removeAllAnimations];
     [self firstOpacityLittleCircle];
-
+    
 }
 
 @end
