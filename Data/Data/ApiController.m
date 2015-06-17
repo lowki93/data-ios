@@ -27,18 +27,21 @@
 }
 
 - (void)loadApi {
+    // vagrant
+//    self.url = [NSString stringWithFormat:@"192.168.1.15:5000/api"];
+//    self.socketUrl = [NSString stringWithFormat:@"192.168.1.15:9090"];
 
     // local
-    self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];
-    self.socketUrl = [NSString stringWithFormat:@"http://data.vm:9090"];
+//    self.url = [NSString stringWithFormat:@"http://data.vm:5000/api"];    
+//    self.socketUrl = [NSString stringWithFormat:@"http://data.vm:9090"];
 
     // mac gobelins
-//    self.url = [NSString stringWithFormat:@"http://172.18.33.134:5000/api"];
-//    self.socketUrl = [NSString stringWithFormat:@"http://172.18.33.134:9090"];
+//    self.url = [NSString stringWithFormat:@"http://172.18.33.171:5000/api"];
+//    self.socketUrl = [NSString stringWithFormat:@"http://172.18.33.171:9090"];
 
     // prod
-//    self.url = [NSString stringWithFormat:@"http://data-api.kevinbudain.fr/api"];
-//    self.socketUrl = [NSString stringWithFormat:@"http://172.18.33.134:9090"];
+    self.url = [NSString stringWithFormat:@"http://data-api.kevinbudain.fr/api"];
+    self.socketUrl = [NSString stringWithFormat:@"http://178.32.221.32:9090"];
 
     self.location = [[NSMutableArray alloc]init];
 }

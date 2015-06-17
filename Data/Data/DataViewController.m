@@ -74,6 +74,10 @@ float durationLabel;
 
     }
 
+    [self.profileView.nameTextField setText:[[ApiController sharedInstance].user.username uppercaseString]];
+    [self.profileView.mailTextField setText:[[ApiController sharedInstance].user.email uppercaseString]];
+    [self.profileView.visibilyTextField setText:[[NSString stringWithFormat:@"%@", [ApiController sharedInstance].experience.private ? @"private" : @"public"] uppercaseString]];
+
     /** format date **/
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -528,7 +532,7 @@ float durationLabel;
 
     [self.view removeGestureRecognizer:leftGesture];
     [self.view removeGestureRecognizer:rightGesture];
-    [self.contentScrollView removeGestureRecognizer:closeGesture];
+    [self.timeLineView removeGestureRecognizer:closeGesture];
     [self.timeLineView setHidden:NO];
     [self animateTimeLine:upScale Alpha:0];
 
@@ -860,7 +864,7 @@ float durationLabel;
                 [self.timeLineView setHidden:NO];
                 [self.view addGestureRecognizer:leftGesture];
                 [self.view addGestureRecognizer:rightGesture];
-                [self.contentScrollView addGestureRecognizer:closeGesture];
+                [self.timeLineView addGestureRecognizer:closeGesture];
 
             } else {
                 [self animatedCloseScrollView];
@@ -1017,7 +1021,7 @@ float durationLabel;
 
     [self.view removeGestureRecognizer:leftGesture];
     [self.view removeGestureRecognizer:rightGesture];
-    [self.contentScrollView removeGestureRecognizer:closeGesture];
+    [self.timeLineView removeGestureRecognizer:closeGesture];
     [self.timeLineView setHidden:NO];
     [self animateTimeLine:upScale Alpha:0];
     [self animatedCloseScrollView];

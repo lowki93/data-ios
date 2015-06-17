@@ -35,7 +35,8 @@ BaseViewController *baseView;
         } else {
             nextController = @"DataViewController";
         }
-        nextController = @"TutorialViewController";
+//        nextController = @"TutorialViewController";
+//        nextController = @"PairingViewController";
         [baseView showModal:nextController RemoveWindow:false];
 
     }
@@ -101,9 +102,9 @@ BaseViewController *baseView;
   didReceiveRemoteNotification:(NSDictionary *)userInfo
         fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    self.dataViewController = [[DataViewController alloc] init];
-    [self.dataViewController uploadFile];
-    completionHandler(UIBackgroundFetchResultNewData);
+//    self.dataViewController = [[DataViewController alloc] init];
+//    [self.dataViewController uploadFile];
+//    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 @end

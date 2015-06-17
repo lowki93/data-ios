@@ -100,7 +100,7 @@
                                     <action selector="closeTimeLineAction:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="JDf-3U-bcj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgj-Xv-zcP">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgj-Xv-zcP">
                                 <rect key="frame" x="509" y="500" width="71" height="30"/>
                                 <state key="normal" title="clean Plist">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -109,7 +109,7 @@
                                     <action selector="removePlist:" destination="QGs-SJ-cRB" eventType="touchUpInside" id="0bp-Ql-aQQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axA-9Z-JyO">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axA-9Z-JyO">
                                 <rect key="frame" x="525" y="550" width="55" height="30"/>
                                 <state key="normal" title="synchro">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -410,11 +410,11 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLG-VN-sam">
                                         <rect key="frame" x="8" y="225" width="584" height="150"/>
-                                        <string key="text">Sed
-eu tortor 
-semper, 
-vestibulum massa 
-ut, lobortis diam</string>
+                                        <string key="text">Kevin Budain
+Samuel Honistein  
+Maxime Rimbert 
+Benjamin Vimont 
+</string>
                                         <fontDescription key="fontDescription" name="MaisonNeue-Light" family="Maison Neue" pointSize="30"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1480,8 +1480,8 @@ to reveal</string>
         <image name="logo" width="281" height="125"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="hG2-nZ-q33"/>
         <segue reference="zaX-Cn-QyO"/>
-        <segue reference="XsT-MJ-dYz"/>
-        <segue reference="KMF-cC-CCT"/>
+        <segue reference="6yO-LR-vGk"/>
     </inferredMetricsTieBreakers>
 </document>

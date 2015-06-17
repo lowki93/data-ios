@@ -362,7 +362,7 @@ NSArray *colorArray;
 
     if([dataViewController isKindOfClass:[DataViewController class]]) {
         DataViewController *currentViewController = (DataViewController *)dataViewController;
-        [currentViewController.view removeGestureRecognizer:currentViewController.informationDataGesture];
+        [currentViewController.contentScrollView removeGestureRecognizer:currentViewController.informationDataGesture];
         [currentViewController.view addGestureRecognizer:currentViewController.closeInformationGesture];
     }
 
